@@ -1,0 +1,1401 @@
+{
+  "materials": {
+    "models/campaign_evolved/ce8/shader_inputs/hidden": {
+      "$basetexture": "color/white"
+    },
+    "models/campaign_evolved/ce8/material_sets/brute/body_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/brute/textures/body_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/brute/textures/body_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/brute/textures/body_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/brute/textures/body_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/brute/textures/body_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/brute/body_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/brute/textures/body_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/brute/textures/body_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/brute/textures/body_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/brute/textures/body_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/brute/textures/body_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/brute/body_3": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/brute/textures/body_3_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/brute/textures/body_3_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/brute/textures/body_3_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/brute/textures/body_3_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/brute/textures/body_3_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/brute/body_4": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/brute/textures/body_4_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/brute/textures/body_4_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/brute/textures/body_4_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/brute/textures/body_4_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/brute/textures/body_4_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/brute/eyes": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/brute/textures/eyes_dif",
+      "$texture1": "models/campaign_evolved/ce8/shader_inputs/normal_constant_8080ff",
+      "$texture2": "models/campaign_evolved/ce8/shader_inputs/surface_constant_ff280000",
+      "$texture3": "models/campaign_evolved/ce8/shader_inputs/paintmask_constant_00000000",
+      "$texture4": "models/campaign_evolved/ce8/shader_inputs/emission_constant_000000",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/shader_inputs/white",
+      "$texture7": "models/campaign_evolved/ce8/shader_inputs/environment_brdf"
+    },
+    "models/campaign_evolved/ce8/material_sets/brute/hair": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/brute/textures/hair_dif",
+      "$texture1": "models/campaign_evolved/ce8/shader_inputs/normal_constant_8080ff",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/brute/textures/hair_orme",
+      "$texture3": "models/campaign_evolved/ce8/shader_inputs/paintmask_constant_00000000",
+      "$texture4": "models/campaign_evolved/ce8/shader_inputs/emission_constant_000000",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/shader_inputs/white",
+      "$texture7": "models/campaign_evolved/ce8/shader_inputs/environment_brdf"
+    },
+    "models/campaign_evolved/ce8/material_sets/brute/puck": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/brute/textures/puck_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/brute/textures/puck_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/brute/textures/puck_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/brute/textures/puck_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/brute/textures/puck_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/body": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/body_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/body_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/body_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/body_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/body_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/dead_armor": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/dead_armor_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/dead_armor_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/dead_armor_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/dead_armor_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/dead_armor_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/dead_body_armor": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/dead_body_armor_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/dead_body_armor_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/dead_body_armor_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/dead_body_armor_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/dead_body_armor_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/major_armor_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/major_armor_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/major_armor_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/major_armor_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/major_armor_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/major_armor_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/major_armor_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/major_armor_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/major_armor_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/major_armor_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/major_armor_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/major_armor_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/minor_armor_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/minor_armor_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/minor_armor_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/minor_armor_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/minor_armor_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/minor_armor_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/minor_armor_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/minor_armor_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/minor_armor_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/minor_armor_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/minor_armor_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/minor_armor_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/sacristan_anatomy": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_anatomy_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_anatomy_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_anatomy_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_anatomy_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_anatomy_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/sacristan_major_armor_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_major_armor_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_armor_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_armor_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_major_armor_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_major_armor_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/sacristan_major_armor_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_major_armor_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_major_armor_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_major_armor_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_major_armor_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_major_armor_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/sacristan_major_armor_cloth": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_major_armor_cloth_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_armor_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_armor_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_major_armor_cloth_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_major_armor_cloth_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/sacristan_minor_anatomy": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_anatomy_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_anatomy_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_anatomy_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_anatomy_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_anatomy_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/sacristan_minor_armor_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_armor_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_armor_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_armor_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_armor_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_armor_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/sacristan_minor_armor_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_armor_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_armor_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_armor_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_armor_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_armor_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/sacristan_specops_armor_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_specops_armor_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_armor_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_armor_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_specops_armor_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_specops_armor_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/sacristan_specops_armor_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_specops_armor_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_major_armor_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_major_armor_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_specops_armor_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_specops_armor_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/sacristan_zealot_armor_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_zealot_armor_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_minor_armor_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_zealot_armor_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_major_armor_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_zealot_armor_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/sacristan_zealot_armor_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_zealot_armor_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_major_armor_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_zealot_armor_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_major_armor_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/sacristan_zealot_armor_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/shipmaster_armor_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/shipmaster_armor_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/shipmaster_armor_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/shipmaster_armor_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/shipmaster_armor_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/shipmaster_armor_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/shipmaster_armor_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/shipmaster_armor_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/shipmaster_armor_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/shipmaster_armor_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/shipmaster_armor_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/shipmaster_armor_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/shipmaster_sacristan_armor": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/shipmaster_sacristan_armor_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/shipmaster_sacristan_armor_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/shipmaster_sacristan_armor_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/shipmaster_sacristan_armor_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/shipmaster_sacristan_armor_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/specops_armor_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/specops_armor_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/specops_armor_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/specops_armor_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/specops_armor_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/specops_armor_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/specops_armor_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/specops_armor_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/specops_armor_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/specops_armor_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/specops_armor_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/specops_armor_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/ultra_armor_body": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/ultra_armor_body_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/ultra_armor_body_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/ultra_armor_body_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/ultra_armor_body_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/ultra_armor_body_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/ultra_armor_udim": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/ultra_armor_udim_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/ultra_armor_udim_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/ultra_armor_udim_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/ultra_armor_udim_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/ultra_armor_udim_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/zealot_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/zealot_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/zealot_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/zealot_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/zealot_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/zealot_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/elite/zealot_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/elite/textures/zealot_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/elite/textures/zealot_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/elite/textures/zealot_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/elite/textures/zealot_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/elite/textures/zealot_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/flood_carrier/body_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/flood_carrier/textures/body_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/flood_carrier/textures/body_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/flood_carrier/textures/body_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/flood_carrier/textures/body_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/flood_carrier/textures/body_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/flood_carrier/body_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/flood_carrier/textures/body_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/flood_carrier/textures/body_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/flood_carrier/textures/body_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/flood_carrier/textures/body_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/flood_carrier/textures/body_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/flood_combat_elite/body_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/flood_combat_elite/body_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/flood_combat_elite/body_3": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_3_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_3_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_3_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_3_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_3_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/flood_combat_elite/elite_major_armor_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/elite_major_armor_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/elite_major_armor_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/elite_major_armor_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/elite_major_armor_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/elite_major_armor_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/flood_combat_elite/eyes": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/jackal/textures/eyes_dif",
+      "$texture1": "models/campaign_evolved/ce8/shader_inputs/normal_constant_8080ff",
+      "$texture2": "models/campaign_evolved/ce8/shader_inputs/surface_constant_ff280000",
+      "$texture3": "models/campaign_evolved/ce8/shader_inputs/paintmask_constant_00000000",
+      "$texture4": "models/campaign_evolved/ce8/shader_inputs/emission_constant_000000",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/shader_inputs/white",
+      "$texture7": "models/campaign_evolved/ce8/shader_inputs/environment_brdf"
+    },
+    "models/campaign_evolved/ce8/material_sets/flood_combat_elite/major_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/major_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/flood_combat_elite/major_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/major_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/flood_combat_elite/major_3": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_3_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_3_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_3_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/body_3_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/flood_combat_elite/textures/major_3_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/flood_combat_human/body_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/flood_combat_human/body_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/flood_combat_human/body_3": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_3_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_3_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_3_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_3_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_3_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/flood_combat_human/body_4": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_4_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_4_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_4_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_4_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/flood_combat_human/textures/body_4_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/flood_infection/form": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/flood_infection/textures/form_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/flood_infection/textures/form_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/flood_infection/textures/form_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/flood_infection/textures/form_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/flood_infection/textures/form_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/flood_tank/body_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/flood_tank/textures/body_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/flood_tank/textures/body_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/flood_tank/textures/body_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/flood_tank/textures/body_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/flood_tank/textures/body_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/flood_tank/body_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/flood_tank/textures/body_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/flood_tank/textures/body_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/flood_tank/textures/body_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/flood_tank/textures/body_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/flood_tank/textures/body_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/grunt/major_armor": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/grunt/textures/major_armor_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/grunt/textures/major_armor_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/grunt/textures/major_armor_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/grunt/textures/major_armor_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/grunt/textures/major_armor_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/grunt/major_armor_body": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/grunt/textures/major_armor_body_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/grunt/textures/major_armor_body_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/grunt/textures/major_armor_body_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/grunt/textures/major_armor_body_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/grunt/textures/major_armor_body_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/grunt/minor_anatomy_blurple": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_anatomy_blurple_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_anatomy_blurple_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_anatomy_blurple_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_anatomy_blurple_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_anatomy_blurple_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/grunt/minor_anatomy_brown": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_anatomy_brown_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_anatomy_blurple_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_anatomy_blurple_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_anatomy_blurple_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_anatomy_brown_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/grunt/minor_anatomy_var3": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_anatomy_var3_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_anatomy_blurple_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_anatomy_blurple_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_anatomy_blurple_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_anatomy_var3_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/grunt/minor_armor_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_armor_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_armor_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_armor_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_armor_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_armor_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/grunt/minor_armor_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_armor_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_armor_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_armor_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_armor_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_armor_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/grunt/minor_sacristan_armor_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_sacristan_armor_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_sacristan_armor_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_sacristan_armor_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_sacristan_armor_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_sacristan_armor_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/grunt/minor_sacristan_armor_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_sacristan_armor_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_sacristan_armor_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_sacristan_armor_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_sacristan_armor_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/grunt/textures/minor_sacristan_armor_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/grunt/sacristan_armor_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_armor_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_armor_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_armor_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_armor_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_armor_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/grunt/sacristan_armor_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_armor_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_armor_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_armor_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_armor_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_armor_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/grunt/sacristan_major_anatomy": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_major_anatomy_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_minor_anatomy_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_major_anatomy_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_minor_anatomy_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_major_anatomy_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/grunt/sacristan_minor_anatomy": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_minor_anatomy_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_minor_anatomy_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_minor_anatomy_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_minor_anatomy_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_minor_anatomy_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/grunt/sacristan_specops_anatomy": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_minor_anatomy_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_minor_anatomy_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_minor_anatomy_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_minor_anatomy_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_specops_anatomy_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/grunt/sacristan_specops_armor_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_specops_armor_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_specops_armor_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_specops_armor_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_specops_armor_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_specops_armor_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/grunt/sacristan_specops_armor_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_specops_armor_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_specops_armor_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_specops_armor_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_specops_armor_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/grunt/textures/sacristan_specops_armor_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/grunt/specops_armor": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/grunt/textures/specops_armor_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/grunt/textures/specops_armor_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/grunt/textures/specops_armor_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/grunt/textures/specops_armor_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/grunt/textures/specops_armor_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/grunt/specops_armor_body": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/grunt/textures/major_armor_body_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/grunt/textures/major_armor_body_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/grunt/textures/major_armor_body_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/grunt/textures/major_armor_body_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/grunt/textures/specops_armor_body_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/hunter/armor_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/hunter/textures/armor_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/hunter/textures/armor_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/hunter/textures/armor_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/hunter/textures/armor_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/hunter/textures/armor_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/hunter/armor_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/hunter/textures/armor_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/hunter/textures/armor_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/hunter/textures/armor_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/hunter/textures/armor_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/hunter/textures/armor_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/hunter/body": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/hunter/textures/body_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/hunter/textures/body_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/hunter/textures/body_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/hunter/textures/body_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/hunter/textures/body_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/hunter/plasma": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/hunter/textures/plasma_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/hunter/textures/plasma_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/hunter/textures/plasma_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/hunter/textures/plasma_cm",
+      "$texture4": "models/campaign_evolved/ce8/material_sets/hunter/textures/plasma_noise",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/material_sets/hunter/textures/plasma_noise2",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/hunter/textures/plasma_noise3"
+    },
+    "models/campaign_evolved/ce8/material_sets/hunter/sacristan_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/hunter/textures/sacristan_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/hunter/textures/sacristan_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/hunter/textures/sacristan_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/hunter/textures/sacristan_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/hunter/textures/sacristan_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/hunter/sacristan_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/hunter/textures/sacristan_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/hunter/textures/sacristan_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/hunter/textures/sacristan_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/hunter/textures/sacristan_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/hunter/textures/sacristan_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/hunter/sacristan_plasma": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/hunter/textures/sacristan_plasma_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/hunter/textures/sacristan_plasma_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/hunter/textures/sacristan_plasma_orme",
+      "$texture3": "models/campaign_evolved/ce8/shader_inputs/paintmask_constant_00000000",
+      "$texture4": "models/campaign_evolved/ce8/material_sets/hunter/textures/sacristan_plasma_em",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/shader_inputs/white",
+      "$texture7": "models/campaign_evolved/ce8/shader_inputs/environment_brdf"
+    },
+    "models/campaign_evolved/ce8/material_sets/hunter/worms": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/hunter/textures/worms_color",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/hunter/textures/worms_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/hunter/textures/worms_orme",
+      "$texture3": "models/campaign_evolved/ce8/shader_inputs/zero",
+      "$texture4": "models/campaign_evolved/ce8/shader_inputs/zero",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/material_sets/hunter/textures/worms_nr",
+      "$texture7": "models/campaign_evolved/ce8/shader_inputs/zero"
+    },
+    "models/campaign_evolved/ce8/material_sets/jackal/anatomy": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/jackal/textures/anatomy_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/jackal/textures/anatomy_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/jackal/textures/anatomy_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/jackal/textures/anatomy_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/jackal/textures/anatomy_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/jackal/eyes": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/jackal/textures/eyes_dif",
+      "$texture1": "models/campaign_evolved/ce8/shader_inputs/normal_constant_8080ff",
+      "$texture2": "models/campaign_evolved/ce8/shader_inputs/surface_constant_ff280000",
+      "$texture3": "models/campaign_evolved/ce8/shader_inputs/paintmask_constant_00000000",
+      "$texture4": "models/campaign_evolved/ce8/shader_inputs/emission_constant_000000",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/shader_inputs/white",
+      "$texture7": "models/campaign_evolved/ce8/shader_inputs/environment_brdf"
+    },
+    "models/campaign_evolved/ce8/material_sets/jackal/major": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/jackal/textures/major_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/jackal/textures/major_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/jackal/textures/major_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/jackal/textures/major_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/jackal/textures/major_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/jackal/major_armor_body": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/jackal/textures/major_armor_body_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/jackal/textures/major_armor_body_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/jackal/textures/major_armor_body_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/jackal/textures/major_armor_body_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/jackal/textures/major_armor_body_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/jackal/minor_armor_udim": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/jackal/textures/minor_armor_udim_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/jackal/textures/minor_armor_udim_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/jackal/textures/minor_armor_udim_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/jackal/textures/minor_armor_udim_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/jackal/textures/minor_armor_udim_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/jackal/sacristan_anatomy": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_anatomy_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_anatomy_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_anatomy_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_anatomy_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_anatomy_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_major_armor_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_major_armor_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_major_armor_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_major_armor_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_major_armor_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor_udim": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_minor_armor_udim_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_minor_armor_udim_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_minor_armor_udim_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_minor_armor_udim_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_major_armor_udim_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/jackal/sacristan_mask": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_mask_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_mask_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_mask_orme",
+      "$texture3": "models/campaign_evolved/ce8/shader_inputs/paintmask_constant_00000000",
+      "$texture4": "models/campaign_evolved/ce8/shader_inputs/emission_constant_000000",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/shader_inputs/white",
+      "$texture7": "models/campaign_evolved/ce8/shader_inputs/environment_brdf"
+    },
+    "models/campaign_evolved/ce8/material_sets/jackal/sacristan_minor_anatomy": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_specops_anatomy_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_specops_anatomy_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_specops_anatomy_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_specops_anatomy_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_minor_anatomy_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/jackal/sacristan_minor_armor": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_minor_armor_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_minor_armor_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_minor_armor_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_minor_armor_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_minor_armor_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/jackal/sacristan_minor_armor_udim": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_minor_armor_udim_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_minor_armor_udim_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_minor_armor_udim_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_minor_armor_udim_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_minor_armor_udim_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_anatomy": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_specops_anatomy_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_specops_anatomy_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_specops_anatomy_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_specops_anatomy_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_specops_anatomy_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_specops_armor_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_specops_armor_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_specops_armor_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_specops_armor_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/jackal/textures/sacristan_specops_armor_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/assault_rifle/body_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/assault_rifle/textures/body_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/assault_rifle/textures/body_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/assault_rifle/textures/body_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/assault_rifle/textures/body_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/assault_rifle/textures/body_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/assault_rifle/body_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/assault_rifle/textures/body_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/assault_rifle/textures/body_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/assault_rifle/textures/body_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/assault_rifle/textures/body_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/assault_rifle/textures/body_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/assault_rifle/display": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/assault_rifle/textures/display_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/assault_rifle/textures/display_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/energy_sword/textures/handle_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/brute/textures/puck_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/assault_rifle/textures/display_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/battle_rifle/body_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/battle_rifle/textures/body_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/battle_rifle/textures/body_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/battle_rifle/textures/body_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/battle_rifle/textures/body_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/battle_rifle/textures/body_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/battle_rifle/body_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/battle_rifle/textures/body_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/battle_rifle/textures/body_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/battle_rifle/textures/body_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/battle_rifle/textures/body_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/battle_rifle/textures/body_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/battle_rifle/ui": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/battle_rifle/textures/ui_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/battle_rifle/textures/ui_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/battle_rifle/textures/ui_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/brute/textures/puck_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/battle_rifle/textures/ui_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/beam_rifle/body_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/beam_rifle/textures/body_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/beam_rifle/textures/body_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/beam_rifle/textures/body_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/beam_rifle/textures/body_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/beam_rifle/textures/body_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/beam_rifle/body_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/beam_rifle/textures/body_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/beam_rifle/textures/body_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/beam_rifle/textures/body_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/beam_rifle/textures/body_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/beam_rifle/textures/body_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/energy_sword/blade": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/energy_sword/textures/blade_mask",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/energy_sword/textures/blade_flow",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/energy_sword/textures/blade_energy",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/energy_sword/textures/blade_energy2",
+      "$texture4": "models/campaign_evolved/ce8/material_sets/weapons/energy_sword/textures/blade_distort",
+      "$texture5": "models/campaign_evolved/ce8/material_sets/weapons/energy_sword/textures/blade_noise",
+      "$texture6": "models/campaign_evolved/ce8/material_sets/weapons/energy_sword/textures/blade_noise2",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/energy_sword/textures/blade_plasma"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/energy_sword/handle": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/energy_sword/textures/handle_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/energy_sword/textures/handle_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/energy_sword/textures/handle_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/brute/textures/puck_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/energy_sword/textures/handle_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/flak_cannon/body_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/flak_cannon/textures/body_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/flak_cannon/textures/body_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/flak_cannon/textures/body_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/flak_cannon/textures/body_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/flak_cannon/textures/body_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/flak_cannon/body_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/flak_cannon/textures/body_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/flak_cannon/textures/body_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/flak_cannon/textures/body_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/flak_cannon/textures/body_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/flak_cannon/textures/body_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/flak_cannon/gauge": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/flak_cannon/textures/gauge_mask"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/frag_grenade/body": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/frag_grenade/textures/body_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/frag_grenade/textures/body_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/frag_grenade/textures/body_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/brute/textures/puck_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/frag_grenade/textures/body_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/pedestal_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/pedestal_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/pedestal_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/pedestal_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/pedestal_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/pedestal_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/pedestal_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/pedestal_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/textures/pedestal_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/textures/pedestal_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/magnum/body": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/magnum/textures/body_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/magnum/textures/body_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/magnum/textures/body_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/magnum/textures/body_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/magnum/textures/body_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/magnum/magazine": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/magnum/textures/magazine_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/magnum/textures/magazine_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/magnum/textures/magazine_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/brute/textures/puck_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/magnum/textures/magazine_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/needle/body": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/needle/textures/body_dif",
+      "$texture1": "models/campaign_evolved/ce8/shader_inputs/normal_constant_8080ff",
+      "$texture2": "models/campaign_evolved/ce8/shader_inputs/surface_constant_ff280000",
+      "$texture3": "models/campaign_evolved/ce8/shader_inputs/paintmask_constant_00000000",
+      "$texture4": "models/campaign_evolved/ce8/material_sets/weapons/needle/textures/body_em",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/shader_inputs/white",
+      "$texture7": "models/campaign_evolved/ce8/shader_inputs/environment_brdf"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/needler/blamite": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/blamite_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/blamite_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/blamite_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/blamite_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/blamite_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/needler/body_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/body_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/body_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/body_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/body_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/body_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/needler/body_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/body_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/body_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/body_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/brute/textures/puck_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/body_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/needler/gauge": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/gauge_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/gauge_mask"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/back": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/textures/back_dif"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/blamite": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/blamite_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/blamite_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/blamite_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/blamite_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/textures/blamite_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/body_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/textures/body_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/textures/body_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/textures/body_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/textures/body_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/textures/body_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/body_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/textures/body_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/textures/body_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/textures/body_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/textures/body_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/textures/body_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/front": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/textures/front_dif"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/gauge": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/textures/gauge_mask"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/plasma_grenade/body": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/plasma_grenade/textures/body_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/plasma_grenade/textures/body_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/plasma_grenade/textures/body_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/brute/textures/puck_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/plasma_grenade/textures/body_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/plasma_pistol/body_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/plasma_pistol/textures/body_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/plasma_pistol/textures/body_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/plasma_pistol/textures/body_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/plasma_pistol/textures/body_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/plasma_pistol/textures/body_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/plasma_pistol/body_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/plasma_pistol/textures/body_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/plasma_pistol/textures/body_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/plasma_pistol/textures/body_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/plasma_pistol/textures/body_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/plasma_pistol/textures/body_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/body_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/body_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/body_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/body_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/body_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/body_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/body_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/body_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/body_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/body_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/body_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/body_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/body_3": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/body_3_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/body_3_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/body_3_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/body_3_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/body_3_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/gauge": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/gauge_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/gauge_mask",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/gauge_fx"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/ui": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/ui_mask"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/rocket_launcher/body_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/rocket_launcher/textures/body_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/rocket_launcher/textures/body_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/rocket_launcher/textures/body_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/rocket_launcher/textures/body_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/rocket_launcher/textures/body_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/rocket_launcher/body_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/rocket_launcher/textures/body_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/rocket_launcher/textures/body_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/rocket_launcher/textures/body_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/rocket_launcher/textures/body_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/rocket_launcher/textures/body_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/rocket_launcher/body_3": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/rocket_launcher/textures/body_3_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/rocket_launcher/textures/body_3_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/rocket_launcher/textures/body_3_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/rocket_launcher/textures/body_3_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/rocket_launcher/textures/body_3_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/sentinel_gun/body_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/sentinel_gun/textures/body_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/sentinel_gun/textures/body_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/sentinel_gun/textures/body_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/sentinel_gun/textures/body_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/sentinel_gun/textures/body_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/sentinel_gun/body_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/sentinel_gun/textures/body_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/sentinel_gun/textures/body_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/sentinel_gun/textures/body_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/sentinel_gun/textures/body_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/sentinel_gun/textures/body_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/sentinel_gun/grip": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/sentinel_gun/textures/grip_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/sentinel_gun/textures/grip_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/sentinel_gun/textures/grip_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/sentinel_gun/textures/grip_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/sentinel_gun/textures/grip_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/shotgun/body_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/shotgun/textures/body_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/shotgun/textures/body_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/shotgun/textures/body_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/shotgun/textures/body_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/shotgun/textures/body_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/shotgun/body_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/shotgun/textures/body_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/shotgun/textures/body_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/shotgun/textures/body_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/shotgun/textures/body_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/shotgun/textures/body_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/shotgun/flashlight_glass": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/shotgun/textures/flashlight_glass_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/shotgun/textures/flashlight_glass_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/shotgun/textures/flashlight_glass_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/flood_infection/textures/form_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/shotgun/textures/flashlight_glass_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/skull/body": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/skull/textures/body_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/skull/textures/body_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/skull/textures/body_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/brute/textures/puck_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/skull/textures/body_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/smg_rifle/body_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/smg_rifle/textures/body_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/smg_rifle/textures/body_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/smg_rifle/textures/body_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/smg_rifle/textures/body_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/smg_rifle/textures/body_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/smg_rifle/body_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/smg_rifle/textures/body_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/smg_rifle/textures/body_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/smg_rifle/textures/body_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/smg_rifle/textures/body_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/smg_rifle/textures/body_2_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/sniper_rifle/body": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/sniper_rifle/textures/body_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/sniper_rifle/textures/body_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/sniper_rifle/textures/body_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/sniper_rifle/textures/body_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/sniper_rifle/textures/body_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/sniper_rifle/screen": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/olympus_ui_001_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/sniper_rifle/textures/screen_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/sniper_rifle/textures/screen_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/brute/textures/puck_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/sniper_rifle/textures/screen_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/spike_rifle/body_1": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/spike_rifle/textures/body_1_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/spike_rifle/textures/body_1_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/spike_rifle/textures/body_1_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/spike_rifle/textures/body_1_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/spike_rifle/textures/body_1_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/spike_rifle/body_2": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/spike_rifle/textures/body_2_dif",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/spike_rifle/textures/body_2_nm",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/spike_rifle/textures/body_2_orme",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/spike_rifle/textures/body_2_cm",
+      "$texture4": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+      "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
+      "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+      "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/spike_rifle/textures/body_2_params"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+"screenspace_general_8tex"
+{
+    "$model" "1"
+    "$nodecal" "1"
+    "$pixshader" "ce8_gauge_v1_ps30"
+    "$vertexshader" "ce8_model_vs30"
+    "$vertextransform" "1"
+    "$vertexnormal" "1"
+    "$depthtest" "1"
+    "$writedepth" "0" // 1 forces ALWAYS depth comparison; Lua scopes opaque depth writes.
+    "$writealpha" "0"
+    "$cull" "0"
+    "$nocull" "1"
+    "$linearwrite" "1"
+    "$basetexture" "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/gauge_dif" // GaugeTexture
+    "$linearread_basetexture" "1"
+    "$texture1" "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/gauge_mask" // MaskTexture
+    "$linearread_texture1" "1"
+    "Proxies"
+    {
+        "CE8Gauge"
+        {
+            "GaugeState" "ammo"
+            "GaugeTexture" "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/gauge_dif"
+            "MaskTexture" "models/campaign_evolved/ce8/material_sets/weapons/needler/textures/gauge_mask"
+            "GaugeMode" "1"
+            "GaugeValue" "1"
+            "GaugeBrightness" "3"
+            "GaugeOpacity" "1"
+            "GaugeClip" "0"
+            "GaugeTint" "1 1 1"
+            "ColorA" "1 0 0.79315799"
+            "ColorB" "1 1 1"
+            "ColorC" "1 1 1"
+            "ColorD" "1 1 1"
+            "PackedScale" "0.72500002"
+            "SpentIntensity" "0.1"
+            "GlowIntensity" "0.5"
+        }
+    }
+}

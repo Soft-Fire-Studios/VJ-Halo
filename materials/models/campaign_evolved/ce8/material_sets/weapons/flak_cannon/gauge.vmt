@@ -1,0 +1,39 @@
+"screenspace_general_8tex"
+{
+    "$model" "1"
+    "$nodecal" "1"
+    "$pixshader" "ce8_gauge_v1_ps30"
+    "$vertexshader" "ce8_model_vs30"
+    "$vertextransform" "1"
+    "$vertexnormal" "1"
+    "$depthtest" "1"
+    "$writedepth" "0" // 1 forces ALWAYS depth comparison; Lua scopes opaque depth writes.
+    "$writealpha" "0"
+    "$cull" "0"
+    "$nocull" "1"
+    "$linearwrite" "1"
+    "$basetexture" "models/campaign_evolved/ce8/material_sets/weapons/flak_cannon/textures/gauge_mask" // GaugeTexture
+    "$linearread_basetexture" "1"
+    "Proxies"
+    {
+        "CE8Gauge"
+        {
+            "GaugeState" "static"
+            "GaugeTexture" "models/campaign_evolved/ce8/material_sets/weapons/flak_cannon/textures/gauge_mask"
+            "GaugeMode" "4"
+            "GaugeValue" "0"
+            "GaugeBrightness" "1"
+            "GaugeOpacity" "1"
+            "GaugeClip" "0"
+            "GaugeTint" "1 1 1"
+            "ColorA" "0.066249996 0.26499999 0.16562501"
+            "ColorB" "1.250005 0.30000001 6"
+            "ColorC" "0.034340002 0.158961 0.042311002"
+            "ColorD" "1 1 1"
+            "GainA" "1.65"
+            "GainB" "1.5"
+            "GainC" "1.25"
+            "ScanlineLow" "0.55000001"
+        }
+    }
+}

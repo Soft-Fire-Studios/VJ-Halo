@@ -1,0 +1,256 @@
+{
+  "controls": {
+    "normalstrength": {
+      "name": "NormalStrength",
+      "default": 1.0,
+      "min": 0.0,
+      "max": 4.0
+    },
+    "roughnessscale": {
+      "name": "RoughnessScale",
+      "default": 1.0,
+      "min": 0.0,
+      "max": 4.0
+    },
+    "roughnessbias": {
+      "name": "RoughnessBias",
+      "default": 0.0,
+      "min": -1.0,
+      "max": 1.0
+    },
+    "metallicscale": {
+      "name": "MetallicScale",
+      "default": 1.0,
+      "min": 0.0,
+      "max": 4.0
+    },
+    "metallicbias": {
+      "name": "MetallicBias",
+      "default": 0.0,
+      "min": -1.0,
+      "max": 1.0
+    },
+    "environmentstrength": {
+      "name": "EnvironmentStrength",
+      "default": 1.0,
+      "min": 0.0,
+      "max": 16.0
+    },
+    "environmentlightinfluence": {
+      "name": "EnvironmentLightInfluence",
+      "default": 1.0,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "flashlightstrength": {
+      "name": "FlashlightStrength",
+      "default": 1.0,
+      "min": 0.0,
+      "max": 16.0
+    },
+    "lampstrength": {
+      "name": "LampStrength",
+      "default": 1.0,
+      "min": 0.0,
+      "max": 16.0
+    },
+    "pointlightstrength": {
+      "name": "PointLightStrength",
+      "default": 1.0,
+      "min": 0.0,
+      "max": 16.0
+    },
+    "emissionstrength": {
+      "name": "EmissionStrength",
+      "default": 1.0,
+      "min": 0.0,
+      "max": 65504
+    },
+    "specularstrength": {
+      "name": "SpecularStrength",
+      "default": 1.0,
+      "min": 0.0,
+      "max": 16.0
+    },
+    "ambientstrength": {
+      "name": "AmbientStrength",
+      "default": 1.0,
+      "min": 0.0,
+      "max": 16.0
+    },
+    "basestrength": {
+      "name": "BaseStrength",
+      "default": 1.0,
+      "min": 0.0,
+      "max": 16.0
+    },
+    "iridescenceweight": {
+      "name": "IridescenceWeight",
+      "default": 0.0,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "iridescencethickness": {
+      "name": "IridescenceThickness",
+      "default": 0.7,
+      "min": 0.0,
+      "max": 4.0
+    },
+    "iridescencebrightness": {
+      "name": "IridescenceBrightness",
+      "default": 1.0,
+      "min": 0.0,
+      "max": 16.0
+    },
+    "iridescencesaturation": {
+      "name": "IridescenceSaturation",
+      "default": 0.7,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "alphacutoff": {
+      "name": "AlphaCutoff",
+      "default": -1.0,
+      "min": -1.0,
+      "max": 1.0
+    },
+    "environmentmaxmip": {
+      "name": "EnvironmentMaxMip",
+      "default": 5.0,
+      "min": 0.0,
+      "max": 12.0
+    },
+    "debugview": {
+      "name": "DebugView",
+      "default": 0.0,
+      "min": 0.0,
+      "max": 7.0
+    },
+    "wormtileu": {
+      "name": "WormTileU",
+      "default": 16.0,
+      "min": 0.01,
+      "max": 128.0
+    },
+    "wormtilev": {
+      "name": "WormTileV",
+      "default": 16.0,
+      "min": 0.01,
+      "max": 128.0
+    },
+    "crawlspeed": {
+      "name": "CrawlSpeed",
+      "default": 0.012,
+      "min": -1.0,
+      "max": 1.0
+    },
+    "crawlaxis": {
+      "name": "CrawlAxis",
+      "default": 0.0,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "wormnormalstrength": {
+      "name": "WormNormalStrength",
+      "default": 1.0,
+      "min": 0.0,
+      "max": 4.0
+    },
+    "specularlobestrength": {
+      "name": "SpecularLobeStrength",
+      "default": 1.0,
+      "min": 0.0,
+      "max": 8.0
+    },
+    "specularpower1": {
+      "name": "SpecularPower1",
+      "default": 100.0,
+      "min": 1.0,
+      "max": 1024.0
+    },
+    "specularpower2": {
+      "name": "SpecularPower2",
+      "default": 100.0,
+      "min": 1.0,
+      "max": 1024.0
+    },
+    "specularlobeblend": {
+      "name": "SpecularLobeBlend",
+      "default": 0.5,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "flowspeed": {
+      "name": "FlowSpeed",
+      "default": 0.002,
+      "min": -1.0,
+      "max": 1.0
+    },
+    "sinewavespeed": {
+      "name": "SineWaveSpeed",
+      "default": 0.005,
+      "min": -1.0,
+      "max": 1.0
+    },
+    "sinewaveamount": {
+      "name": "SineWaveAmount",
+      "default": 0.3,
+      "min": 0.0,
+      "max": 2.0
+    },
+    "noisetiling": {
+      "name": "NoiseTiling",
+      "default": 3.721764,
+      "min": 0.01,
+      "max": 64.0
+    },
+    "plasmaflowinfluence": {
+      "name": "PlasmaFlowInfluence",
+      "default": 0.85,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "plasmaglowintensity": {
+      "name": "PlasmaGlowIntensity",
+      "default": 35.0,
+      "min": 0.0,
+      "max": 256.0
+    },
+    "plasmaglowpower": {
+      "name": "PlasmaGlowPower",
+      "default": 2.0,
+      "min": 0.01,
+      "max": 16.0
+    },
+    "emissivemultiplier": {
+      "name": "EmissiveMultiplier",
+      "default": 10.0,
+      "min": 0.0,
+      "max": 256.0
+    },
+    "baseemissivecontrast": {
+      "name": "BaseEmissiveContrast",
+      "default": 1.5,
+      "min": 0.01,
+      "max": 16.0
+    },
+    "noiseheight1": {
+      "name": "NoiseHeight1",
+      "default": -0.17,
+      "min": -2.0,
+      "max": 2.0
+    },
+    "noiseheight2": {
+      "name": "NoiseHeight2",
+      "default": -0.6,
+      "min": -2.0,
+      "max": 2.0
+    },
+    "noiseheight3": {
+      "name": "NoiseHeight3",
+      "default": -0.3,
+      "min": -2.0,
+      "max": 2.0
+    }
+  }
+}

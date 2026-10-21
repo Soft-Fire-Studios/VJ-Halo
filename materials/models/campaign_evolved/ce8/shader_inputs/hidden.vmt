@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+ "$model" "1"
+ "$nodecal" "1"
+ "$basetexture" "color/white"
+ "$no_draw" "1"
+}

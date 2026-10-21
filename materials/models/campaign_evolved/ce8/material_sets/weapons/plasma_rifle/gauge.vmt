@@ -1,0 +1,44 @@
+"screenspace_general_8tex"
+{
+    "$model" "1"
+    "$nodecal" "1"
+    "$pixshader" "ce8_gauge_v1_ps30"
+    "$vertexshader" "ce8_model_vs30"
+    "$vertextransform" "1"
+    "$vertexnormal" "1"
+    "$depthtest" "1"
+    "$writedepth" "0" // 1 forces ALWAYS depth comparison; Lua scopes opaque depth writes.
+    "$writealpha" "0"
+    "$cull" "0"
+    "$nocull" "1"
+    "$linearwrite" "1"
+    "$additive" "1"
+    "$translucent" "1"
+    "$basetexture" "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/gauge_dif" // GaugeTexture
+    "$linearread_basetexture" "1"
+    "$texture1" "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/gauge_mask" // MaskTexture
+    "$linearread_texture1" "1"
+    "$texture2" "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/gauge_fx" // DetailTexture
+    "$linearread_texture2" "1"
+    "Proxies"
+    {
+        "CE8Gauge"
+        {
+            "GaugeState" "heat"
+            "GaugeTexture" "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/gauge_dif"
+            "MaskTexture" "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/gauge_mask"
+            "DetailTexture" "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/textures/gauge_fx"
+            "GaugeMode" "0"
+            "GaugeValue" "0"
+            "GaugeBrightness" "1.5"
+            "GaugeOpacity" "1"
+            "GaugeClip" "0"
+            "GaugeTint" "1 1 1"
+            "ColorA" "0 0.468106 1"
+            "ColorB" "1 0 0"
+            "ColorC" "0 1 0.011907"
+            "ColorD" "1 1 1"
+            "HeatFillSoftness" "0.04"
+        }
+    }
+}

@@ -1,0 +1,161 @@
+{
+  "characters": {
+    "elite": {
+      "minor": "models/campaign_evolved/ce8/material_sets/elite.mdl",
+      "major": "models/campaign_evolved/ce8/material_sets/elite.mdl",
+      "officer": "models/campaign_evolved/ce8/material_sets/elite.mdl",
+      "ultra": "models/campaign_evolved/ce8/material_sets/elite.mdl",
+      "spec_ops": "models/campaign_evolved/ce8/material_sets/elite.mdl",
+      "general": "models/campaign_evolved/ce8/material_sets/elite.mdl",
+      "zealot": "models/campaign_evolved/ce8/material_sets/elite.mdl",
+      "shipmaster": "models/campaign_evolved/ce8/material_sets/elite.mdl",
+      "sacristan_minor": "models/campaign_evolved/ce8/material_sets/elite.mdl",
+      "sacristan_major": "models/campaign_evolved/ce8/material_sets/elite.mdl",
+      "sacristan_zealot": "models/campaign_evolved/ce8/material_sets/elite.mdl",
+      "sacristan_specops": "models/campaign_evolved/ce8/material_sets/elite.mdl",
+      "exploded": "models/campaign_evolved/ce8/material_sets/elite.mdl"
+    },
+    "hunter": {
+      "minor": "models/campaign_evolved/ce8/material_sets/hunter.mdl",
+      "sacristan": "models/campaign_evolved/ce8/material_sets/hunter.mdl"
+    },
+    "jackal": {
+      "jackal_minor": "models/campaign_evolved/ce8/material_sets/jackal.mdl",
+      "skirmisher_minor": "models/campaign_evolved/ce8/material_sets/jackal.mdl",
+      "jackal_sniper": "models/campaign_evolved/ce8/material_sets/jackal.mdl",
+      "jackal_major": "models/campaign_evolved/ce8/material_sets/jackal.mdl",
+      "sancristan": "models/campaign_evolved/ce8/material_sets/jackal.mdl",
+      "sacristan_minor": "models/campaign_evolved/ce8/material_sets/jackal.mdl",
+      "sacristan_major": "models/campaign_evolved/ce8/material_sets/jackal.mdl",
+      "sacristan_sniper": "models/campaign_evolved/ce8/material_sets/jackal.mdl"
+    },
+    "grunt": {
+      "minor": "models/campaign_evolved/ce8/material_sets/grunt.mdl",
+      "major": "models/campaign_evolved/ce8/material_sets/grunt.mdl",
+      "spec_ops": "models/campaign_evolved/ce8/material_sets/grunt.mdl",
+      "sacristan_minor": "models/campaign_evolved/ce8/material_sets/grunt.mdl",
+      "sacristan_major": "models/campaign_evolved/ce8/material_sets/grunt.mdl",
+      "sacristan_specops": "models/campaign_evolved/ce8/material_sets/grunt.mdl",
+      "destroyed_minor": "models/campaign_evolved/ce8/material_sets/grunt.mdl",
+      "destroyed_major": "models/campaign_evolved/ce8/material_sets/grunt.mdl",
+      "destroyed_spec_ops": "models/campaign_evolved/ce8/material_sets/grunt.mdl"
+    },
+    "brute": {
+      "default": "models/campaign_evolved/ce8/material_sets/brute.mdl"
+    },
+    "flood_carrier": {
+      "default": "models/campaign_evolved/ce8/material_sets/flood_carrier.mdl"
+    },
+    "flood_combat_elite": {
+      "default": "models/campaign_evolved/ce8/material_sets/flood_combat_elite.mdl",
+      "major": "models/campaign_evolved/ce8/material_sets/flood_combat_elite.mdl",
+      "sasquatch": "models/campaign_evolved/ce8/material_sets/flood_combat_elite.mdl"
+    },
+    "flood_combat_human": {
+      "default": "models/campaign_evolved/ce8/material_sets/flood_combat_human.mdl"
+    },
+    "flood_infection": {
+      "default": "models/campaign_evolved/ce8/material_sets/flood_infection.mdl"
+    },
+    "flood_tank": {
+      "default": "models/campaign_evolved/ce8/material_sets/flood_tank.mdl"
+    }
+  },
+  "bodygroups": {
+    "elite": {
+      "minor": "0000",
+      "major": "0011",
+      "officer": "0011",
+      "ultra": "0022",
+      "spec_ops": "1133",
+      "general": "0044",
+      "zealot": "0044",
+      "shipmaster": "0055",
+      "sacristan_minor": "2266",
+      "sacristan_major": "3376",
+      "sacristan_zealot": "4387",
+      "sacristan_specops": "5396",
+      "exploded": "63a6"
+    },
+    "hunter": {
+      "minor": "00000000",
+      "sacristan": "11111101"
+    },
+    "jackal": {
+      "jackal_minor": "00",
+      "skirmisher_minor": "11",
+      "jackal_sniper": "12",
+      "jackal_major": "23",
+      "sancristan": "34",
+      "sacristan_minor": "45",
+      "sacristan_major": "56",
+      "sacristan_sniper": "67"
+    },
+    "grunt": {
+      "minor": "0000",
+      "major": "1110",
+      "spec_ops": "2220",
+      "sacristan_minor": "3330",
+      "sacristan_major": "4440",
+      "sacristan_specops": "5550",
+      "destroyed_minor": "6061",
+      "destroyed_major": "7612",
+      "destroyed_spec_ops": "8723"
+    },
+    "brute": {
+      "default": "000000"
+    },
+    "flood_carrier": {
+      "default": "0"
+    },
+    "flood_combat_elite": {
+      "default": "0000000",
+      "major": "1111111",
+      "sasquatch": "0200000"
+    },
+    "flood_combat_human": {
+      "default": "0000000"
+    },
+    "flood_infection": {
+      "default": "0"
+    },
+    "flood_tank": {
+      "default": "00000000000"
+    }
+  },
+  "default_ranks": {
+    "elite": "minor",
+    "hunter": "minor",
+    "jackal": "jackal_minor",
+    "grunt": "minor",
+    "brute": "default",
+    "flood_carrier": "default",
+    "flood_combat_elite": "default",
+    "flood_combat_human": "default",
+    "flood_infection": "default",
+    "flood_tank": "default"
+  },
+  "aliases": {
+    "elite": {
+      "space": "minor",
+      "jetpack": "minor"
+    },
+    "hunter": {},
+    "jackal": {
+      "skirmisher_murmillo": "skirmisher_minor",
+      "skirmisher_commando": "skirmisher_minor",
+      "skirmisher_champion": "skirmisher_minor",
+      "skirmisher_major": "skirmisher_minor",
+      "minor": "jackal_minor",
+      "major": "jackal_major",
+      "sniper": "jackal_sniper"
+    },
+    "grunt": {},
+    "brute": {},
+    "flood_carrier": {},
+    "flood_combat_elite": {},
+    "flood_combat_human": {},
+    "flood_infection": {},
+    "flood_tank": {}
+  }
+}
