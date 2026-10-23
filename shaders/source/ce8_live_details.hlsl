@@ -7,11 +7,14 @@ float4 ParameterBytes(float pixel)
 }
 float4 LiveParameter(float index)
 {
-#if CE8_FLOAT_PARAMETERS
-        float pixel=index*2;
-        float2 uv=float2((fmod(pixel,128)+.5)/128,(128+floor(pixel/128)+.5)/256);
-        return float4(tex2Dlod(MaterialParameterTexture,float4(uv,0,0)).rgb,
-            tex2Dlod(MaterialParameterTexture,float4(uv+float2(1.0/128,0),0,0)).r);
+#if CE8_SCENE
+    return CE8MaterialData(index);
+#elif CE8_FLOAT_PARAMETERS
+    float pixel=index*2;
+    float2 uv=float2((fmod(pixel,128)+.5)/128,(128+floor(pixel/128)+.5)/256);
+    float3 rgb=tex2Dlod(MaterialParameterTexture,float4(uv,0,0)).rgb;
+    float a=tex2Dlod(MaterialParameterTexture,float4(uv+float2(1.0/128,0),0,0)).r;
+    return float4(rgb,a);
 #else
     float3 high=ParameterBytes(index*3).rgb,low=ParameterBytes(index*3+1).rgb;
     float2 fourth=ParameterBytes(index*3+2).rg;
@@ -20,6 +23,15 @@ float4 LiveParameter(float index)
     float4 value=lerp(mantissa*exp2(-24.0),(1+mantissa/1024)*exp2(exponent-15),step(.5,exponent));
     return value*(1-2*negative);
 #endif
+}
+
+// Tile IDs are integers. Bias the quotient into the middle of its interval:
+// SM3 rcp(3) may round down, so nested fmod can wrap 0 to almost 3.
+// Preserve the authored fractional UV; only the signed integer tile is wrapped.
+float2 CE8WrappedTile(float2 uv,float2 blocks)
+{
+    float2 tile=floor(uv);
+    return tile-floor((tile+.5)/blocks)*blocks;
 }
 
 float3 LiveCoordinates(float2 uv, float2 dx, float2 dy, float2 dimensions, float4 rectangle)
@@ -36,7 +48,7 @@ float3 NativeCoordinates(float2 uv,float2 dx,float2 dy,float2 dimensions,float2 
     // Native UDIM cells have independent mip chains. Select the cell first and
     // clamp within its own footprint instead of blending into an adjacent tile.
     float2 cell=dimensions/blocks;
-    float2 tile=fmod(fmod(floor(uv),blocks)+blocks,blocks);
+    float2 tile=CE8WrappedTile(uv,blocks);
     return LiveCoordinates(uv,dx,dy,dimensions,float4(tile*cell,cell));
 }
 
@@ -88,10 +100,11 @@ void CE8LiveSurface(PS_INPUT input,out float4 base,out float4 surface,
     float4 page=LiveParameter(13);
     [branch] if(page.z>.5)
     {
-        float2 tile=fmod(fmod(floor(input.uv),grid.xy)+grid.xy,grid.xy);
+        float2 tile=CE8WrappedTile(input.uv,grid.xy);
         float id=tile.y*grid.x+tile.x;
         float cell=dot(step(abs(LiveParameter(12)-id),.25),float4(0,1,2,3));
-        baseUV=frac(input.uv)+float2(fmod(cell,page.x),floor(cell/page.x));
+        float pageRow=floor((cell+.5)/page.x);
+        baseUV=frac(input.uv)+float2(cell-pageRow*page.x,pageRow);
         baseBlocks=page.xy;
     }
     float3 coord=NativeCoordinates(baseUV,dx,dy,sizes.xy,baseBlocks);
@@ -105,37 +118,13 @@ void CE8LiveSurface(PS_INPUT input,out float4 base,out float4 surface,
     coord=NativeCoordinates(baseUV,dx,dy,sizes2.zw,baseBlocks);
     float4 mask=tex2Dlod(PaintMaskTexture,float4(coord.xy,0,coord.z));
     float4 counts=LiveParameter(2);
-#if CE8_FLOAT_PARAMETERS
-    paint=0;
-    [branch] if(counts.y>0)
-    {
-        float4 opacities=LiveParameter(6);
-        [branch] if(counts.z>=0)
-        {
-            float4 codes=floor(counts.z/float4(1,4,16,64));codes=fmod(codes,4);
-            float4 routes=float4(dot(mask,saturate(1-abs(codes.x-float4(0,1,2,3)))),
-                dot(mask,saturate(1-abs(codes.y-float4(0,1,2,3)))),
-                dot(mask,saturate(1-abs(codes.z-float4(0,1,2,3)))),
-                dot(mask,saturate(1-abs(codes.w-float4(0,1,2,3)))));
-            float4 masked=fmod(floor(counts.w/float4(1,2,4,8)),2);
-            paint=lerp(1.0.xxxx,routes,masked)*opacities;
-        }
-        else
-        {
-            paint=float4(dot(mask,LiveParameter(8)),dot(mask,LiveParameter(9)),
-                dot(mask,LiveParameter(10)),dot(mask,LiveParameter(11)));
-            paint=lerp(1.0.xxxx,paint,LiveParameter(7))*opacities;
-        }
-    }
-#else
-    float4 opacities=LiveParameter(6),masked=LiveParameter(7);
-    paint=float4(dot(mask,LiveParameter(8)),dot(mask,LiveParameter(9)),
-        dot(mask,LiveParameter(10)),dot(mask,LiveParameter(11)));
-    paint=lerp(1.0.xxxx,paint,masked)*opacities;
-#endif
     // Zero count skips every layer before its parameter/pattern reads.
     counts.x = DetailLOD > 0 ? counts.x : 0;
+#if CE8_SCENE
+    [unroll] for(int i=0;i<8;++i)
+#else
     [loop] for(int i=0;i<8;++i)
+#endif
     {
 #if CE8_FLOAT_PARAMETERS
         [branch] if(i<counts.x)
@@ -145,7 +134,11 @@ void CE8LiveSurface(PS_INPUT input,out float4 base,out float4 surface,
         {
         float at=20+i*7;
 #if CE8_FLOAT_PARAMETERS
+#if CE8_SCENE
+        float4 weightData=CE8MaterialData(200+i);
+#else
         float4 weightData=tex2Dlod(MaterialParameterTexture,float4((i+.5)/128,132.5/256,0,0));
+#endif
         float selected=dot(mask,saturate(1-abs(weightData.x-float4(0,1,2,3))));
         [branch] if(weightData.x<0)selected=dot(mask,LiveParameter(at));
         float weight=saturate(lerp(1,selected,weightData.y)*weightData.z)*(weightData.w*2-1);
@@ -211,6 +204,34 @@ void CE8LiveSurface(PS_INPUT input,out float4 base,out float4 surface,
         }
         }
     }
+#if CE8_FLOAT_PARAMETERS
+    paint=0;
+    [branch] if(counts.y>0)
+    {
+        float4 opacities=LiveParameter(6);
+        [branch] if(counts.z>=0)
+        {
+            float4 codes=floor(counts.z/float4(1,4,16,64));codes=fmod(codes,4);
+            float4 routes=float4(dot(mask,saturate(1-abs(codes.x-float4(0,1,2,3)))),
+                dot(mask,saturate(1-abs(codes.y-float4(0,1,2,3)))),
+                dot(mask,saturate(1-abs(codes.z-float4(0,1,2,3)))),
+                dot(mask,saturate(1-abs(codes.w-float4(0,1,2,3)))));
+            float4 masked=fmod(floor(counts.w/float4(1,2,4,8)),2);
+            paint=lerp(1.0.xxxx,routes,masked)*opacities;
+        }
+        else
+        {
+            paint=float4(dot(mask,LiveParameter(8)),dot(mask,LiveParameter(9)),
+                dot(mask,LiveParameter(10)),dot(mask,LiveParameter(11)));
+            paint=lerp(1.0.xxxx,paint,LiveParameter(7))*opacities;
+        }
+    }
+#else
+    float4 opacities=LiveParameter(6),masked=LiveParameter(7);
+    paint=float4(dot(mask,LiveParameter(8)),dot(mask,LiveParameter(9)),
+        dot(mask,LiveParameter(10)),dot(mask,LiveParameter(11)));
+    paint=lerp(1.0.xxxx,paint,masked)*opacities;
+#endif
     // Authored opacity and emission remain exclusively in the native surface.
 }
 
@@ -254,10 +275,10 @@ float2 LiveBRDFTexel(float2 pixel)
 }
 float2 CE8LiveBRDF(float NoV,float roughness)
 {
-#if CE8_FLOAT_PARAMETERS
-        float2 uv=clamp(float2(NoV,roughness),.5/128,127.5/128);
-        uv.y*=.5;
-        return tex2Dlod(MaterialParameterTexture,float4(uv,0,0)).rg;
+#if CE8_SCENE
+    return CE8SceneBRDF(NoV,roughness);
+#elif CE8_FLOAT_PARAMETERS
+    return tex2Dlod(MaterialParameterTexture,float4(clamp(float2(NoV,roughness)*128,.5,127.5)/float2(128,256),0,0)).rg;
 #else
     // Parameter rows are point sampled. Manually bilinear-filter only the LUT.
     float2 p=saturate(float2(NoV,roughness))*128-.5;

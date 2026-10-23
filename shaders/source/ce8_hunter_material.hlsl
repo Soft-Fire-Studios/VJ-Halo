@@ -84,7 +84,11 @@ float3 CE8PlasmaEmission(PS_INPUT input, float4 surface, float NoV)
     float2 drift=float2(phase,amount*(wave-.5));
     float low=tex2D(EmissionTexture,uv+drift).r; // Native PlasmaNoise: T_Noise5
     float n1=tex2D(FeatureTexture,uv-drift.yx+seed*.05).r; // PlasmaNoise2: Billow
-    float n2=tex2D(EnvironmentBRDFTexture,uv+drift.yx+low*.05).r; // PlasmaNoise3: Clouds
+#if CE8_SCENE
+    float n2=CE8CloudNoise(uv+drift.yx+low*.05);
+#else
+    float n2=tex2D(EnvironmentBRDFTexture,uv+drift.yx+low*.05).r;
+#endif // PlasmaNoise3: Clouds
     float3 heights=SurfaceParameters.xyz;
     float pattern=saturate((low+heights.x)+(n1+heights.y)+(n2+heights.z));
     pattern=pow(max(pattern,.0001),max(IridescenceParameters.w,.01));

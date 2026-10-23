@@ -40,6 +40,14 @@ float4 LightAttenuation_Strength : register(c16);
 float4 LightMaterialParameters : register(c17); // metallic bias, specular, cutoff, base
 float4 LightSurfaceParameters : register(c18);  // paint modes, diffuse gain, cookie, edge
 #else
+#if CE8_SCENE
+float4 SceneEnvironment:register(c11); // reflection tint RGB, base strength
+float4 SceneMaterial:register(c12); // metal bias, emission, specular, ambient
+float4 SceneIndices:register(c13); // model and material UV origins
+float4 SceneProjection:register(c14); // projected-light strength
+float4 IridescenceParameters:register(c17);
+float4 SurfaceParameters:register(c18);
+#else
 float4 LightPositiveX_MetallicBias : register(c11);
 float4 LightNegativeX_EnvironmentTintR : register(c12);
 float4 LightPositiveY_EmissionStrength : register(c13);
@@ -49,6 +57,8 @@ float4 LightNegativeZ_BaseStrength : register(c16);
 float4 IridescenceParameters : register(c17); // weight, thickness, brightness, saturation
 float4 SurfaceParameters : register(c18); // paint mode bits, cutoff, max cube mip, debug view
 #endif
+
+#endif // legacy base constant layout
 
 // Uniform per-draw quality fades in existing constants; legacy positive
 // values mean full quality. Branches skip samples/lobes after fade reaches0.
@@ -71,10 +81,17 @@ float LODWeight(float value) { return value < 0 ? saturate((floor(-value/8)-1)/2
 #define BaseStrength LightMaterialParameters.w
 #define PaintBlendModes LightSurfaceParameters.x
 #else
+#if CE8_SCENE
+#define MetallicBias SceneMaterial.x
+#define EnvironmentTint SceneEnvironment.rgb
+#define EmissionStrength SceneMaterial.y
+#define BaseStrength SceneEnvironment.w
+#else
 #define MetallicBias LightPositiveX_MetallicBias.w
 #define EnvironmentTint float3(LightNegativeX_EnvironmentTintR.w, LightPositiveZ_EnvironmentTintG.w, LightNegativeY_EnvironmentTintB.w)
 #define EmissionStrength LightPositiveY_EmissionStrength.w
 #define BaseStrength LightNegativeZ_BaseStrength.w
+#endif
 #define IridescenceWeight IridescenceParameters.x
 #define IridescenceThickness IridescenceParameters.y
 #define IridescenceBrightness IridescenceParameters.z
@@ -85,6 +102,14 @@ float LODWeight(float value) { return value < 0 ? saturate((floor(-value/8)-1)/2
 #define DebugView LODValue(SurfaceParameters.w)
 #endif
 
+#if CE8_SCENE
+#if CE8_LIVE_DETAILS
+#define CE8SceneTexture MaterialParameterTexture
+#else
+#define CE8SceneTexture EnvironmentBRDFTexture
+#endif
+#include "ce8_scene_data.hlsl"
+#endif
 static const float PI = 3.14159265359;
 
 struct PS_INPUT
@@ -187,10 +212,15 @@ float3 SurfaceNormal(PS_INPUT input, float3 tangentNormal)
 #if !CE8_DIRECT_PASS
 float3 SourceLightCube(float3 N)
 {
+#if CE8_SCENE
+    float3 x=CE8ModelData(N.x>=0?0:1).rgb,y=CE8ModelData(N.y>=0?2:3).rgb,z=CE8ModelData(N.z>=0?4:5).rgb;
+    return max(x*N.x*N.x+y*N.y*N.y+z*N.z*N.z,0)*SceneMaterial.w;
+#else
     float3 x = N.x >= 0 ? LightPositiveX_MetallicBias.rgb : LightNegativeX_EnvironmentTintR.rgb;
     float3 y = N.y >= 0 ? LightPositiveY_EmissionStrength.rgb : LightNegativeY_EnvironmentTintB.rgb;
     float3 z = N.z >= 0 ? LightPositiveZ_EnvironmentTintG.rgb : LightNegativeZ_BaseStrength.rgb;
     return max(x * N.x * N.x + y * N.y * N.y + z * N.z * N.z, 0);
+#endif
 }
 
 float Luminance(float3 color) { return dot(color, float3(0.2126, 0.7152, 0.0722)); }
@@ -235,6 +265,14 @@ float3 DirectGGX(float3 N, float3 V, float3 L, float roughness, float3 F0)
 #endif
 #if CE8_LIVE_DETAILS
 #include "ce8_live_details.hlsl"
+#endif
+
+#if CE8_SCENE
+#include "ce8_scene_lights.hlsl"
+#endif
+
+#if CE8_DIRECT_PASS && CE8_BATCH_LIGHTS
+#include "ce8_light_batch.hlsl"
 #endif
 
 #if CE8_DIRECT_PASS
@@ -283,7 +321,17 @@ void CE8LightTransport(float3 worldPosition, float3 N, out float3 L,
         // Match Source's flashlight attenuation and final 40% range fade.
         attenuation = saturate(dot(LightAttenuation_Strength.xyz, float3(1, 1/distance, 1/(distance*distance))));
         attenuation *= saturate((range - distance) / max(range * 0.4, 0.001)) * edgeFade;
-        if (LightSurfaceParameters.z > 0.5) cookie = tex2D(ProjectedTexture, uv).rgb;
+        if (LightSurfaceParameters.z > 0.5)
+        {
+#if CE8_BATCH_LIGHTS
+            cookie = tex2Dlod(ProjectedTexture, float4(uv,0,0)).rgb;
+            // Batched s5 is linear numeric data. Decode only the legacy-cookie
+            // fallback; shared-sheet beam images were linearized on upload.
+            cookie=lerp(cookie/12.92,pow(max((cookie+.055)/1.055,0),2.4),step(.04045,cookie));
+#else
+            cookie = tex2D(ProjectedTexture, uv).rgb;
+#endif
+        }
     }
     else
     {
@@ -295,17 +343,23 @@ void CE8LightTransport(float3 worldPosition, float3 N, out float3 L,
 
 float4 main(PS_INPUT input) : COLOR0
 {
+#if CE8_BATCH_LIGHTS
+    [branch] if(CE8IsLightBatch()) clip(CE8LightBatchCoverage(input.worldPosition)-.5);
+#endif
 #if CE8_EARLY_LIGHT_TRANSPORT
     // Reject pixels outside the beam before evaluating the tiled material.
-    float3 L, cookie;
-    float attenuation;
+    float3 L=0, cookie=0;
+    float attenuation=0;
+#if CE8_BATCH_LIGHTS
+    [branch] if(!CE8IsLightBatch())
+#endif
     CE8LightTransport(input.worldPosition, SafeNormalize(input.worldNormal, float3(0,0,1)),
         L, attenuation, cookie);
 #endif
 #if CE8_LIVE_DETAILS
-    float4 surface, base, paint;
-    float3 tangentNormal;
-    CE8LiveSurface(input, base, surface, paint, tangentNormal);
+    float4 surface=0,base=0,paint=0;
+    float3 tangentNormal=0;
+    CE8LiveSurface(input,base,surface,paint,tangentNormal);
     float4 features = float4(1,1,0,0);
 #else
 #if CE8_ATLAS_SURFACE
@@ -362,6 +416,10 @@ float4 main(PS_INPUT input) : COLOR0
     float NoV = max(saturate(dot(N, V)), 1e-4);
     float3 F0 = lerp(0.04.xxx, albedo, metallic);
 #if CE8_DIRECT_PASS
+#if CE8_BATCH_LIGHTS
+    [branch] if(CE8IsLightBatch())
+        return float4(CE8BatchedLighting(input.worldPosition,N,V,albedo,roughness,metallic,F0),1);
+#endif
 #if !CE8_EARLY_LIGHT_TRANSPORT
     float3 L, cookie;
     float attenuation;
@@ -410,7 +468,11 @@ float4 main(PS_INPUT input) : COLOR0
 #elif CE8_HUNTER_WORM || CE8_HUNTER_PLASMA
     float2 integrated = CE8HunterEnvironmentBRDF(NoV, roughness);
 #else
+#if CE8_SCENE
+    float2 integrated = CE8SceneBRDF(NoV,roughness);
+#else
     float2 integrated = tex2Dlod(EnvironmentBRDFTexture, float4(NoV, roughness,0,0)).rg;
+#endif
 #endif
     // Ordinary Source cube mips are not GGX-prefiltered radiance.
     reflected = environment * (saturate(F0) * integrated.x + integrated.y)
@@ -436,6 +498,7 @@ float4 main(PS_INPUT input) : COLOR0
 #endif
     float3 result = diffuse + reflected + emission;
 
+
     if (DebugView > 0.5 && DebugView < 1.5) result = albedo;
     else if (DebugView < 2.5 && DebugView > 1.5) result = roughness.xxx;
     else if (DebugView < 3.5 && DebugView > 2.5) result = metallic.xxx;
@@ -443,6 +506,10 @@ float4 main(PS_INPUT input) : COLOR0
     else if (DebugView < 5.5 && DebugView > 4.5) result = paint.rgb;
     else if (DebugView < 6.5 && DebugView > 5.5) result = emission;
     else if (DebugView < 7.5 && DebugView > 6.5) result = paint.aaa;
+
+#if CE8_SCENE
+    [branch] if(DebugView<.5) result+=CE8SceneLighting(input.worldPosition,N,V,albedo,metallic,roughness,F0);
+#endif
     // Explicit LDR preview conversion. No guessed engine HDR/fog registers.
     return float4(LinearToSRGB(result), 1);
 #endif
