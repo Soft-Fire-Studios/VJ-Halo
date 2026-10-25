@@ -320,8 +320,8 @@ return {
         before_damage = function(self, damage, hitgroup, now, previous, amount)
             self.CE8LastHit = {time = now, amount = amount, shielded = previous > 0}
             local attacker = damage:GetAttacker()
-            if IsValid(attacker) and attacker ~= self and (attacker:IsNPC() or attacker:IsPlayer())
-                and self:Disposition(attacker) == D_HT and (damage:IsDamageType(DMG_BULLET)
+            if IsValid(attacker) and attacker ~= self and (attacker:IsNPC() or attacker:IsPlayer() or attacker:IsNextBot())
+                and self:CheckRelationship(attacker) == D_HT and (damage:IsDamageType(DMG_BULLET)
                 or damage:IsDamageType(DMG_ENERGYBEAM) or damage:IsDamageType(DMG_BLAST)) then
                 self:CE8QueueDialogue("undr_fire", now, attacker)
             end
@@ -329,11 +329,21 @@ return {
         after_damage = function(self, damage, hitgroup, now, previous, amount, absorbed)
             local attacker = damage:GetAttacker()
             -- Fully absorbed hits exit VJ before its health-damage awareness code.
-            if IsValid(attacker) and attacker ~= self and (attacker:IsNPC() or attacker:IsPlayer())
-                and self:Disposition(attacker) == D_HT then
-                self:UpdateEnemyMemory(attacker, attacker:GetPos())
-                self:MarkTookDamageFromEnemy(attacker)
-                if not IsValid(self:GetEnemy()) then self:ForceSetEnemy(attacker, false) end
+            local disabled = GetConVar("ai_disabled")
+            if (disabled and disabled:GetBool()) or self.VJ_Controlled or self:GetState() == VJ_STATE_FREEZE then return end
+            if IsValid(attacker) and attacker ~= self and (attacker:IsNPC() or attacker:IsPlayer() or attacker:IsNextBot()) then
+                -- Potential enemies are D_VJ_INTEREST until VJ sees them. Its
+                -- relationship API resolves that state and respects notarget,
+                -- ignoreplayers, dead targets and allies before we acquire them.
+                local disposition = self:CheckRelationship(attacker)
+                if disposition == D_HT or disposition == D_NU then
+                    self:UpdateEnemyMemory(attacker, attacker:GetPos())
+                    self:MarkTookDamageFromEnemy(attacker)
+                    local enemy = self:GetEnemy()
+                    if not IsValid(enemy) or enemy == attacker or enemy:Health() <= 0 then
+                        self:ForceSetEnemy(attacker, false)
+                    end
+                end
             end
             -- VJ exits early for fully absorbed hits; still use its flinch pipeline.
             if amount <= absorbed and self.CanFlinch and not self.CE8PendingShieldBreak then self:Flinch(damage, hitgroup) end

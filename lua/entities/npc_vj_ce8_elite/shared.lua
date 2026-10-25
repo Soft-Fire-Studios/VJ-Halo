@@ -5,6 +5,7 @@ ENT.Author = "Halo-DT"
 ENT.Category = "Halo - Campaign Evolved"
 ENT.IsCE8Elite = true
 ENT.IsCE8SNPC = true
+ENT.AISquadLeader = true
 ENT.CE8UnitLabel = "elite"
 ENT.CE8Rank = "minor"
 
@@ -24,7 +25,7 @@ CE8.ShieldParticlesReady = effects.Load({effects = {file = ENT.CE8ShieldParticle
     normal = ENT.CE8ShieldEffects, charged = {}}})
 effects.Load(data.grenade)
 
-if SERVER then AddCSLuaFile("vj_ai/motion.lua") end
+if SERVER then AddCSLuaFile("vj_ai/motion.lua") AddCSLuaFile("campaign_evolved/human.lua") end
 include("vj_ai/motion.lua").Attach(ENT, {
     adapter = "human", capabilities = {movement = true, aim = true, grip = true},
     sets = data.weapon_sets, default_set = "needle_rifle",

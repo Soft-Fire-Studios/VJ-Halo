@@ -155,6 +155,18 @@ local impactMaterials = {
 }
 local impactProperties = {"ice", "snow", "sand", "dirt", "grass", "glass", "wood", "metal", "concrete", "stone", "water"}
 
+-- Shared by physical Needler collisions and Needle Rifle trace impacts.
+-- Shield eligibility is sampled before damage so the last shield-breaking
+-- shot cannot become an attachment after that same hit consumes the shield.
+function FX.NeedleContact(target, contact)
+    if not IsValid(target) or target.IsCE8Barrier or contact.HitSky or not contact.HitPos then return end
+    if contact.MatType == MAT_SLOSH or bit.band(util.PointContents(contact.HitPos), CONTENTS_WATER) ~= 0 then return end
+    local unit = target:IsNPC() or target:IsPlayer() or target:IsNextBot()
+    if unit and (target:Health() <= 0 or (target.CE8Shield or 0) > 0
+        or (target:IsPlayer() and target:Armor() > 0)) then return end
+    return unit and "unit" or "surface"
+end
+
 function FX.ContactSurface(contact)
     local target = contact.HitEntity or contact.Entity
     if IsValid(target) then
@@ -199,6 +211,7 @@ function FX.ContactSound(sounds, collision, surface, kind, charged)
         surface = surface or FX.ContactSurface(collision)
         tree = surfaces and (surfaces[surface] or surfaces.default)
         local target = collision.HitEntity or collision.Entity
+        if IsValid(target) and target.IsCE8Barrier then target = target:GetOwner() end
         if tree and string.sub(surface, 1, 7) == "shield_" and IsValid(target)
             and target.AIHasCapability and target:AIHasCapability("shield")
             and target:AIProfile().shield.sound then

@@ -43,9 +43,11 @@ function CE8.DrawEmissiveModel(ent, flags)
         render.OverrideDepthEnable(true,false)
         render.OverrideBlend(true,BLEND_SRC_ALPHA,ent.CE8EmissiveAdditive and BLEND_ONE or BLEND_ONE_MINUS_SRC_ALPHA,BLENDFUNC_ADD)
         for slot,material in pairs(materials) do render.MaterialOverrideByIndex(slot,material) end
-        -- The original model may classify this section as opaque. The indexed
-        -- table hides every other mesh, so submit both submesh classes here.
-        ent:DrawModel(bit.bor(flags or STUDIO_RENDER or 1,STUDIO_TWOPASS or 8))
+        -- Indexed overrides isolate the energy mesh. The Jackal prop must submit
+        -- all submodels: STUDIO_TWOPASS filters out its barrier before shading.
+        local drawFlags=ent.CE8EmissiveAllSubmodels and (STUDIO_RENDER or 1)
+            or bit.bor(flags or STUDIO_RENDER or 1,STUDIO_TWOPASS or 8)
+        ent:DrawModel(drawFlags)
     end,debug.traceback)
     ent.CE8DrawingEmissive=previous
     render.OverrideBlend(false)
@@ -71,6 +73,7 @@ function CE8.BindCharacter(ent, definition, custom, normalSpawn)
     if ent.CE8Draft and ent.AddEffects and EF_NOFLASHLIGHT then ent:AddEffects(EF_NOFLASHLIGHT) end
     ent.CE8EmissiveMaterials=nil
     ent.CE8EmissiveAdditive=bindings.emissive_blend=="additive"
+    ent.CE8EmissiveAllSubmodels=bindings.emissive_submodels=="all"
     ent.CE8ShadowHiddenMaterials={}
     local emissive=bindings.emissive_materials or {}
     if ent.CE8Draft and next(emissive) then ent.CE8EmissiveMaterials={} end

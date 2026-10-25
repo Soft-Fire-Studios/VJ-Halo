@@ -72,6 +72,7 @@ function ENT:InitPhys()
 end
 
 function ENT:Init()
+    self.CE8BarrierPosition = Vector(self:GetPos())
     if self.CE8Sounds then self.CE8AudioPosition = Vector(self:GetPos()) end
     if self.CE8Data.flight then
         self.CE8TravelPosition = self:GetPos()
@@ -149,6 +150,8 @@ function ENT:CE8AdvanceVelocity(velocity, dt)
 end
 
 function ENT:OnCollision(collision, physics)
+    if self.CE8BarrierPending then return true end
+    if CE8 and CE8.Barrier then CE8.Barrier.Redirect(self, collision) end
     if self.CE8NeedlePending or self.CE8NeedleTarget then return true end
     if not self.CE8Data.grenade and not self.CE8RicochetPending and self.CE8Sounds then
         effects.ProjectileFlyby(self, collision.HitPos)
@@ -157,12 +160,11 @@ function ENT:OnCollision(collision, physics)
     end
     if self.CE8Data.needle then
         local target = collision.HitEntity
-        if IsValid(target) and (target:IsNPC() or target:IsPlayer() or target:IsNextBot()) and
-            target ~= self:GetOwner() and
-            target:Health() > 0 and (target.CE8Shield or 0) <= 0 and
-            not (target:IsPlayer() and target:Armor() > 0) then
+        local contact = target ~= self:GetOwner() and effects.NeedleContact(target, collision)
+        if contact then
             self.CE8NeedlePending = target
-            self.CE8NeedleHealth = target:Health()
+            self.CE8NeedleHealth = contact == "unit" and target:Health() or nil
+            self.CE8NeedleAccepted = contact == "surface"
             self.CollisionBehavior = VJ.PROJ_COLLISION_PERSIST
             return -- VJ deals the impact once, then defers OnCollisionPersist.
         end
@@ -290,7 +292,7 @@ end
 function ENT:OnDealDamage(collision, physics, hitEntities)
     self:CE8ImpactSound(collision)
     local target = self.CE8NeedlePending
-    if not IsValid(target) or not hitEntities then return end
+    if not IsValid(target) or not hitEntities or not self.CE8NeedleHealth then return end
     for _, hit in ipairs(hitEntities) do
         if hit == target and target:Health() < self.CE8NeedleHealth then
             self.CE8NeedleAccepted = true
@@ -311,22 +313,23 @@ function ENT:OnCollisionPersist(collision, physics)
 end
 
 function ENT:CE8EmbedNeedle(target, hit)
-    if self.Dead or self.CE8NeedleTarget or not self.CE8Data.needle or not IsValid(target)
-        or target == self:GetOwner() or target:Health() <= 0 or (target.CE8Shield or 0) > 0
-        or (target:IsPlayer() and target:Armor() > 0) then return false end
-    if not (target:IsNPC() or target:IsPlayer() or target:IsNextBot()) then return false end
+    if self.Dead or self.CE8NeedleTarget or not self.CE8Data.needle or target == self:GetOwner() then return false end
+    local contact = effects.NeedleContact(target, hit)
+    if not contact then return false end
+    local unit, world = contact == "unit", target:IsWorld()
     local direction = hit.OurOldVelocity or hit.Normal or self:GetForward()
     if direction:LengthSqr() == 0 then direction = self:GetForward() end
     direction = direction:GetNormalized()
     -- Physics contacts can contain only a hull hit. Resolve its actual hitbox
     -- along the incoming path; never pick a nearby bone by distance.
-    if hit.HitBox == nil then
+    if unit and hit.HitBox == nil then
         local trace = util.TraceLine({start = hit.HitPos - direction * (target:BoundingRadius() * 2 + 8),
             endpos = hit.HitPos + direction * 8, mask = MASK_SHOT,
             filter = function(entity) return entity == target end})
         if trace.Entity == target then hit = trace end
     end
-    local bone = hit.HitBox ~= nil and target:GetHitBoxBone(hit.HitBox, hit.HitBoxSet or 0)
+    local bone = not world and hit.HitBox ~= nil and target:GetHitBoxBone(hit.HitBox, hit.HitBoxSet or 0)
+    if not bone and not world and hit.PhysicsBone ~= nil then bone = target:TranslatePhysBoneToBone(hit.PhysicsBone) end
     local matrix = bone and bone >= 0 and target:GetBoneParent(bone) >= 0 and
         target:BoneHasFlag(bone, BONE_USED_BY_VERTEX_LOD0) and target:GetBoneMatrix(bone)
     local position, angles = hit.HitPos, direction:Angle()
@@ -344,16 +347,21 @@ function ENT:CE8EmbedNeedle(target, hit)
     self.VJ_ID_Danger = false
     self:CE8StopNeedleFX()
     self:StopParticles()
-    if matrix then self:FollowBone(target, bone) else self:SetParent(target) end
-    self:SetLocalPos(localPos)
-    self:SetLocalAngles(localAng)
-    self.CE8NeedleTarget = target
+    if world then
+        self:SetPos(position)
+        self:SetAngles(angles)
+    else
+        if matrix then self:FollowBone(target, bone) else self:SetParent(target) end
+        self:SetLocalPos(localPos)
+        self:SetLocalAngles(localAng)
+    end
+    self.CE8NeedleTarget, self.CE8NeedleUnit = target, unit
     local now = CurTime()
     self.CE8Expires = now + self.CE8Data.needle.lifetime
     -- A shot already in flight during Lua refresh retains its old data table.
     -- Let that shot finish its original attachment lifetime without inventing
     -- missing settings or resetting active projectiles during the reload.
-    if not self.CE8Data.needle.blast then return true end
+    if world or not self.CE8Data.needle.blast then return true end
     self.CE8SuperReadyAt = now + self.CE8Data.needle.delay
     target.CE8Needles = target.CE8Needles or {}
     local key = self.CE8Data.needle.group
@@ -387,7 +395,7 @@ function ENT:CE8CheckNeedles(now)
         if not IsValid(needle) or needle.Dead or needle.CE8NeedleTarget ~= target then
             group.members[needle] = nil
         elseif now >= needle.CE8Expires then
-            needle:Remove()
+            needle:CE8ExpireNeedle()
         else
             members[#members + 1] = needle
             center = center + needle:GetPos()
@@ -445,6 +453,18 @@ function ENT:CE8Supercombine(position, host)
     self:Destroy({HitPos = position, HitNormal = Vector(0, 0, 1)}, self:GetPhysicsObject())
 end
 
+function ENT:CE8ExpireNeedle()
+    if self.CE8NeedleExpired or self.Dead then return end
+    self.CE8NeedleExpired, self.Dead = true, true
+    self:CE8StopNeedleFX()
+    self:StopParticles()
+    local contact = self.CE8Sounds and self.CE8Sounds.contact
+    if contact and contact.expire then effects.Sound(contact.expire, self:GetPos(), contact.level or 75) end
+    -- Ordinary crystal expiry is cosmetic. It must never reapply the impact
+    -- or enter the supercombine/radius-damage path.
+    self:Remove()
+end
+
 function ENT:OnDestroy(collision)
     if self.CE8Combined then
         effects.Supercombine(self.CE8Data, collision.HitPos)
@@ -480,10 +500,11 @@ function ENT:CustomOnRemove()
 end
 
 function ENT:PhysicsUpdate(physics)
-    if self.Dead or self.CE8RicochetPending or self.CE8GrenadePending or self.CE8StuckTo
+    if self.Dead or self.CE8BarrierPending or self.CE8RicochetPending or self.CE8GrenadePending or self.CE8StuckTo
         or self.CE8NeedlePending or self.CE8NeedleTarget then return end
     local data = self.CE8Data
     if not data then return end
+    if CE8 and CE8.Barrier and CE8.Barrier.Sweep(self, physics) then return end
     local dt = engine.TickInterval()
     if data.flight then
         self.CE8Flight = self.CE8Flight or ballistics.State(data, 1, "normal", false, nil, self:GetForward())
@@ -516,9 +537,13 @@ end
 
 function ENT:OnThink()
     if self.Dead then return end
-    if CurTime() >= self.CE8Expires then self:Remove() return end
+    if CurTime() >= self.CE8Expires then
+        if self.CE8Data.needle then self:CE8ExpireNeedle() else self:Remove() end
+        return
+    end
+    if self.CE8Data.needle and self:WaterLevel() > 0 then self:Remove() return end
     if self.CE8NeedleTarget then
-        if not IsValid(self.CE8NeedleTarget) or self.CE8NeedleTarget:Health() <= 0 then self:Remove()
+        if not IsValid(self.CE8NeedleTarget) or (self.CE8NeedleUnit and self.CE8NeedleTarget:Health() <= 0) then self:Remove()
         else self:CE8CheckNeedles(CurTime()) end
         return
     end
@@ -553,7 +578,7 @@ function ENT:OnThink()
                 self:DealDamage(collision, physics)
                 self:Destroy(collision, physics)
             else
-                self:Remove()
+                if self.CE8Data.needle then self:CE8ExpireNeedle() else self:Remove() end
             end
         end
     end

@@ -18,6 +18,7 @@ local fields = {
     perception = {mode = "AIPerceptionMode", heard = "AIHeardSounds"},
     flank = {next_check = "AINextFlank", enemy = "AIFlankEnemy", finish = "AIFlankUntil"},
     cover = {active = "AICover", next_attempt = "AINextCover"},
+    flee = {active = "AIFlee", next_attempt = "AINextFlee", losses = "AIRecentLosses", last = "AILastFlee"},
     shield = {
         value = "AIShield", clock = "AIShieldClock", recharge_at = "AIShieldRechargeAt",
         breaks = "AIShieldBreaks", recharging = "AIShieldRecharging",

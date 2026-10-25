@@ -19168,9 +19168,10 @@
               "permutation": "jackal_shield",
               "model": "models/campaign_evolved/ce8/material_sets/weapons/weapon_jackal_shield.mdl",
               "groups": [
-                "body_01"
+                "body_01",
+                "barrier"
               ],
-              "material_count": 1,
+              "material_count": 2,
               "bodygroup_options": {
                 "body_01": [
                   {
@@ -19181,6 +19182,16 @@
                       0
                     ]
                   }
+                ],
+                "barrier": [
+                  {
+                    "index": 0,
+                    "name": "default",
+                    "blank": false,
+                    "materials": [
+                      1
+                    ]
+                  }
                 ]
               }
             }
@@ -19188,10 +19199,17 @@
           "material_path": "models/campaign_evolved/ce8",
           "material_bindings": {
             "materials": {
-              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal"
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier"
             },
             "light_materials": {},
-            "glows": {}
+            "glows": {},
+            "emissive_materials": {
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier"
+            },
+            "emissive_blend": "additive",
+            "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden",
+            "emissive_submodels": "all"
           },
           "material_mode": "8tex",
           "ce8_only": true,
@@ -19206,18 +19224,18 @@
           ],
           "physics_prop": true,
           "source_bones": 1,
-          "draw_triangles": 2544,
-          "source_triangles": 2544,
+          "draw_triangles": 4624,
+          "source_triangles": 4624,
           "model_bounds": {
             "min": [
-              -3.641732692718506,
-              -5.167323112487793,
-              -7.480315208435059
+              -3.6417295932769775,
+              -30.584869384765625,
+              -30.304533004760742
             ],
             "max": [
-              8.489173889160156,
-              5.0196852684021,
-              7.431102752685547
+              8.71456241607666,
+              29.90390396118164,
+              30.304533004760742
             ]
           },
           "attachments": {
@@ -19231,39 +19249,35 @@
             "solids": 1,
             "joints": 0,
             "mass_kg": 1.0,
-            "checksum": 1370410667,
+            "checksum": 1458847007,
             "rigid_authored_collision": true
           },
           "geometry_format": "indexed_dmx",
           "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 2,
-            "vertices": 2229,
-            "triangles": 2544,
-            "bytes": 35547,
-            "native_tangent_frames": 2229,
-            "reconstructed_tangent_frames": 0,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
           "source_files": [
-            "attachments.json",
-            "attachments.qci",
+            "jackal_shield.qc",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "physics/collision.json",
+            "attachments.qci",
+            "meshes/body_01.dmx",
+            "meshes/barrier.dmx",
             "physics/collision.smd"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
           "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json"
+          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
+          "geometry_validation": "jackal/shield/jackal_shield_model.json",
+          "emissive_barrier": {
+            "lit": false,
+            "lod": "ce8_detail_distance",
+            "combat": true,
+            "source": "/Game/weapons/melee/JackalShield/Common/Skeleton/SK_JackalShield_Common",
+            "proxy": "CE8Shield",
+            "native_inputs": true,
+            "composition": "Source approximation",
+            "collision": "campaign_evolved/jackal_barrier.lua"
+          }
         },
         "jackal_shield_major": {
           "version": 1,
@@ -19278,9 +19292,10 @@
               "permutation": "jackal_shield_major",
               "model": "models/campaign_evolved/ce8/material_sets/weapons/weapon_jackal_shield_major.mdl",
               "groups": [
-                "body_01"
+                "body_01",
+                "barrier"
               ],
-              "material_count": 1,
+              "material_count": 2,
               "bodygroup_options": {
                 "body_01": [
                   {
@@ -19291,6 +19306,16 @@
                       0
                     ]
                   }
+                ],
+                "barrier": [
+                  {
+                    "index": 0,
+                    "name": "default",
+                    "blank": false,
+                    "materials": [
+                      1
+                    ]
+                  }
                 ]
               }
             }
@@ -19298,10 +19323,17 @@
           "material_path": "models/campaign_evolved/ce8",
           "material_bindings": {
             "materials": {
-              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal"
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier"
             },
             "light_materials": {},
-            "glows": {}
+            "glows": {},
+            "emissive_materials": {
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier"
+            },
+            "emissive_blend": "additive",
+            "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden",
+            "emissive_submodels": "all"
           },
           "material_mode": "8tex",
           "ce8_only": true,
@@ -19316,18 +19348,18 @@
           ],
           "physics_prop": true,
           "source_bones": 1,
-          "draw_triangles": 2544,
-          "source_triangles": 2544,
+          "draw_triangles": 4624,
+          "source_triangles": 4624,
           "model_bounds": {
             "min": [
-              -3.641732692718506,
-              -5.167323112487793,
-              -7.480315208435059
+              -3.6417295932769775,
+              -30.584869384765625,
+              -30.304533004760742
             ],
             "max": [
-              8.489173889160156,
-              5.0196852684021,
-              7.431102752685547
+              8.71456241607666,
+              29.90390396118164,
+              30.304533004760742
             ]
           },
           "attachments": {
@@ -19341,39 +19373,35 @@
             "solids": 1,
             "joints": 0,
             "mass_kg": 1.0,
-            "checksum": 1876079934,
+            "checksum": 2408248851,
             "rigid_authored_collision": true
           },
           "geometry_format": "indexed_dmx",
           "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 2,
-            "vertices": 2243,
-            "triangles": 2544,
-            "bytes": 35673,
-            "native_tangent_frames": 2243,
-            "reconstructed_tangent_frames": 0,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
           "source_files": [
-            "attachments.json",
-            "attachments.qci",
+            "jackal_shield_major.qc",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "physics/collision.json",
+            "attachments.qci",
+            "meshes/body_01.dmx",
+            "meshes/barrier.dmx",
             "physics/collision.smd"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
           "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json"
+          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
+          "geometry_validation": "jackal/shield/jackal_shield_major_model.json",
+          "emissive_barrier": {
+            "lit": false,
+            "lod": "ce8_detail_distance",
+            "combat": true,
+            "source": "/Game/weapons/melee/JackalShield/Common/Skeleton/SK_JackalShield_Common",
+            "proxy": "CE8Shield",
+            "native_inputs": true,
+            "composition": "Source approximation",
+            "collision": "campaign_evolved/jackal_barrier.lua"
+          }
         },
         "skull": {
           "version": 1,

@@ -407,5 +407,5 @@ end
 if include and file.Exists("lua/campaign_evolved/ce8_live_details.lua", "GAME") then
     include("campaign_evolved/ce8_live_details.lua")
 end
-if include then include("campaign_evolved/ce8_blade.lua"); include("campaign_evolved/ce8_gauge.lua") end
+if include then include("campaign_evolved/ce8_blade.lua"); include("campaign_evolved/ce8_shield.lua"); include("campaign_evolved/ce8_gauge.lua") end
 CE8.SupportsOverallPaint=true

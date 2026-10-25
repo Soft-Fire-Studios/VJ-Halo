@@ -170,7 +170,7 @@ function methods:AIStartSearch(now)
     if not settings.stimuli or not settings.stimuli[mode] then mode = config.default_mode or "aggressive" end
     if not settings.stimuli or not settings.stimuli[mode] then return false end
     local seen = self[config.fields.seen]
-    if seen and (seen.enemy ~= self:GetEnemy() or seen.time < visibleTime - 0.25) then seen = nil end
+    if seen and seen.enemy ~= self:GetEnemy() then seen = nil end
     local position = seen and seen.origin or self.EnemyData and self.EnemyData.VisiblePos or self:GetEnemyLastKnownPos()
     self[config.fields.active] = {position = Vector(position), deadline = deadline,
         presearch_until = math.min(deadline, now + sampleRange(settings.stimuli[mode].time)),
@@ -178,6 +178,10 @@ function methods:AIStartSearch(now)
     if seen then
         self[config.fields.active].aim = Vector(seen.position)
     end
+    -- A charge/opening belongs to visible combat. Retaining it here blocks
+    -- suppression eligibility even though its action is no longer updated.
+    self:AIEndCharge(now)
+    self:AIEndOpening(now)
     if config.started then config.started(self, self[config.fields.active], now) end
     return true
 end
@@ -332,9 +336,17 @@ function methods:AIThinkSearch(now, enemy)
         return
     end
     if search.yield_schedule then
-        -- VJ can replace one danger schedule with another before returning to
-        -- idle. Keep yielding until its current schedule has actually ended.
-        if self.CurrentSchedule then search.yield_schedule = self.CurrentSchedule return end
+        -- VJ may go directly from danger to idle without exposing a nil
+        -- schedule to our sampled Think. Yield through danger/locked actions,
+        -- but release the latch when ordinary stationary idle resumes.
+        local schedule = self.CurrentSchedule
+        local idle = schedule and (schedule.Name == "SCHEDULE_IDLE_STAND"
+            or schedule.Name == "SCHEDULE_IDLE_WANDER" or schedule.Name == "SCHEDULE_FACE")
+        if schedule and (not idle or self:IsMoving() or not searchReady(self, config, now)
+            or now < (self.TakingCoverT or 0)) then
+            search.yield_schedule = schedule
+            return
+        end
         search.yield_schedule = nil
     end
     if search.action then
@@ -367,6 +379,13 @@ function methods:AIThinkSearch(now, enemy)
     else search.next = now + (config.move_pause or 2) end
     if search.phase == "enter" then
         search.phase = "idle"
+        -- Investigate the observed location before looking around locally.
+        -- Radial samples around our current position cannot reach a distant
+        -- last-known point, which previously left the actor posing in place.
+        if not self.DisableChasingEnemy and not self.DisableWandering and not self.IsGuard and not self.IsFollowing
+            and self:GetPos():DistToSqr(search.position) > (config.arrival_distance or 64) ^ 2 then
+            search.destination = Vector(search.position)
+        end
     elseif not self.DisableWandering and not self.IsGuard and not self.IsFollowing and
         (search.mode == "aggressive" or math.Rand(0, profile.investigate + profile.guard + profile.suppress) < profile.investigate) then
         local choices = VJ.TraceDirections(self, "Quick", settings.radius, true, false, 8, true)
@@ -798,7 +817,7 @@ function methods:AIUpdateSpacing(now, failed)
         or not self:Visible(enemy) then cancel() return end
     if self:GetMoveDelay() > 0 or IsValid(self:GetInternalVariable("m_hOpeningDoor")) then cancel() return end
     -- Never retire a route owned by cover, search, charge or a reaction.
-    for _, name in ipairs({"cover", "search", "charge", "investigation", "postcombat", "idle", "obstacle"}) do
+    for _, name in ipairs({"cover", "search", "charge", "investigation", "postcombat", "idle", "obstacle", "flee"}) do
         local service = profile[name]
         if service and self[service.fields.active] then cancel() return end
     end
@@ -837,6 +856,7 @@ end
 -- A host calls this driver from VJ's active-update hook. It is not a Think hook
 -- or a second navigation loop; it chooses which existing service may act next.
 function methods:AISuspendActions(now)
+    self:AIEndFlee(now, "suspended")
     self:AIEndOpening(now)
     self:AIEndPostcombat(now)
     self:AIFinishSearch(now, false)
@@ -860,6 +880,7 @@ function methods:AIThinkTactics(now)
     local enemy = self:GetEnemy()
     self:AIUpdatePostcombat(now, enemy)
     if config.before_tactics then config.before_tactics(self, now, enemy) end
+    if self:AIThinkFlee(now) then return end
     self:AIUpdateSpacing(now)
     local visible = IsValid(enemy) and self.EnemyData and self.EnemyData.Visible and self:Visible(enemy)
     local search = profile.search
@@ -921,6 +942,153 @@ function methods:AIThinkActions(now)
         end
     elseif evasion then self[evasion.fields.aim_started] = {} end
     if self.IsInitialized and now >= reactionEnd(self) then self:AIThinkTactics(now) end
+end
+
+-- Retreat uses one VJ route per attempt. It never steers the actor with SetPos
+-- or refreshes a path each Think; ownership and a finite deadline release it.
+local fleeTimers = {"NextChaseTime", "NextDoAnyAttackT", "NextWeaponStrafeT", "TakingCoverT"}
+
+function methods:AIEndFlee(now, reason)
+    local config = self.AIProfile and self:AIProfile().flee
+    local action = config and self[config.fields.active]
+    if not action then return end
+    self[config.fields.active] = nil
+    local settings = value(self, config.settings, {})
+    self[config.fields.next_attempt] = now + (settings.cooldown or 8)
+    for key, previous in pairs(action.timers) do
+        if self[key] == action.deadline then self[key] = math.max(now, previous) end
+    end
+    if action.schedule and self.CurrentSchedule == action.schedule then
+        self:ClearSchedule()
+        self:StopMoving()
+    end
+    self[config.fields.last] = {reason = action.reason, ended = reason, time = now}
+    if config.finished then config.finished(self, action, now) end
+end
+
+function methods:AIFleeDestination(threat, position)
+    local config = self:AIProfile().flee
+    if config.destination then return config.destination(self, threat, position) end
+    -- Prefer real nearby protection, then choose a grounded point away from
+    -- the observed threat. VJ owns pathfinding to that candidate.
+    if self:AIHasCapability("cover") and IsValid(threat) then
+        local cover = self:AIFindCover(threat)
+        if cover and cover:DistToSqr(self:GetPos()) > 64 ^ 2 then return cover end
+    end
+    local origin, best, score = self:GetPos(), nil, -math.huge
+    local mins, maxs = self:GetCollisionBounds()
+    local away = origin - position
+    away.z = 0
+    if away:LengthSqr() < 1 then away = -self:GetForward() else away:Normalize() end
+    for _, point in ipairs(VJ.TraceDirections(self, "Radial", config.distance or 384, false, false, 8) or {}) do
+        local delta = point - origin
+        local progress = delta:Dot(away)
+        if progress > 64 then
+            local ground = util.TraceLine({start = point + Vector(0, 0, 24), endpos = point - Vector(0, 0, 72),
+                mask = MASK_NPCSOLID, filter = self})
+            if ground.Hit and not ground.StartSolid and ground.HitNormal.z > 0.7 then
+                local target = ground.HitPos + Vector(0, 0, 2)
+                local room = util.TraceHull({start = target, endpos = target, mins = mins, maxs = maxs,
+                    mask = MASK_NPCSOLID, filter = self})
+                if not room.Hit and not room.StartSolid and progress > score then best, score = target, progress end
+            end
+        end
+    end
+    return best
+end
+
+function methods:AIStartFlee(reason, threat, now)
+    if not self:AIHasCapability("flee") or self.Dead or self:Health() <= 0 or self.VJ_Controlled
+        or not IsValid(threat) or threat:Health() <= 0 or self:GetNavType() ~= NAV_GROUND
+        or not self:OnGround() or self.IsGuard or self.IsFollowing or self.DisableChasingEnemy then return false end
+    local config = self:AIProfile().flee
+    if self[config.fields.active] or now < (self[config.fields.next_attempt] or 0)
+        or self:IsBusy("Activities") or self.AttackType or (config.allowed and not config.allowed(self, reason)) then return false end
+    local settings = value(self, config.settings, {})
+    local position = Vector(threat:GetPos())
+    local destination = self:AIFleeDestination(threat, position)
+    if not destination then self[config.fields.next_attempt] = now + (config.failed_retry or 2) return false end
+    self:AISuspendActions(now)
+    local cower = settings.cower or {0, 0}
+    local action = {reason = reason, threat = threat, position = position, destination = destination,
+        deadline = now + math.max(1, settings.duration or 4), cower_time = math.Rand(cower[1], cower[2]), timers = {}}
+    self[config.fields.active] = action
+    for _, key in ipairs(fleeTimers) do
+        local previous = self[key] or 0
+        if previous < action.deadline then action.timers[key], self[key] = previous, action.deadline end
+    end
+    self:SetLastPosition(destination)
+    self:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH", function(schedule)
+        action.schedule = schedule
+        schedule.CanShootWhenMoving = false
+        schedule.TurnData = nil
+        schedule.RunCode_OnFinish = function()
+            if self[config.fields.active] == action then action.arrived = true end
+        end
+        schedule.RunCode_OnFail = function()
+            if self[config.fields.active] == action then action.failed = true end
+        end
+    end)
+    if config.started then config.started(self, action, now) end
+    return true
+end
+
+function methods:AIThinkFlee(now)
+    local config = self:AIProfile().flee
+    if not config then return false end
+    local action = self[config.fields.active]
+    if not self:AIHasCapability("flee") or self.Dead or self.VJ_Controlled then self:AIEndFlee(now, "disabled") return false end
+    if not action then
+        local enemy, settings = self:GetEnemy(), value(self, config.settings, {})
+        if IsValid(enemy) and enemy:Health() > 0 and self:Visible(enemy)
+            and self:GetPos():DistToSqr(enemy:GetPos()) < (settings.proximity or 0) ^ 2 then
+            return self:AIStartFlee("proximity", enemy, now)
+        end
+        return false
+    end
+    if action.failed or not IsValid(action.threat) or action.threat:Health() <= 0
+        or self.AttackType or (not action.arrived and self.CurrentSchedule ~= action.schedule) then
+        self:AIEndFlee(now, "interrupted") return false
+    end
+    if action.arrived and not action.holding then
+        if self.CurrentSchedule and self.CurrentSchedule ~= action.schedule then
+            self:AIEndFlee(now, "interrupted") return false
+        end
+        if action.cower_time > 0 and self:AIHasCapability("cover") and self:AICoverPoint(self:GetPos(), action.threat) then
+            action.holding = true
+            local old = action.deadline
+            action.deadline = now + action.cower_time
+            for key in pairs(action.timers) do if self[key] == old then self[key] = action.deadline end end
+            self:SCHEDULE_IDLE_STAND()
+            action.schedule = self.CurrentSchedule
+            if config.cower then config.cower(self, action, now) end
+        else self:AIEndFlee(now, "escaped") return false end
+    elseif action.holding and (self:Visible(action.threat) or self.CurrentSchedule ~= action.schedule) then
+        self:AIEndFlee(now, "exposed") return false
+    end
+    if now >= action.deadline then self:AIEndFlee(now, "timeout") return false end
+    return true
+end
+
+function methods:AIAllyLost(ally, now)
+    if not self:AIHasCapability("flee") or not IsValid(ally) then return false end
+    local config = self:AIProfile().flee
+    if config.notice_loss and not config.notice_loss(self, ally) then return false end
+    if self:GetPos():DistToSqr(ally:GetPos()) > (config.loss_range or 1200) ^ 2 then return false end
+    local settings = value(self, config.settings, {})
+    local losses = self[config.fields.losses]
+    if not losses or now - losses.time > (config.loss_window or 10) then
+        losses = {time = now, count = 0, seen = setmetatable({}, {__mode = "k"})}
+        self[config.fields.losses] = losses
+    end
+    if losses.seen[ally] then return false end
+    losses.seen[ally] = true
+    local leader = config.is_leader and config.is_leader(self, ally)
+    if not leader then losses.count = losses.count + 1 end
+    local chance = leader and settings.leader_chance
+        or (losses.count > 1 and settings.second_peer_chance or settings.peer_chance)
+    if math.Rand(0, 1) >= (chance or 0) then return false end
+    return self:AIStartFlee(leader and "leader_lost" or "peer_lost", self:GetEnemy(), now)
 end
 
 return methods

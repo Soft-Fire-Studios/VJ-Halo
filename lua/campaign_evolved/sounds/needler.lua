@@ -1,6 +1,77 @@
 -- Native weapon audio; shared media and authored cue layers.
 return {
     ["contact"] = {
+        ["expire"] = {
+            ["children"] = {
+                {
+                    ["children"] = {
+                        {
+                            ["avoid"] = 1,
+                            ["children"] = {
+                                {
+                                    ["file"] = "campaign_evolved/ce8/weapons/needler/pop_06.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/weapons/needler/pop_05.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/weapons/needler/pop_04.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/weapons/needler/pop_01.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/weapons/needler/pop_03.ogg",
+                                },
+                            },
+                            ["gain"] = {
+                                -3.0,
+                                -3.0,
+                            },
+                            ["random"] = true,
+                            ["shuffle"] = false,
+                            ["weights"] = {
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                            },
+                        },
+                        {
+                            ["children"] = {
+                                {
+                                    ["avoid"] = 1,
+                                    ["children"] = {
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/weapons/needle/super_11.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/weapons/needle/super_07.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/weapons/needle/super_10.ogg",
+                                        },
+                                    },
+                                    ["random"] = true,
+                                    ["shuffle"] = false,
+                                    ["weights"] = {
+                                        100000,
+                                        100000,
+                                        100000,
+                                    },
+                                },
+                            },
+                            ["switch_default"] = 1183803292,
+                        },
+                    },
+                    ["gain"] = {
+                        -12.0,
+                        -12.0,
+                    },
+                },
+            },
+        },
         ["flyby"] = {
             ["event"] = {
                 ["children"] = {

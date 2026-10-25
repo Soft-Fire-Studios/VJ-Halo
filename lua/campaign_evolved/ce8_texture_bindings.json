@@ -1046,6 +1046,14 @@
       "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
       "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/frag_grenade/textures/body_params"
     },
+    "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/barrier_mask",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/energy_sword/textures/blade_energy2",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/energy_sword/textures/blade_noise",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/barrier_distort",
+      "$texture4": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/barrier_hex",
+      "$texture5": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/barrier_plasma"
+    },
     "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal": {
       "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/pedestal_dif",
       "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/pedestal_nm",
@@ -1055,6 +1063,14 @@
       "$texture5": "models/cubemaps/fallout4cube_dithered_grey",
       "$texture6": "models/campaign_evolved/ce8/details/covenant/detail_orme",
       "$texture7": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/pedestal_params"
+    },
+    "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier": {
+      "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/barrier_mask",
+      "$texture1": "models/campaign_evolved/ce8/material_sets/weapons/energy_sword/textures/blade_energy2",
+      "$texture2": "models/campaign_evolved/ce8/material_sets/weapons/energy_sword/textures/blade_noise",
+      "$texture3": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/barrier_distort",
+      "$texture4": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/barrier_hex",
+      "$texture5": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/barrier_plasma"
     },
     "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal": {
       "$basetexture": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/textures/pedestal_dif",

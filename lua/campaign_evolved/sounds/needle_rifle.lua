@@ -1,6 +1,43 @@
 -- Native weapon audio; shared media and authored cue layers.
 return {
     ["contact"] = {
+        ["expire"] = {
+            ["children"] = {
+                {
+                    ["avoid"] = 1,
+                    ["children"] = {
+                        {
+                            ["file"] = "campaign_evolved/ce8/weapons/needle_rifle/pop_03.ogg",
+                        },
+                        {
+                            ["file"] = "campaign_evolved/ce8/weapons/needle_rifle/pop_01.ogg",
+                        },
+                        {
+                            ["file"] = "campaign_evolved/ce8/weapons/needle_rifle/pop_02.ogg",
+                        },
+                        {
+                            ["file"] = "campaign_evolved/ce8/weapons/needle_rifle/pop_05.ogg",
+                        },
+                        {
+                            ["file"] = "campaign_evolved/ce8/weapons/needle_rifle/pop_04.ogg",
+                        },
+                    },
+                    ["gain"] = {
+                        -15.0,
+                        -15.0,
+                    },
+                    ["random"] = true,
+                    ["shuffle"] = false,
+                    ["weights"] = {
+                        50000,
+                        50000,
+                        50000,
+                        50000,
+                        50000,
+                    },
+                },
+            },
+        },
         ["flyby"] = {
             ["event"] = {
                 ["children"] = {

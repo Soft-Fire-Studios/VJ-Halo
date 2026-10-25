@@ -4,11 +4,14 @@ difficulty.Setup()
 if SERVER then
     AddCSLuaFile()
     AddCSLuaFile("campaign_evolved/elite_anims.lua")
+    AddCSLuaFile("campaign_evolved/human.lua")
+    AddCSLuaFile("campaign_evolved/actor.lua")
     AddCSLuaFile("campaign_evolved/sounds/elite.lua")
     AddCSLuaFile("campaign_evolved/sounds/elite_shield.lua")
     AddCSLuaFile("campaign_evolved/weapons.lua")
     AddCSLuaFile("campaign_evolved/weapon.lua")
     AddCSLuaFile("campaign_evolved/ce8_gauge.lua")
+    AddCSLuaFile("campaign_evolved/ce8_shield.lua")
     AddCSLuaFile("campaign_evolved/weapon_fx.lua")
     AddCSLuaFile("campaign_evolved/ballistics.lua")
     AddCSLuaFile("campaign_evolved/difficulty.lua")
@@ -29,7 +32,11 @@ end
 -- lets lua_openscript load the new classes into an already running local map.
 local previousENT, previousSWEP = ENT, SWEP
 local eliteData
+local rosterData = {}
 local ok, message = xpcall(function()
+    ENT = {}
+    include("entities/obj_ce8_barrier.lua")
+    scripted_ents.Register(ENT, "obj_ce8_barrier")
     ENT = {}
     include("entities/obj_ce8_projectile/" .. (SERVER and "init.lua" or "cl_init.lua"))
     scripted_ents.Register(ENT, "obj_ce8_projectile")
@@ -44,6 +51,22 @@ local ok, message = xpcall(function()
             ENT = {}
             include(path)
             scripted_ents.Register(ENT, eliteData.ranks[rank].class_name)
+        end
+    end
+    for _, owner in ipairs({"grunt", "jackal", "hunter"}) do
+        ENT = {}
+        include("entities/npc_vj_ce8_" .. owner .. "/" .. (SERVER and "init.lua" or "cl_init.lua"))
+        scripted_ents.Register(ENT, "npc_vj_ce8_" .. owner)
+        local data = ENT:CE8Data()
+        rosterData[owner] = data
+        for _, rank in ipairs(data.rank_order) do
+            if rank ~= "minor" then
+                local path = "entities/" .. data.ranks[rank].class_name .. ".lua"
+                if SERVER then AddCSLuaFile(path) end
+                ENT = {}
+                include(path)
+                scripted_ents.Register(ENT, data.ranks[rank].class_name)
+            end
         end
     end
     for name in pairs(covenantWeapons) do
@@ -72,6 +95,16 @@ for _, name in ipairs(eliteData.rank_order) do
         weaponPools[rank.profile] = pool
     end
     VJ.AddNPC_HUMAN(rank.name, rank.class_name, pool, "Halo - Campaign Evolved")
+end
+for _, data in pairs(rosterData) do
+    for _, name in ipairs(data.rank_order) do
+        local rank = data.ranks[name]
+        if data.adapter == "creature" then
+            VJ.AddNPC(rank.name, rank.class_name, "Halo - Campaign Evolved")
+        else
+            VJ.AddNPC_HUMAN(rank.name, rank.class_name, rank.loadout, "Halo - Campaign Evolved")
+        end
+    end
 end
 local listed = {}
 for _, entry in ipairs(list.Get("NPCUsableWeapons") or {}) do

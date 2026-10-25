@@ -52,14 +52,15 @@ local function vector(values) return Vector(values[1], values[2], values[3]) end
 local function angle(values) return Angle(values[1], values[2], values[3]) end
 
 function SWEP:CE8Attach(owner)
-    if not IsValid(owner) or not owner.IsCE8Elite then return false end
+    if not IsValid(owner) or not (owner.IsCE8SNPC or owner.IsCE8Elite) then return false end
+    local mount = owner.CE8WeaponMount and owner:CE8WeaponMount(self) or data.parent_offset
     local id = owner:LookupAttachment(data.parent_attachment)
     if id <= 0 then return false end
     self:RemoveEffects(EF_BONEMERGE)
     self:AddEffects(EF_PARENT_ANIMATES)
     self:SetParent(owner, id)
-    self:SetLocalPos(vector(data.parent_offset.pos))
-    self:SetLocalAngles(angle(data.parent_offset.ang))
+    self:SetLocalPos(vector(mount.pos))
+    self:SetLocalAngles(angle(mount.ang))
     self:SetSolid(SOLID_NONE)
     self:SetNoDraw(false)
     if CLIENT then self:InvalidateBoneCache() end
@@ -73,6 +74,7 @@ function SWEP:OnEquip(owner)
     self.CE8AnimationClass = data.unit_classes[label] or data.native_class
     self.HoldType = data.unit_holds[label] or data.hold_type
     if self.SetHoldType then self:SetHoldType(self.HoldType) end
+    self.CE8Grip = owner.CE8WeaponGrip and owner:CE8WeaponGrip(self) or data.grip
     self:CE8Attach(owner)
     self.CE8Burst = nil
     self.CE8FireEnemy = nil
@@ -346,7 +348,7 @@ end
 function SWEP:OnThink()
     self:CE8SyncGaugeAmmo()
     local owner = self:GetOwner()
-    if IsValid(owner) and owner.IsCE8Elite and (self:GetParent() ~= owner or not self.CE8Attached) then
+    if IsValid(owner) and (owner.IsCE8SNPC or owner.IsCE8Elite) and (self:GetParent() ~= owner or not self.CE8Attached) then
         self:CE8Attach(owner)
     end
     if SERVER and IsValid(owner) and owner:IsNPC() then
@@ -382,21 +384,23 @@ function SWEP:OnPrimaryAttack_BulletCallback(attacker, trace, damage)
     end
     if not SERVER or data.projectile or not data.needle or damage:GetDamage() <= 0 then return end
     local target = trace.Entity
-    if not IsValid(target) or target == attacker or
-        not (target:IsNPC() or target:IsPlayer() or target:IsNextBot()) or
-        target:Health() <= 0 or (target.CE8Shield or 0) > 0 or
-        (target:IsPlayer() and target:Armor() > 0) then return end
-    local health = target:Health()
+    if target == attacker then return end
+    local contact = effects.NeedleContact(target, trace)
+    if not contact then return end
+    local health = contact == "unit" and target:Health() or nil
     -- The callback runs before Source applies bullet damage. Copy the trace
     -- values now; DamageInfo must not be retained beyond this callback.
     local hit = {HitPos = Vector(trace.HitPos), Normal = Vector(trace.Normal),
-        HitBox = trace.HitBox, HitBoxSet = trace.HitBoxSet}
+        HitBox = trace.HitBox, HitBoxSet = trace.HitBoxSet, PhysicsBone = trace.PhysicsBone,
+        MatType = trace.MatType, HitSky = trace.HitSky}
     timer.Simple(0, function()
-        if not IsValid(target) or target:Health() <= 0 or target:Health() >= health then return end
+        if not IsValid(target) or (health and (target:Health() <= 0 or target:Health() >= health)) then return end
         local projectile = ents.Create("obj_ce8_projectile")
         if not IsValid(projectile) then return end
         projectile.CE8Data = data
         projectile.CE8WeaponName = name
+        projectile.CE8Sounds = sounds
+        projectile.CE8ImpactSoundPlayed = true -- The original trace owns contact audio.
         projectile.CE8Damage = 0 -- The original bullet already dealt the impact.
         if IsValid(attacker) then projectile:SetOwner(attacker) end
         projectile:SetPos(hit.HitPos)
@@ -437,7 +441,7 @@ if CLIENT then
         if not draw then return end
         self.CE8WeaponRenderer = function(weapon, flags)
             local owner = weapon:GetOwner()
-            if IsValid(owner) and owner.IsCE8Elite and owner.CE8DrawingModel then return end
+            if IsValid(owner) and (owner.IsCE8SNPC or owner.IsCE8Elite) and owner.CE8DrawingModel then return end
             if weapon.CE8DrawingModel then weapon:DrawModel(flags) return end
             local previous = weapon.CE8DrawingModel
             weapon.CE8DrawingModel = true
@@ -464,7 +468,7 @@ if CLIENT then
     function SWEP:DrawWorldModelTranslucent(flags)
         if not self:GetDrawWorldModel() then return end
         local owner=self:GetOwner()
-        if IsValid(owner) and owner.IsCE8Elite and owner.CE8DrawingModel then return end
+        if IsValid(owner) and (owner.IsCE8SNPC or owner.IsCE8Elite) and owner.CE8DrawingModel then return end
         self:CE8BindRenderer()
         if CE8 and CE8.DrawEmissiveModel then
             CE8.DrawEmissiveModel(self,bit.bor(flags or 0,STUDIO_RENDER or 1,STUDIO_DRAWTRANSLUCENTSUBMODELS or 4))
@@ -473,7 +477,7 @@ if CLIENT then
 
     function SWEP:OnDrawWorldModel()
         local owner = self:GetOwner()
-        if IsValid(owner) and owner.IsCE8Elite and owner.CE8DrawingModel then return false end
+        if IsValid(owner) and (owner.IsCE8SNPC or owner.IsCE8Elite) and owner.CE8DrawingModel then return false end
         self:CE8DrawHeld()
         return false
     end
