@@ -22351,6 +22351,68 @@
               0.49423886463046074
             ]
           }
+        },
+        "rocket": {
+          "version": 1,
+          "parent_region": "whole",
+          "parent_component": "whole",
+          "parent_model": "models/campaign_evolved/ce8/material_sets/weapons/weapon_rocket.mdl",
+          "source_model": "models/campaign_evolved/ce8/material_sets/weapons/weapon_rocket.mdl",
+          "parts": [
+            {
+              "region": "whole",
+              "component": "whole",
+              "permutation": "rocket",
+              "model": "models/campaign_evolved/ce8/material_sets/weapons/weapon_rocket.mdl",
+              "groups": [
+                "body"
+              ],
+              "material_count": 1
+            }
+          ],
+          "material_path": "",
+          "material_bindings": {
+            "materials": {
+              "models/campaign_evolved/ce8/material_sets/weapons/rocket/body": "models/campaign_evolved/ce8/material_sets/weapons/rocket/body"
+            },
+            "light_materials": {},
+            "glows": {}
+          },
+          "material_mode": "8tex",
+          "ce8_only": true,
+          "geometry_layout": "whole_material_sets",
+          "color_mode": "overall",
+          "asset_type": "projectile_prop",
+          "ragdoll": false,
+          "physics_prop": true,
+          "source_bones": 1,
+          "draw_triangles": 144,
+          "source_triangles": 144,
+          "physics": {
+            "solids": 1,
+            "joints": 0,
+            "mass_kg": 1.0,
+            "checksum": 3964946935,
+            "rigid_authored_collision": true
+          },
+          "source_files": [
+            "rocket.qc",
+            "bind_pose.smd",
+            "meshes/body.dmx",
+            "physics/collision.smd"
+          ],
+          "model_bounds": {
+            "min": [
+              -3.7514036893844604,
+              -0.7014167681336403,
+              -0.7014167681336403
+            ],
+            "max": [
+              2.5196852535009384,
+              0.7014167681336403,
+              0.7014167681336403
+            ]
+          }
         }
       },
       "aliases": {

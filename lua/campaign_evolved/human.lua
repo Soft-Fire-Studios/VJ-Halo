@@ -4,16 +4,25 @@ local Host = {Shared = Actor.Shared, Profile = Actor.Profile, Client = Actor.Cli
 function Host.Server(ENT, profile)
     Actor.Server(ENT, profile)
     local data = ENT:CE8Data()
-    ENT.Weapon_CanMoveFire, ENT.Weapon_Strafe = true, true
+    ENT.Weapon_CanMoveFire, ENT.Weapon_Strafe = true, Actor.Option(data, "strafe", true)
     ENT.Weapon_StrafeCooldown = VJ.SET(2, 4)
-    ENT.Weapon_CanCrouchAttack = true
+    ENT.Weapon_CanCrouchAttack = Actor.Option(data, "crouch_fire", true)
     ENT.Weapon_CanSecondaryFire = false
-    ENT.Weapon_FindCoverOnReload = false
-    ENT.Weapon_RetreatDistance = data.owner == "grunt" and 90 or 150
-    ENT.Weapon_MinDistance, ENT.Weapon_MaxDistance = 40, 2400
+    ENT.Weapon_FindCoverOnReload = Actor.Option(data, "reload_cover", false)
+    ENT.Weapon_RetreatDistance = Actor.Option(data, "retreat_distance", data.owner == "grunt" and 90 or 150)
+    ENT.Weapon_UnarmedBehavior = Actor.Option(data, "unarmed_flee", true)
+    ENT.Weapon_OcclusionDelay = Actor.Option(data, "occlusion_delay", true)
+    ENT.Weapon_MinDistance, ENT.Weapon_MaxDistance = 40, Actor.Option(data, "weapon_max_distance", 2400)
     ENT.Weapon_AimTurnDiff = 0.70710678
     ENT.AnimTbl_WeaponAttack, ENT.AnimTbl_WeaponAttackCrouch = ACT_IDLE_ANGRY, ACT_COVER_LOW
     ENT.HasMeleeAttack = false
+    function ENT:SetAnimationTranslations(hold, weapon)
+        self:AISetAnimationTranslations(hold, weapon)
+        if not self:AIHasCapability("cover") then
+            self.AnimTbl_TakingCover = false
+            self.AnimTbl_WeaponReloadCovered = false
+        end
+    end
     function ENT:OnWeaponChange(weapon)
         self:SetAnimationTranslations(IsValid(weapon) and weapon:GetHoldType() or "pistol", weapon)
         local grip = self:CE8WeaponGrip(weapon)
@@ -22,7 +31,14 @@ function Host.Server(ENT, profile)
         if IsValid(weapon) and weapon.CE8Attach then weapon:CE8Attach(self) end
         self:CE8UpdateEquipment()
     end
-    function ENT:CE8WeaponShotReady() return not self.AIFlee and not self.Dead end
+    function ENT:CE8WeaponShotReady(now)
+        return not self.AIFlee and not self.Dead and not self:AIChargeBlocksWeapon(self:GetActiveWeapon(), now)
+    end
+    -- Gate VJ's firing stance as well as the SWEP; otherwise a standing shot
+    -- replaces the chase schedule while the actor is committed to melee.
+    function ENT:OnWeaponCanFire()
+        if self:AIChargeBlocksWeapon(self:GetActiveWeapon(), CurTime()) then return false end
+    end
     Host.Equipment(ENT)
 end
 

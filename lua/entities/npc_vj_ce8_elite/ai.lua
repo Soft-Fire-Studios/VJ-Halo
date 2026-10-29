@@ -37,8 +37,8 @@ function ENT:CE8ConfigureAI()
     self.CanFlinch = true
     self.FlinchChance = 1
     self.FlinchCooldown = settings.damage.cooldown
-    self.MeleeAttackDistance = settings.charge.attack_range
-    self.MeleeAttackDamageDistance = settings.charge.attack_range
+    self.MeleeAttackDistance = math.min(settings.charge.attack_range, data.melee.hit_range)
+    self.MeleeAttackDamageDistance = data.melee.hit_range
     self.HasDeathAnimation = true
     self.HasGrenadeAttack = grenade.enabled and (self.CE8Grenades == nil or self.CE8Grenades > 0)
     self.GrenadeAttackEntity = "obj_ce8_projectile"

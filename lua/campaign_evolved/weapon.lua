@@ -8,7 +8,7 @@ local ballistics = include("campaign_evolved/ballistics.lua")
 local difficulty = include("campaign_evolved/difficulty.lua")
 effects.Load(data)
 SWEP.PrintName = data.name
-SWEP.Author = "Halo-DT"
+SWEP.Author = "VJ-Halo"
 SWEP.Category = "Halo - Campaign Evolved"
 SWEP.Spawnable = false
 SWEP.MadeForNPCsOnly = true
@@ -35,15 +35,19 @@ SWEP.Primary.Automatic = data.automatic
 SWEP.Primary.Delay = data.interval
 SWEP.Primary.Damage = data.damage.amount[1]
 SWEP.Primary.Force = 2
-SWEP.Primary.TracerType = "AR2Tracer"
+SWEP.Primary.TracerType = data.tracer or "AR2Tracer"
+SWEP.Primary.NumberOfShots = data.projectiles_per_shot or 1
 SWEP.Primary.Sound = layers[1] or {}
 SWEP.Primary.HasDistantSound = false
 SWEP.Primary.SoundPitch = VJ.SET(100, 100)
 SWEP.Primary.DisableBulletCode = data.projectile
 SWEP.IsMeleeWeapon = data.melee
-SWEP.MeleeWeaponDistance = data.melee_range
+-- VJ adds 20 units to melee-weapon damage reach. Keep the effective sword
+-- reach at the authored depth and its attack start inside that reach.
+SWEP.MeleeWeaponDistance = data.melee and math.max(0, data.melee_range - 20) or data.melee_range
 SWEP.MeleeWeaponDamageType = DMG_SLASH
-SWEP.PrimaryEffects_MuzzleFlash = false
+SWEP.PrimaryEffects_MuzzleFlash = data.source_effects and data.source_effects.muzzle ~= nil or false
+SWEP.PrimaryEffects_MuzzleAttachment = data.muzzle
 SWEP.PrimaryEffects_MuzzleParticles = false
 SWEP.PrimaryEffects_SpawnShells = false
 SWEP.PrimaryEffects_DynamicLightColor = Color(data.color[1], data.color[2], data.color[3])
@@ -77,6 +81,8 @@ function SWEP:OnEquip(owner)
     self.CE8Grip = owner.CE8WeaponGrip and owner:CE8WeaponGrip(self) or data.grip
     self:CE8Attach(owner)
     self.CE8Burst = nil
+    self.CE8Trigger, self.CE8NextTriggerT = nil, nil
+    self.NPC_FiringDistanceMax = difficulty.Unit(data, owner).max_range or data.max_range
     self.CE8FireEnemy = nil
     self.CE8NextBurstT = nil
     self.CE8FireOwner = nil
@@ -84,6 +90,7 @@ function SWEP:OnEquip(owner)
     self.CE8AccuracyStarted = nil
     self.CE8FireState = nil
     self.CE8ShotProfile = nil
+    self.CE8MeleeSwing, self.CE8MeleeEventOwner = nil, nil
 end
 
 local function sample(range) return math.Rand(range[1], range[2]) end
@@ -143,7 +150,8 @@ function SWEP:CE8UpdateFireContext(owner, now)
         self.CE8FireEnemy = enemy
         self.CE8FireReady = ready
         self.CE8Burst = nil
-        self.CE8NextBurstT = ready and now + sample(data.first_delay) or nil
+        self.CE8Trigger, self.CE8NextTriggerT = nil, nil
+        self.CE8NextBurstT = ready and now + sample(difficulty.Unit(data, owner).first_delay or data.first_delay) or nil
         self.CE8AccuracyStarted = ready and now or nil
         self.CE8ShotProfile = nil
         self.CE8FireState = nil
@@ -224,10 +232,53 @@ function SWEP:CE8FireCorpse(owner, now)
     end
 end
 
+-- Elite sword damage belongs to the authored contact event, not VJ's
+-- animation-start firing timer. Other hosts retain their existing dispatch.
+local function eventMelee(owner)
+    return data.melee and IsValid(owner) and owner.IsCE8Elite
+end
+
+local function meleeReady(weapon, owner, swing)
+    if not swing or swing.owner ~= owner or not IsValid(owner) or weapon:GetOwner() ~= owner
+        or owner:GetActiveWeapon() ~= weapon or owner.Dead or owner:Health() <= 0
+        or owner.PauseAttacks or owner.Flinching or owner.AttackType or owner.CE8Reaction
+        or owner:GetState() == VJ_STATE_FREEZE or owner:GetSequence() ~= swing.sequence then return false end
+    local disabled = GetConVar("ai_disabled")
+    return not (disabled and disabled:GetBool()) and owner:GetCycle() >= swing.cycle
+end
+
+function SWEP:CE8BeginMeleeSwing(owner, sequence)
+    if not SERVER or not eventMelee(owner) then return end
+    self.CE8MeleeSwing = {owner = owner, sequence = sequence, cycle = 0}
+    self.CE8MeleeEventOwner = nil
+    -- Retire a pre-refresh ranged-style burst without inheriting its pause.
+    self.CE8Burst, self.CE8NextBurstT = nil, nil
+end
+
+function SWEP:OnHolster()
+    self.CE8MeleeSwing, self.CE8MeleeEventOwner = nil, nil
+end
+
+function SWEP:CE8MeleeEvent(owner)
+    if not SERVER or not eventMelee(owner) then return false end
+    local swing = self.CE8MeleeSwing
+    self.CE8MeleeSwing = nil -- A miss also consumes this swing's contact.
+    if not meleeReady(self, owner, swing) then return false end
+    self.CE8MeleeEventOwner = owner
+    -- Reuse VJ's melee damage, range, relationship and hit/miss sound handling.
+    -- Its swing-start timer stays blocked, even if it runs after this event.
+    local ok, message = xpcall(function() self:PrimaryAttack() end, debug.traceback)
+    self.CE8MeleeEventOwner = nil
+    if not ok then ErrorNoHalt("CE8 melee event: " .. tostring(message) .. "\n") end
+    return ok
+end
+
 function SWEP:NPC_CanFire(selfData, owner)
     owner = owner or self:GetOwner()
+    if eventMelee(owner) then return false end
     if IsValid(owner) and owner.CE8WeaponShotReady and not owner:CE8WeaponShotReady(CurTime()) then return false end
-    if self.CE8Overheated or CurTime() < (self.CE8NextBurstT or 0) then return false end
+    if self.CE8Overheated or CurTime() < (self.CE8NextBurstT or 0)
+        or CurTime() < (self.CE8NextTriggerT or 0) then return false end
     return baseclass.Get("weapon_vj_base").NPC_CanFire(self, selfData, owner)
 end
 
@@ -235,9 +286,10 @@ function SWEP:CE8BeginShot(owner, now)
     if owner.CE8WeaponShotReady and not owner:CE8WeaponShotReady(now) then return false end
     self:CE8UpdateHeat(now)
     self:CE8UpdateFireContext(owner, now)
-    if not self.CE8FireReady or self.CE8Overheated or now < (self.CE8NextBurstT or 0) then return false end
+    if not self.CE8FireReady or self.CE8Overheated or now < (self.CE8NextBurstT or 0)
+        or now < (self.CE8NextTriggerT or 0) then return false end
     local burst = self.CE8Burst
-    if burst and now >= burst.finish then
+    if burst and not self.CE8Trigger and now >= burst.finish then
         self.CE8NextBurstT = burst.finish + sample(burst.profile.separation)
         self.CE8Burst = nil
         if now < self.CE8NextBurstT then return false end
@@ -252,18 +304,20 @@ function SWEP:CE8BeginShot(owner, now)
     end
     self.CE8ShotProfile = burst.profile
     self.CE8FireState = burst.state
-    self.NPC_NextPrimaryFire = burst.interval
+    self.NPC_NextPrimaryFire = data.trigger_burst and data.trigger_burst.interval or burst.interval
     self.Primary.Damage = sample(data.damage.amount)
     return true
 end
 
 function SWEP:CE8ShotSpread(owner)
     local profile = self.CE8ShotProfile
-    if not profile then return end
+    if not profile then return data.conical_spread and math.tan(data.conical_spread.angle) or nil end
     local scale = self.CE8FireState and self.CE8FireState.error_scale
         or tonumber(difficulty.Get("ce8_projectile_error_scale"))
-    return math.tan(profile.projectile_error) * scale * math.max(0, owner.Weapon_Accuracy or 1)
+    local aim = math.tan(profile.projectile_error) * scale * math.max(0, owner.Weapon_Accuracy or 1)
         * math.max(0, self.NPC_CustomSpread or 1)
+    -- The native shotgun cone is mechanical spread, independent of AI aim.
+    return aim + (data.conical_spread and math.tan(data.conical_spread.angle) or 0)
 end
 
 function SWEP:CE8SpawnProjectile(owner)
@@ -336,8 +390,22 @@ function SWEP:CE8FinishShot(now)
     end
     self:CE8SyncHeat(now)
     self:CE8SyncGaugeAmmo()
+    local trigger = data.trigger_burst
+    if trigger then
+        local state = self.CE8Trigger or {shots = 0}
+        state.shots = state.shots + 1
+        if state.shots < trigger.rounds and self:Clip1() > 0 then
+            self.CE8Trigger = state
+            self.CE8NextTriggerT = now + trigger.interval
+            self.NPC_NextPrimaryFire = trigger.interval
+            return
+        end
+        self.CE8Trigger = nil
+        self.CE8NextTriggerT = now + math.max(trigger.recovery, burst.interval)
+        self.NPC_NextPrimaryFire = self.CE8NextTriggerT - now
+    end
     if now + burst.interval >= burst.finish - 0.00001 then
-        self.CE8NextBurstT = math.max(now + burst.interval, burst.finish + sample(burst.profile.separation))
+        self.CE8NextBurstT = math.max(now + burst.interval, self.CE8NextTriggerT or 0, burst.finish + sample(burst.profile.separation))
         -- VJ writes this delay after PrimaryAttack returns. Set it here so a
         -- held attack respects the full pause without extra firing timers.
         self.NPC_NextPrimaryFire = self.CE8NextBurstT - now
@@ -352,6 +420,12 @@ function SWEP:OnThink()
         self:CE8Attach(owner)
     end
     if SERVER and IsValid(owner) and owner:IsNPC() then
+        if eventMelee(owner) then
+            local swing = self.CE8MeleeSwing
+            if meleeReady(self, owner, swing) then swing.cycle = owner:GetCycle()
+            else self.CE8MeleeSwing = nil end
+            return
+        end
         local now = CurTime()
         self:CE8UpdateHeat(now)
         self:CE8UpdateFireContext(owner, now)
@@ -363,7 +437,11 @@ end
 function SWEP:OnPrimaryAttack(status)
     local owner = self:GetOwner()
     if status == "Init" and SERVER and IsValid(owner) and owner:IsNPC() then
-        if not self:CE8BeginShot(owner, CurTime()) then return true end
+        if eventMelee(owner) then
+            if self.CE8MeleeEventOwner ~= owner then return true end
+            self.CE8MeleeEventOwner = nil -- Consume before VJ applies damage.
+            self.Primary.Damage = sample(data.damage.amount)
+        elseif not self:CE8BeginShot(owner, CurTime()) then return true end
     elseif status == "PostFire" then
         if SERVER then effects.Muzzle(self, data, false) end
         if SERVER and data.projectile and IsValid(owner) then self:CE8SpawnProjectile(owner) end
@@ -371,11 +449,23 @@ function SWEP:OnPrimaryAttack(status)
             local choices = layers[index]
             if choices and #choices > 0 then self:EmitSound(choices[math.random(#choices)], 85, 100, 1, CHAN_AUTO) end
         end
-        if SERVER then self:CE8FinishShot(CurTime()) end
+        if SERVER then
+            if eventMelee(owner) then
+                self.CE8LastShotT = CurTime()
+                owner.WeaponLastShotTime = self.CE8LastShotT
+            else self:CE8FinishShot(CurTime()) end
+        end
     end
 end
 
 function SWEP:OnPrimaryAttack_BulletCallback(attacker, trace, damage)
+    if SERVER and not data.projectile and data.damage_falloff then
+        local falloff = data.damage_falloff
+        local distance = trace.StartPos:Distance(trace.HitPos)
+        local fraction = math.Clamp((distance - falloff.start) / math.max(0.001, falloff.finish - falloff.start), 0, 1)
+        local peak = math.max(0.001, self.Primary.Damage)
+        damage:ScaleDamage(1 + (falloff.minimum / peak - 1) * fraction)
+    end
     if SERVER and not data.projectile then
         effects.Flyby(sounds, trace.StartPos, trace.HitPos, attacker)
         if trace.Hit and not trace.HitSky then
@@ -420,6 +510,7 @@ function SWEP:OnDrop()
     self:SetPos(pos)
     self:SetAngles(ang)
     self.CE8Attached = false
+    self.CE8Trigger, self.CE8NextTriggerT = nil, nil
 end
 
 if CLIENT then

@@ -193,6 +193,18 @@ return {
             "campaign_evolved/ce8/flood_infection/foley/wrestle_08.ogg",
             "campaign_evolved/ce8/flood_infection/foley/wrestle_09.ogg",
         },
+        ["pop"] = {
+            "campaign_evolved/ce8/flood_infection/effects/pop_01.ogg",
+            "campaign_evolved/ce8/flood_infection/effects/pop_02.ogg",
+            "campaign_evolved/ce8/flood_infection/effects/pop_03.ogg",
+            "campaign_evolved/ce8/flood_infection/effects/pop_04.ogg",
+            "campaign_evolved/ce8/flood_infection/effects/pop_05.ogg",
+            "campaign_evolved/ce8/flood_infection/effects/pop_06.ogg",
+            "campaign_evolved/ce8/flood_infection/effects/pop_07.ogg",
+            "campaign_evolved/ce8/flood_infection/effects/pop_08.ogg",
+            "campaign_evolved/ce8/flood_infection/effects/pop_09.ogg",
+            "campaign_evolved/ce8/flood_infection/effects/pop_10.ogg",
+        },
     },
     ["events"] = {
         ["infector_burrow"] = {
@@ -388,6 +400,83 @@ return {
     ["footsteps"] = {
     },
     ["playback"] = {
+        ["effects/pop"] = {
+            ["children"] = {
+                {
+                    ["children"] = {
+                        {
+                            ["children"] = {
+                                {
+                                    ["avoid"] = 1,
+                                    ["children"] = {
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_infection/effects/pop_10.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_infection/effects/pop_03.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_infection/effects/pop_04.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_infection/effects/pop_06.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_infection/effects/pop_08.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_infection/effects/pop_01.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_infection/effects/pop_07.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_infection/effects/pop_09.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_infection/effects/pop_05.ogg",
+                                            ["gain"] = {
+                                                1.0,
+                                                1.0,
+                                            },
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_infection/effects/pop_02.ogg",
+                                        },
+                                    },
+                                    ["gain"] = {
+                                        -3.0,
+                                        -3.0,
+                                    },
+                                    ["random"] = true,
+                                    ["shuffle"] = false,
+                                    ["weights"] = {
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                    },
+                                },
+                            },
+                            ["gain"] = {
+                                -6.0,
+                                -6.0,
+                            },
+                        },
+                    },
+                    ["gain"] = {
+                        -3.0,
+                        -3.0,
+                    },
+                },
+            },
+        },
         ["infector_burrow"] = {
             ["children"] = {
                 {

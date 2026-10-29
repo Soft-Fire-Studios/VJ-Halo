@@ -376,6 +376,21 @@ return {
     },
     ["events"] = {
         ["combat_elite_shortmove"] = {
+            "campaign_evolved/ce8/flood_combat_elite/foley/longmove_01.ogg",
+            "campaign_evolved/ce8/flood_combat_elite/foley/longmove_02.ogg",
+            "campaign_evolved/ce8/flood_combat_elite/foley/longmove_03.ogg",
+            "campaign_evolved/ce8/flood_combat_elite/foley/longmove_04.ogg",
+            "campaign_evolved/ce8/flood_combat_elite/foley/longmove_05.ogg",
+            "campaign_evolved/ce8/flood_combat_elite/foley/longmove_06.ogg",
+            "campaign_evolved/ce8/flood_combat_elite/foley/longmove_07.ogg",
+            "campaign_evolved/ce8/flood_combat_elite/foley/longmove_08.ogg",
+            "campaign_evolved/ce8/flood_combat_elite/foley/longmove_09.ogg",
+            "campaign_evolved/ce8/flood_combat_elite/foley/longmove_10.ogg",
+            "campaign_evolved/ce8/flood_combat_elite/foley/longmove_11.ogg",
+            "campaign_evolved/ce8/flood_combat_elite/foley/longmove_12.ogg",
+            "campaign_evolved/ce8/flood_combat_elite/foley/longmove_13.ogg",
+            "campaign_evolved/ce8/flood_combat_elite/foley/longmove_14.ogg",
+            "campaign_evolved/ce8/flood_combat_elite/foley/longmove_15.ogg",
         },
         ["combatform_elite_jump"] = {
         },
@@ -804,6 +819,298 @@ return {
         },
     },
     ["playback"] = {
+        ["bodyfalls/hard"] = {
+            ["children"] = {
+                {
+                    ["children"] = {
+                        {
+                            ["avoid"] = 3,
+                            ["children"] = {
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_hard_08.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_hard_03.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_hard_11.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_hard_06.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_hard_13.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_hard_04.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_hard_14.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_hard_09.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_hard_12.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_hard_05.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_hard_01.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_hard_07.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_hard_10.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_hard_02.ogg",
+                                },
+                            },
+                            ["gain"] = {
+                                -18.0,
+                                -18.0,
+                            },
+                            ["random"] = true,
+                            ["shuffle"] = false,
+                            ["weights"] = {
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                            },
+                        },
+                    },
+                    ["gain"] = {
+                        -3.0,
+                        -3.0,
+                    },
+                },
+            },
+        },
+        ["bodyfalls/liquid"] = {
+            ["children"] = {
+                {
+                    ["children"] = {
+                        {
+                            ["avoid"] = 3,
+                            ["children"] = {
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_liquid_01.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_liquid_03.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_liquid_04.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_liquid_02.ogg",
+                                },
+                            },
+                            ["gain"] = {
+                                -18.0,
+                                -18.0,
+                            },
+                            ["random"] = true,
+                            ["shuffle"] = false,
+                            ["weights"] = {
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                            },
+                        },
+                    },
+                    ["gain"] = {
+                        -3.0,
+                        -3.0,
+                    },
+                },
+            },
+        },
+        ["bodyfalls/soft"] = {
+            ["children"] = {
+                {
+                    ["children"] = {
+                        {
+                            ["avoid"] = 3,
+                            ["children"] = {
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_soft_10.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_soft_08.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_soft_12.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_soft_04.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_soft_05.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_soft_11.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_soft_07.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_soft_02.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_soft_09.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_soft_06.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_soft_03.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_soft_13.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_soft_01.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/bodyfall_soft_14.ogg",
+                                },
+                            },
+                            ["gain"] = {
+                                -18.0,
+                                -18.0,
+                            },
+                            ["pitch"] = {
+                                15.0,
+                                15.0,
+                            },
+                            ["random"] = true,
+                            ["shuffle"] = false,
+                            ["weights"] = {
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                            },
+                        },
+                    },
+                    ["gain"] = {
+                        -3.0,
+                        -3.0,
+                    },
+                },
+            },
+        },
+        ["combat_elite_shortmove"] = {
+            ["children"] = {
+                {
+                    ["children"] = {
+                        {
+                            ["avoid"] = 3,
+                            ["children"] = {
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/longmove_15.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/longmove_01.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/longmove_05.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/longmove_12.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/longmove_03.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/longmove_02.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/longmove_11.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/longmove_06.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/longmove_14.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/longmove_09.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/longmove_04.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/longmove_07.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/longmove_13.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/longmove_10.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_combat_elite/foley/longmove_08.ogg",
+                                },
+                            },
+                            ["gain"] = {
+                                -26.0,
+                                -26.0,
+                            },
+                            ["random"] = true,
+                            ["shuffle"] = false,
+                            ["weights"] = {
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                            },
+                        },
+                    },
+                    ["gain"] = {
+                        -3.0,
+                        -3.0,
+                    },
+                },
+            },
+        },
         ["combatform_elite_bodyfall_hard"] = {
             ["children"] = {
                 {

@@ -31,10 +31,28 @@ function methods:AIMotionBase(name, ...)
     return method(self, ...)
 end
 
+local trackingActions = {patrol_idle = true, patrol_walk = true, patrol_run = true,
+    combat_idle = true, crouch_idle = true}
+for _, stance in ipairs({"combat", "crouch"}) do
+    for _, pace in ipairs({"walk", "move"}) do
+        for _, side in ipairs({"front", "back", "left", "right"}) do
+            trackingActions[stance .. "_" .. pace .. "_" .. side] = true
+        end
+    end
+end
+local function trackingActivity(actor)
+    local activities = actor:AIAnimationActivities()
+    local current = actor:GetSequenceActivity(actor:GetSequence())
+    for action in pairs(trackingActions) do
+        if activities and activities[action] == current then return current end
+    end
+end
+
 -- Four authored clips. Use the requested facing when choosing a motor heading,
 -- and the actual body frame when choosing an animation during the turn.
 function methods:AIMovementDirection(direction, yaw)
     local config = self:AIMotionProfile()
+    if config.forward_only then return "front" end
     local fields = config.fields
     if not self:AIMotionEnabled("movement") then return self[fields.move_direction] or "front" end
     local forward = direction:Dot(self:GetForward())
@@ -59,24 +77,24 @@ function methods:AIMovementDirection(direction, yaw)
 end
 
 function methods:AIApplyGrip(amount)
-    if not self:AIMotionEnabled("grip") then return false end
+    -- Set by initialization/weapon changes. Source networks this pose; the
+    -- client must not rewrite it or force another skeleton build.
+    if CLIENT or not self:AIMotionEnabled("grip") then return false end
     local config = self:AIMotionProfile()
     local fields, grip = config.fields, config.grip or {}
     local parameter = grip.parameter or "grip"
     local model, index = self:GetModel(), self:LookupPoseParameter(parameter)
     if index < 0 then return false end
     local low, high
-    if CLIENT or grip.minimum == nil or grip.maximum == nil then low, high = self:GetPoseParameterRange(index) end
+    if grip.minimum == nil or grip.maximum == nil then low, high = self:GetPoseParameterRange(index) end
     amount = amount or value(self, grip.default, 0)
     if grip.integer ~= false then amount = math.Round(amount) end
     amount = math.Clamp(amount, grip.minimum or low, grip.maximum or high)
     local current = self:GetPoseParameter(parameter)
-    if CLIENT then current = low + current * (high - low) end
     if self[fields.grip_value] == amount and self[fields.grip_model] == model
         and math.abs(current - amount) < (grip.epsilon or 0.02) then return false end
     self[fields.grip_model], self[fields.grip_value] = model, amount
     self:SetPoseParameter(parameter, amount)
-    if CLIENT then self:InvalidateBoneCache() end
     return true
 end
 
@@ -140,7 +158,7 @@ function methods:AISetAnimationTranslations(holdType, weapon)
         if previousFire and previousFire ~= a.fire then self:RemoveGesture(previousFire) end
         self[fields.fire_activity] = a.fire
         self.AnimTbl_WeaponAttack = profile.melee and ACT_MELEE_ATTACK1 or ACT_IDLE_ANGRY
-        self.AnimTbl_WeaponAttackGesture = profile.sequences.fire and "vjges_" .. profile.sequences.fire or false
+        self.AnimTbl_WeaponAttackGesture = profile.fire_gesture ~= false and profile.sequences.fire and "vjges_" .. profile.sequences.fire or false
         self.AnimTbl_WeaponReload = profile.sequences.reload and ACT_RELOAD or false
         self.AnimTbl_WeaponReloadCovered = profile.sequences.reload and ACT_RELOAD_LOW or false
         self.DisableWeaponReloadAnimation = not profile.sequences.reload
@@ -256,6 +274,7 @@ function methods:AIGetTurnAngle(angle)
     if not self:AIMotionEnabled("movement") then return result end
     if self.Dead or not self.CanTurnWhileMoving or not self:IsMoving()
         or self:GetNavType() ~= NAV_GROUND or self:IsBusy("Activities") or self.AttackType
+        or self.Flinching or not trackingActivity(self)
         or (self.TurnData and self.TurnData.StopOnFace) then
         self[fields.facing_direction] = nil
         return result
@@ -280,6 +299,12 @@ function methods:AIOverrideMoveFacing(interval, move)
     local config = self:AIMotionProfile()
     local fields = config.fields
     if not self:AIMotionEnabled("movement") then return self:AIMotionBase("OverrideMoveFacing", interval, move) end
+    if self.Dead or self.Flinching or self.AttackType or self:IsBusy("Activities")
+        or not trackingActivity(self) then
+        self[fields.move_intent], self[fields.move_time] = nil, nil
+        self[fields.move_direction], self[fields.facing_direction] = nil, nil
+        return self:AIMotionBase("OverrideMoveFacing", interval, move)
+    end
     if move and move.dir then
         self[fields.move_intent] = Vector(move.dir)
         self[fields.move_time] = CurTime()
@@ -296,68 +321,29 @@ function methods:AIOverrideMoveFacing(interval, move)
     return result
 end
 
--- Extend VJ's pose updates to ordinary locomotion without inventing a weapon
--- attack state. Existing firing and possession behavior stays with VJ.
-local trackingActions = {patrol_idle = true, patrol_walk = true, patrol_run = true,
-    combat_idle = true, crouch_idle = true}
-for _, stance in ipairs({"combat", "crouch"}) do
-    for _, pace in ipairs({"walk", "move"}) do
-        for _, side in ipairs({"front", "back", "left", "right"}) do
-            trackingActions[stance .. "_" .. pace .. "_" .. side] = true
-        end
-    end
-end
+-- VJ owns aim-angle calculation and pose interpolation. Only gate when the
+-- tracker may run; full-body actions retain their authored motion in both AI
+-- and possession, including the tail after VJ releases its attack flag.
 function methods:AIUpdatePoseTracking(resetPoses)
+    if CLIENT then return end
+    if self.AIPrepareGaze then self:AIPrepareGaze() end
     local config = self:AIMotionProfile()
-    if not self:AIMotionEnabled("aim") or config.adapter ~= "human" or not config.track_without_firing
-        or self.VJ_Controlled or self.WeaponAttackState then
+    if not self:AIMotionEnabled("aim") or config.adapter ~= "human" or not config.track_without_firing then
         return self:AIMotionBase("UpdatePoseParamTracking", resetPoses)
     end
     if not self.HasPoseParameterLooking or self.Dead or self.Flinching or self.AttackType
         or self:IsBusy("Activities") or self:GetNavType() ~= NAV_GROUND
         or self:GetWeaponState() == VJ.WEP_STATE_RELOADING
-        or (config.aim_allowed and not config.aim_allowed(self)) then return end
+        or (config.aim_allowed and not config.aim_allowed(self))
+        or not trackingActivity(self) then return end
+    if self.VJ_Controlled or self.WeaponAttackState then
+        return self:AIMotionBase("UpdatePoseParamTracking", resetPoses)
+    end
     local enemy = self:GetEnemy()
     if not IsValid(enemy) or not self:Visible(enemy) then return end
-    local activities = self:AIAnimationActivities()
-    -- GetActivity is the requested engine activity (for example ACT_RUN),
-    -- not the custom activity of the translated sequence actually playing.
-    local activity, eligible = self:GetSequenceActivity(self:GetSequence()), false
-    for action in pairs(trackingActions) do
-        if activities and activities[action] == activity then eligible = true break end
-    end
-    if not eligible then return end
-    local target = {pitch = 0, yaw = 0, roll = 0}
-    if resetPoses then
-        if not self.PoseParameterLooking_CanReset then return end
-    else
-        local eye = self:EyePos()
-        local direction = (self:GetAimPosition(enemy, eye) - eye):Angle()
-        local body = self:GetAngles()
-        target.pitch = math.AngleDifference(direction.p, body.p) * (self.PoseParameterLooking_InvertPitch and -1 or 1)
-        target.yaw = math.AngleDifference(direction.y, body.y) * (self.PoseParameterLooking_InvertYaw and -1 or 1)
-        target.roll = math.AngleDifference(direction.r, body.r) * (self.PoseParameterLooking_InvertRoll and -1 or 1)
-    end
-    if self.OnUpdatePoseParamTracking then
-        self:OnUpdatePoseParamTracking(target.pitch, target.yaw, target.roll)
-    end
-    -- Use VJ's discovered aim/head names and configured per-update approach
-    -- speed. The model retains its authored per-sequence blend limits/layers.
-    local speed = math.max(0, self.PoseParameterLooking_TurningSpeed or 10)
-    for axis, names in pairs(self.PoseParameterLooking_Names or {}) do
-        local desired = target[axis]
-        if desired then
-            for _, name in ipairs(names) do
-                local index = self:LookupPoseParameter(name)
-                if index >= 0 then
-                    local low, high = self:GetPoseParameterRange(index)
-                    local current = self:GetPoseParameter(name)
-                    local step = math.Clamp(math.AngleDifference(desired, current), -speed, speed)
-                    self:SetPoseParameter(name, math.Clamp(current + step, low, high))
-                end
-            end
-        end
-    end
+    -- VJ's Creature tracker uses the same pose calculation without requiring
+    -- a weapon firing state. Reuse it for ordinary movement on the Human host.
+    baseclass.Get("npc_vj_creature_base").UpdatePoseParamTracking(self, resetPoses)
     self.UpdatedPoseParam = true
 end
 
@@ -408,7 +394,7 @@ function methods:AIUpdateAimTurn(activity)
     local profile = self:AIAnimationSet(weapon)
     if profile.melee then return false end
     local a = self:AIAnimationActivities(weapon)
-    activity = activity or self:GetActivity()
+    activity = activity or self:GetSequenceActivity(self:GetSequence())
     local posture = activity == a.combat_idle and "combat_idle" or activity == a.crouch_idle and "crouch_idle"
     local limits = posture and (profile.aim_limits or {})[posture]
     if not limits then return false end
@@ -510,6 +496,11 @@ end
 function methods:AIMotionPlayAnim(animation, lockAnim, lockAnimTime, faceEnemy, delay, extra, customFunc)
     local config = self:AIMotionProfile()
     local fields = config.fields
+    if self.AttackType or self.Flinching or lockAnim then
+        self:AIClearAimTurn()
+        self[fields.move_intent], self[fields.move_time] = nil, nil
+        self[fields.move_direction], self[fields.facing_direction] = nil, nil
+    end
     -- VJ's ranged idle asks to face for the whole clip. Let its native aim-cone
     -- check decide when to turn instead; all other animations retain VJ rules.
     if faceEnemy == true and lockAnim == false and lockAnimTime == 0 and self:AIUpdateAimTurn(animation) then

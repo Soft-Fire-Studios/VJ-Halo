@@ -61,7 +61,17 @@ function FX.Muzzle(weapon, data, charged)
 end
 
 function FX.Flight(projectile, data, charged)
-    if not SERVER or not FX.Load(data) then return false end
+    if not SERVER then return false end
+    if data.source_effects and data.source_effects.flight then
+        -- Temporary Source smoke for the unported Human rocket effect. One
+        -- engine trail per projectile; no Lua per-frame emitter or light.
+        if not IsValid(projectile.CE8SourceTrail) then
+            local trail = util.SpriteTrail(projectile, 0, Color(180, 180, 180), false, 8, 1, 0.3, 1 / 8, "trails/smoke")
+            if IsValid(trail) then projectile.CE8SourceTrail = trail; projectile:DeleteOnRemove(trail) end
+        end
+        return true
+    end
+    if not FX.Load(data) then return false end
     local effects = FX.ForShot(data, charged)
     if not effects or not effects.flight then return false end
     ParticleEffectAttach(effects.flight, PATTACH_ABSORIGIN_FOLLOW, projectile, 0)
@@ -69,8 +79,17 @@ function FX.Flight(projectile, data, charged)
 end
 
 function FX.Impact(projectile, data, charged, collision)
-    if not SERVER or not collision or not collision.HitPos or projectile.CE8ImpactPlayed
-        or not FX.Load(data) then return false end
+    if not SERVER or not collision or not collision.HitPos or projectile.CE8ImpactPlayed then return false end
+    if data.source_effects and data.source_effects.impact then
+        projectile.CE8ImpactPlayed = true
+        local effect = EffectData()
+        effect:SetOrigin(collision.HitPos)
+        effect:SetNormal(collision.HitNormal or Vector(0, 0, 1))
+        effect:SetScale(1)
+        util.Effect(data.source_effects.impact, effect, true, true)
+        return true
+    end
+    if not FX.Load(data) then return false end
     local effects = FX.ForShot(data, charged)
     if not effects or not effects.impact then return false end
     projectile.CE8ImpactPlayed = true

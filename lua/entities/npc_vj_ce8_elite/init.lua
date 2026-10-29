@@ -64,8 +64,10 @@ ENT.AnimTbl_WeaponReloadCovered = ACT_RELOAD_LOW
 
 ENT.HasMeleeAttack = true
 ENT.AnimTbl_MeleeAttack = "vjseq_" .. data.sequences.melee
-ENT.MeleeAttackDistance = 65
-ENT.MeleeAttackDamageDistance = 90
+ENT.MeleeAttackDistance = data.melee.range
+ENT.MeleeAttackDamageDistance = data.melee.hit_range
+ENT.MeleeAttackAngleRadius = data.melee.angle
+ENT.MeleeAttackDamageAngleRadius = data.melee.hit_angle
 ENT.MeleeAttackDamage = 30
 ENT.TimeUntilMeleeAttackDamage = false -- Native melee hit marker triggers damage.
 ENT.HasExtraMeleeAttackSounds = false
@@ -209,6 +211,10 @@ function ENT:OnWeaponChange(weapon, previous, inventory)
     local value = IsValid(weapon) and weapon.CE8Grip or 0
     self:CE8ApplyGrip(value)
     self:SetNW2Int("ce8_grip", value)
+    local weaponData = IsValid(weapon) and weapon.CE8Data
+    local angle = weaponData and weaponData.melee and weaponData.melee_angle
+    self.MeleeAttackAngleRadius = angle or data.melee.angle
+    self.MeleeAttackDamageAngleRadius = angle or data.melee.hit_angle
     if IsValid(weapon) and weapon.CE8Attach then weapon:CE8Attach(self) end
 end
 
@@ -223,6 +229,8 @@ function ENT:OnWeaponAttack()
     local id = self:LookupSequence(sequence)
     if id < 0 then error("CE8 Elite is missing Sword attack: " .. sequence) end
     self.AnimTbl_WeaponAttack = self:GetSequenceActivity(id)
+    local weapon = self:GetActiveWeapon()
+    if IsValid(weapon) and weapon.CE8BeginMeleeSwing then weapon:CE8BeginMeleeSwing(self, id) end
 end
 
 function ENT:OnThink()
@@ -290,6 +298,9 @@ function ENT:OnAnimEvent(event, eventTime, cycle, eventType, options)
             self:ExecuteMeleeAttack()
         elseif self.AttackType == VJ.ATTACK_TYPE_GRENADE and self.AttackState < VJ.ATTACK_STATE_EXECUTED then
             timer.Adjust("attack_grenade_start" .. self:EntIndex(), 0)
+        else
+            local weapon = self:GetActiveWeapon()
+            if IsValid(weapon) and weapon.CE8MeleeEvent then weapon:CE8MeleeEvent(self) end
         end
     end
 end

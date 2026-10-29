@@ -2,6 +2,36 @@
 -- Cue basenames match the authored animation events.
 return {
     ["bodyfalls"] = {
+        ["hard"] = {
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_01.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_02.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_03.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_04.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_05.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_06.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_07.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_08.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_09.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_10.ogg",
+        },
+        ["liquid"] = {
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/liquid_01.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/liquid_02.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/liquid_03.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/liquid_04.ogg",
+        },
+        ["soft"] = {
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_01.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_02.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_03.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_04.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_05.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_06.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_07.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_08.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_09.ogg",
+            "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_10.ogg",
+        },
     },
     ["dialogue"] = {
         ["flood_carrier"] = {
@@ -170,6 +200,32 @@ return {
             "campaign_evolved/ce8/flood_carrier/foley/walk_09.ogg",
             "campaign_evolved/ce8/flood_carrier/foley/walk_10.ogg",
         },
+        ["idle_move"] = {
+            "campaign_evolved/ce8/flood_carrier/effects/idle_move_01.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/idle_move_02.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/idle_move_03.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/idle_move_04.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/idle_move_05.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/idle_move_06.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/idle_move_07.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/idle_move_08.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/idle_move_09.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/idle_move_10.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/idle_move_11.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/idle_move_12.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/idle_move_13.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/idle_move_14.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/idle_move_15.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/idle_move_16.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/idle_move_17.ogg",
+        },
+        ["pop"] = {
+            "campaign_evolved/ce8/flood_carrier/effects/pop_01.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/pop_02.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/pop_03.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/pop_04.ogg",
+            "campaign_evolved/ce8/flood_carrier/effects/pop_05.ogg",
+        },
     },
     ["events"] = {
         ["carrier_shortmove"] = {
@@ -211,8 +267,223 @@ return {
         },
     },
     ["footsteps"] = {
+        ["default"] = {
+            ["walk"] = {
+                {
+                    "campaign_evolved/ce8/flood_carrier/foley/walk_09.ogg",
+                    "campaign_evolved/ce8/flood_carrier/foley/walk_01.ogg",
+                    "campaign_evolved/ce8/flood_carrier/foley/walk_06.ogg",
+                    "campaign_evolved/ce8/flood_carrier/foley/walk_08.ogg",
+                    "campaign_evolved/ce8/flood_carrier/foley/walk_07.ogg",
+                    "campaign_evolved/ce8/flood_carrier/foley/walk_02.ogg",
+                    "campaign_evolved/ce8/flood_carrier/foley/walk_03.ogg",
+                    "campaign_evolved/ce8/flood_carrier/foley/walk_10.ogg",
+                    "campaign_evolved/ce8/flood_carrier/foley/walk_04.ogg",
+                    "campaign_evolved/ce8/flood_carrier/foley/walk_05.ogg",
+                },
+            },
+        },
     },
     ["playback"] = {
+        ["bodyfalls/hard"] = {
+            ["children"] = {
+                {
+                    ["children"] = {
+                        {
+                            ["children"] = {
+                                {
+                                    ["avoid"] = 3,
+                                    ["children"] = {
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_10.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_05.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_02.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_04.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_03.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_08.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_06.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_01.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_07.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_09.ogg",
+                                        },
+                                    },
+                                    ["gain"] = {
+                                        -12.0,
+                                        -12.0,
+                                    },
+                                    ["random"] = true,
+                                    ["shuffle"] = false,
+                                    ["weights"] = {
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                    },
+                                },
+                            },
+                            ["gain"] = {
+                                -3.0,
+                                -3.0,
+                            },
+                        },
+                    },
+                    ["gain"] = {
+                        -3.0,
+                        -3.0,
+                    },
+                },
+            },
+        },
+        ["bodyfalls/liquid"] = {
+            ["children"] = {
+                {
+                    ["children"] = {
+                        {
+                            ["children"] = {
+                                {
+                                    ["avoid"] = 3,
+                                    ["children"] = {
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/liquid_01.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/liquid_04.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/liquid_02.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/liquid_03.ogg",
+                                        },
+                                    },
+                                    ["gain"] = {
+                                        -12.0,
+                                        -12.0,
+                                    },
+                                    ["random"] = true,
+                                    ["shuffle"] = false,
+                                    ["weights"] = {
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                    },
+                                },
+                            },
+                            ["gain"] = {
+                                -3.0,
+                                -3.0,
+                            },
+                        },
+                    },
+                    ["gain"] = {
+                        -3.0,
+                        -3.0,
+                    },
+                },
+            },
+        },
+        ["bodyfalls/soft"] = {
+            ["children"] = {
+                {
+                    ["children"] = {
+                        {
+                            ["children"] = {
+                                {
+                                    ["avoid"] = 3,
+                                    ["children"] = {
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_01.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_02.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_03.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_04.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_05.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_06.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_09.ogg",
+                                            ["pitch"] = {
+                                                20.0,
+                                                20.0,
+                                            },
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_08.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_07.ogg",
+                                        },
+                                        {
+                                            ["file"] = "campaign_evolved/ce8/flood_carrier/bodyfalls/soft_10.ogg",
+                                        },
+                                    },
+                                    ["gain"] = {
+                                        -10.0,
+                                        -10.0,
+                                    },
+                                    ["random"] = true,
+                                    ["shuffle"] = false,
+                                    ["weights"] = {
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                        50000,
+                                    },
+                                },
+                            },
+                            ["gain"] = {
+                                -3.0,
+                                -3.0,
+                            },
+                        },
+                    },
+                    ["gain"] = {
+                        -3.0,
+                        -3.0,
+                    },
+                },
+            },
+        },
         ["carrier_idle_oneoff"] = {
             ["children"] = {
                 {
@@ -490,6 +761,120 @@ return {
             },
         },
         ["carrier_walk"] = {
+            ["children"] = {
+                {
+                    ["children"] = {
+                        {
+                            ["avoid"] = 1,
+                            ["children"] = {
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_carrier/foley/walk_09.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_carrier/foley/walk_01.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_carrier/foley/walk_06.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_carrier/foley/walk_08.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_carrier/foley/walk_07.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_carrier/foley/walk_02.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_carrier/foley/walk_03.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_carrier/foley/walk_10.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_carrier/foley/walk_04.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_carrier/foley/walk_05.ogg",
+                                },
+                            },
+                            ["gain"] = {
+                                -26.0,
+                                -26.0,
+                            },
+                            ["random"] = true,
+                            ["shuffle"] = false,
+                            ["weights"] = {
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                            },
+                        },
+                    },
+                    ["gain"] = {
+                        -3.0,
+                        -3.0,
+                    },
+                },
+            },
+        },
+        ["effects/pop"] = {
+            ["children"] = {
+                {
+                    ["children"] = {
+                        {
+                            ["avoid"] = 3,
+                            ["children"] = {
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/pop_03.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/pop_02.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/pop_05.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/pop_04.ogg",
+                                },
+                                {
+                                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/pop_01.ogg",
+                                },
+                            },
+                            ["gain"] = {
+                                -3.0,
+                                -3.0,
+                            },
+                            ["random"] = true,
+                            ["shuffle"] = false,
+                            ["weights"] = {
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                                50000,
+                            },
+                        },
+                    },
+                    ["gain"] = {
+                        -3.0,
+                        -3.0,
+                    },
+                },
+                {
+                    ["children"] = {
+                    },
+                },
+            },
+        },
+        ["footsteps/default/walk"] = {
             ["children"] = {
                 {
                     ["children"] = {

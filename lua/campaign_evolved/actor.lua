@@ -1,11 +1,37 @@
 -- Shared CE8 actor resources, lifecycle and rendering for Human/Creature hosts.
 -- VJ retains navigation, combat scheduling and possession.
 local Host = {}
+-- Weapon users share Human scheduling. Cover/retreat are independent choices.
+Host.Roster = {
+    elite = {adapter = "human"}, grunt = {adapter = "human"},
+    jackal = {adapter = "human"}, brute = {adapter = "human"},
+    hunter = {adapter = "human", cover = false, reload_cover = false, flee = false,
+        retreat_distance = 0, unarmed_flee = false, crouch_fire = false, occlusion_delay = false},
+    flood_combat_human = {adapter = "human", cover = false, reload_cover = false, flee = false,
+        retreat_distance = 0, unarmed_flee = false, crouch_fire = false, occlusion_delay = false, strafe = false},
+    flood_combat_elite = {adapter = "human", cover = false, reload_cover = false, flee = false,
+        retreat_distance = 0, unarmed_flee = false, crouch_fire = false, occlusion_delay = false, strafe = false},
+    flood_tank = {adapter = "creature"}, flood_infection = {adapter = "creature"},
+    flood_carrier = {adapter = "creature"}
+}
+function Host.Option(data, name, fallback)
+    local overrides = data.behavior or {}
+    if overrides[name] ~= nil then return overrides[name] end
+    local preset = Host.Roster[data.owner] or {}
+    if preset[name] ~= nil then return preset[name] end
+    return fallback
+end
 local barrier = SERVER and include("campaign_evolved/barrier.lua")
+local heads
+if SERVER then
+    CE8 = CE8 or {}
+    CE8.HeadProfiles = CE8.HeadProfiles or include("campaign_evolved/heads.lua")
+    heads = CE8.HeadProfiles
+end
 
 function Host.Shared(ENT, owner, adapter)
-    adapter = adapter or "human"
     local data = include("campaign_evolved/" .. owner .. "_anims.lua")
+    adapter = adapter or Host.Option(data, "adapter", "human")
     function ENT:CE8Data() return data end
     function ENT:CE8RankSettings() return data.ranks[self.CE8Rank or "minor"] end
     function ENT:CE8WeaponMount(weapon)
@@ -22,7 +48,8 @@ function Host.Shared(ENT, owner, adapter)
         AddCSLuaFile("vj_ai/motion.lua")
     end
     include("vj_ai/motion.lua").Attach(ENT, {
-        adapter = adapter, capabilities = {movement = true, aim = true, grip = adapter == "human"},
+        adapter = adapter, capabilities = {movement = true, aim = data.aim ~= false, grip = (data.grip_max or 0) > 0},
+        forward_only = data.forward_only,
         sets = data.weapon_sets, default_set = data.default_weapon,
         weapon_key = function(self, weapon) return weapon.CE8WeaponName end,
         track_without_firing = true,
@@ -37,7 +64,7 @@ function Host.Shared(ENT, owner, adapter)
 end
 
 function Host.Profile(data, adapter)
-    adapter = adapter or "human"
+    adapter = adapter or Host.Option(data, "adapter", "human")
     local sounds = include("campaign_evolved/sounds/" .. data.owner .. ".lua")
     local materials = {
         [MAT_CONCRETE] = "stone", [MAT_DIRT] = "dirt", [MAT_GRASS] = "grass", [MAT_SAND] = "sand",
@@ -48,15 +75,18 @@ function Host.Profile(data, adapter)
     }
     return {
         adapter = adapter, sounds = sounds,
-        capabilities = {controller = true, cover = adapter == "human", flee = adapter == "human", dialogue = true,
-            footsteps = true, search = true, reactions = true,
+        gaze = {rig = heads[data.owner]},
+        capabilities = {gaze = true, controller = true, cover = Host.Option(data, "cover", adapter == "human"),
+            flee = Host.Option(data, "flee", adapter == "human"), dialogue = Host.Option(data, "dialogue", true),
+            footsteps = Host.Option(data, "footsteps", true), search = Host.Option(data, "search", true), reactions = true,
+            charge = data.charge ~= nil,
             shield = data.owner == "jackal" and function(self) return (self:CE8RankSettings().native_shield or 0) > 0 end or false},
         shield = data.owner == "jackal" and barrier.Profile(sounds) or nil,
         lifecycle = {
-            grip = function(self) return self:GetNW2Int("ce8_grip", 0) end,
-            shutdown = function(self) if self.CE8RemoveEquipment then self:CE8RemoveEquipment() end end
+                shutdown = function(self) if self.CE8RemoveEquipment then self:CE8RemoveEquipment() end end
         },
         controller = {spacing = {distance = 240, progress = 8, stall_time = 1.2, retry_delay = 2}},
+        charge = data.charge and {settings = data.charge} or nil,
         cover = {range = 512, max_objects = 6, head_height = data.hull.height * 0.95},
         flee = {
             settings = function(self) return self:CE8RankSettings().retreat end,
@@ -84,11 +114,11 @@ function Host.Profile(data, adapter)
             finished = function(self, action) self:AICancelDialogue(action) end
         },
         dialogue = {
-            domain = "ce8_enemy", rules = data.dialogue_rules,
-            bank = function(self) return sounds.dialogue[self.CE8Voice or data.owner] end
+            domain = data.dialogue_domain or "ce8_enemy", rules = data.dialogue_rules,
+            bank = function(self) return sounds.dialogue[self.CE8Voice or data.voice or data.owner] end
         },
         footsteps = {
-            bank = sounds.footsteps, attachments = {left = "left_foot", right = "right_foot"},
+            bank = sounds.footsteps, attachments = data.foot_attachments or {left = "left_foot", right = "right_foot"},
             materials = materials, default_surface = "stone", water_surface = "water",
             properties = {{"ice", "ice"}, {"gravel", "gravel"}, {"mud", "mud"}, {"grate", "metalthin"}, {"vent", "metalthin"}},
             action = function(self)
@@ -108,9 +138,10 @@ function Host.Server(ENT, profile)
     include("vj_ai/core.lua").Attach(ENT, profile)
     ENT.Model = data.model
     ENT.StartHealth = data.ranks.minor.health
-    ENT.HullType = profile.adapter == "creature" and HULL_LARGE or (data.owner == "grunt" and HULL_WIDE_SHORT or HULL_HUMAN)
+    local hulls = {tiny = HULL_TINY, human = HULL_HUMAN, large = HULL_LARGE}
+    ENT.HullType = hulls[data.hull.kind] or ((profile.adapter == "creature" or data.hull.radius >= 32) and HULL_LARGE or (data.owner == "grunt" and HULL_WIDE_SHORT or HULL_HUMAN))
     ENT.BloodColor = VJ.BLOOD_COLOR_PURPLE
-    ENT.VJ_NPC_Class = {"CLASS_COVENANT"}
+    ENT.VJ_NPC_Class = {data.faction or "CLASS_COVENANT"}
     ENT.MovementType = VJ_MOVETYPE_GROUND
     ENT.CanTurnWhileMoving = true
     ENT.UsePoseParameterMovement = false
@@ -123,17 +154,18 @@ function Host.Server(ENT, profile)
     ENT.HasGrenadeAttack = false
     ENT.CanRedirectGrenades = false
     ENT.JumpParams = {Enabled = false}
-    ENT.HasFootstepSounds = true
+    ENT.HasFootstepSounds = Host.Option(data, "footsteps", true)
     ENT.DisableFootStepSoundTimer = true
     ENT.FootstepSoundPitch = VJ.SET(100, 100)
     ENT.MainSoundPitch, ENT.MainSoundPitchStatic = 100, true
+    ENT.CombatDamageResponse = profile.capabilities.cover
     ENT.CanFlinch = true
     ENT.HasDeathAnimation = false -- Ragdolls until authored death motion gets its own live check.
-    ENT.HasPoseParameterLooking = true
+    ENT.HasPoseParameterLooking = data.aim ~= false
     ENT.PoseParameterLooking_InvertPitch = true
     ENT.PoseParameterLooking_Names = {pitch = {}, yaw = {}, roll = {}}
     ENT.PoseParameterLooking_TurningSpeed = 8
-    ENT.ControllerParams = {CameraMode = 1, ThirdP_Offset = Vector(), FirstP_Bone = "head_m",
+    ENT.ControllerParams = {CameraMode = 1, ThirdP_Offset = Vector(), FirstP_Bone = data.camera_bone or "head_m",
         FirstP_Offset = Vector(), FirstP_ShrinkBone = true, FirstP_CameraBoneAng = 0, FirstP_CameraBoneAng_Offset = 0}
 
     function ENT:ScaleByDifficulty(amount) return amount end
@@ -168,6 +200,11 @@ function Host.Server(ENT, profile)
     function ENT:GetAimPosition(...) return self:AIMotionAimPosition(...) end
     function ENT:SetTurnTarget(...) return self:AIMotionTurnTarget(...) end
     function ENT:PlayAnim(...) return self:AIMotionPlayAnim(...) end
+    function ENT:OnDangerDetected()
+        -- VJ's default danger response runs to cover. Species can override this
+        -- hook later with an authored brace/dive without enabling fleeing.
+        if not self:AIHasCapability("cover") then return true end
+    end
     function ENT:OnTaskFailed(code, message) self:AITaskFailed(code, message, CurTime()) end
     function ENT:Init()
         local rank, hull = self:CE8RankSettings(), data.hull
@@ -182,14 +219,15 @@ function Host.Server(ENT, profile)
         end
         self:SetHitboxSet(rank.hitbox_set)
         self:SetNW2String("ce8_rank", self.CE8Rank or "minor")
+        self:AIApplyGrip(0)
         self:SetNW2Int("ce8_grip", 0)
-        self.CE8Voice = data.owner
-        local bank = sounds.dialogue[self.CE8Voice]
+        self.CE8Voice = data.voice or data.owner
+        local bank = sounds.dialogue[self.CE8Voice] or {}
         for category, cue in pairs({Idle = "idle", CombatIdle = "thrtn", Alert = "seefoe", Investigate = "invsgt",
             LostEnemy = "lst_cntct", AllyDeath = "lmnt_deadally", Pain = "pain", Death = "dth",
             DangerSight = "warn_incmn", GrenadeSight = "warn_incmn"}) do self["SoundTbl_" .. category] = bank[cue] or false end
         self.EnemyTimeout = data.search.time[2]
-        self:AISetAnimationTranslations(data.default_weapon)
+        self:SetAnimationTranslations(data.default_weapon)
     end
     function ENT:CE8PlayDialogue(cue, now, context) return self:AIPlayDialogue(cue, now or CurTime(), context) end
     function ENT:CE8QueueDialogue(cue, now, context) return self:AIQueueDialogue(cue, now or CurTime(), context) end
@@ -279,12 +317,10 @@ function ENT:CE8BindRenderer()
 end
 
 function ENT:Init()
-    self:CE8ApplyGrip(self:GetNW2Int("ce8_grip", (self:CE8Data().weapon or {}).grip or 0))
     self:CE8BindRenderer()
 end
 
 function ENT:Think()
-    self:CE8ApplyGrip(self:GetNW2Int("ce8_grip", (self:CE8Data().weapon or {}).grip or 0))
     self:CE8BindRenderer()
 end
 

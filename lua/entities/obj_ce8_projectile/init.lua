@@ -27,7 +27,8 @@ function ENT:PreInit()
     if data.needle then
         self.CE8BurstScale = IsValid(owner) and owner.ScaleByDifficulty and owner:ScaleByDifficulty(1) or 1
     end
-    self.DirectDamageType = data.damage.category == "plasma" and DMG_ENERGYBEAM or DMG_BULLET
+    self.DirectDamageType = data.damage.category == "plasma" and DMG_ENERGYBEAM
+        or (data.damage_type == "blast" or data.damage.category == "high explosive") and DMG_BLAST or DMG_BULLET
     if data.explosion then
         self.DoesRadiusDamage = true
         self.RadiusDamage = math.Rand(data.explosion.amount[1], data.explosion.amount[2])

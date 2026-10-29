@@ -1,6 +1,8 @@
 -- Elite resources and policies bind to character-neutral VJ AI services.
 -- Core state bindings retain existing weapon, particle and report integration.
 local data = ENT:CE8Data()
+CE8 = CE8 or {}
+CE8.HeadProfiles = CE8.HeadProfiles or include("campaign_evolved/heads.lua")
 local sounds = include("campaign_evolved/sounds/elite.lua")
 local shieldSounds = include("campaign_evolved/sounds/elite_shield.lua")
 local observedDialogue = {}
@@ -30,11 +32,11 @@ local footProperties = {
 
 return {
     adapter = "human",
-    capabilities = {controller = true, investigation = true, obstacle = true, idle = true, postcombat = true, shield = true, dialogue = true, footsteps = true, reactions = true, evasion = true, cover = true, perception = true, flank = true, search = true, opening = true, charge = true},
+    gaze = {rig = CE8.HeadProfiles.elite, mouth = {parameter = "mandibles"}},
+    capabilities = {gaze = true, controller = true, investigation = true, obstacle = true, idle = true, postcombat = true, shield = true, dialogue = true, footsteps = true, reactions = true, evasion = true, cover = true, perception = true, flank = true, search = true, opening = true, charge = true},
     sounds = sounds,
     shield_sounds = shieldSounds,
     lifecycle = {
-        grip = function(self) return self:GetNW2Int("ce8_grip", data.weapon.grip) end,
         shutdown = function(self)
             self.CE8BerserkUntil, self.CE8PendingShieldBreak = nil, nil
             self.CE8PendingBerserk, self.CE8BerserkRequestExpires = nil, nil

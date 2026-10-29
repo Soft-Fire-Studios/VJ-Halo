@@ -856,6 +856,7 @@ end
 -- A host calls this driver from VJ's active-update hook. It is not a Think hook
 -- or a second navigation loop; it chooses which existing service may act next.
 function methods:AISuspendActions(now)
+    self:AIEndSurface(now, "suspended")
     self:AIEndFlee(now, "suspended")
     self:AIEndOpening(now)
     self:AIEndPostcombat(now)
@@ -917,6 +918,7 @@ function methods:AIThinkTactics(now)
 end
 
 function methods:AIThinkActions(now)
+    if self:AILeapActive() or self:AISurfaceActive() then return end
     if not self:AIHasCapability("controller") then self:AISuspendActions(now) return end
     local profile = self:AIProfile()
     local config = profile.controller

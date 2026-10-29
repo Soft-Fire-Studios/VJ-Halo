@@ -5,6 +5,7 @@ local AI = VJAI
 local methods = {}
 local bases = {human = "npc_vj_human_base", creature = "npc_vj_creature_base"}
 local fields = {
+    gaze = {active = "AIGaze"},
     controller = {next_sample = "AINextActionSample", next_tactic = "AINextTactic",
         spacing = "AISpacing", last_spacing = "AILastSpacing"},
     investigation = {active = "AIInvestigation"},
@@ -12,6 +13,8 @@ local fields = {
         next_attempt = "AINextObstacle", next_check = "AINextObstacleCheck", move_intent = "AIMoveIntent", move_time = "AIMoveIntentTime"},
     idle = {active = "AIIdlePose", next_pose = "AINextIdlePose"},
     postcombat = {active = "AIPostCombat", transient_target = "AICorpseShot"},
+    leap = {active = "AILeap", next_attempt = "AINextLeap", last = "AILastLeap"},
+    surface = {active = "AISurface", next_attempt = "AINextSurface", last = "AILastSurface"},
     charge = {active = "AICharge", next_attempt = "AINextCharge"},
     opening = {active = "AIOpening", last = "AILastOpening", count = "AICoordinatedOpenings"},
     search = {active = "AISearch", seen = "AISeenAim"},
@@ -168,6 +171,7 @@ end
 function methods:AIInitialize(now)
     now = now or CurTime()
     self:AIInitializeShield(now)
+    self:AIPrepareGaze()
     local profile = self:AIProfile()
     if self:AIHasCapability("evasion") and self[profile.evasion.fields.count] == nil then
         self[profile.evasion.fields.count] = 0
@@ -176,17 +180,15 @@ end
 
 function methods:AIUpdate(now)
     now = now or CurTime()
-    local config = self:AIProfile().lifecycle
-    if self.AIMotionProfile then
+    self:AIUpdateSurface(now)
+    self:AIUpdateLeap(now)
+    if self.AIMotionProfile and not self:AILeapActive() and not self:AISurfaceActive() then
         self:AIAnimateAimTurn(self:AIUpdateAimTurn())
-        if self:AIMotionEnabled("grip") then
-            local grip = config.grip and config.grip(self)
-            self:AIApplyGrip(grip)
-        end
     end
     self:AIInitialize(now)
     self:AIUpdateShield(now)
     self:AIThinkDialogue(now)
+    self:AIUpdateGaze(now)
 end
 
 function methods:AIAlert(enemy, now)
@@ -217,6 +219,9 @@ end
 
 function methods:AIShutdown(now, reason)
     now = now or CurTime()
+    self:AIEndSurface(now, reason or "shutdown")
+    self:AIEndLeap(now, reason or "shutdown")
+    self:AIReleaseGaze()
     self:AISuspendActions(now)
     self:AIStopShieldRecharge()
     local profile = self:AIProfile()
@@ -248,6 +253,9 @@ end
 for name, method in pairs(include("vj_ai/audio.lua")) do methods[name] = method end
 for name, method in pairs(include("vj_ai/cover.lua")) do methods[name] = method end
 for name, method in pairs(include("vj_ai/tactics.lua")) do methods[name] = method end
+for name, method in pairs(include("vj_ai/leap.lua")) do methods[name] = method end
+for name, method in pairs(include("vj_ai/surface.lua")) do methods[name] = method end
+for name, method in pairs(include("vj_ai/gaze.lua")) do methods[name] = method end
 local actions = include("vj_ai/actions.lua")
 for name, method in pairs(actions.methods) do methods[name] = method end
 AI.RecordGunfire, AI.ObserveBullet = actions.RecordGunfire, actions.ObserveBullet
@@ -255,7 +263,7 @@ AI.RecordGunfire, AI.ObserveBullet = actions.RecordGunfire, actions.ObserveBulle
 function AI.Attach(definition, profile)
     assert(type(profile) == "table" and bases[profile.adapter], "VJ AI profile needs a human or creature adapter")
     local prepared = {adapter = profile.adapter, capabilities = {}, lifecycle = {}}
-    local hostCallbacks = {grip = true, alert = true, shutdown = true}
+    local hostCallbacks = {alert = true, shutdown = true}
     for name, callback in pairs(profile.lifecycle or {}) do
         assert(hostCallbacks[name] and type(callback) == "function", "Invalid VJ AI lifecycle callback: " .. tostring(name))
         prepared.lifecycle[name] = callback

@@ -305,6 +305,7 @@ local function recordDialogue(self, config, cue, sound, handle, now, context)
 end
 
 function methods:AIObserveDialogue(handle, path, now, context)
+    self:AIObserveGazeSound(handle, path, now)
     local config = settings(self, "dialogue")
     local cue = config and config.observed and config.observed[path]
     if not cue or not handle or self.Dead or self:Health() <= 0 or self.HasSounds == false then return false end
@@ -498,7 +499,7 @@ function methods:AIThinkDialogue(now)
     if not ok then error(failure, 0) end
 end
 
-function methods:AIFootstep(side)
+function methods:AIFootstep(side, action)
     local config = settings(self, "footsteps")
     if not config or self.Dead or self:Health() <= 0 or not self.HasSounds or not self.HasFootstepSounds
         or not self:IsOnGround() then return end
@@ -529,7 +530,7 @@ function methods:AIFootstep(side)
     if config.water_surface and bit.band(util.PointContents(contact.HitPos + Vector(0, 0, 1)), CONTENTS_WATER) ~= 0 then
         surface = config.water_surface
     end
-    local action = config.action and config.action(self) or config.default_action
+    action = action or (config.action and config.action(self) or config.default_action)
     local surfaces = bank(self, config)
     local sets = surfaces and (surfaces[surface] or surfaces[config.default_surface])
     local layers = sets and sets[action]

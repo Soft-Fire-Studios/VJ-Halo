@@ -1,3 +1,9 @@
+-- One immutable roster table, shared by all character profiles. An explicit
+-- autorun reload replaces it once so existing actors can refresh their bindings.
+if SERVER then
+    CE8 = CE8 or {}
+    CE8.HeadProfiles = include("campaign_evolved/heads.lua")
+end
 local covenantWeapons = include("campaign_evolved/weapons.lua")
 local difficulty = include("campaign_evolved/difficulty.lua")
 difficulty.Setup()
@@ -38,6 +44,9 @@ local ok, message = xpcall(function()
     include("entities/obj_ce8_barrier.lua")
     scripted_ents.Register(ENT, "obj_ce8_barrier")
     ENT = {}
+    include("entities/obj_ce8_infection_fountain.lua")
+    scripted_ents.Register(ENT, "obj_ce8_infection_fountain")
+    ENT = {}
     include("entities/obj_ce8_projectile/" .. (SERVER and "init.lua" or "cl_init.lua"))
     scripted_ents.Register(ENT, "obj_ce8_projectile")
     ENT = {}
@@ -53,12 +62,29 @@ local ok, message = xpcall(function()
             scripted_ents.Register(ENT, eliteData.ranks[rank].class_name)
         end
     end
-    for _, owner in ipairs({"grunt", "jackal", "hunter"}) do
+    for _, owner in ipairs({"grunt", "jackal", "hunter", "flood_combat_human", "flood_combat_elite",
+        "flood_tank", "flood_infection", "flood_carrier"}) do
         ENT = {}
-        include("entities/npc_vj_ce8_" .. owner .. "/" .. (SERVER and "init.lua" or "cl_init.lua"))
+        if owner:sub(1, 6) == "flood_" then
+            local path = "entities/npc_vj_ce8_" .. owner .. ".lua"
+            if SERVER then AddCSLuaFile(path) end
+            include(path)
+        else
+            include("entities/npc_vj_ce8_" .. owner .. "/" .. (SERVER and "init.lua" or "cl_init.lua"))
+        end
         scripted_ents.Register(ENT, "npc_vj_ce8_" .. owner)
         local data = ENT:CE8Data()
         rosterData[owner] = data
+        if data.builtin_weapon then
+            local path = "weapons/" .. data.builtin_weapon .. ".lua"
+            if SERVER then
+                AddCSLuaFile(path)
+                AddCSLuaFile("campaign_evolved/sounds/" .. owner .. "_cannon.lua")
+            end
+            SWEP = {Primary = {}, Secondary = {}}
+            include(path)
+            weapons.Register(SWEP, data.builtin_weapon)
+        end
         for _, rank in ipairs(data.rank_order) do
             if rank ~= "minor" then
                 local path = "entities/" .. data.ranks[rank].class_name .. ".lua"
@@ -77,6 +103,7 @@ local ok, message = xpcall(function()
 end, debug.traceback)
 ENT, SWEP = previousENT, previousSWEP
 if not ok then ErrorNoHalt("Campaign Evolved NPC registration: " .. message .. "\n") return end
+if CLIENT and CE8 and CE8.RefreshSpawnedModelDefinitions then CE8.RefreshSpawnedModelDefinitions() end
 -- Register replaces class definitions but merges existing entity tables.
 -- Retire the old per-entity resource clone in both realms after rebinding getters.
 for _, actor in ipairs(ents.FindByClass("npc_vj_ce8_elite*")) do

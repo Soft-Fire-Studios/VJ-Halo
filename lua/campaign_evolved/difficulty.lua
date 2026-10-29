@@ -4,6 +4,8 @@ local difficulty = CE8.Difficulty or {}
 CE8.Difficulty = difficulty
 
 difficulty.Settings = {
+    ce8_infection_crawl = {default = "1", min = 0, max = 1, integer = true},
+    ce8_infection_crawl_limit = {default = "16", min = 1, max = 32, integer = true},
     ce8_difficulty = {default = "normal", choices = {"normal", "heroic", "legendary"}},
     ce8_accuracy_ramp = {default = "1", min = 0, max = 1, integer = true},
     ce8_accuracy_time_scale = {default = "1", min = 0.1, max = 5},
@@ -106,7 +108,13 @@ function difficulty.ApplyDamage(_, damage)
     end
 end
 
+function difficulty.Unit(data, owner)
+    local label = owner and (owner.CE8WeaponProfile or owner.CE8UnitLabel)
+    return data.unit_ai and data.unit_ai[label] or data
+end
+
 function difficulty.Select(data, owner, weapon, now, started)
+    data = difficulty.Unit(data, owner)
     local requested = owner.CE8FiringPattern
     if requested == nil then requested = weapon.CE8FiringPattern end
     if requested == nil then requested = tonumber(difficulty.Get("ce8_firing_pattern")) end
@@ -149,6 +157,8 @@ function difficulty.ApplyBulletSpread(owner, bullet)
         or weapon:GetOwner() ~= owner then return end
     local spread = weapon:CE8ShotSpread(owner)
     bullet.Spread = Vector(spread, spread, 0)
+    local range = weapon.CE8Data.projectile_range
+    if range and range > 0 then bullet.Distance = range end
     return true
 end
 
@@ -263,6 +273,9 @@ if CLIENT then
         slider("Accuracy ramp time multiplier", "ce8_accuracy_time_scale", 2)
         panel:Help("Higher values make accuracy build more slowly.")
         slider("Weapon spread multiplier", "ce8_projectile_error_scale", 2)
+        slider("Infection direct pursuit / crawling (0 off / 1 on)", "ce8_infection_crawl", 0)
+        slider("Maximum simultaneous Infection crawlers", "ce8_infection_crawl_limit", 0)
+        panel:Help("Slots cover direct approach, walls and ceilings under a shared trace budget. Forms beyond the limit use normal VJ navigation. Close-range spacing and leaps remain active.")
 
         local profiles = panel:ComboBox("Firing profile")
         local selected = tonumber(difficulty.Get("ce8_firing_pattern"))
