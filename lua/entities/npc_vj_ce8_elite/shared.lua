@@ -5,12 +5,12 @@ ENT.Author = "Halo-DT"
 ENT.Category = "Halo - Campaign Evolved"
 ENT.IsCE8Elite = true
 ENT.IsCE8SNPC = true
-ENT.AISquadLeader = true
 ENT.CE8UnitLabel = "elite"
 ENT.CE8Rank = "minor"
 
 local data = include("campaign_evolved/elite_anims.lua")
 function ENT:CE8Data() return data end
+include("campaign_evolved/actor.lua").Weapons(ENT, data)
 local effects = include("campaign_evolved/weapon_fx.lua")
 ENT.CE8ShieldParticleFile = "particles/halo/main_effects.pcf"
 ENT.CE8ShieldEffects = {

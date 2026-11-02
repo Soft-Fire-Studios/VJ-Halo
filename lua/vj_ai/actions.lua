@@ -96,6 +96,17 @@ function methods:AIUpdateReaction(now)
     if config.finished then config.finished(self, kind, now, expired) end
 end
 
+local function traceFilter(actor, config, obstacle)
+    local filter = {actor}
+    local weapon = actor.GetActiveWeapon and actor:GetActiveWeapon()
+    if IsValid(weapon) then filter[#filter + 1] = weapon end
+    if IsValid(obstacle) then filter[#filter + 1] = obstacle end
+    for _, part in pairs(config.ignore and config.ignore(actor) or {}) do
+        if IsValid(part) then filter[#filter + 1] = part end
+    end
+    return filter
+end
+
 function methods:AIValidateMotion(sequence, minimum, obstacle)
     if not self:AIHasCapability("reactions") then return false end
     local config = self:AIProfile().reactions
@@ -104,10 +115,7 @@ function methods:AIValidateMotion(sequence, minimum, obstacle)
     local start, previous = self:GetPos(), self:GetPos()
     local yaw = Angle(0, self:GetAngles().y, 0)
     local mins, maxs = self:GetCollisionBounds()
-    local weapon = self.GetActiveWeapon and self:GetActiveWeapon()
-    local filter = {self}
-    if IsValid(weapon) then filter[#filter + 1] = weapon end
-    if IsValid(obstacle) then filter[#filter + 1] = obstacle end
+    local filter = traceFilter(self, config, obstacle)
     local movement = 0
     local samples = config.path_samples or 8
     -- Trace each portion of the authored curve, including support below it.
@@ -133,6 +141,11 @@ function methods:AITryEvade(now, cooldown, kind)
     if not self:AIHasCapability("evasion") or not self:AIHasCapability("reactions") then return false end
     local config = self:AIProfile().evasion
     local state = config.fields
+    if not kind and config.aim_chance and math.Rand(0, 1) >= value(self, config.aim_chance, 1) then
+        self[state.next_evade] = now + value(self, config.cooldown, 4)
+        self[state.aim_started] = {}
+        return false
+    end
     local reactions = value(self, config.choices, {})
     local first = math.random(2) == 1 and "left" or "right"
     for _, side in ipairs({first, first == "left" and "right" or "left"}) do
@@ -159,6 +172,38 @@ function methods:AITryEvade(now, cooldown, kind)
     end
     self[state.next_evade] = now + (config.failed_delay or 0.5)
     return false
+end
+
+-- Called by the host's VJ danger hook. Its scheduler remains the fallback;
+-- this only selects an available, unobstructed authored reaction.
+function methods:AITryDanger(kind, danger, now)
+    local config = self:AIProfile().reactions
+    local settings = config and value(self, config.danger, false)
+    if not settings or settings.enabled == false then return end
+    local disabled = GetConVar("ai_disabled")
+    if self.VJ_Controlled or (disabled and disabled:GetBool()) or self:GetState() == VJ_STATE_FREEZE
+        or not self:AIReactionReady(now) then return true end
+    if now < (self[config.fields.next_danger] or 0) then return true end
+    local position, hint
+    if kind == VJ.DANGER_TYPE_HINT then
+        hint = self:GetBestSoundHint(bit.bor(SOUND_DANGER, SOUND_PHYSICS_DANGER, SOUND_MOVE_AWAY))
+        if not hint or not hint.origin or (hint.expires and hint.expiration <= now) then return end
+        position, danger = hint.origin, hint.owner
+    elseif IsValid(danger) then position = danger:GetPos() end
+    if kind ~= VJ.DANGER_TYPE_GRENADE and not (IsValid(danger) and danger.VJ_ID_Grenade)
+        and not (hint and bit.band(hint.type, SOUND_DANGER) ~= 0) then return end
+    self[config.fields.next_danger] = now + settings.cooldown
+    if position and math.Rand(0, 1) < settings.dive then
+        local side = (position - self:GetPos()):Dot(self:GetRight()) > 0 and "left" or "right"
+        for _, name in ipairs({"dive_" .. side, "dive_front"}) do
+            local sequence = self:AISelectAction(name)
+            if sequence and self:AIValidateMotion(sequence) and self:AIPlayReaction("danger_dive", sequence, now) then return true end
+        end
+    end
+    if math.Rand(0, 1) < settings.brace then
+        local sequence = self:AISelectAction("brace")
+        if sequence and self:AIValidateMotion(sequence, 0) and self:AIPlayReaction("danger_brace", sequence, now) then return true end
+    end
 end
 
 local function playerAim(now)
@@ -306,7 +351,7 @@ function methods:AITryObstacle(now, failed)
     if self:GetForward():Dot(direction) < (config.heading_dot or 0.866) then return end
     local mins, maxs = self:GetCollisionBounds()
     local weapon = (self.GetActiveWeapon and self:GetActiveWeapon())
-    local filter = IsValid(weapon) and {self, weapon} or {self}
+    local filter = traceFilter(self, reaction)
     local trace = util.TraceHull({start = origin + Vector(0, 0, 2),
         endpos = origin + direction * math.min(delta:Length(), self.MeleeAttackDamageDistance) + Vector(0, 0, 2),
         mins = mins, maxs = maxs, mask = MASK_NPCSOLID, filter = filter})
@@ -362,7 +407,8 @@ function methods:AIObstacleMelee(status, ent)
     if not physics then return true end
     local origin = self:WorldSpaceCenter()
     local point = ent:NearestPoint(origin)
-    local trace = util.TraceLine({start = origin, endpos = point, mask = MASK_SHOT, filter = {self, action.weapon}})
+    local trace = util.TraceLine({start = origin, endpos = point, mask = MASK_SHOT,
+        filter = traceFilter(self, self:AIProfile().reactions)})
     if point:Distance(origin) > self.MeleeAttackDamageDistance or trace.StartSolid
         or (trace.Hit and trace.Entity ~= ent) then return true end
     action.hit = true

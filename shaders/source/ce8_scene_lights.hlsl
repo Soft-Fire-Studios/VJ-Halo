@@ -3,29 +3,41 @@ float3 CE8SceneLighting(float3 position,float3 N,float3 V,float3 albedo,float me
 {
     float3 result=0;
 
-    float count=CE8ModelData(10).x;
-    [loop] for(int i=0;i<16;++i)
+    // Per-model metadata points to a shared regional list. The candidate count
+    // is bounded at 32, and the user limit still caps contributing lights at 16.
+    float4 receiver=CE8ModelData(10);
+    [branch] if(receiver.x<=0) return result;
+    receiver.w=CE8Numeric(receiver.yz+float2(16.0/1024,0)).x;
+    [loop] for(int i=0;i<32;++i)
     {
-        if(i>=count) break;
-        float4 ids=CE8ModelData(6+floor(i/4.0));
+        if(i>=receiver.w || receiver.x<=0) break;
+        float4 ids=CE8Numeric(receiver.yz+float2(floor(i/4.0)*2/1024,0));
         float index=dot(ids,1-step(.5,abs(fmod(i,4)-float4(0,1,2,3))));
         float2 origin=(float2(fmod(index,64)*16,floor(index/64))+.5)/1024;
         float4 p=CE8LightData(origin,0),c=CE8LightData(origin,1),f=CE8LightData(origin,2);
+        // Targeted projectors are shared too, but must only affect their owner.
+        [branch] if(p.w>.5 && p.w<1.5) {
+            float target=CE8LightData(origin,7).x;
+            if(target>=0 && abs(target-CE8ModelData(10).w)>.5) continue;
+        }
+        // Map records contribute specular only; distance LOD can reject them
+        // before cone/cookie/BRDF work. Projectors retain diffuse at that LOD.
+        if((p.w<0 || p.w>1.5) && (SpecularLOD<=0 || SceneMaterial.z<=0)) continue;
         float3 delta=p.xyz-position;
         float distance=max(length(delta),.001),Ldistance=distance;
-        float3 L=delta/Ldistance;
+        float3 L=p.w<-.5 ? SafeNormalize(-f.xyz,N) : delta/Ldistance;
+        if(dot(N,L)<=0 || (p.w>=-.5 && distance>c.w)) continue;
         float attenuation=0;
         float3 cookie=1;float diffuseGain=0;
-        [branch] if(p.w<-.5) { L=SafeNormalize(-f.xyz,N);attenuation=1; }
+        [branch] if(p.w<-.5) { attenuation=1; }
         else [branch] if(p.w<1.5)
         {
             float axial=dot(-delta,f.xyz);
-            float2 uv=0;
-            [loop] for(int axis=0;axis<2;++axis) {
-                float4 basis=CE8LightData(origin,3+axis);
-                float value=dot(-delta,basis.xyz)/max(2*axial*basis.w,.001);
-                if(axis==0) uv.x=value+.5;else uv.y=.5-value;
-            }
+            float4 basis=CE8LightData(origin,3);
+            float2 uv;
+            uv.x=dot(-delta,basis.xyz)/max(2*axial*basis.w,.001)+.5;
+            basis=CE8LightData(origin,4);
+            uv.y=.5-dot(-delta,basis.xyz)/max(2*axial*basis.w,.001);
             float4 a=CE8LightData(origin,5);
             float edge=min(min(uv.x,uv.y),min(1-uv.x,1-uv.y));
             attenuation=saturate(dot(a.xyz,float3(1,1/distance,1/(distance*distance))))
@@ -53,8 +65,9 @@ float3 CE8SceneLighting(float3 position,float3 N,float3 V,float3 albedo,float me
                 attenuation*=step(a.w,cosine)*pow(max(cone,1e-6),max(exponent,0));
             }
         }
-        [branch] if(attenuation>0)
+        [branch] if(attenuation>0 && dot(N,L)>0)
         {
+            receiver.x-=1;
             float3 specular=0;
             [branch] if(SpecularLOD>0 && SceneMaterial.z>0) {
 #if CE8_HUNTER_WORM

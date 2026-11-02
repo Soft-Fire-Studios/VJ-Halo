@@ -141,20 +141,33 @@ local function choose(node)
     return selected
 end
 
-local function emitTree(node, position, level, filter, gain, pitch)
+local function emitTree(node, position, level, filter, gain, pitch, emitter)
     if node.gain then gain = gain + math.Rand(node.gain[1], node.gain[2]) end
     if node.pitch then pitch = pitch + math.Rand(node.pitch[1], node.pitch[2]) end
     if node.file then
+        local volume = math.Clamp(10 ^ (gain / 20), 0, 1)
+        local rate = math.Clamp(100 * 2 ^ (pitch / 1200), 1, 255)
+        if emitter then
+            VJ.EmitSound(emitter, node.file, level, rate, volume, CHAN_AUTO)
+            return
+        end
         -- Use a world emitter: impact tails survive projectile removal. Source
         -- supplies spatial attenuation; the bank's bus/RTPC mix is not recreated.
-        EmitSound(node.file, position, 0, CHAN_AUTO, math.Clamp(10 ^ (gain / 20), 0, 1),
-            level, 0, math.Clamp(100 * 2 ^ (pitch / 1200), 1, 255), 0, filter)
+        EmitSound(node.file, position, 0, CHAN_AUTO, volume, level, 0, rate, 0, filter)
     elseif node.random then
         local index = choose(node)
-        if index then emitTree(node.children[index], position, level, filter, gain, pitch) end
+        if index then emitTree(node.children[index], position, level, filter, gain, pitch, emitter) end
     else
-        for _, child in ipairs(node.children or {}) do emitTree(child, position, level, filter, gain, pitch) end
+        for _, child in ipairs(node.children or {}) do emitTree(child, position, level, filter, gain, pitch, emitter) end
     end
+end
+
+-- Living sources use VJ's recipient filter and sound callbacks. Positional
+-- impacts/death tails retain Sound so removing their source cannot cut them.
+function FX.EntitySound(tree, entity, level)
+    if not SERVER or not tree or not IsValid(entity) then return false end
+    emitTree(tree, nil, level or 75, nil, 0, 0, entity)
+    return true
 end
 
 function FX.Sound(tree, position, level, filter)
@@ -177,18 +190,42 @@ local impactProperties = {"ice", "snow", "sand", "dirt", "grass", "glass", "wood
 -- Shared by physical Needler collisions and Needle Rifle trace impacts.
 -- Shield eligibility is sampled before damage so the last shield-breaking
 -- shot cannot become an attachment after that same hit consumes the shield.
+function FX.IsBarrier(target)
+    if not IsValid(target) then return false end
+    if target.IsCE8Barrier then return true end
+    if target.IsPRPCollider then
+        local owner=target:GetOwner()
+        return IsValid(owner) and owner.CE8MergedBarrier
+            and (target.ColliderSurface or target:GetNW2String("prp_surface"))=="default_silent"
+    end
+    return false
+end
+
 function FX.NeedleContact(target, contact)
-    if not IsValid(target) or target.IsCE8Barrier or contact.HitSky or not contact.HitPos then return end
+    if not IsValid(target) or FX.IsBarrier(target) or contact.HitSky or not contact.HitPos then return end
+    local bone
+    if target.IsPRPCollider then
+        local proxy=target
+        target=proxy:GetOwner()
+        if not IsValid(target) then return end
+        local collider=PRP and PRP.Colliders
+        local direction=contact.OurOldVelocity or contact.Normal or vector_origin
+        local hit=collider and collider.Contact(proxy,contact.HitPos,direction)
+        if not hit or hit.damage_scale<=0 then return end
+        bone=target:LookupBone(hit.bone)
+    end
     if contact.MatType == MAT_SLOSH or bit.band(util.PointContents(contact.HitPos), CONTENTS_WATER) ~= 0 then return end
     local unit = target:IsNPC() or target:IsPlayer() or target:IsNextBot()
     if unit and (target:Health() <= 0 or (target.CE8Shield or 0) > 0
         or (target:IsPlayer() and target:Armor() > 0)) then return end
-    return unit and "unit" or "surface"
+    return unit and "unit" or "surface",target,bone
 end
 
 function FX.ContactSurface(contact)
     local target = contact.HitEntity or contact.Entity
     if IsValid(target) then
+        if FX.IsBarrier(target) then return "shield_jackal" end
+        if target.IsPRPCollider then target=target:GetOwner() end
         if target.CE8ImpactSurface then return target.CE8ImpactSurface end
         if (target.CE8Shield or 0) > 0 then
             return target.CE8UnitLabel == "jackal" and "shield_jackal" or "shield_elite"
@@ -230,7 +267,7 @@ function FX.ContactSound(sounds, collision, surface, kind, charged)
         surface = surface or FX.ContactSurface(collision)
         tree = surfaces and (surfaces[surface] or surfaces.default)
         local target = collision.HitEntity or collision.Entity
-        if IsValid(target) and target.IsCE8Barrier then target = target:GetOwner() end
+        if IsValid(target) and (target.IsCE8Barrier or target.IsPRPCollider) then target = target:GetOwner() end
         if tree and string.sub(surface, 1, 7) == "shield_" and IsValid(target)
             and target.AIHasCapability and target:AIHasCapability("shield")
             and target:AIProfile().shield.sound then

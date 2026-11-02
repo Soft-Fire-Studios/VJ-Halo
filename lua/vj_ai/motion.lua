@@ -9,7 +9,7 @@ local state = {
     move_intent = "AIMoveIntent", move_time = "AIMoveIntentTime", aim_turn = "AIAimTurn",
     aim_previous = "AIAimPrevious", aim_written = "AIAimWritten",
     controller_target = "AIControllerAimTarget", grip_value = "AIAppliedGrip", grip_model = "AIGripModel",
-    schedule_crouch = "AICrouchMove", schedule_weapon = "AICrouchWeapon"
+    schedule_crouch = "AICrouchMove", schedule_weapon = "AICrouchWeapon", reload = "AIReload"
 }
 local function value(actor, setting, fallback)
     if type(setting) == "function" then setting = setting(actor) end
@@ -44,7 +44,7 @@ local function trackingActivity(actor)
     local activities = actor:AIAnimationActivities()
     local current = actor:GetSequenceActivity(actor:GetSequence())
     for action in pairs(trackingActions) do
-        if activities and activities[action] == current then return current end
+        if activities and activities[action] == current then return current, action end
     end
 end
 
@@ -58,20 +58,25 @@ function methods:AIMovementDirection(direction, yaw)
     local forward = direction:Dot(self:GetForward())
     local right = direction:Dot(self:GetRight())
     if forward * forward + right * right < (config.direction_deadband or 0.01) then return self[fields.move_direction] or "front" end
-    local current
+    local current, angle
     if yaw then
-        local angle = math.rad(math.AngleDifference(direction:Angle().y, yaw))
-        forward, right = math.cos(angle), -math.sin(angle)
+        angle = math.AngleDifference(direction:Angle().y, yaw)
         current = self[fields.facing_direction]
     else
+        angle = math.deg((math.atan2 or math.atan)(-right, forward))
         current = self[fields.move_direction]
     end
-    local scores = {front = forward, back = -forward, right = right, left = -right}
-    local selected = math.abs(forward) + 0.000001 >= math.abs(right)
-        and (forward >= 0 and "front" or "back") or (right >= 0 and "right" or "left")
-    -- Retain a side near its boundary instead of alternating stride cycles.
-    if current and scores[current] and scores[current] > 0 and scores[current] >= scores[selected] * (config.hysteresis or 0.85) then
-        selected = current
+    -- Eight travel sectors, four authored clips: diagonals belong to forward
+    -- or backward movement. Reserve side-steps for the +/-90-degree sectors.
+    local absolute = math.abs(angle)
+    local selected = absolute <= 67.5 and "front" or absolute >= 112.5 and "back"
+        or (angle > 0 and "left" or "right")
+    local margin = config.direction_hysteresis or 5
+    if (current == "front" and absolute <= 67.5 + margin)
+        or (current == "back" and absolute >= 112.5 - margin)
+        or (current == "left" and angle >= 67.5 - margin and angle <= 112.5 + margin)
+        or (current == "right" and angle <= -67.5 + margin and angle >= -112.5 - margin) then
+        return current
     end
     return selected
 end
@@ -105,7 +110,8 @@ function methods:AIAnimationSet(weapon)
     weapon = weapon or (self.GetActiveWeapon and self:GetActiveWeapon())
     local name = IsValid(weapon) and config.weapon_key and config.weapon_key(self, weapon) or config.default_set
     local sets = value(self, config.sets, {})
-    return sets[name] or sets[config.default_set], name or config.default_set
+    if not sets[name] then name = config.default_set end
+    return sets[name], name
 end
 
 function methods:AIAnimationActivities(weapon)
@@ -150,6 +156,8 @@ end
 function methods:AISetAnimationTranslations(holdType, weapon)
     local config = self:AIMotionProfile()
     local fields = config.fields
+    local reload = self[fields.reload]
+    if reload and reload.weapon ~= self:GetActiveWeapon() then self:AIReleaseReload(reload) end
     if not self:AIMotionEnabled("movement") then return self:AIMotionBase("SetAnimationTranslations", holdType, weapon) end
     local profile = self:AIAnimationSet(weapon)
     local a = self:AIAnimationActivities(weapon)
@@ -179,8 +187,11 @@ function methods:AISetAnimationTranslations(holdType, weapon)
     bind(ACT_RANGE_ATTACK1_LOW, a.crouch_idle)
     bind(ACT_COVER_LOW, a.crouch_idle)
     bind(ACT_COVER, a.combat_idle)
-    bind(ACT_RELOAD, a.reload)
-    bind(ACT_RELOAD_LOW, a.reload)
+    local reload = profile.reload_gesture and profile.sequences.reload and "vjges_" .. profile.sequences.reload or a.reload
+    bind(ACT_RELOAD, reload)
+    local crouchReload = profile.sequences.crouch_reload and
+        (profile.crouch_reload_gesture and "vjges_" .. profile.sequences.crouch_reload or a.crouch_reload) or reload
+    bind(ACT_RELOAD_LOW, crouchReload)
     bind(ACT_MELEE_ATTACK1, a.melee)
     bind(ACT_TURN_LEFT, a.turn_left)
     bind(ACT_TURN_RIGHT, a.turn_right)
@@ -205,6 +216,9 @@ function methods:AITranslateActivity(act)
     local fields = config.fields
     if not self:AIMotionEnabled("movement") then return self:AIMotionBase("TranslateActivity", act) end
     local a = self:AIAnimationActivities()
+    local crouched = self.AIControlCrouched and self:AIControlCrouched()
+    if crouched and a.crouch_idle and (act == ACT_IDLE or act == ACT_IDLE_ANGRY or act == ACT_COVER_LOW
+        or act == ACT_RANGE_ATTACK1 or act == ACT_RANGE_ATTACK1_LOW) then return a.crouch_idle end
     if act == ACT_JUMP and self:GetNavType() == NAV_JUMP and self:IsGoalActive() then
         local drop = self:GetPos().z - self:GetCurWaypointPos().z
         if drop > 0 then
@@ -230,7 +244,7 @@ function methods:AITranslateActivity(act)
     end
     local mode = movement[act]
     if mode then
-        local crouch = mode[2]
+        local crouch = mode[2] or crouched
         local schedule, weapon = self.CurrentSchedule, self.GetActiveWeapon and self:GetActiveWeapon()
         if not crouch and not self.VJ_Controlled and (not config.crouch_allowed or config.crouch_allowed(self))
             and schedule and schedule.CanShootWhenMoving and IsValid(self:GetEnemy())
@@ -259,7 +273,7 @@ function methods:AITranslateActivity(act)
             if idleMove ~= nil then return idleMove end
             return baseActivity
         end
-        local stride = a[(crouch and "crouch_" or "combat_") .. mode[1] .. "_" .. side]
+        local stride = a[(crouch and "crouch_" or "combat_") .. (crouched and "walk" or mode[1]) .. "_" .. side]
         if stride ~= nil then return stride end
         return baseActivity
     end
@@ -272,11 +286,25 @@ function methods:AIGetTurnAngle(angle)
     local fields = config.fields
     local result = self:AIMotionBase("GetTurnAngle", angle)
     if not self:AIMotionEnabled("movement") then return result end
-    if self.Dead or not self.CanTurnWhileMoving or not self:IsMoving()
+    local activity, action = trackingActivity(self)
+    if self.Dead or not self.CanTurnWhileMoving
         or self:GetNavType() ~= NAV_GROUND or self:IsBusy("Activities") or self.AttackType
-        or self.Flinching or not trackingActivity(self)
+        or self.Flinching or not activity
         or (self.TurnData and self.TurnData.StopOnFace) then
         self[fields.facing_direction] = nil
+        return result
+    end
+    if not self:IsMoving() then
+        self[fields.facing_direction] = nil
+        local schedule, turn = self.CurrentSchedule, self.TurnData
+        -- A strafe route can own facing before its first motor step. Do not
+        -- turn straight at the enemy and then back to the cardinal stride.
+        -- An exhausted route has no goal: allow its final face task normally.
+        if turn and turn.IsSchedule and schedule and schedule.HasMovement
+            and schedule.CanShootWhenMoving and self:GetCurGoalType() ~= 0 then
+            local yaw = self:GetAngles().y % 360
+            return Angle(result.p, yaw == 0 and 360 or yaw, result.r)
+        end
         return result
     end
     local direction = self[fields.move_intent]
@@ -287,6 +315,19 @@ function methods:AIGetTurnAngle(angle)
     -- Pick a cardinal stride relative to VJ's unmodified target, then align
     -- the entity to that stride. Never accumulate an offset from current yaw.
     local side = self:AIMovementDirection(direction, result.y)
+    local previous = self[fields.facing_direction]
+    if previous and side ~= previous and previous == self:AIMovementDirection(direction) then
+        -- A changing enemy bearing must not rotate a straight strafe by 90
+        -- degrees while its existing firing stance can still aim at the enemy.
+        local profile = self:AIAnimationSet()
+        local stance = string.sub(action, 1, 7) == "crouch_" and "crouch_idle" or "combat_idle"
+        local limits = profile and profile.aim_limits and profile.aim_limits[stance]
+        if limits and not profile.melee and self.HasPoseParameterLooking then
+            local heading = direction:Angle().y - movementYaw[previous]
+            local aim = math.AngleDifference(result.y, heading)
+            if aim >= limits[1] and aim <= limits[2] then side = previous end
+        end
+    end
     self[fields.facing_direction] = side
     local yaw = (direction:Angle().y - movementYaw[side]) % 360
     -- VJ treats LastYaw == 0 as inactive. An equivalent full turn preserves
@@ -493,7 +534,81 @@ function methods:AIMotionTurnTarget(target, faceTime, stopOnFace, visibleOnly)
     return self:AIMotionBase("SetTurnTarget", target, faceTime, stopOnFace, visibleOnly)
 end
 
+function methods:AIIsReloading()
+    local config = self:AIMotionProfile()
+    if config.adapter ~= "human" then return false end
+    if self:GetWeaponState() == VJ.WEP_STATE_RELOADING then return true end
+    local reload = self[config.fields.reload]
+    return reload ~= nil and reload.seed == self.WeaponReloadSeed and reload.weapon == self:GetActiveWeapon()
+        and CurTime() < reload.finish
+end
+
+function methods:AIReleaseReload(expected)
+    local field = self:AIMotionProfile().fields.reload
+    local reload = self[field]
+    if not reload or expected and reload ~= expected then return false end
+    self[field] = nil
+    if reload.attack ~= nil and self.NextDoAnyAttackT == reload.finish then
+        self.NextDoAnyAttackT = math.max(CurTime(), reload.attack)
+    end
+    if self.Weapon_RetreatDistance == -1 then self.Weapon_RetreatDistance = reload.retreat end
+    local inventory = reload.inventory
+    if inventory and self.WeaponInventory == inventory and inventory.Melee == nil then inventory.Melee = reload.melee end
+    return true
+end
+
+function methods:AIPlayReloadGesture(animation, lockAnimTime, faceEnemy, delay, extra, customFunc)
+    if not extra or not extra.OnFinish or not self:AIIsReloading() then return end
+    local profile = self:AIAnimationSet()
+    if not profile then return end
+    local name, gesture = profile.sequences.reload, profile.reload_gesture
+    local crouch = profile.sequences.crouch_reload
+    if crouch and (animation == ACT_RELOAD_LOW or animation == "vjges_" .. crouch) then
+        name, gesture = crouch, profile.crouch_reload_gesture
+    end
+    if not name or not gesture then return end
+    local sequence = "vjges_" .. name
+    if animation ~= sequence and animation ~= ACT_RELOAD and animation ~= ACT_RELOAD_LOW then return end
+    local fields = self:AIMotionProfile().fields
+    local reload = {weapon = self:GetActiveWeapon(), seed = self.WeaponReloadSeed}
+    local options = {}
+    for key, value in pairs(extra) do options[key] = value end
+    options.OnFinish = function(interrupted, played)
+        -- Record identity also handles two reloads started in the same tick,
+        -- for which VJ's CurTime-based WeaponReloadSeed can be identical.
+        if not self:AIReleaseReload(reload) then return end
+        -- VJ still owns completion, ammo and OnReload("Finish"). A different
+        -- weapon must never receive completion of the old weapon's gesture.
+        if self:GetActiveWeapon() ~= reload.weapon then interrupted = true end
+        extra.OnFinish(interrupted, played)
+    end
+    local played, duration, kind = self:AIMotionBase("PlayAnim", sequence, false, lockAnimTime, faceEnemy, delay, options, customFunc)
+    if played ~= ACT_INVALID then
+        self:AIReleaseReload()
+        reload.finish = CurTime() + duration
+        self[fields.reload] = reload
+        -- Allow the current path/controller movement to continue. VJ adds a
+        -- two-second chase delay before starting a reload; release only that.
+        if self.NextChaseTime == reload.seed + 2 then self.NextChaseTime = CurTime() end
+        -- Melee cannot interrupt the reload. VJ's nearby retreat and automatic
+        -- switch to its melee inventory also cancel reloading; defer only those
+        -- choices, keeping normal chase/navigation available.
+        reload.retreat, self.Weapon_RetreatDistance = self.Weapon_RetreatDistance, -1
+        reload.inventory = self.WeaponInventory
+        if reload.inventory then
+            reload.melee, reload.inventory.Melee = reload.inventory.Melee, nil
+        end
+        local attack = self.NextDoAnyAttackT or 0
+        if attack < reload.finish then
+            reload.attack, self.NextDoAnyAttackT = attack, reload.finish
+        end
+    end
+    return played, duration, kind
+end
+
 function methods:AIMotionPlayAnim(animation, lockAnim, lockAnimTime, faceEnemy, delay, extra, customFunc)
+    local played, duration, kind = self:AIPlayReloadGesture(animation, lockAnimTime, faceEnemy, delay, extra, customFunc)
+    if played ~= nil then return played, duration, kind end
     local config = self:AIMotionProfile()
     local fields = config.fields
     if self.AttackType or self.Flinching or lockAnim then

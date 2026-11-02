@@ -2,6 +2,7 @@
 -- Banks, cue rules, context validity and surface/action mappings come from a profile.
 local methods = {}
 local durationCache = {}
+local voiceBanks = setmetatable({}, {__mode = "k"})
 
 local function uint32(bytes, at)
     local a, b, c, d = bytes:byte(at, at + 3)
@@ -81,6 +82,22 @@ end
 local function bank(actor, config)
     if type(config.bank) == "function" then return config.bank(actor) end
     return config.bank
+end
+
+local function voicePath(actor, config, path)
+    if not config then return false end
+    if config.observed and config.observed[path] then return true end
+    local voices = bank(actor, config)
+    if not voices then return false end
+    local paths = voiceBanks[voices]
+    if not paths then
+        paths = {}
+        for _, choices in pairs(voices) do
+            for _, sound in ipairs(choices) do paths[sound] = true end
+        end
+        voiceBanks[voices] = paths
+    end
+    return paths[path] == true
 end
 
 -- Shared queues survive a Lua refresh. A profile chooses an established
@@ -305,7 +322,10 @@ local function recordDialogue(self, config, cue, sound, handle, now, context)
 end
 
 function methods:AIObserveDialogue(handle, path, now, context)
-    self:AIObserveGazeSound(handle, path, now)
+    -- OnCreateSound is shared by all VJ patches. Only actual voice resources
+    -- may drive the mouth; equipment/foley never become dialogue observations.
+    local profile = self.AIProfile and self:AIProfile()
+    if voicePath(self, profile and profile.dialogue, path) then self:AIObserveGazeSound(handle, path, now) end
     local config = settings(self, "dialogue")
     local cue = config and config.observed and config.observed[path]
     if not cue or not handle or self.Dead or self:Health() <= 0 or self.HasSounds == false then return false end

@@ -848,6 +848,11 @@ return {
             "campaign_evolved/ce8/jackal/foley/shield_death_02.ogg",
             "campaign_evolved/ce8/jackal/foley/shield_death_03.ogg",
         },
+        ["jackal_shield_redeploy"] = {
+            "campaign_evolved/ce8/jackal/foley/shield_redeploy_01.ogg",
+            "campaign_evolved/ce8/jackal/foley/shield_redeploy_02.ogg",
+            "campaign_evolved/ce8/jackal/foley/shield_redeploy_03.ogg",
+        },
         ["longmove"] = {
             "campaign_evolved/ce8/jackal/foley/longmove_01.ogg",
             "campaign_evolved/ce8/jackal/foley/longmove_02.ogg",
@@ -7462,6 +7467,35 @@ return {
                     ["gain"] = {
                         -10.0,
                         -10.0,
+                    },
+                    ["random"] = true,
+                    ["shuffle"] = false,
+                    ["weights"] = {
+                        50000,
+                        50000,
+                        50000,
+                    },
+                },
+            },
+        },
+        ["jackal_shield_redeploy"] = {
+            ["children"] = {
+                {
+                    ["avoid"] = 1,
+                    ["children"] = {
+                        {
+                            ["file"] = "campaign_evolved/ce8/jackal/foley/shield_redeploy_02.ogg",
+                        },
+                        {
+                            ["file"] = "campaign_evolved/ce8/jackal/foley/shield_redeploy_01.ogg",
+                        },
+                        {
+                            ["file"] = "campaign_evolved/ce8/jackal/foley/shield_redeploy_03.ogg",
+                        },
+                    },
+                    ["gain"] = {
+                        -7.0,
+                        -7.0,
                     },
                     ["random"] = true,
                     ["shuffle"] = false,

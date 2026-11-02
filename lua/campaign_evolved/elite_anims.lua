@@ -1,11 +1,5 @@
 -- Shared Elite animation bindings, native rank stats and campaign loadouts.
 return {
-    ["melee"] = {
-        ["angle"] = 45.0,
-        ["hit_angle"] = 55.0,
-        ["hit_range"] = 102.0,
-        ["range"] = 102.0,
-    },
     ["actions"] = {
         ["missile"] = {
             ["airborne"] = {
@@ -1717,6 +1711,12 @@ return {
         ["gravity"] = 0.8999999761581421,
         ["grenade"] = true,
         ["model"] = "models/campaign_evolved/ce8/material_sets/weapons/weapon_plasma_grenade.mdl",
+        ["settling"] = {
+            ["angular_damping"] = 8,
+            ["bounce_scale"] = 0.5,
+            ["rest_speed"] = 16,
+            ["slide_scale"] = 0.5,
+        },
         ["sounds"] = {
             ["arm"] = {
                 {
@@ -1769,6 +1769,12 @@ return {
                 },
             },
         },
+    },
+    ["melee"] = {
+        ["angle"] = 45.0,
+        ["hit_angle"] = 55.0,
+        ["hit_range"] = 102.0,
+        ["range"] = 102.0,
     },
     ["model"] = "models/campaign_evolved/ce8/material_sets/elite.mdl",
     ["rank_order"] = {
@@ -2251,14 +2257,14 @@ return {
     ["weapon"] = {
         ["bone_offset"] = {
             ["ang"] = {
-                -7.230755294657633,
-                92.29864126040566,
-                -20.291130097290157,
+                -7.230758585169433,
+                92.29864169606103,
+                -20.29112963075975,
             },
             ["pos"] = {
-                -2.0090061741958682,
-                8.583904568727219,
-                -0.9318077448647311,
+                -2.0090063441163486,
+                8.583915896450558,
+                -0.9318074041474501,
             },
         },
         ["class_name"] = "weapon_vj_ce8_needle_rifle",
@@ -2300,6 +2306,15 @@ return {
             ["grip"] = 8,
             ["hold_type"] = "ar2",
             ["melee"] = false,
+            ["melee_attacks"] = {
+                "vjseq_combat_rifle_melee",
+                "vjseq_combat_rifle_melee_var1",
+            },
+            ["melee_variants"] = {
+                "combat_rifle_melee",
+                "combat_rifle_melee_var1",
+            },
+            ["reload_gesture"] = true,
             ["sequences"] = {
                 ["combat_idle"] = "combat_rifle_idle_var1",
                 ["combat_move_back"] = "combat_rifle_move_back",
@@ -2350,6 +2365,15 @@ return {
             ["grip"] = 9,
             ["hold_type"] = "ar2",
             ["melee"] = false,
+            ["melee_attacks"] = {
+                "vjseq_combat_rifle_melee",
+                "vjseq_combat_rifle_melee_var1",
+            },
+            ["melee_variants"] = {
+                "combat_rifle_melee",
+                "combat_rifle_melee_var1",
+            },
+            ["reload_gesture"] = true,
             ["sequences"] = {
                 ["combat_idle"] = "combat_rifle_idle_var1",
                 ["combat_move_back"] = "combat_rifle_move_back",
@@ -2400,6 +2424,15 @@ return {
             ["grip"] = 12,
             ["hold_type"] = "ar2",
             ["melee"] = false,
+            ["melee_attacks"] = {
+                "vjseq_combat_rifle_melee",
+                "vjseq_combat_rifle_melee_var1",
+            },
+            ["melee_variants"] = {
+                "combat_rifle_melee",
+                "combat_rifle_melee_var1",
+            },
+            ["reload_gesture"] = true,
             ["sequences"] = {
                 ["combat_idle"] = "combat_rifle_idle_var1",
                 ["combat_move_back"] = "combat_rifle_move_back",
@@ -2457,6 +2490,7 @@ return {
                 "combat_sword_melee_var3",
                 "combat_sword_melee_var4",
             },
+            ["reload_gesture"] = false,
             ["sequences"] = {
                 ["combat_idle"] = "combat_sword_idle_var1",
                 ["combat_move_back"] = "combat_sword_move_back",
@@ -2507,6 +2541,13 @@ return {
             ["grip"] = 1,
             ["hold_type"] = "rpg",
             ["melee"] = false,
+            ["melee_attacks"] = {
+                "vjseq_combat_missile_melee_var1",
+            },
+            ["melee_variants"] = {
+                "combat_missile_melee_var1",
+            },
+            ["reload_gesture"] = false,
             ["sequences"] = {
                 ["combat_idle"] = "combat_missile_idle",
                 ["combat_move_back"] = "combat_missile_move_back",
@@ -2533,7 +2574,7 @@ return {
                 ["fire"] = "combat_missile_fire_1",
                 ["jump"] = "combat_missile_airborne",
                 ["land"] = "combat_missile_land_hard",
-                ["melee"] = "combat_missile_melee",
+                ["melee"] = "combat_missile_melee_var1",
                 ["patrol_idle"] = "patrol_missile_idle",
                 ["patrol_run"] = "patrol_missile_move_front",
                 ["patrol_walk"] = "patrol_missile_move_front",
@@ -2557,6 +2598,17 @@ return {
             ["grip"] = 4,
             ["hold_type"] = "pistol",
             ["melee"] = false,
+            ["melee_attacks"] = {
+                "vjseq_combat_pistol_melee",
+                "vjseq_combat_pistol_melee_var1",
+                "vjges_combat_pistol_melee_strike_1",
+                "vjges_combat_pistol_melee_strike_2",
+            },
+            ["melee_variants"] = {
+                "combat_pistol_melee",
+                "combat_pistol_melee_var1",
+            },
+            ["reload_gesture"] = false,
             ["sequences"] = {
                 ["combat_idle"] = "combat_pistol_idle",
                 ["combat_move_back"] = "combat_pistol_move_back",
@@ -2607,6 +2659,15 @@ return {
             ["grip"] = 10,
             ["hold_type"] = "ar2",
             ["melee"] = false,
+            ["melee_attacks"] = {
+                "vjseq_combat_rifle_melee",
+                "vjseq_combat_rifle_melee_var1",
+            },
+            ["melee_variants"] = {
+                "combat_rifle_melee",
+                "combat_rifle_melee_var1",
+            },
+            ["reload_gesture"] = true,
             ["sequences"] = {
                 ["combat_idle"] = "combat_rifle_idle_var1",
                 ["combat_move_back"] = "combat_rifle_move_back",
@@ -2657,6 +2718,17 @@ return {
             ["grip"] = 5,
             ["hold_type"] = "pistol",
             ["melee"] = false,
+            ["melee_attacks"] = {
+                "vjseq_combat_pistol_melee",
+                "vjseq_combat_pistol_melee_var1",
+                "vjges_combat_pistol_melee_strike_1",
+                "vjges_combat_pistol_ne_melee_strike_2",
+            },
+            ["melee_variants"] = {
+                "combat_pistol_melee",
+                "combat_pistol_melee_var1",
+            },
+            ["reload_gesture"] = false,
             ["sequences"] = {
                 ["combat_idle"] = "combat_pistol_idle",
                 ["combat_move_back"] = "combat_pistol_move_back",
@@ -2707,6 +2779,17 @@ return {
             ["grip"] = 6,
             ["hold_type"] = "pistol",
             ["melee"] = false,
+            ["melee_attacks"] = {
+                "vjseq_combat_pistol_melee",
+                "vjseq_combat_pistol_melee_var1",
+                "vjges_combat_pistol_melee_strike_1",
+                "vjges_combat_pistol_melee_strike_2",
+            },
+            ["melee_variants"] = {
+                "combat_pistol_melee",
+                "combat_pistol_melee_var1",
+            },
+            ["reload_gesture"] = false,
             ["sequences"] = {
                 ["combat_idle"] = "combat_pistol_idle",
                 ["combat_move_back"] = "combat_pistol_move_back",
@@ -2757,6 +2840,17 @@ return {
             ["grip"] = 6,
             ["hold_type"] = "pistol",
             ["melee"] = false,
+            ["melee_attacks"] = {
+                "vjseq_combat_pistol_melee",
+                "vjseq_combat_pistol_melee_var1",
+                "vjges_combat_pistol_melee_strike_1",
+                "vjges_combat_pistol_melee_strike_2",
+            },
+            ["melee_variants"] = {
+                "combat_pistol_melee",
+                "combat_pistol_melee_var1",
+            },
+            ["reload_gesture"] = false,
             ["sequences"] = {
                 ["combat_idle"] = "combat_pistol_idle",
                 ["combat_move_back"] = "combat_pistol_move_back",
@@ -2807,6 +2901,13 @@ return {
             ["grip"] = 0,
             ["hold_type"] = "rpg",
             ["melee"] = false,
+            ["melee_attacks"] = {
+                "vjseq_combat_missile_melee_var1",
+            },
+            ["melee_variants"] = {
+                "combat_missile_melee_var1",
+            },
+            ["reload_gesture"] = false,
             ["sequences"] = {
                 ["combat_idle"] = "combat_missile_idle",
                 ["combat_move_back"] = "combat_missile_move_back",
@@ -2833,7 +2934,7 @@ return {
                 ["fire"] = "combat_missile_fire_1",
                 ["jump"] = "combat_missile_airborne",
                 ["land"] = "combat_missile_land_hard",
-                ["melee"] = "combat_missile_melee",
+                ["melee"] = "combat_missile_melee_var1",
                 ["patrol_idle"] = "patrol_missile_idle",
                 ["patrol_run"] = "patrol_missile_move_front",
                 ["patrol_walk"] = "patrol_missile_move_front",
@@ -2857,6 +2958,15 @@ return {
             ["grip"] = 15,
             ["hold_type"] = "ar2",
             ["melee"] = false,
+            ["melee_attacks"] = {
+                "vjseq_combat_rifle_melee",
+                "vjseq_combat_rifle_melee_var1",
+            },
+            ["melee_variants"] = {
+                "combat_rifle_melee",
+                "combat_rifle_melee_var1",
+            },
+            ["reload_gesture"] = true,
             ["sequences"] = {
                 ["combat_idle"] = "combat_rifle_idle_var1",
                 ["combat_move_back"] = "combat_rifle_move_back",
@@ -2907,6 +3017,15 @@ return {
             ["grip"] = 0,
             ["hold_type"] = "ar2",
             ["melee"] = false,
+            ["melee_attacks"] = {
+                "vjseq_combat_rifle_melee",
+                "vjseq_combat_rifle_melee_var1",
+            },
+            ["melee_variants"] = {
+                "combat_rifle_melee",
+                "combat_rifle_melee_var1",
+            },
+            ["reload_gesture"] = true,
             ["sequences"] = {
                 ["combat_idle"] = "combat_rifle_idle_var1",
                 ["combat_move_back"] = "combat_rifle_move_back",
@@ -2957,6 +3076,15 @@ return {
             ["grip"] = 16,
             ["hold_type"] = "ar2",
             ["melee"] = false,
+            ["melee_attacks"] = {
+                "vjseq_combat_rifle_melee",
+                "vjseq_combat_rifle_melee_var1",
+            },
+            ["melee_variants"] = {
+                "combat_rifle_melee",
+                "combat_rifle_melee_var1",
+            },
+            ["reload_gesture"] = true,
             ["sequences"] = {
                 ["combat_idle"] = "combat_rifle_idle_var1",
                 ["combat_move_back"] = "combat_rifle_move_back",
@@ -3007,6 +3135,15 @@ return {
             ["grip"] = 7,
             ["hold_type"] = "ar2",
             ["melee"] = false,
+            ["melee_attacks"] = {
+                "vjseq_combat_rifle_melee",
+                "vjseq_combat_rifle_melee_var1",
+            },
+            ["melee_variants"] = {
+                "combat_rifle_melee",
+                "combat_rifle_melee_var1",
+            },
+            ["reload_gesture"] = true,
             ["sequences"] = {
                 ["combat_idle"] = "combat_rifle_idle_var1",
                 ["combat_move_back"] = "combat_rifle_move_back",

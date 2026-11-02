@@ -161,6 +161,118 @@ return {
         ["speed"] = 360000.0,
         ["tracer"] = "Tracer",
         ["unit_ai"] = {
+            ["brute"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["brute_captain"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
             ["floodcombat"] = {
                 ["accuracy"] = {
                     ["heroic"] = {
@@ -217,10 +329,707 @@ return {
                     },
                 },
             },
+            ["grunt"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["grunt_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["grunt_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["jackal"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["jackal_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["jackal_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
         },
         ["unit_classes"] = {
         },
         ["unit_holds"] = {
+        },
+        ["valve_offset"] = {
+            ["ang"] = {
+                2.2680124825328414,
+                -92.20812519168746,
+                -5.108136246295942,
+            },
+            ["attachment"] = "anim_attachment_RH",
+            ["pos"] = {
+                4.15515036656542e-34,
+                -2.034458893573571e-34,
+                4.728830675500197e-33,
+            },
         },
     },
     ["battle_rifle"] = {
@@ -365,6 +1174,118 @@ return {
             ["rounds"] = 3,
         },
         ["unit_ai"] = {
+            ["brute"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.25,
+                            0.75,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.5,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.5,
+                        },
+                        ["time"] = 9.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.1,
+                    0.8,
+                },
+                ["max_range"] = 2760.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.25,
+                            0.45,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            1.4,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.4,
+                            0.6,
+                        },
+                        ["projectile_error"] = 0.003490658476948738,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.9,
+                            1.2,
+                        },
+                    },
+                },
+            },
+            ["brute_captain"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.25,
+                            0.75,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.5,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.5,
+                        },
+                        ["time"] = 9.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.1,
+                    0.8,
+                },
+                ["max_range"] = 2760.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.25,
+                            0.45,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            1.4,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.4,
+                            0.6,
+                        },
+                        ["projectile_error"] = 0.003490658476948738,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.9,
+                            1.2,
+                        },
+                    },
+                },
+            },
             ["floodcombat"] = {
                 ["accuracy"] = {
                     ["heroic"] = {
@@ -421,10 +1342,707 @@ return {
                     },
                 },
             },
+            ["grunt"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.25,
+                            0.75,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.5,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.5,
+                        },
+                        ["time"] = 9.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.1,
+                    0.8,
+                },
+                ["max_range"] = 2760.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.25,
+                            0.45,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            1.4,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.4,
+                            0.6,
+                        },
+                        ["projectile_error"] = 0.003490658476948738,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.9,
+                            1.2,
+                        },
+                    },
+                },
+            },
+            ["grunt_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.25,
+                            0.75,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.5,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.5,
+                        },
+                        ["time"] = 9.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.1,
+                    0.8,
+                },
+                ["max_range"] = 2760.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.25,
+                            0.45,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            1.4,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.4,
+                            0.6,
+                        },
+                        ["projectile_error"] = 0.003490658476948738,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.9,
+                            1.2,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.25,
+                            0.75,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.5,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.5,
+                        },
+                        ["time"] = 9.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.1,
+                    0.8,
+                },
+                ["max_range"] = 2760.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.25,
+                            0.45,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            1.4,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.4,
+                            0.6,
+                        },
+                        ["projectile_error"] = 0.003490658476948738,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.9,
+                            1.2,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.25,
+                            0.75,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.5,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.5,
+                        },
+                        ["time"] = 9.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.1,
+                    0.8,
+                },
+                ["max_range"] = 2760.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.25,
+                            0.45,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            1.4,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.4,
+                            0.6,
+                        },
+                        ["projectile_error"] = 0.003490658476948738,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.9,
+                            1.2,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.25,
+                            0.75,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.5,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.5,
+                        },
+                        ["time"] = 9.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.1,
+                    0.8,
+                },
+                ["max_range"] = 2760.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.25,
+                            0.45,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            1.4,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.4,
+                            0.6,
+                        },
+                        ["projectile_error"] = 0.003490658476948738,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.9,
+                            1.2,
+                        },
+                    },
+                },
+            },
+            ["grunt_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.25,
+                            0.75,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.5,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.5,
+                        },
+                        ["time"] = 9.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.1,
+                    0.8,
+                },
+                ["max_range"] = 2760.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.25,
+                            0.45,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            1.4,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.4,
+                            0.6,
+                        },
+                        ["projectile_error"] = 0.003490658476948738,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.9,
+                            1.2,
+                        },
+                    },
+                },
+            },
+            ["jackal"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.25,
+                            0.75,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.5,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.5,
+                        },
+                        ["time"] = 9.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.1,
+                    0.8,
+                },
+                ["max_range"] = 2760.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.25,
+                            0.45,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            1.4,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.4,
+                            0.6,
+                        },
+                        ["projectile_error"] = 0.003490658476948738,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.9,
+                            1.2,
+                        },
+                    },
+                },
+            },
+            ["jackal_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.25,
+                            0.75,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.5,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.5,
+                        },
+                        ["time"] = 9.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.1,
+                    0.8,
+                },
+                ["max_range"] = 2760.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.25,
+                            0.45,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            1.4,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.4,
+                            0.6,
+                        },
+                        ["projectile_error"] = 0.003490658476948738,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.9,
+                            1.2,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.25,
+                            0.75,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.5,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.5,
+                        },
+                        ["time"] = 9.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.1,
+                    0.8,
+                },
+                ["max_range"] = 2760.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.25,
+                            0.45,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            1.4,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.4,
+                            0.6,
+                        },
+                        ["projectile_error"] = 0.003490658476948738,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.9,
+                            1.2,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.25,
+                            0.75,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.5,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.5,
+                        },
+                        ["time"] = 9.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.1,
+                    0.8,
+                },
+                ["max_range"] = 2760.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.25,
+                            0.45,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            1.4,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.4,
+                            0.6,
+                        },
+                        ["projectile_error"] = 0.003490658476948738,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.9,
+                            1.2,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.25,
+                            0.75,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.5,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.5,
+                        },
+                        ["time"] = 9.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.1,
+                    0.8,
+                },
+                ["max_range"] = 2760.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.25,
+                            0.45,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            1.4,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.4,
+                            0.6,
+                        },
+                        ["projectile_error"] = 0.003490658476948738,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.9,
+                            1.2,
+                        },
+                    },
+                },
+            },
+            ["jackal_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.25,
+                            0.75,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.5,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.5,
+                        },
+                        ["time"] = 9.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.1,
+                    0.8,
+                },
+                ["max_range"] = 2760.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.25,
+                            0.45,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            1.4,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.4,
+                            0.6,
+                        },
+                        ["projectile_error"] = 0.003490658476948738,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.9,
+                            1.2,
+                        },
+                    },
+                },
+            },
         },
         ["unit_classes"] = {
         },
         ["unit_holds"] = {
+        },
+        ["valve_offset"] = {
+            ["ang"] = {
+                2.2680124825328414,
+                -92.20812519168746,
+                -5.108136246295942,
+            },
+            ["attachment"] = "anim_attachment_RH",
+            ["pos"] = {
+                0.00423212314142291,
+                0.1097595237933093,
+                0.004350252895415941,
+            },
         },
     },
     ["beam_rifle"] = {
@@ -547,6 +2165,118 @@ return {
         ["right_attachment"] = "right_hand_elite",
         ["speed"] = 144000.0,
         ["unit_ai"] = {
+            ["brute"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["brute_captain"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
             ["floodcombat"] = {
                 ["accuracy"] = {
                     ["heroic"] = {
@@ -603,14 +2333,710 @@ return {
                     },
                 },
             },
+            ["grunt"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["grunt_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["grunt_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["jackal"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["jackal_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 7200.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.01745329238474369,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.5,
+                            4.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 7200.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.01745329238474369,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.5,
+                            4.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.5,
+                        },
+                    },
+                },
+            },
         },
         ["unit_classes"] = {
         },
         ["unit_holds"] = {
         },
+        ["valve_offset"] = {
+            ["ang"] = {
+                2.2680124825328414,
+                -92.20812519168746,
+                -5.108136246295942,
+            },
+            ["attachment"] = "anim_attachment_RH",
+            ["pos"] = {
+                0.0,
+                0.0,
+                0.0,
+            },
+        },
     },
     ["energy_sword"] = {
-        ["melee_angle"] = 20.0,
         ["accuracy"] = {
             ["heroic"] = {
                 ["bounds"] = {
@@ -678,6 +3104,7 @@ return {
         ["left_attachment"] = "left_hand",
         ["max_range"] = 1200.0,
         ["melee"] = true,
+        ["melee_angle"] = 20.0,
         ["melee_range"] = 120.0,
         ["model"] = "models/campaign_evolved/ce8/material_sets/weapons/weapon_energy_sword.mdl",
         ["muzzle"] = false,
@@ -719,6 +3146,94 @@ return {
         ["right_attachment"] = "right_hand_elite",
         ["speed"] = 0,
         ["unit_ai"] = {
+            ["brute"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.0,
+                    0.0,
+                },
+                ["max_range"] = 1200.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.5,
+                            0.5,
+                        },
+                    },
+                },
+            },
+            ["brute_captain"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.0,
+                    0.0,
+                },
+                ["max_range"] = 1200.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.5,
+                            0.5,
+                        },
+                    },
+                },
+            },
             ["floodcombat"] = {
                 ["accuracy"] = {
                     ["heroic"] = {
@@ -763,10 +3278,563 @@ return {
                     },
                 },
             },
+            ["grunt"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.0,
+                    0.0,
+                },
+                ["max_range"] = 1200.0,
+                ["min_range"] = 0.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.5,
+                            0.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.0,
+                    0.0,
+                },
+                ["max_range"] = 1200.0,
+                ["min_range"] = 0.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.5,
+                            0.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.0,
+                    0.0,
+                },
+                ["max_range"] = 1200.0,
+                ["min_range"] = 0.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.5,
+                            0.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.0,
+                    0.0,
+                },
+                ["max_range"] = 1200.0,
+                ["min_range"] = 0.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.5,
+                            0.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.0,
+                    0.0,
+                },
+                ["max_range"] = 1200.0,
+                ["min_range"] = 0.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.5,
+                            0.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.0,
+                    0.0,
+                },
+                ["max_range"] = 1200.0,
+                ["min_range"] = 0.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.5,
+                            0.5,
+                        },
+                    },
+                },
+            },
+            ["jackal"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.0,
+                    0.0,
+                },
+                ["max_range"] = 1200.0,
+                ["min_range"] = 0.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.5,
+                            0.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.0,
+                    0.0,
+                },
+                ["max_range"] = 1200.0,
+                ["min_range"] = 0.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.5,
+                            0.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.0,
+                    0.0,
+                },
+                ["max_range"] = 1200.0,
+                ["min_range"] = 0.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.5,
+                            0.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.0,
+                    0.0,
+                },
+                ["max_range"] = 1200.0,
+                ["min_range"] = 0.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.5,
+                            0.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.0,
+                    0.0,
+                },
+                ["max_range"] = 1200.0,
+                ["min_range"] = 0.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.5,
+                            0.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.0,
+                    0.0,
+                },
+                ["max_range"] = 1200.0,
+                ["min_range"] = 0.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.5,
+                            0.5,
+                        },
+                    },
+                },
+            },
         },
         ["unit_classes"] = {
         },
         ["unit_holds"] = {
+        },
+        ["valve_offset"] = {
+            ["ang"] = {
+                0.0,
+                -90.0000136603816,
+                0.0,
+            },
+            ["attachment"] = "anim_attachment_RH",
+            ["pos"] = {
+                0.42959861268964106,
+                0.42959862570697116,
+                -4.2228855703638045e-16,
+            },
         },
     },
     ["flak_cannon"] = {
@@ -972,6 +4040,166 @@ return {
         ["right_attachment"] = "right_hand_elite",
         ["speed"] = 2160.0,
         ["unit_ai"] = {
+            ["brute"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 4.5,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 1800.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.25,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["brute_captain"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 4.5,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 1800.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.25,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
             ["floodcombat"] = {
                 ["accuracy"] = {
                     ["heroic"] = {
@@ -1028,10 +4256,995 @@ return {
                     },
                 },
             },
+            ["grunt"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 4.5,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 300.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.25,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 4.5,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 300.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.25,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 4.5,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 300.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.25,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 4.5,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 300.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.25,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 4.5,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 300.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.25,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 4.5,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 300.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.25,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 4.5,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 300.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.25,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 4.5,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 300.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.25,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 4.5,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 300.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.25,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 4.5,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 300.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.25,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 4.5,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 300.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.25,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 4.5,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 300.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.25,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.5,
+                            3.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
         },
         ["unit_classes"] = {
         },
         ["unit_holds"] = {
+        },
+        ["valve_offset"] = {
+            ["ang"] = {
+                21.385253615573586,
+                -95.59700462337871,
+                -3.6478754555595962,
+            },
+            ["attachment"] = "anim_attachment_RH",
+            ["pos"] = {
+                0.7771527445878568,
+                0.26658072955367035,
+                0.20864536463169717,
+            },
         },
     },
     ["magnum"] = {
@@ -1195,6 +5408,118 @@ return {
         ["speed"] = 360000.0,
         ["tracer"] = "Tracer",
         ["unit_ai"] = {
+            ["brute"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.65,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            2.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["brute_captain"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.65,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            2.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
             ["floodcombat"] = {
                 ["accuracy"] = {
                     ["heroic"] = {
@@ -1251,10 +5576,707 @@ return {
                     },
                 },
             },
+            ["grunt"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.65,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            2.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["grunt_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.65,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            2.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.65,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            2.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.65,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            2.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.65,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            2.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["grunt_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.65,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            2.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["jackal"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.65,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            2.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["jackal_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.65,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            2.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.65,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            2.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.65,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            2.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.65,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            2.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["jackal_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.65,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.2,
+                            2.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.02617993764579296,
+                        ["rate"] = 2.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
         },
         ["unit_classes"] = {
         },
         ["unit_holds"] = {
+        },
+        ["valve_offset"] = {
+            ["ang"] = {
+                1.3220599541504185,
+                -81.48586493928693,
+                -5.324862974159837,
+            },
+            ["attachment"] = "anim_attachment_RH",
+            ["pos"] = {
+                0.146660244491814,
+                -0.8081676269704091,
+                3.336337024271502,
+            },
         },
     },
     ["needle_rifle"] = {
@@ -1443,6 +6465,166 @@ return {
         ["right_attachment"] = "right_hand_elite",
         ["speed"] = 180000.0,
         ["unit_ai"] = {
+            ["brute"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.3,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 2400.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.66,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.25,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.0021816615480929613,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.8,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["brute_captain"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.3,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 2400.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.66,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.25,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.0021816615480929613,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.8,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
             ["floodcombat"] = {
                 ["accuracy"] = {
                     ["heroic"] = {
@@ -1523,10 +6705,995 @@ return {
                     },
                 },
             },
+            ["grunt"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.3,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.66,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.25,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.0021816615480929613,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.8,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.3,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.66,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.25,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.0021816615480929613,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.8,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.3,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.66,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.25,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.0021816615480929613,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.8,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.3,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.66,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.25,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.0021816615480929613,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.8,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.3,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.66,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.25,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.0021816615480929613,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.8,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.3,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.66,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.25,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.0021816615480929613,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.8,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.3,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.66,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.25,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.0021816615480929613,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.8,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.3,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.66,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.25,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.0021816615480929613,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.8,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.3,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.66,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.25,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.0021816615480929613,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.8,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.3,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.66,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.25,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.0021816615480929613,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.8,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.3,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.66,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.25,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.0021816615480929613,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.8,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.3,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.66,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 1.5,
+                        ["separation"] = {
+                            1.25,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.4,
+                        },
+                        ["projectile_error"] = 0.0021816615480929613,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.2,
+                            1.8,
+                        },
+                        ["projectile_error"] = 0.01308996882289648,
+                        ["rate"] = 5.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
         },
         ["unit_classes"] = {
         },
         ["unit_holds"] = {
+        },
+        ["valve_offset"] = {
+            ["ang"] = {
+                2.2680124825328414,
+                -92.20812519168746,
+                -5.108136246295942,
+            },
+            ["attachment"] = "anim_attachment_RH",
+            ["pos"] = {
+                -0.052966961115939085,
+                0.8900540351179267,
+                -0.9413483414461993,
+            },
         },
     },
     ["needler"] = {
@@ -1756,6 +7923,166 @@ return {
         ["right_attachment"] = "right_hand_elite",
         ["speed"] = 960.0,
         ["unit_ai"] = {
+            ["brute"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.33,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["brute_captain"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.33,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
             ["floodcombat"] = {
                 ["accuracy"] = {
                     ["heroic"] = {
@@ -1812,10 +8139,995 @@ return {
                     },
                 },
             },
+            ["grunt"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.33,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.33,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.33,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.33,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.33,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.33,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 2.5,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.8,
+                        },
+                        ["time"] = 9.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.6,
+                        },
+                        ["time"] = 13.5,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 6.0,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 6.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 6.0,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.8,
+                        },
+                        ["time"] = 9.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.6,
+                        },
+                        ["time"] = 13.5,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 6.0,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 6.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 6.0,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.8,
+                        },
+                        ["time"] = 9.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.6,
+                        },
+                        ["time"] = 13.5,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 6.0,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 6.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 6.0,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.8,
+                        },
+                        ["time"] = 9.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.6,
+                        },
+                        ["time"] = 13.5,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 6.0,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 6.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 6.0,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.8,
+                        },
+                        ["time"] = 9.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.6,
+                        },
+                        ["time"] = 13.5,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 6.0,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 6.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 6.0,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.8,
+                        },
+                        ["time"] = 9.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.6,
+                        },
+                        ["time"] = 13.5,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 6.0,
+                        ["separation"] = {
+                            1.0,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.3,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 6.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 6.0,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
         },
         ["unit_classes"] = {
         },
         ["unit_holds"] = {
+        },
+        ["valve_offset"] = {
+            ["ang"] = {
+                1.3220599541504185,
+                -81.48586493928693,
+                -5.324862974159837,
+            },
+            ["attachment"] = "anim_attachment_RH",
+            ["pos"] = {
+                0.34344286322672196,
+                -1.1478498029949422,
+                1.7939919941965248,
+            },
         },
     },
     ["plasma_pistol"] = {
@@ -1994,6 +9306,166 @@ return {
         ["right_attachment"] = "right_hand_elite",
         ["speed"] = 2400.0,
         ["unit_ai"] = {
+            ["brute"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.5,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.6,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.6,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.7,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["brute_captain"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.5,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.6,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.6,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.7,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
             ["floodcombat"] = {
                 ["accuracy"] = {
                     ["heroic"] = {
@@ -2050,10 +9522,995 @@ return {
                     },
                 },
             },
+            ["grunt"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.5,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 30.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.6,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.6,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.7,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.5,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 30.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.6,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.6,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.7,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.5,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 30.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.6,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.6,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.7,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.5,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 30.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.6,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.6,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.7,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.25,
+                            0.75,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.4,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 30.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.6,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.6,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.7,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.25,
+                            0.75,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.4,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 30.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.6,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 3.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.6,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.0,
+                        ["rate"] = 5.5,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.7,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.8,
+                        },
+                        ["time"] = 9.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.6,
+                        },
+                        ["time"] = 13.5,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 30.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.8,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.65,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 10.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.7,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 10.0,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["time"] = 0.3330000042915344,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["time"] = 0.3330000042915344,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["time"] = 0.3330000042915344,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 30.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.8,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.65,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 10.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.7,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 10.0,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["time"] = 0.3330000042915344,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["time"] = 0.3330000042915344,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.0,
+                        },
+                        ["time"] = 0.3330000042915344,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 30.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.8,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.65,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 10.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.7,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 10.0,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.8,
+                        },
+                        ["time"] = 9.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.6,
+                        },
+                        ["time"] = 13.5,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 30.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.8,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.65,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 10.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.7,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 10.0,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.8,
+                        },
+                        ["time"] = 9.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.6,
+                        },
+                        ["time"] = 13.5,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 30.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.8,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.65,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 10.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.7,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 10.0,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.8,
+                        },
+                        ["time"] = 9.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 6.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.6,
+                        },
+                        ["time"] = 13.5,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1560.0,
+                ["min_range"] = 30.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.8,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.749999761581421,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.65,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 10.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.7,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 10.0,
+                        ["separation"] = {
+                            0.5,
+                            1.5,
+                        },
+                    },
+                },
+            },
         },
         ["unit_classes"] = {
         },
         ["unit_holds"] = {
+        },
+        ["valve_offset"] = {
+            ["ang"] = {
+                1.3220599541504185,
+                -81.48586493928693,
+                -5.324862974159837,
+            },
+            ["attachment"] = "anim_attachment_RH",
+            ["pos"] = {
+                -0.26095849120797654,
+                -0.16119422706953634,
+                1.6922061474087506,
+            },
         },
     },
     ["plasma_rifle"] = {
@@ -2228,6 +10685,166 @@ return {
         ["right_attachment"] = "right_hand_elite",
         ["speed"] = 3000.0,
         ["unit_ai"] = {
+            ["brute"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.7,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.75,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.001745329238474369,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.9,
+                            1.32,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.8,
+                        },
+                    },
+                },
+            },
+            ["brute_captain"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.7,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.75,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.001745329238474369,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.9,
+                            1.32,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.8,
+                        },
+                    },
+                },
+            },
             ["floodcombat"] = {
                 ["accuracy"] = {
                     ["heroic"] = {
@@ -2284,10 +10901,997 @@ return {
                     },
                 },
             },
+            ["grunt"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.7,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.75,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.001745329238474369,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.9,
+                            1.32,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.8,
+                        },
+                    },
+                },
+            },
+            ["grunt_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.7,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.75,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.001745329238474369,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.9,
+                            1.32,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.8,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.7,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.75,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.001745329238474369,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.9,
+                            1.32,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.8,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.7,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.75,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.001745329238474369,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.9,
+                            1.32,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.8,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.7,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.75,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.001745329238474369,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.9,
+                            1.32,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.8,
+                        },
+                    },
+                },
+            },
+            ["grunt_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.7,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.75,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.001745329238474369,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.9,
+                            1.32,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.8,
+                        },
+                    },
+                },
+            },
+            ["jackal"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.7,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.75,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.001745329238474369,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.9,
+                            1.32,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.8,
+                        },
+                    },
+                },
+            },
+            ["jackal_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.7,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.75,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.001745329238474369,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.9,
+                            1.32,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.8,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.7,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.75,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.001745329238474369,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.9,
+                            1.32,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.8,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.7,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.75,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.001745329238474369,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.9,
+                            1.32,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.8,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.7,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.75,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.001745329238474369,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.9,
+                            1.32,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.8,
+                        },
+                    },
+                },
+            },
+            ["jackal_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.75,
+                        },
+                        ["time"] = 4.0,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.85,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.7,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.75,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            1.1,
+                        },
+                        ["projectile_error"] = 0.001745329238474369,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.9,
+                            1.32,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            1.8,
+                        },
+                    },
+                },
+            },
         },
         ["unit_classes"] = {
+            ["brute"] = "pistol",
         },
         ["unit_holds"] = {
+            ["brute"] = "pistol",
+        },
+        ["valve_offset"] = {
+            ["ang"] = {
+                1.322119011225413,
+                -81.48600191377095,
+                -5.324937087035006,
+            },
+            ["attachment"] = "anim_attachment_RH",
+            ["pos"] = {
+                -0.3966864581322037,
+                -0.9084750916562958,
+                0.3283162315639052,
+            },
         },
     },
     ["rocket_launcher"] = {
@@ -2483,6 +12087,118 @@ return {
         ["speed"] = 960.0,
         ["tracer"] = "Tracer",
         ["unit_ai"] = {
+            ["brute"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 2400.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["brute_captain"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 2400.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
             ["floodcombat"] = {
                 ["accuracy"] = {
                     ["heroic"] = {
@@ -2539,10 +12255,707 @@ return {
                     },
                 },
             },
+            ["grunt"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 360.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["grunt_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 360.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 360.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 360.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 360.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["grunt_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 360.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["jackal"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 360.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["jackal_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 360.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 360.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 360.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 360.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["jackal_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    1.0,
+                    1.25,
+                },
+                ["max_range"] = 2400.0,
+                ["min_range"] = 360.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.04363323003053665,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            3.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
         },
         ["unit_classes"] = {
         },
         ["unit_holds"] = {
+        },
+        ["valve_offset"] = {
+            ["ang"] = {
+                21.195100930595384,
+                -95.49586321794129,
+                -3.730673397746313,
+            },
+            ["attachment"] = "anim_attachment_RH",
+            ["pos"] = {
+                0.07007775959670923,
+                -0.12216191097034662,
+                1.2953122616793933,
+            },
         },
     },
     ["shotgun"] = {
@@ -2688,6 +13101,118 @@ return {
         ["speed"] = 57600.0,
         ["tracer"] = "Tracer",
         ["unit_ai"] = {
+            ["brute"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 960.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            1.5,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["brute_captain"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 960.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            1.5,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
             ["floodcombat"] = {
                 ["accuracy"] = {
                     ["heroic"] = {
@@ -2744,10 +13269,707 @@ return {
                     },
                 },
             },
+            ["grunt"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 960.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            1.5,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 960.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            1.5,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 960.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            1.5,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 960.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            1.5,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 960.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            1.5,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["grunt_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 960.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            1.5,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 960.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            1.5,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 960.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            1.5,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 960.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            1.5,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 960.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            1.5,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 960.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            1.5,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
+            ["jackal_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 960.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            1.5,
+                            2.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.75,
+                            0.9,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                },
+            },
         },
         ["unit_classes"] = {
         },
         ["unit_holds"] = {
+        },
+        ["valve_offset"] = {
+            ["ang"] = {
+                2.2677333987825685,
+                -92.20728543926003,
+                -5.108851555025874,
+            },
+            ["attachment"] = "anim_attachment_RH",
+            ["pos"] = {
+                -0.043824475864396154,
+                0.06853781466554788,
+                0.4114946605793176,
+            },
         },
     },
     ["smg_rifle"] = {
@@ -2887,6 +14109,118 @@ return {
         ["speed"] = 360000.0,
         ["tracer"] = "Tracer",
         ["unit_ai"] = {
+            ["brute"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["brute_captain"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
             ["floodcombat"] = {
                 ["accuracy"] = {
                     ["heroic"] = {
@@ -2943,10 +14277,707 @@ return {
                     },
                 },
             },
+            ["grunt"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["grunt_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["grunt_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["jackal"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["jackal_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
+            ["jackal_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1440.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 0.0,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                },
+            },
         },
         ["unit_classes"] = {
         },
         ["unit_holds"] = {
+        },
+        ["valve_offset"] = {
+            ["ang"] = {
+                2.281244793183284,
+                -92.20349910838341,
+                -5.109791675766092,
+            },
+            ["attachment"] = "anim_attachment_RH",
+            ["pos"] = {
+                0.009375838519598159,
+                -1.1179097518991656,
+                0.5414323030213966,
+            },
         },
     },
     ["sniper_rifle"] = {
@@ -3110,6 +15141,118 @@ return {
         ["speed"] = 720000.0,
         ["tracer"] = "Tracer",
         ["unit_ai"] = {
+            ["brute"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["brute_captain"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
             ["floodcombat"] = {
                 ["accuracy"] = {
                     ["heroic"] = {
@@ -3166,10 +15309,707 @@ return {
                     },
                 },
             },
+            ["grunt"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["grunt_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["grunt_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["jackal"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["jackal_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 5400.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 7200.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.01745329238474369,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
+            ["jackal_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.3,
+                            1.0,
+                        },
+                        ["time"] = 3.0,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 7200.0,
+                ["min_range"] = 240.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.5,
+                            0.5,
+                        },
+                        ["projectile_error"] = 0.05235987529158592,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.0,
+                            1.0,
+                        },
+                        ["projectile_error"] = 0.01745329238474369,
+                        ["rate"] = 1.0,
+                        ["separation"] = {
+                            2.0,
+                            4.0,
+                        },
+                    },
+                },
+            },
         },
         ["unit_classes"] = {
         },
         ["unit_holds"] = {
+        },
+        ["valve_offset"] = {
+            ["ang"] = {
+                2.2677333987825685,
+                -92.20728543926003,
+                -5.108851555025874,
+            },
+            ["attachment"] = "anim_attachment_RH",
+            ["pos"] = {
+                0.023356812441471912,
+                -0.011432791188942453,
+                0.2657752020000455,
+            },
         },
     },
     ["spike_rifle"] = {
@@ -3331,6 +16171,166 @@ return {
         ["right_attachment"] = "right_hand_elite",
         ["speed"] = 4200.0,
         ["unit_ai"] = {
+            ["brute"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            0.9,
+                        },
+                    },
+                },
+            },
+            ["brute_captain"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            0.9,
+                        },
+                    },
+                },
+            },
             ["floodcombat"] = {
                 ["accuracy"] = {
                     ["heroic"] = {
@@ -3387,12 +16387,997 @@ return {
                     },
                 },
             },
+            ["grunt"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            0.9,
+                        },
+                    },
+                },
+            },
+            ["grunt_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            0.9,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            0.9,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            0.9,
+                        },
+                    },
+                },
+            },
+            ["grunt_sacristan_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            0.9,
+                        },
+                    },
+                },
+            },
+            ["grunt_specops"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            0.9,
+                        },
+                    },
+                },
+            },
+            ["jackal"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            0.9,
+                        },
+                    },
+                },
+            },
+            ["jackal_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            0.9,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_major"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            0.9,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_minor"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            0.9,
+                        },
+                    },
+                },
+            },
+            ["jackal_sacristan_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            0.9,
+                        },
+                    },
+                },
+            },
+            ["jackal_sniper"] = {
+                ["accuracy"] = {
+                    ["heroic"] = {
+                        ["bounds"] = {
+                            0.2,
+                            0.6,
+                        },
+                        ["time"] = 4.5,
+                    },
+                    ["legendary"] = {
+                        ["bounds"] = {
+                            0.35,
+                            0.8,
+                        },
+                        ["time"] = 3.75,
+                    },
+                    ["normal"] = {
+                        ["bounds"] = {
+                            0.0,
+                            0.2,
+                        },
+                        ["time"] = 6.0,
+                    },
+                },
+                ["first_delay"] = {
+                    0.75,
+                    1.0,
+                },
+                ["max_range"] = 1800.0,
+                ["min_range"] = 60.0,
+                ["profiles"] = {
+                    {
+                        ["duration"] = {
+                            0.56,
+                            0.75,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 3.3333332538604736,
+                        ["separation"] = {
+                            0.75,
+                            1.5,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.004363323096185923,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            0.8,
+                            1.2,
+                        },
+                        ["projectile_error"] = 0.008726646192371845,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.75,
+                            2.25,
+                        },
+                    },
+                    {
+                        ["duration"] = {
+                            1.12,
+                            1.5,
+                        },
+                        ["projectile_error"] = 0.03490658476948738,
+                        ["rate"] = 7.499999523162842,
+                        ["separation"] = {
+                            0.5,
+                            0.9,
+                        },
+                    },
+                },
+            },
         },
         ["unit_classes"] = {
             ["brute"] = "pistol",
         },
         ["unit_holds"] = {
             ["brute"] = "pistol",
+        },
+        ["valve_offset"] = {
+            ["ang"] = {
+                0.5121801546515331,
+                -90.04898268206455,
+                -5.462181706448841,
+            },
+            ["attachment"] = "anim_attachment_RH",
+            ["pos"] = {
+                0.2387356364010735,
+                -0.7339675702349917,
+                2.4967378086375227,
+            },
         },
     },
 }

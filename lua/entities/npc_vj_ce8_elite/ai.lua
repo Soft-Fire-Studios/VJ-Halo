@@ -82,6 +82,10 @@ function ENT:OnFlinch(damage, hitgroup, status)
     local settings = self:CE8BehaviorSettings().damage
     if self.CE8PendingShieldBreak or self.CE8Cover or self.AttackType
         or amount < (shielded and settings.hard_shield or settings.hard_body) then return true end
+    -- Let VJ select an explicit hitgroup map after our normal reaction gates.
+    for _, entry in ipairs(self.FlinchHitGroupMap or {}) do
+        if VJ.HasValue(entry.HitGroup, hitgroup) then return end
+    end
     local animation = self:CE8DamageAnimation("h_ping", damage, hitgroup)
     if not animation then return true end
     self.AnimTbl_Flinch = animation
@@ -98,7 +102,15 @@ function ENT:OnDeath(damage, hitgroup, status)
 end
 
 function ENT:OnMeleeAttack(status)
+    if status == "PreInit" and self:AIIsReloading() then return true end
     if status ~= "Init" then return end
+    local profile = self:CE8WeaponSet()
+    local choices = profile and not profile.melee and profile.melee_attacks
+    if choices and #choices > 0 then
+        -- VJ handles full-body permutations and authored replacement gestures.
+        -- Every choice supplies a contact event; starting a swing does no damage.
+        self.AnimTbl_MeleeAttack = choices[math.random(#choices)]
+    end
     local charge = self:CE8BehaviorSettings().charge
     self.NextMeleeAttackTime = self.CE8BerserkUntil and charge.berserk_delay or charge.delay
     self:CE8EndCharge(CurTime())
@@ -219,6 +231,7 @@ end
 function ENT:OnDamaged(damage, hitgroup, status)
     -- VJ has already checked god mode and damage immunity at PreDamage.
     if status == "PreDamage" then
+        self:AIRecordThreatDamage(damage, CurTime())
         self:AIShieldDamage(damage, hitgroup, CurTime())
         -- Shield resistance consumes the incoming hit first. Only the damage
         -- left for health receives regular resistance, so the layers do not stack.

@@ -8026,238 +8026,250 @@
                 "armor_3",
                 "shield",
                 "weakspot",
-                "weakspot_shell"
+                "weakspot_shell",
+                "backplate",
+                "topplate"
               ],
               "material_count": 8,
               "bodygroup_options": {
                 "body": [
                   {
                     "index": 0,
-                    "name": "minor",
+                    "name": "meshes/body_minor.smd",
                     "blank": false,
                     "materials": [
                       0,
-                      3
-                    ],
-                    "ranks": [
-                      "minor"
+                      1
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "sacristan",
+                    "name": "meshes/body_sacristan.smd",
                     "blank": false,
                     "materials": [
-                      3,
-                      5
-                    ],
-                    "ranks": [
-                      "sacristan"
+                      1,
+                      2
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   }
                 ],
                 "body_2": [
                   {
                     "index": 0,
-                    "name": "minor",
+                    "name": "meshes/body_2_minor.smd",
                     "blank": false,
                     "materials": [
-                      3
-                    ],
-                    "ranks": [
-                      "minor"
+                      1
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "sacristan",
+                    "name": "meshes/body_2_sacristan.smd",
                     "blank": false,
                     "materials": [
-                      3
-                    ],
-                    "ranks": [
-                      "sacristan"
+                      1
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   }
                 ],
                 "armor": [
                   {
                     "index": 0,
-                    "name": "minor",
+                    "name": "meshes/armor_body_minor.smd",
                     "blank": false,
                     "materials": [
                       0,
-                      1
-                    ],
-                    "ranks": [
-                      "minor"
+                      3
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "sacristan",
+                    "name": "meshes/armor_body_sacristan.smd",
                     "blank": false,
                     "materials": [
-                      5,
-                      6
-                    ],
-                    "ranks": [
-                      "sacristan"
+                      2,
+                      4
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   }
                 ],
                 "armor_2": [
                   {
                     "index": 0,
-                    "name": "minor",
+                    "name": "meshes/armor_2_body_minor.smd",
                     "blank": false,
                     "materials": [
                       0,
-                      1
-                    ],
-                    "ranks": [
-                      "minor"
+                      3
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "sacristan",
+                    "name": "meshes/armor_2_body_sacristan.smd",
                     "blank": false,
                     "materials": [
-                      5,
-                      6
-                    ],
-                    "ranks": [
-                      "sacristan"
+                      2,
+                      4
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   }
                 ],
                 "armor_3": [
                   {
                     "index": 0,
-                    "name": "minor",
+                    "name": "meshes/armor_3_minor.smd",
                     "blank": false,
                     "materials": [
-                      1,
-                      4
-                    ],
-                    "ranks": [
-                      "minor"
+                      3,
+                      5
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "sacristan",
+                    "name": "meshes/armor_3_sacristan.smd",
                     "blank": false,
                     "materials": [
-                      6,
-                      7
-                    ],
-                    "ranks": [
-                      "sacristan"
+                      4,
+                      6
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   }
                 ],
                 "shield": [
                   {
                     "index": 0,
-                    "name": "minor",
+                    "name": "meshes/shield_minor.smd",
                     "blank": false,
                     "materials": [
-                      1
-                    ],
-                    "ranks": [
-                      "minor"
+                      3
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "sacristan",
+                    "name": "meshes/shield_sacristan.smd",
                     "blank": false,
                     "materials": [
-                      6
-                    ],
-                    "ranks": [
-                      "sacristan"
+                      4
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   }
                 ],
                 "weakspot": [
                   {
                     "index": 0,
-                    "name": "minor",
+                    "name": "meshes/weakspot_minor.smd",
                     "blank": false,
                     "materials": [
-                      2
-                    ],
-                    "ranks": [
-                      "minor",
-                      "sacristan"
+                      7
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   }
                 ],
                 "weakspot_shell": [
                   {
                     "index": 0,
-                    "name": "minor",
+                    "name": "meshes/weakspot_shell_minor.smd",
                     "blank": false,
                     "materials": [
                       0
-                    ],
-                    "ranks": [
-                      "minor"
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "sacristan",
+                    "name": "meshes/weakspot_shell_sacristan.smd",
                     "blank": false,
                     "materials": [
-                      5
-                    ],
-                    "ranks": [
-                      "sacristan"
+                      2
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  }
+                ],
+                "backplate": [
+                  {
+                    "index": 0,
+                    "name": "meshes/backplate_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      0
+                    ]
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/backplate_sacristan.smd",
+                    "blank": false,
+                    "materials": [
+                      2
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  }
+                ],
+                "topplate": [
+                  {
+                    "index": 0,
+                    "name": "meshes/topplate_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      0
+                    ]
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/topplate_sacristan.smd",
+                    "blank": false,
+                    "materials": [
+                      2
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   }
                 ]
               }
@@ -8359,7 +8371,9 @@
             "armor_3": 0,
             "shield": 0,
             "weakspot": 0,
-            "weakspot_shell": 0
+            "weakspot_shell": 0,
+            "backplate": 0,
+            "topplate": 0
           },
           "bodygroup_string": "00000000",
           "bodygroup_presets": {
@@ -8371,7 +8385,9 @@
               "armor_3": 0,
               "shield": 0,
               "weakspot": 0,
-              "weakspot_shell": 0
+              "weakspot_shell": 0,
+              "backplate": 0,
+              "topplate": 0
             },
             "sacristan": {
               "body": 1,
@@ -8381,7 +8397,9 @@
               "armor_3": 1,
               "shield": 1,
               "weakspot": 0,
-              "weakspot_shell": 1
+              "weakspot_shell": 1,
+              "backplate": 1,
+              "topplate": 1
             }
           },
           "shared_bodygroup_model": true,
@@ -8411,238 +8429,250 @@
                 "armor_3",
                 "shield",
                 "weakspot",
-                "weakspot_shell"
+                "weakspot_shell",
+                "backplate",
+                "topplate"
               ],
               "material_count": 8,
               "bodygroup_options": {
                 "body": [
                   {
                     "index": 0,
-                    "name": "minor",
+                    "name": "meshes/body_minor.smd",
                     "blank": false,
                     "materials": [
                       0,
-                      3
-                    ],
-                    "ranks": [
-                      "minor"
+                      1
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "sacristan",
+                    "name": "meshes/body_sacristan.smd",
                     "blank": false,
                     "materials": [
-                      3,
-                      5
-                    ],
-                    "ranks": [
-                      "sacristan"
+                      1,
+                      2
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   }
                 ],
                 "body_2": [
                   {
                     "index": 0,
-                    "name": "minor",
+                    "name": "meshes/body_2_minor.smd",
                     "blank": false,
                     "materials": [
-                      3
-                    ],
-                    "ranks": [
-                      "minor"
+                      1
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "sacristan",
+                    "name": "meshes/body_2_sacristan.smd",
                     "blank": false,
                     "materials": [
-                      3
-                    ],
-                    "ranks": [
-                      "sacristan"
+                      1
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   }
                 ],
                 "armor": [
                   {
                     "index": 0,
-                    "name": "minor",
+                    "name": "meshes/armor_body_minor.smd",
                     "blank": false,
                     "materials": [
                       0,
-                      1
-                    ],
-                    "ranks": [
-                      "minor"
+                      3
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "sacristan",
+                    "name": "meshes/armor_body_sacristan.smd",
                     "blank": false,
                     "materials": [
-                      5,
-                      6
-                    ],
-                    "ranks": [
-                      "sacristan"
+                      2,
+                      4
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   }
                 ],
                 "armor_2": [
                   {
                     "index": 0,
-                    "name": "minor",
+                    "name": "meshes/armor_2_body_minor.smd",
                     "blank": false,
                     "materials": [
                       0,
-                      1
-                    ],
-                    "ranks": [
-                      "minor"
+                      3
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "sacristan",
+                    "name": "meshes/armor_2_body_sacristan.smd",
                     "blank": false,
                     "materials": [
-                      5,
-                      6
-                    ],
-                    "ranks": [
-                      "sacristan"
+                      2,
+                      4
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   }
                 ],
                 "armor_3": [
                   {
                     "index": 0,
-                    "name": "minor",
+                    "name": "meshes/armor_3_minor.smd",
                     "blank": false,
                     "materials": [
-                      1,
-                      4
-                    ],
-                    "ranks": [
-                      "minor"
+                      3,
+                      5
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "sacristan",
+                    "name": "meshes/armor_3_sacristan.smd",
                     "blank": false,
                     "materials": [
-                      6,
-                      7
-                    ],
-                    "ranks": [
-                      "sacristan"
+                      4,
+                      6
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   }
                 ],
                 "shield": [
                   {
                     "index": 0,
-                    "name": "minor",
+                    "name": "meshes/shield_minor.smd",
                     "blank": false,
                     "materials": [
-                      1
-                    ],
-                    "ranks": [
-                      "minor"
+                      3
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "sacristan",
+                    "name": "meshes/shield_sacristan.smd",
                     "blank": false,
                     "materials": [
-                      6
-                    ],
-                    "ranks": [
-                      "sacristan"
+                      4
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   }
                 ],
                 "weakspot": [
                   {
                     "index": 0,
-                    "name": "minor",
+                    "name": "meshes/weakspot_minor.smd",
                     "blank": false,
                     "materials": [
-                      2
-                    ],
-                    "ranks": [
-                      "minor",
-                      "sacristan"
+                      7
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   }
                 ],
                 "weakspot_shell": [
                   {
                     "index": 0,
-                    "name": "minor",
+                    "name": "meshes/weakspot_shell_minor.smd",
                     "blank": false,
                     "materials": [
                       0
-                    ],
-                    "ranks": [
-                      "minor"
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "sacristan",
+                    "name": "meshes/weakspot_shell_sacristan.smd",
                     "blank": false,
                     "materials": [
-                      5
-                    ],
-                    "ranks": [
-                      "sacristan"
+                      2
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  }
+                ],
+                "backplate": [
+                  {
+                    "index": 0,
+                    "name": "meshes/backplate_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      0
+                    ]
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/backplate_sacristan.smd",
+                    "blank": false,
+                    "materials": [
+                      2
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  }
+                ],
+                "topplate": [
+                  {
+                    "index": 0,
+                    "name": "meshes/topplate_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      0
+                    ]
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/topplate_sacristan.smd",
+                    "blank": false,
+                    "materials": [
+                      2
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   }
                 ]
               }
@@ -8744,7 +8774,9 @@
             "armor_3": 1,
             "shield": 1,
             "weakspot": 0,
-            "weakspot_shell": 1
+            "weakspot_shell": 1,
+            "backplate": 1,
+            "topplate": 1
           },
           "bodygroup_string": "11111101",
           "bodygroup_presets": {
@@ -8756,7 +8788,9 @@
               "armor_3": 0,
               "shield": 0,
               "weakspot": 0,
-              "weakspot_shell": 0
+              "weakspot_shell": 0,
+              "backplate": 0,
+              "topplate": 0
             },
             "sacristan": {
               "body": 1,
@@ -8766,7 +8800,9 @@
               "armor_3": 1,
               "shield": 1,
               "weakspot": 0,
-              "weakspot_shell": 1
+              "weakspot_shell": 1,
+              "backplate": 1,
+              "topplate": 1
             }
           },
           "shared_bodygroup_model": true,
@@ -8796,193 +8832,203 @@
               "model": "models/campaign_evolved/ce8/material_sets/jackal.mdl",
               "groups": [
                 "armor_pieces",
-                "body"
+                "body",
+                "emitter",
+                "barrier"
               ],
-              "material_count": 14,
+              "material_count": 18,
               "bodygroup_options": {
                 "armor_pieces": [
                   {
                     "index": 0,
-                    "name": "jackal_minor",
+                    "name": "meshes/armor_pieces_jackal_minor.smd",
                     "blank": false,
                     "materials": [
-                      2
-                    ],
-                    "ranks": [
-                      "jackal_minor"
+                      0
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   },
                   {
                     "index": 2,
-                    "name": "jackal_major",
+                    "name": "meshes/armor_pieces_jackal_major.smd",
                     "blank": false,
                     "materials": [
-                      3,
-                      4
-                    ],
-                    "ranks": [
-                      "jackal_major"
+                      1,
+                      2
                     ]
                   },
                   {
                     "index": 3,
-                    "name": "sancristan",
+                    "name": "meshes/armor_pieces_sancristan.smd",
                     "blank": false,
                     "materials": [
-                      2,
-                      5
-                    ],
-                    "ranks": [
-                      "sancristan"
+                      0,
+                      3
                     ]
                   },
                   {
                     "index": 4,
-                    "name": "sacristan_minor",
+                    "name": "meshes/armor_pieces_sacristan_minor.smd",
                     "blank": false,
                     "materials": [
-                      2,
-                      8,
-                      9
-                    ],
-                    "ranks": [
-                      "sacristan_minor"
+                      0,
+                      4,
+                      5
                     ]
                   },
                   {
                     "index": 5,
-                    "name": "sacristan_major",
+                    "name": "meshes/armor_pieces_sacristan_major.smd",
                     "blank": false,
                     "materials": [
-                      10,
-                      11
-                    ],
-                    "ranks": [
-                      "sacristan_major"
+                      6,
+                      7
                     ]
                   },
                   {
                     "index": 6,
-                    "name": "sacristan_sniper",
+                    "name": "meshes/armor_pieces_sacristan_sniper.smd",
                     "blank": false,
                     "materials": [
-                      13
-                    ],
-                    "ranks": [
-                      "sacristan_sniper"
+                      8
                     ]
                   }
                 ],
                 "body": [
                   {
                     "index": 0,
-                    "name": "jackal_minor",
+                    "name": "meshes/body_jackal_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_minor"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "skirmisher_minor",
+                    "name": "meshes/body_skirmisher_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "skirmisher_minor"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "jackal_sniper",
+                    "name": "meshes/body_jackal_sniper.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_sniper"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 3,
-                    "name": "jackal_major",
+                    "name": "meshes/body_jackal_major.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_major"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 4,
-                    "name": "sancristan",
+                    "name": "meshes/body_sancristan.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      5,
-                      6
-                    ],
-                    "ranks": [
-                      "sancristan"
+                      3,
+                      9,
+                      11
                     ]
                   },
                   {
                     "index": 5,
-                    "name": "sacristan_minor",
+                    "name": "meshes/body_sacristan_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      7
-                    ],
-                    "ranks": [
-                      "sacristan_minor"
+                      9,
+                      10,
+                      12
                     ]
                   },
                   {
                     "index": 6,
-                    "name": "sacristan_major",
+                    "name": "meshes/body_sacristan_major.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      6
-                    ],
-                    "ranks": [
-                      "sacristan_major"
+                      9,
+                      10,
+                      11
                     ]
                   },
                   {
                     "index": 7,
-                    "name": "sacristan_sniper",
+                    "name": "meshes/body_sacristan_sniper.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      12
-                    ],
-                    "ranks": [
-                      "sacristan_sniper"
+                      9,
+                      10,
+                      13
                     ]
                   },
                   {
                     "index": 8,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  }
+                ],
+                "emitter": [
+                  {
+                    "index": 0,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/emitter_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      14
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "meshes/emitter_major.smd",
+                    "blank": false,
+                    "materials": [
+                      15
+                    ]
+                  }
+                ],
+                "barrier": [
+                  {
+                    "index": 0,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/barrier_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      16
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "meshes/barrier_major.smd",
+                    "blank": false,
+                    "materials": [
+                      17
+                    ]
                   }
                 ]
               }
@@ -9020,10 +9066,21 @@
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor",
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor_udim": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor_udim",
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_anatomy": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_anatomy",
-              "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor"
+              "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier"
             },
             "light_materials": {},
-            "glows": {}
+            "glows": {},
+            "emissive_materials": {
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier"
+            },
+            "emissive_blend": "additive",
+            "emissive_submodels": "all",
+            "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden"
           },
           "material_mode": "8tex",
           "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
@@ -9079,41 +9136,59 @@
           "rank": "jackal_minor",
           "bodygroup_defaults": {
             "armor_pieces": 0,
-            "body": 0
+            "body": 0,
+            "emitter": 1,
+            "barrier": 1
           },
           "bodygroup_string": "00",
           "bodygroup_presets": {
             "jackal_minor": {
               "armor_pieces": 0,
-              "body": 0
+              "body": 0,
+              "emitter": 1,
+              "barrier": 1
             },
             "skirmisher_minor": {
               "armor_pieces": 1,
-              "body": 1
+              "body": 1,
+              "emitter": 0,
+              "barrier": 0
             },
             "jackal_sniper": {
               "armor_pieces": 1,
-              "body": 2
+              "body": 2,
+              "emitter": 0,
+              "barrier": 0
             },
             "jackal_major": {
               "armor_pieces": 2,
-              "body": 3
+              "body": 3,
+              "emitter": 2,
+              "barrier": 2
             },
             "sancristan": {
               "armor_pieces": 3,
-              "body": 4
+              "body": 4,
+              "emitter": 1,
+              "barrier": 1
             },
             "sacristan_minor": {
               "armor_pieces": 4,
-              "body": 5
+              "body": 5,
+              "emitter": 1,
+              "barrier": 1
             },
             "sacristan_major": {
               "armor_pieces": 5,
-              "body": 6
+              "body": 6,
+              "emitter": 2,
+              "barrier": 2
             },
             "sacristan_sniper": {
               "armor_pieces": 6,
-              "body": 7
+              "body": 7,
+              "emitter": 0,
+              "barrier": 0
             }
           },
           "shared_bodygroup_model": true,
@@ -9143,193 +9218,203 @@
               "model": "models/campaign_evolved/ce8/material_sets/jackal.mdl",
               "groups": [
                 "armor_pieces",
-                "body"
+                "body",
+                "emitter",
+                "barrier"
               ],
-              "material_count": 14,
+              "material_count": 18,
               "bodygroup_options": {
                 "armor_pieces": [
                   {
                     "index": 0,
-                    "name": "jackal_minor",
+                    "name": "meshes/armor_pieces_jackal_minor.smd",
                     "blank": false,
                     "materials": [
-                      2
-                    ],
-                    "ranks": [
-                      "jackal_minor"
+                      0
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   },
                   {
                     "index": 2,
-                    "name": "jackal_major",
+                    "name": "meshes/armor_pieces_jackal_major.smd",
                     "blank": false,
                     "materials": [
-                      3,
-                      4
-                    ],
-                    "ranks": [
-                      "jackal_major"
+                      1,
+                      2
                     ]
                   },
                   {
                     "index": 3,
-                    "name": "sancristan",
+                    "name": "meshes/armor_pieces_sancristan.smd",
                     "blank": false,
                     "materials": [
-                      2,
-                      5
-                    ],
-                    "ranks": [
-                      "sancristan"
+                      0,
+                      3
                     ]
                   },
                   {
                     "index": 4,
-                    "name": "sacristan_minor",
+                    "name": "meshes/armor_pieces_sacristan_minor.smd",
                     "blank": false,
                     "materials": [
-                      2,
-                      8,
-                      9
-                    ],
-                    "ranks": [
-                      "sacristan_minor"
+                      0,
+                      4,
+                      5
                     ]
                   },
                   {
                     "index": 5,
-                    "name": "sacristan_major",
+                    "name": "meshes/armor_pieces_sacristan_major.smd",
                     "blank": false,
                     "materials": [
-                      10,
-                      11
-                    ],
-                    "ranks": [
-                      "sacristan_major"
+                      6,
+                      7
                     ]
                   },
                   {
                     "index": 6,
-                    "name": "sacristan_sniper",
+                    "name": "meshes/armor_pieces_sacristan_sniper.smd",
                     "blank": false,
                     "materials": [
-                      13
-                    ],
-                    "ranks": [
-                      "sacristan_sniper"
+                      8
                     ]
                   }
                 ],
                 "body": [
                   {
                     "index": 0,
-                    "name": "jackal_minor",
+                    "name": "meshes/body_jackal_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_minor"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "skirmisher_minor",
+                    "name": "meshes/body_skirmisher_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "skirmisher_minor"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "jackal_sniper",
+                    "name": "meshes/body_jackal_sniper.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_sniper"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 3,
-                    "name": "jackal_major",
+                    "name": "meshes/body_jackal_major.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_major"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 4,
-                    "name": "sancristan",
+                    "name": "meshes/body_sancristan.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      5,
-                      6
-                    ],
-                    "ranks": [
-                      "sancristan"
+                      3,
+                      9,
+                      11
                     ]
                   },
                   {
                     "index": 5,
-                    "name": "sacristan_minor",
+                    "name": "meshes/body_sacristan_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      7
-                    ],
-                    "ranks": [
-                      "sacristan_minor"
+                      9,
+                      10,
+                      12
                     ]
                   },
                   {
                     "index": 6,
-                    "name": "sacristan_major",
+                    "name": "meshes/body_sacristan_major.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      6
-                    ],
-                    "ranks": [
-                      "sacristan_major"
+                      9,
+                      10,
+                      11
                     ]
                   },
                   {
                     "index": 7,
-                    "name": "sacristan_sniper",
+                    "name": "meshes/body_sacristan_sniper.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      12
-                    ],
-                    "ranks": [
-                      "sacristan_sniper"
+                      9,
+                      10,
+                      13
                     ]
                   },
                   {
                     "index": 8,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  }
+                ],
+                "emitter": [
+                  {
+                    "index": 0,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/emitter_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      14
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "meshes/emitter_major.smd",
+                    "blank": false,
+                    "materials": [
+                      15
+                    ]
+                  }
+                ],
+                "barrier": [
+                  {
+                    "index": 0,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/barrier_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      16
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "meshes/barrier_major.smd",
+                    "blank": false,
+                    "materials": [
+                      17
+                    ]
                   }
                 ]
               }
@@ -9367,10 +9452,21 @@
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor",
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor_udim": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor_udim",
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_anatomy": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_anatomy",
-              "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor"
+              "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier"
             },
             "light_materials": {},
-            "glows": {}
+            "glows": {},
+            "emissive_materials": {
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier"
+            },
+            "emissive_blend": "additive",
+            "emissive_submodels": "all",
+            "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden"
           },
           "material_mode": "8tex",
           "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
@@ -9425,41 +9521,59 @@
           "rank": "skirmisher_minor",
           "bodygroup_defaults": {
             "armor_pieces": 1,
-            "body": 1
+            "body": 1,
+            "emitter": 0,
+            "barrier": 0
           },
           "bodygroup_string": "11",
           "bodygroup_presets": {
             "jackal_minor": {
               "armor_pieces": 0,
-              "body": 0
+              "body": 0,
+              "emitter": 1,
+              "barrier": 1
             },
             "skirmisher_minor": {
               "armor_pieces": 1,
-              "body": 1
+              "body": 1,
+              "emitter": 0,
+              "barrier": 0
             },
             "jackal_sniper": {
               "armor_pieces": 1,
-              "body": 2
+              "body": 2,
+              "emitter": 0,
+              "barrier": 0
             },
             "jackal_major": {
               "armor_pieces": 2,
-              "body": 3
+              "body": 3,
+              "emitter": 2,
+              "barrier": 2
             },
             "sancristan": {
               "armor_pieces": 3,
-              "body": 4
+              "body": 4,
+              "emitter": 1,
+              "barrier": 1
             },
             "sacristan_minor": {
               "armor_pieces": 4,
-              "body": 5
+              "body": 5,
+              "emitter": 1,
+              "barrier": 1
             },
             "sacristan_major": {
               "armor_pieces": 5,
-              "body": 6
+              "body": 6,
+              "emitter": 2,
+              "barrier": 2
             },
             "sacristan_sniper": {
               "armor_pieces": 6,
-              "body": 7
+              "body": 7,
+              "emitter": 0,
+              "barrier": 0
             }
           },
           "shared_bodygroup_model": true,
@@ -9489,193 +9603,203 @@
               "model": "models/campaign_evolved/ce8/material_sets/jackal.mdl",
               "groups": [
                 "armor_pieces",
-                "body"
+                "body",
+                "emitter",
+                "barrier"
               ],
-              "material_count": 14,
+              "material_count": 18,
               "bodygroup_options": {
                 "armor_pieces": [
                   {
                     "index": 0,
-                    "name": "jackal_minor",
+                    "name": "meshes/armor_pieces_jackal_minor.smd",
                     "blank": false,
                     "materials": [
-                      2
-                    ],
-                    "ranks": [
-                      "jackal_minor"
+                      0
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   },
                   {
                     "index": 2,
-                    "name": "jackal_major",
+                    "name": "meshes/armor_pieces_jackal_major.smd",
                     "blank": false,
                     "materials": [
-                      3,
-                      4
-                    ],
-                    "ranks": [
-                      "jackal_major"
+                      1,
+                      2
                     ]
                   },
                   {
                     "index": 3,
-                    "name": "sancristan",
+                    "name": "meshes/armor_pieces_sancristan.smd",
                     "blank": false,
                     "materials": [
-                      2,
-                      5
-                    ],
-                    "ranks": [
-                      "sancristan"
+                      0,
+                      3
                     ]
                   },
                   {
                     "index": 4,
-                    "name": "sacristan_minor",
+                    "name": "meshes/armor_pieces_sacristan_minor.smd",
                     "blank": false,
                     "materials": [
-                      2,
-                      8,
-                      9
-                    ],
-                    "ranks": [
-                      "sacristan_minor"
+                      0,
+                      4,
+                      5
                     ]
                   },
                   {
                     "index": 5,
-                    "name": "sacristan_major",
+                    "name": "meshes/armor_pieces_sacristan_major.smd",
                     "blank": false,
                     "materials": [
-                      10,
-                      11
-                    ],
-                    "ranks": [
-                      "sacristan_major"
+                      6,
+                      7
                     ]
                   },
                   {
                     "index": 6,
-                    "name": "sacristan_sniper",
+                    "name": "meshes/armor_pieces_sacristan_sniper.smd",
                     "blank": false,
                     "materials": [
-                      13
-                    ],
-                    "ranks": [
-                      "sacristan_sniper"
+                      8
                     ]
                   }
                 ],
                 "body": [
                   {
                     "index": 0,
-                    "name": "jackal_minor",
+                    "name": "meshes/body_jackal_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_minor"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "skirmisher_minor",
+                    "name": "meshes/body_skirmisher_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "skirmisher_minor"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "jackal_sniper",
+                    "name": "meshes/body_jackal_sniper.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_sniper"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 3,
-                    "name": "jackal_major",
+                    "name": "meshes/body_jackal_major.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_major"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 4,
-                    "name": "sancristan",
+                    "name": "meshes/body_sancristan.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      5,
-                      6
-                    ],
-                    "ranks": [
-                      "sancristan"
+                      3,
+                      9,
+                      11
                     ]
                   },
                   {
                     "index": 5,
-                    "name": "sacristan_minor",
+                    "name": "meshes/body_sacristan_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      7
-                    ],
-                    "ranks": [
-                      "sacristan_minor"
+                      9,
+                      10,
+                      12
                     ]
                   },
                   {
                     "index": 6,
-                    "name": "sacristan_major",
+                    "name": "meshes/body_sacristan_major.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      6
-                    ],
-                    "ranks": [
-                      "sacristan_major"
+                      9,
+                      10,
+                      11
                     ]
                   },
                   {
                     "index": 7,
-                    "name": "sacristan_sniper",
+                    "name": "meshes/body_sacristan_sniper.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      12
-                    ],
-                    "ranks": [
-                      "sacristan_sniper"
+                      9,
+                      10,
+                      13
                     ]
                   },
                   {
                     "index": 8,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  }
+                ],
+                "emitter": [
+                  {
+                    "index": 0,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/emitter_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      14
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "meshes/emitter_major.smd",
+                    "blank": false,
+                    "materials": [
+                      15
+                    ]
+                  }
+                ],
+                "barrier": [
+                  {
+                    "index": 0,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/barrier_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      16
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "meshes/barrier_major.smd",
+                    "blank": false,
+                    "materials": [
+                      17
+                    ]
                   }
                 ]
               }
@@ -9713,10 +9837,21 @@
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor",
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor_udim": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor_udim",
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_anatomy": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_anatomy",
-              "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor"
+              "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier"
             },
             "light_materials": {},
-            "glows": {}
+            "glows": {},
+            "emissive_materials": {
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier"
+            },
+            "emissive_blend": "additive",
+            "emissive_submodels": "all",
+            "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden"
           },
           "material_mode": "8tex",
           "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
@@ -9771,41 +9906,59 @@
           "rank": "jackal_sniper",
           "bodygroup_defaults": {
             "armor_pieces": 1,
-            "body": 2
+            "body": 2,
+            "emitter": 0,
+            "barrier": 0
           },
           "bodygroup_string": "12",
           "bodygroup_presets": {
             "jackal_minor": {
               "armor_pieces": 0,
-              "body": 0
+              "body": 0,
+              "emitter": 1,
+              "barrier": 1
             },
             "skirmisher_minor": {
               "armor_pieces": 1,
-              "body": 1
+              "body": 1,
+              "emitter": 0,
+              "barrier": 0
             },
             "jackal_sniper": {
               "armor_pieces": 1,
-              "body": 2
+              "body": 2,
+              "emitter": 0,
+              "barrier": 0
             },
             "jackal_major": {
               "armor_pieces": 2,
-              "body": 3
+              "body": 3,
+              "emitter": 2,
+              "barrier": 2
             },
             "sancristan": {
               "armor_pieces": 3,
-              "body": 4
+              "body": 4,
+              "emitter": 1,
+              "barrier": 1
             },
             "sacristan_minor": {
               "armor_pieces": 4,
-              "body": 5
+              "body": 5,
+              "emitter": 1,
+              "barrier": 1
             },
             "sacristan_major": {
               "armor_pieces": 5,
-              "body": 6
+              "body": 6,
+              "emitter": 2,
+              "barrier": 2
             },
             "sacristan_sniper": {
               "armor_pieces": 6,
-              "body": 7
+              "body": 7,
+              "emitter": 0,
+              "barrier": 0
             }
           },
           "shared_bodygroup_model": true,
@@ -9835,193 +9988,203 @@
               "model": "models/campaign_evolved/ce8/material_sets/jackal.mdl",
               "groups": [
                 "armor_pieces",
-                "body"
+                "body",
+                "emitter",
+                "barrier"
               ],
-              "material_count": 14,
+              "material_count": 18,
               "bodygroup_options": {
                 "armor_pieces": [
                   {
                     "index": 0,
-                    "name": "jackal_minor",
+                    "name": "meshes/armor_pieces_jackal_minor.smd",
                     "blank": false,
                     "materials": [
-                      2
-                    ],
-                    "ranks": [
-                      "jackal_minor"
+                      0
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   },
                   {
                     "index": 2,
-                    "name": "jackal_major",
+                    "name": "meshes/armor_pieces_jackal_major.smd",
                     "blank": false,
                     "materials": [
-                      3,
-                      4
-                    ],
-                    "ranks": [
-                      "jackal_major"
+                      1,
+                      2
                     ]
                   },
                   {
                     "index": 3,
-                    "name": "sancristan",
+                    "name": "meshes/armor_pieces_sancristan.smd",
                     "blank": false,
                     "materials": [
-                      2,
-                      5
-                    ],
-                    "ranks": [
-                      "sancristan"
+                      0,
+                      3
                     ]
                   },
                   {
                     "index": 4,
-                    "name": "sacristan_minor",
+                    "name": "meshes/armor_pieces_sacristan_minor.smd",
                     "blank": false,
                     "materials": [
-                      2,
-                      8,
-                      9
-                    ],
-                    "ranks": [
-                      "sacristan_minor"
+                      0,
+                      4,
+                      5
                     ]
                   },
                   {
                     "index": 5,
-                    "name": "sacristan_major",
+                    "name": "meshes/armor_pieces_sacristan_major.smd",
                     "blank": false,
                     "materials": [
-                      10,
-                      11
-                    ],
-                    "ranks": [
-                      "sacristan_major"
+                      6,
+                      7
                     ]
                   },
                   {
                     "index": 6,
-                    "name": "sacristan_sniper",
+                    "name": "meshes/armor_pieces_sacristan_sniper.smd",
                     "blank": false,
                     "materials": [
-                      13
-                    ],
-                    "ranks": [
-                      "sacristan_sniper"
+                      8
                     ]
                   }
                 ],
                 "body": [
                   {
                     "index": 0,
-                    "name": "jackal_minor",
+                    "name": "meshes/body_jackal_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_minor"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "skirmisher_minor",
+                    "name": "meshes/body_skirmisher_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "skirmisher_minor"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "jackal_sniper",
+                    "name": "meshes/body_jackal_sniper.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_sniper"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 3,
-                    "name": "jackal_major",
+                    "name": "meshes/body_jackal_major.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_major"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 4,
-                    "name": "sancristan",
+                    "name": "meshes/body_sancristan.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      5,
-                      6
-                    ],
-                    "ranks": [
-                      "sancristan"
+                      3,
+                      9,
+                      11
                     ]
                   },
                   {
                     "index": 5,
-                    "name": "sacristan_minor",
+                    "name": "meshes/body_sacristan_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      7
-                    ],
-                    "ranks": [
-                      "sacristan_minor"
+                      9,
+                      10,
+                      12
                     ]
                   },
                   {
                     "index": 6,
-                    "name": "sacristan_major",
+                    "name": "meshes/body_sacristan_major.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      6
-                    ],
-                    "ranks": [
-                      "sacristan_major"
+                      9,
+                      10,
+                      11
                     ]
                   },
                   {
                     "index": 7,
-                    "name": "sacristan_sniper",
+                    "name": "meshes/body_sacristan_sniper.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      12
-                    ],
-                    "ranks": [
-                      "sacristan_sniper"
+                      9,
+                      10,
+                      13
                     ]
                   },
                   {
                     "index": 8,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  }
+                ],
+                "emitter": [
+                  {
+                    "index": 0,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/emitter_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      14
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "meshes/emitter_major.smd",
+                    "blank": false,
+                    "materials": [
+                      15
+                    ]
+                  }
+                ],
+                "barrier": [
+                  {
+                    "index": 0,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/barrier_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      16
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "meshes/barrier_major.smd",
+                    "blank": false,
+                    "materials": [
+                      17
+                    ]
                   }
                 ]
               }
@@ -10059,10 +10222,21 @@
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor",
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor_udim": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor_udim",
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_anatomy": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_anatomy",
-              "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor"
+              "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier"
             },
             "light_materials": {},
-            "glows": {}
+            "glows": {},
+            "emissive_materials": {
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier"
+            },
+            "emissive_blend": "additive",
+            "emissive_submodels": "all",
+            "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden"
           },
           "material_mode": "8tex",
           "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
@@ -10118,41 +10292,59 @@
           "rank": "jackal_major",
           "bodygroup_defaults": {
             "armor_pieces": 2,
-            "body": 3
+            "body": 3,
+            "emitter": 2,
+            "barrier": 2
           },
           "bodygroup_string": "23",
           "bodygroup_presets": {
             "jackal_minor": {
               "armor_pieces": 0,
-              "body": 0
+              "body": 0,
+              "emitter": 1,
+              "barrier": 1
             },
             "skirmisher_minor": {
               "armor_pieces": 1,
-              "body": 1
+              "body": 1,
+              "emitter": 0,
+              "barrier": 0
             },
             "jackal_sniper": {
               "armor_pieces": 1,
-              "body": 2
+              "body": 2,
+              "emitter": 0,
+              "barrier": 0
             },
             "jackal_major": {
               "armor_pieces": 2,
-              "body": 3
+              "body": 3,
+              "emitter": 2,
+              "barrier": 2
             },
             "sancristan": {
               "armor_pieces": 3,
-              "body": 4
+              "body": 4,
+              "emitter": 1,
+              "barrier": 1
             },
             "sacristan_minor": {
               "armor_pieces": 4,
-              "body": 5
+              "body": 5,
+              "emitter": 1,
+              "barrier": 1
             },
             "sacristan_major": {
               "armor_pieces": 5,
-              "body": 6
+              "body": 6,
+              "emitter": 2,
+              "barrier": 2
             },
             "sacristan_sniper": {
               "armor_pieces": 6,
-              "body": 7
+              "body": 7,
+              "emitter": 0,
+              "barrier": 0
             }
           },
           "shared_bodygroup_model": true,
@@ -10182,193 +10374,203 @@
               "model": "models/campaign_evolved/ce8/material_sets/jackal.mdl",
               "groups": [
                 "armor_pieces",
-                "body"
+                "body",
+                "emitter",
+                "barrier"
               ],
-              "material_count": 14,
+              "material_count": 18,
               "bodygroup_options": {
                 "armor_pieces": [
                   {
                     "index": 0,
-                    "name": "jackal_minor",
+                    "name": "meshes/armor_pieces_jackal_minor.smd",
                     "blank": false,
                     "materials": [
-                      2
-                    ],
-                    "ranks": [
-                      "jackal_minor"
+                      0
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   },
                   {
                     "index": 2,
-                    "name": "jackal_major",
+                    "name": "meshes/armor_pieces_jackal_major.smd",
                     "blank": false,
                     "materials": [
-                      3,
-                      4
-                    ],
-                    "ranks": [
-                      "jackal_major"
+                      1,
+                      2
                     ]
                   },
                   {
                     "index": 3,
-                    "name": "sancristan",
+                    "name": "meshes/armor_pieces_sancristan.smd",
                     "blank": false,
                     "materials": [
-                      2,
-                      5
-                    ],
-                    "ranks": [
-                      "sancristan"
+                      0,
+                      3
                     ]
                   },
                   {
                     "index": 4,
-                    "name": "sacristan_minor",
+                    "name": "meshes/armor_pieces_sacristan_minor.smd",
                     "blank": false,
                     "materials": [
-                      2,
-                      8,
-                      9
-                    ],
-                    "ranks": [
-                      "sacristan_minor"
+                      0,
+                      4,
+                      5
                     ]
                   },
                   {
                     "index": 5,
-                    "name": "sacristan_major",
+                    "name": "meshes/armor_pieces_sacristan_major.smd",
                     "blank": false,
                     "materials": [
-                      10,
-                      11
-                    ],
-                    "ranks": [
-                      "sacristan_major"
+                      6,
+                      7
                     ]
                   },
                   {
                     "index": 6,
-                    "name": "sacristan_sniper",
+                    "name": "meshes/armor_pieces_sacristan_sniper.smd",
                     "blank": false,
                     "materials": [
-                      13
-                    ],
-                    "ranks": [
-                      "sacristan_sniper"
+                      8
                     ]
                   }
                 ],
                 "body": [
                   {
                     "index": 0,
-                    "name": "jackal_minor",
+                    "name": "meshes/body_jackal_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_minor"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "skirmisher_minor",
+                    "name": "meshes/body_skirmisher_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "skirmisher_minor"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "jackal_sniper",
+                    "name": "meshes/body_jackal_sniper.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_sniper"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 3,
-                    "name": "jackal_major",
+                    "name": "meshes/body_jackal_major.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_major"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 4,
-                    "name": "sancristan",
+                    "name": "meshes/body_sancristan.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      5,
-                      6
-                    ],
-                    "ranks": [
-                      "sancristan"
+                      3,
+                      9,
+                      11
                     ]
                   },
                   {
                     "index": 5,
-                    "name": "sacristan_minor",
+                    "name": "meshes/body_sacristan_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      7
-                    ],
-                    "ranks": [
-                      "sacristan_minor"
+                      9,
+                      10,
+                      12
                     ]
                   },
                   {
                     "index": 6,
-                    "name": "sacristan_major",
+                    "name": "meshes/body_sacristan_major.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      6
-                    ],
-                    "ranks": [
-                      "sacristan_major"
+                      9,
+                      10,
+                      11
                     ]
                   },
                   {
                     "index": 7,
-                    "name": "sacristan_sniper",
+                    "name": "meshes/body_sacristan_sniper.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      12
-                    ],
-                    "ranks": [
-                      "sacristan_sniper"
+                      9,
+                      10,
+                      13
                     ]
                   },
                   {
                     "index": 8,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  }
+                ],
+                "emitter": [
+                  {
+                    "index": 0,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/emitter_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      14
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "meshes/emitter_major.smd",
+                    "blank": false,
+                    "materials": [
+                      15
+                    ]
+                  }
+                ],
+                "barrier": [
+                  {
+                    "index": 0,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/barrier_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      16
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "meshes/barrier_major.smd",
+                    "blank": false,
+                    "materials": [
+                      17
+                    ]
                   }
                 ]
               }
@@ -10406,10 +10608,21 @@
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor",
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor_udim": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor_udim",
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_anatomy": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_anatomy",
-              "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor"
+              "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier"
             },
             "light_materials": {},
-            "glows": {}
+            "glows": {},
+            "emissive_materials": {
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier"
+            },
+            "emissive_blend": "additive",
+            "emissive_submodels": "all",
+            "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden"
           },
           "material_mode": "8tex",
           "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
@@ -10465,41 +10678,59 @@
           "rank": "sancristan",
           "bodygroup_defaults": {
             "armor_pieces": 3,
-            "body": 4
+            "body": 4,
+            "emitter": 1,
+            "barrier": 1
           },
           "bodygroup_string": "34",
           "bodygroup_presets": {
             "jackal_minor": {
               "armor_pieces": 0,
-              "body": 0
+              "body": 0,
+              "emitter": 1,
+              "barrier": 1
             },
             "skirmisher_minor": {
               "armor_pieces": 1,
-              "body": 1
+              "body": 1,
+              "emitter": 0,
+              "barrier": 0
             },
             "jackal_sniper": {
               "armor_pieces": 1,
-              "body": 2
+              "body": 2,
+              "emitter": 0,
+              "barrier": 0
             },
             "jackal_major": {
               "armor_pieces": 2,
-              "body": 3
+              "body": 3,
+              "emitter": 2,
+              "barrier": 2
             },
             "sancristan": {
               "armor_pieces": 3,
-              "body": 4
+              "body": 4,
+              "emitter": 1,
+              "barrier": 1
             },
             "sacristan_minor": {
               "armor_pieces": 4,
-              "body": 5
+              "body": 5,
+              "emitter": 1,
+              "barrier": 1
             },
             "sacristan_major": {
               "armor_pieces": 5,
-              "body": 6
+              "body": 6,
+              "emitter": 2,
+              "barrier": 2
             },
             "sacristan_sniper": {
               "armor_pieces": 6,
-              "body": 7
+              "body": 7,
+              "emitter": 0,
+              "barrier": 0
             }
           },
           "shared_bodygroup_model": true,
@@ -10529,193 +10760,203 @@
               "model": "models/campaign_evolved/ce8/material_sets/jackal.mdl",
               "groups": [
                 "armor_pieces",
-                "body"
+                "body",
+                "emitter",
+                "barrier"
               ],
-              "material_count": 14,
+              "material_count": 18,
               "bodygroup_options": {
                 "armor_pieces": [
                   {
                     "index": 0,
-                    "name": "jackal_minor",
+                    "name": "meshes/armor_pieces_jackal_minor.smd",
                     "blank": false,
                     "materials": [
-                      2
-                    ],
-                    "ranks": [
-                      "jackal_minor"
+                      0
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   },
                   {
                     "index": 2,
-                    "name": "jackal_major",
+                    "name": "meshes/armor_pieces_jackal_major.smd",
                     "blank": false,
                     "materials": [
-                      3,
-                      4
-                    ],
-                    "ranks": [
-                      "jackal_major"
+                      1,
+                      2
                     ]
                   },
                   {
                     "index": 3,
-                    "name": "sancristan",
+                    "name": "meshes/armor_pieces_sancristan.smd",
                     "blank": false,
                     "materials": [
-                      2,
-                      5
-                    ],
-                    "ranks": [
-                      "sancristan"
+                      0,
+                      3
                     ]
                   },
                   {
                     "index": 4,
-                    "name": "sacristan_minor",
+                    "name": "meshes/armor_pieces_sacristan_minor.smd",
                     "blank": false,
                     "materials": [
-                      2,
-                      8,
-                      9
-                    ],
-                    "ranks": [
-                      "sacristan_minor"
+                      0,
+                      4,
+                      5
                     ]
                   },
                   {
                     "index": 5,
-                    "name": "sacristan_major",
+                    "name": "meshes/armor_pieces_sacristan_major.smd",
                     "blank": false,
                     "materials": [
-                      10,
-                      11
-                    ],
-                    "ranks": [
-                      "sacristan_major"
+                      6,
+                      7
                     ]
                   },
                   {
                     "index": 6,
-                    "name": "sacristan_sniper",
+                    "name": "meshes/armor_pieces_sacristan_sniper.smd",
                     "blank": false,
                     "materials": [
-                      13
-                    ],
-                    "ranks": [
-                      "sacristan_sniper"
+                      8
                     ]
                   }
                 ],
                 "body": [
                   {
                     "index": 0,
-                    "name": "jackal_minor",
+                    "name": "meshes/body_jackal_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_minor"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "skirmisher_minor",
+                    "name": "meshes/body_skirmisher_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "skirmisher_minor"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "jackal_sniper",
+                    "name": "meshes/body_jackal_sniper.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_sniper"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 3,
-                    "name": "jackal_major",
+                    "name": "meshes/body_jackal_major.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_major"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 4,
-                    "name": "sancristan",
+                    "name": "meshes/body_sancristan.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      5,
-                      6
-                    ],
-                    "ranks": [
-                      "sancristan"
+                      3,
+                      9,
+                      11
                     ]
                   },
                   {
                     "index": 5,
-                    "name": "sacristan_minor",
+                    "name": "meshes/body_sacristan_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      7
-                    ],
-                    "ranks": [
-                      "sacristan_minor"
+                      9,
+                      10,
+                      12
                     ]
                   },
                   {
                     "index": 6,
-                    "name": "sacristan_major",
+                    "name": "meshes/body_sacristan_major.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      6
-                    ],
-                    "ranks": [
-                      "sacristan_major"
+                      9,
+                      10,
+                      11
                     ]
                   },
                   {
                     "index": 7,
-                    "name": "sacristan_sniper",
+                    "name": "meshes/body_sacristan_sniper.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      12
-                    ],
-                    "ranks": [
-                      "sacristan_sniper"
+                      9,
+                      10,
+                      13
                     ]
                   },
                   {
                     "index": 8,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  }
+                ],
+                "emitter": [
+                  {
+                    "index": 0,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/emitter_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      14
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "meshes/emitter_major.smd",
+                    "blank": false,
+                    "materials": [
+                      15
+                    ]
+                  }
+                ],
+                "barrier": [
+                  {
+                    "index": 0,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/barrier_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      16
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "meshes/barrier_major.smd",
+                    "blank": false,
+                    "materials": [
+                      17
+                    ]
                   }
                 ]
               }
@@ -10753,10 +10994,21 @@
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor",
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor_udim": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor_udim",
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_anatomy": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_anatomy",
-              "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor"
+              "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier"
             },
             "light_materials": {},
-            "glows": {}
+            "glows": {},
+            "emissive_materials": {
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier"
+            },
+            "emissive_blend": "additive",
+            "emissive_submodels": "all",
+            "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden"
           },
           "material_mode": "8tex",
           "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
@@ -10812,41 +11064,59 @@
           "rank": "sacristan_minor",
           "bodygroup_defaults": {
             "armor_pieces": 4,
-            "body": 5
+            "body": 5,
+            "emitter": 1,
+            "barrier": 1
           },
           "bodygroup_string": "45",
           "bodygroup_presets": {
             "jackal_minor": {
               "armor_pieces": 0,
-              "body": 0
+              "body": 0,
+              "emitter": 1,
+              "barrier": 1
             },
             "skirmisher_minor": {
               "armor_pieces": 1,
-              "body": 1
+              "body": 1,
+              "emitter": 0,
+              "barrier": 0
             },
             "jackal_sniper": {
               "armor_pieces": 1,
-              "body": 2
+              "body": 2,
+              "emitter": 0,
+              "barrier": 0
             },
             "jackal_major": {
               "armor_pieces": 2,
-              "body": 3
+              "body": 3,
+              "emitter": 2,
+              "barrier": 2
             },
             "sancristan": {
               "armor_pieces": 3,
-              "body": 4
+              "body": 4,
+              "emitter": 1,
+              "barrier": 1
             },
             "sacristan_minor": {
               "armor_pieces": 4,
-              "body": 5
+              "body": 5,
+              "emitter": 1,
+              "barrier": 1
             },
             "sacristan_major": {
               "armor_pieces": 5,
-              "body": 6
+              "body": 6,
+              "emitter": 2,
+              "barrier": 2
             },
             "sacristan_sniper": {
               "armor_pieces": 6,
-              "body": 7
+              "body": 7,
+              "emitter": 0,
+              "barrier": 0
             }
           },
           "shared_bodygroup_model": true,
@@ -10876,193 +11146,203 @@
               "model": "models/campaign_evolved/ce8/material_sets/jackal.mdl",
               "groups": [
                 "armor_pieces",
-                "body"
+                "body",
+                "emitter",
+                "barrier"
               ],
-              "material_count": 14,
+              "material_count": 18,
               "bodygroup_options": {
                 "armor_pieces": [
                   {
                     "index": 0,
-                    "name": "jackal_minor",
+                    "name": "meshes/armor_pieces_jackal_minor.smd",
                     "blank": false,
                     "materials": [
-                      2
-                    ],
-                    "ranks": [
-                      "jackal_minor"
+                      0
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   },
                   {
                     "index": 2,
-                    "name": "jackal_major",
+                    "name": "meshes/armor_pieces_jackal_major.smd",
                     "blank": false,
                     "materials": [
-                      3,
-                      4
-                    ],
-                    "ranks": [
-                      "jackal_major"
+                      1,
+                      2
                     ]
                   },
                   {
                     "index": 3,
-                    "name": "sancristan",
+                    "name": "meshes/armor_pieces_sancristan.smd",
                     "blank": false,
                     "materials": [
-                      2,
-                      5
-                    ],
-                    "ranks": [
-                      "sancristan"
+                      0,
+                      3
                     ]
                   },
                   {
                     "index": 4,
-                    "name": "sacristan_minor",
+                    "name": "meshes/armor_pieces_sacristan_minor.smd",
                     "blank": false,
                     "materials": [
-                      2,
-                      8,
-                      9
-                    ],
-                    "ranks": [
-                      "sacristan_minor"
+                      0,
+                      4,
+                      5
                     ]
                   },
                   {
                     "index": 5,
-                    "name": "sacristan_major",
+                    "name": "meshes/armor_pieces_sacristan_major.smd",
                     "blank": false,
                     "materials": [
-                      10,
-                      11
-                    ],
-                    "ranks": [
-                      "sacristan_major"
+                      6,
+                      7
                     ]
                   },
                   {
                     "index": 6,
-                    "name": "sacristan_sniper",
+                    "name": "meshes/armor_pieces_sacristan_sniper.smd",
                     "blank": false,
                     "materials": [
-                      13
-                    ],
-                    "ranks": [
-                      "sacristan_sniper"
+                      8
                     ]
                   }
                 ],
                 "body": [
                   {
                     "index": 0,
-                    "name": "jackal_minor",
+                    "name": "meshes/body_jackal_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_minor"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "skirmisher_minor",
+                    "name": "meshes/body_skirmisher_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "skirmisher_minor"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "jackal_sniper",
+                    "name": "meshes/body_jackal_sniper.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_sniper"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 3,
-                    "name": "jackal_major",
+                    "name": "meshes/body_jackal_major.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_major"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 4,
-                    "name": "sancristan",
+                    "name": "meshes/body_sancristan.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      5,
-                      6
-                    ],
-                    "ranks": [
-                      "sancristan"
+                      3,
+                      9,
+                      11
                     ]
                   },
                   {
                     "index": 5,
-                    "name": "sacristan_minor",
+                    "name": "meshes/body_sacristan_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      7
-                    ],
-                    "ranks": [
-                      "sacristan_minor"
+                      9,
+                      10,
+                      12
                     ]
                   },
                   {
                     "index": 6,
-                    "name": "sacristan_major",
+                    "name": "meshes/body_sacristan_major.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      6
-                    ],
-                    "ranks": [
-                      "sacristan_major"
+                      9,
+                      10,
+                      11
                     ]
                   },
                   {
                     "index": 7,
-                    "name": "sacristan_sniper",
+                    "name": "meshes/body_sacristan_sniper.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      12
-                    ],
-                    "ranks": [
-                      "sacristan_sniper"
+                      9,
+                      10,
+                      13
                     ]
                   },
                   {
                     "index": 8,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  }
+                ],
+                "emitter": [
+                  {
+                    "index": 0,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/emitter_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      14
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "meshes/emitter_major.smd",
+                    "blank": false,
+                    "materials": [
+                      15
+                    ]
+                  }
+                ],
+                "barrier": [
+                  {
+                    "index": 0,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/barrier_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      16
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "meshes/barrier_major.smd",
+                    "blank": false,
+                    "materials": [
+                      17
+                    ]
                   }
                 ]
               }
@@ -11100,10 +11380,21 @@
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor",
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor_udim": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor_udim",
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_anatomy": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_anatomy",
-              "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor"
+              "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier"
             },
             "light_materials": {},
-            "glows": {}
+            "glows": {},
+            "emissive_materials": {
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier"
+            },
+            "emissive_blend": "additive",
+            "emissive_submodels": "all",
+            "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden"
           },
           "material_mode": "8tex",
           "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
@@ -11159,41 +11450,59 @@
           "rank": "sacristan_major",
           "bodygroup_defaults": {
             "armor_pieces": 5,
-            "body": 6
+            "body": 6,
+            "emitter": 2,
+            "barrier": 2
           },
           "bodygroup_string": "56",
           "bodygroup_presets": {
             "jackal_minor": {
               "armor_pieces": 0,
-              "body": 0
+              "body": 0,
+              "emitter": 1,
+              "barrier": 1
             },
             "skirmisher_minor": {
               "armor_pieces": 1,
-              "body": 1
+              "body": 1,
+              "emitter": 0,
+              "barrier": 0
             },
             "jackal_sniper": {
               "armor_pieces": 1,
-              "body": 2
+              "body": 2,
+              "emitter": 0,
+              "barrier": 0
             },
             "jackal_major": {
               "armor_pieces": 2,
-              "body": 3
+              "body": 3,
+              "emitter": 2,
+              "barrier": 2
             },
             "sancristan": {
               "armor_pieces": 3,
-              "body": 4
+              "body": 4,
+              "emitter": 1,
+              "barrier": 1
             },
             "sacristan_minor": {
               "armor_pieces": 4,
-              "body": 5
+              "body": 5,
+              "emitter": 1,
+              "barrier": 1
             },
             "sacristan_major": {
               "armor_pieces": 5,
-              "body": 6
+              "body": 6,
+              "emitter": 2,
+              "barrier": 2
             },
             "sacristan_sniper": {
               "armor_pieces": 6,
-              "body": 7
+              "body": 7,
+              "emitter": 0,
+              "barrier": 0
             }
           },
           "shared_bodygroup_model": true,
@@ -11223,193 +11532,203 @@
               "model": "models/campaign_evolved/ce8/material_sets/jackal.mdl",
               "groups": [
                 "armor_pieces",
-                "body"
+                "body",
+                "emitter",
+                "barrier"
               ],
-              "material_count": 14,
+              "material_count": 18,
               "bodygroup_options": {
                 "armor_pieces": [
                   {
                     "index": 0,
-                    "name": "jackal_minor",
+                    "name": "meshes/armor_pieces_jackal_minor.smd",
                     "blank": false,
                     "materials": [
-                      2
-                    ],
-                    "ranks": [
-                      "jackal_minor"
+                      0
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
                   },
                   {
                     "index": 2,
-                    "name": "jackal_major",
+                    "name": "meshes/armor_pieces_jackal_major.smd",
                     "blank": false,
                     "materials": [
-                      3,
-                      4
-                    ],
-                    "ranks": [
-                      "jackal_major"
+                      1,
+                      2
                     ]
                   },
                   {
                     "index": 3,
-                    "name": "sancristan",
+                    "name": "meshes/armor_pieces_sancristan.smd",
                     "blank": false,
                     "materials": [
-                      2,
-                      5
-                    ],
-                    "ranks": [
-                      "sancristan"
+                      0,
+                      3
                     ]
                   },
                   {
                     "index": 4,
-                    "name": "sacristan_minor",
+                    "name": "meshes/armor_pieces_sacristan_minor.smd",
                     "blank": false,
                     "materials": [
-                      2,
-                      8,
-                      9
-                    ],
-                    "ranks": [
-                      "sacristan_minor"
+                      0,
+                      4,
+                      5
                     ]
                   },
                   {
                     "index": 5,
-                    "name": "sacristan_major",
+                    "name": "meshes/armor_pieces_sacristan_major.smd",
                     "blank": false,
                     "materials": [
-                      10,
-                      11
-                    ],
-                    "ranks": [
-                      "sacristan_major"
+                      6,
+                      7
                     ]
                   },
                   {
                     "index": 6,
-                    "name": "sacristan_sniper",
+                    "name": "meshes/armor_pieces_sacristan_sniper.smd",
                     "blank": false,
                     "materials": [
-                      13
-                    ],
-                    "ranks": [
-                      "sacristan_sniper"
+                      8
                     ]
                   }
                 ],
                 "body": [
                   {
                     "index": 0,
-                    "name": "jackal_minor",
+                    "name": "meshes/body_jackal_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_minor"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 1,
-                    "name": "skirmisher_minor",
+                    "name": "meshes/body_skirmisher_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "skirmisher_minor"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 2,
-                    "name": "jackal_sniper",
+                    "name": "meshes/body_jackal_sniper.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_sniper"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 3,
-                    "name": "jackal_major",
+                    "name": "meshes/body_jackal_major.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1
-                    ],
-                    "ranks": [
-                      "jackal_major"
+                      9,
+                      10
                     ]
                   },
                   {
                     "index": 4,
-                    "name": "sancristan",
+                    "name": "meshes/body_sancristan.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      5,
-                      6
-                    ],
-                    "ranks": [
-                      "sancristan"
+                      3,
+                      9,
+                      11
                     ]
                   },
                   {
                     "index": 5,
-                    "name": "sacristan_minor",
+                    "name": "meshes/body_sacristan_minor.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      7
-                    ],
-                    "ranks": [
-                      "sacristan_minor"
+                      9,
+                      10,
+                      12
                     ]
                   },
                   {
                     "index": 6,
-                    "name": "sacristan_major",
+                    "name": "meshes/body_sacristan_major.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      6
-                    ],
-                    "ranks": [
-                      "sacristan_major"
+                      9,
+                      10,
+                      11
                     ]
                   },
                   {
                     "index": 7,
-                    "name": "sacristan_sniper",
+                    "name": "meshes/body_sacristan_sniper.smd",
                     "blank": false,
                     "materials": [
-                      0,
-                      1,
-                      12
-                    ],
-                    "ranks": [
-                      "sacristan_sniper"
+                      9,
+                      10,
+                      13
                     ]
                   },
                   {
                     "index": 8,
-                    "name": "hidden",
-                    "blank": true
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  }
+                ],
+                "emitter": [
+                  {
+                    "index": 0,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/emitter_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      14
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "meshes/emitter_major.smd",
+                    "blank": false,
+                    "materials": [
+                      15
+                    ]
+                  }
+                ],
+                "barrier": [
+                  {
+                    "index": 0,
+                    "name": "",
+                    "blank": true,
+                    "materials": []
+                  },
+                  {
+                    "index": 1,
+                    "name": "meshes/barrier_minor.smd",
+                    "blank": false,
+                    "materials": [
+                      16
+                    ]
+                  },
+                  {
+                    "index": 2,
+                    "name": "meshes/barrier_major.smd",
+                    "blank": false,
+                    "materials": [
+                      17
+                    ]
                   }
                 ]
               }
@@ -11447,10 +11766,21 @@
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor",
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor_udim": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_major_armor_udim",
               "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_anatomy": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_anatomy",
-              "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor"
+              "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor": "models/campaign_evolved/ce8/material_sets/jackal/sacristan_specops_armor",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/pedestal",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/pedestal",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier"
             },
             "light_materials": {},
-            "glows": {}
+            "glows": {},
+            "emissive_materials": {
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield/barrier",
+              "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier": "models/campaign_evolved/ce8/material_sets/weapons/jackal_shield_major/barrier"
+            },
+            "emissive_blend": "additive",
+            "emissive_submodels": "all",
+            "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden"
           },
           "material_mode": "8tex",
           "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
@@ -11506,41 +11836,59 @@
           "rank": "sacristan_sniper",
           "bodygroup_defaults": {
             "armor_pieces": 6,
-            "body": 7
+            "body": 7,
+            "emitter": 0,
+            "barrier": 0
           },
           "bodygroup_string": "67",
           "bodygroup_presets": {
             "jackal_minor": {
               "armor_pieces": 0,
-              "body": 0
+              "body": 0,
+              "emitter": 1,
+              "barrier": 1
             },
             "skirmisher_minor": {
               "armor_pieces": 1,
-              "body": 1
+              "body": 1,
+              "emitter": 0,
+              "barrier": 0
             },
             "jackal_sniper": {
               "armor_pieces": 1,
-              "body": 2
+              "body": 2,
+              "emitter": 0,
+              "barrier": 0
             },
             "jackal_major": {
               "armor_pieces": 2,
-              "body": 3
+              "body": 3,
+              "emitter": 2,
+              "barrier": 2
             },
             "sancristan": {
               "armor_pieces": 3,
-              "body": 4
+              "body": 4,
+              "emitter": 1,
+              "barrier": 1
             },
             "sacristan_minor": {
               "armor_pieces": 4,
-              "body": 5
+              "body": 5,
+              "emitter": 1,
+              "barrier": 1
             },
             "sacristan_major": {
               "armor_pieces": 5,
-              "body": 6
+              "body": 6,
+              "emitter": 2,
+              "barrier": 2
             },
             "sacristan_sniper": {
               "armor_pieces": 6,
-              "body": 7
+              "body": 7,
+              "emitter": 0,
+              "barrier": 0
             }
           },
           "shared_bodygroup_model": true,

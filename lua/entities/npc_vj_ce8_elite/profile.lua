@@ -30,10 +30,13 @@ local footProperties = {
 }
 
 
-return {
+local profile = {
     adapter = "human",
+    possession = include("campaign_evolved/actor.lua").Possession("elite"),
+    -- Membership never delays combat. VJ retains calls for help and orders.
+    squad = {key = "covenant", leader = true, limit = 8, radius = 900},
     gaze = {rig = CE8.HeadProfiles.elite, mouth = {parameter = "mandibles"}},
-    capabilities = {gaze = true, controller = true, investigation = true, obstacle = true, idle = true, postcombat = true, shield = true, dialogue = true, footsteps = true, reactions = true, evasion = true, cover = true, perception = true, flank = true, search = true, opening = true, charge = true},
+    capabilities = {gaze = true, squad = true, controller = true, investigation = true, obstacle = true, idle = true, postcombat = true, shield = true, dialogue = true, footsteps = true, reactions = true, evasion = true, cover = true, perception = true, flank = true, search = true, opening = true, charge = true},
     sounds = sounds,
     shield_sounds = shieldSounds,
     lifecycle = {
@@ -458,3 +461,4 @@ return {
         end
     }
 }
+return include("campaign_evolved/actor.lua").Tactics(profile, data, "elite")

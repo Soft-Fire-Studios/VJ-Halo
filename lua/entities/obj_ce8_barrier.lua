@@ -1,51 +1,41 @@
 if SERVER then AddCSLuaFile() end
 ENT.Type = "anim"
-ENT.Base = "base_anim"
+ENT.Base = "obj_ce8_armor"
 ENT.PrintName = "Jackal barrier collision"
 ENT.Spawnable = false
 ENT.IsCE8Barrier = true
+ENT.CE8Socket = "shield"
 ENT.CE8ImpactSurface = "shield_jackal"
 ENT.DisableDuplicator = true
 ENT.PhysgunDisabled = true
 ENT.VJ_ID_Grabbable = false
-function ENT:Draw() end
+ENT.RenderGroup = RENDERGROUP_TRANSLUCENT
 -- Halo's shield service supplies the impact flash and sound. Suppress the
 -- emitter model's stock metal sparks, ricochet sound and bullet decal.
 function ENT:ImpactTrace() return true end
-if CLIENT then return end
+
+-- MW Base penetrates by recursively firing exit/continuation bullets inside
+-- its impact callback. Keep that callback's damage and attachment effects,
+-- but absorb its follow-up bullets on a real barrier hit. Scope this to the
+-- callback, not a timer: subsequent shots and shots through gaps still work.
+-- Run in both realms so predicted tracers stop at the shield as well.
+include("campaign_evolved/jackal_collision.lua")
+
+if CLIENT then
+    function ENT:Draw() end
+    function ENT:DrawTranslucent(flags)
+        self:CE8UpdateRenderFrame()
+        self:CE8BindRenderer()
+        if CE8 and CE8.DrawEmissiveModel then CE8.DrawEmissiveModel(self, flags) end
+    end
+    return
+end
 local barrier = include("campaign_evolved/barrier.lua")
 
 function ENT:Initialize()
-    self:SetNoDraw(true)
     self:DrawShadow(false)
-    self:SetMoveType(MOVETYPE_NONE)
-    self:SetSolid(SOLID_OBB)
-    self:SetCollisionGroup(COLLISION_GROUP_BREAKABLE_GLASS)
-    -- Expanded broad phase follows once per tick; precise testing uses the
-    -- current wrist attachment, including its pose, on every incoming trace.
-    self:SetCollisionBounds(Vector(-12, -42, -42), Vector(18, 42, 42))
-    self:EnableCustomCollisions(true)
-    self:SetHealth(1)
-    self:SetSaveValue("m_takedamage", 2)
+    self.BaseClass.Initialize(self)
     CE8.Barriers[self] = true
-    self:Think()
-end
-
-function ENT:Think()
-    local actor = self:GetOwner()
-    if not IsValid(actor) or actor.Dead or not IsValid(actor.CE8ShieldProp) then self:Remove() return end
-    local at = actor:GetAttachment(actor:LookupAttachment("shield"))
-    if at then self:SetPos(at.Pos) self:SetAngles(at.Ang) end
-    self:NextThink(CurTime())
-    return true
-end
-
-function ENT:TestCollision(start, delta, isBox, extents, mask)
-    -- Shot traces only. Navigation, player movement and sight remain VJ/Source
-    -- owned; this detector never becomes an obstacle or an opaque sight wall.
-    if bit.band(mask, CONTENTS_HITBOX + CONTENTS_MONSTER) == 0 then return false end
-    if isBox and math.max(extents.x, extents.y, extents.z) > 8 then return false end
-    return barrier.Trace(self, start, delta) or false
 end
 
 function ENT:OnTakeDamage(damage) barrier.Damage(self, damage) end

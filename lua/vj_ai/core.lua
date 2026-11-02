@@ -5,6 +5,10 @@ local AI = VJAI
 local methods = {}
 local bases = {human = "npc_vj_human_base", creature = "npc_vj_creature_base"}
 local fields = {
+    possession = {active = "AIControl", jump = "AIControlJumpState", next_jump = "AINextControlJump", last_jump = "AILastControlJump"},
+    squad = {active = "AISquad", next_check = "AINextSquadCheck", position = "AISquadPosition", next_position = "AINextSquadPosition"},
+    threat = {active = "AIThreat", damage = "AIThreatDamage", path = "AIThreatPath"},
+    ambush = {active = "AIAmbush", next_attempt = "AINextAmbush"},
     gaze = {active = "AIGaze"},
     controller = {next_sample = "AINextActionSample", next_tactic = "AINextTactic",
         spacing = "AISpacing", last_spacing = "AILastSpacing"},
@@ -19,9 +23,10 @@ local fields = {
     opening = {active = "AIOpening", last = "AILastOpening", count = "AICoordinatedOpenings"},
     search = {active = "AISearch", seen = "AISeenAim"},
     perception = {mode = "AIPerceptionMode", heard = "AIHeardSounds"},
-    flank = {next_check = "AINextFlank", enemy = "AIFlankEnemy", finish = "AIFlankUntil"},
+    flank = {next_check = "AINextFlank", enemy = "AIFlankEnemy", finish = "AIFlankUntil", schedule = "AIFlankSchedule"},
     cover = {active = "AICover", next_attempt = "AINextCover"},
     flee = {active = "AIFlee", next_attempt = "AINextFlee", losses = "AIRecentLosses", last = "AILastFlee"},
+    kamikaze = {active = "AIKamikaze", attempts = "AIKamikazeAttempts", next_attempt = "AINextKamikaze", last = "AILastKamikaze"},
     shield = {
         value = "AIShield", clock = "AIShieldClock", recharge_at = "AIShieldRechargeAt",
         breaks = "AIShieldBreaks", recharging = "AIShieldRecharging",
@@ -34,7 +39,8 @@ local fields = {
         last = "AILastDialogue", counts = "AIDialogueCounts", takes = "AIDialogueTakes", spoken = "AISpokenDialogue"
     },
     footsteps = {attachments = "AIFootAttachments", last_choices = "AIFootstepLast", last = "AILastFootstep"},
-    reactions = {kind = "AIReaction", finish = "AIReactionEnd", schedule = "AIReactionSchedule", last = "AILastReaction"},
+    reactions = {kind = "AIReaction", finish = "AIReactionEnd", schedule = "AIReactionSchedule", last = "AILastReaction",
+        next_danger = "AINextDanger"},
     evasion = {next_evade = "AINextEvade", aim_started = "AIAimStarted", count = "AIEvades", gunfire_count = "AIGunfireEvades",
         next_gunfire = "AINextGunfireCheck", last_gunfire = "AILastGunfire"}
 }
@@ -180,8 +186,11 @@ end
 
 function methods:AIUpdate(now)
     now = now or CurTime()
+    self:AIUpdateControl(now)
+    self:AIUpdateSquad(now)
     self:AIUpdateSurface(now)
     self:AIUpdateLeap(now)
+    self:AIThinkKamikaze(now)
     if self.AIMotionProfile and not self:AILeapActive() and not self:AISurfaceActive() then
         self:AIAnimateAimTurn(self:AIUpdateAimTurn())
     end
@@ -219,8 +228,12 @@ end
 
 function methods:AIShutdown(now, reason)
     now = now or CurTime()
+    self:AIEndControl(true)
+    if self.AIReleaseReload then self:AIReleaseReload() end
+    self:AILeaveSquad(now, reason)
     self:AIEndSurface(now, reason or "shutdown")
     self:AIEndLeap(now, reason or "shutdown")
+    self:AIEndKamikaze(now, reason or "shutdown")
     self:AIReleaseGaze()
     self:AISuspendActions(now)
     self:AIStopShieldRecharge()
@@ -243,6 +256,10 @@ end
 
 function methods:AITaskFailed(code, message, now)
     local schedule = self.CurrentSchedule
+    if self:AIHasCapability("threat") and schedule and schedule.Name
+        and (schedule.Name:find("CHASE", 1, true) or schedule.Name == "SCHEDULE_GOTO_POSITION") then
+        self[self:AIProfile().threat.fields.path] = {enemy = self:GetEnemy(), time = now or CurTime()}
+    end
     self:AIBaseCall("OnTaskFailed", code, message)
     now = now or CurTime()
     self:AITryObstacle(now, true)
@@ -253,6 +270,8 @@ end
 for name, method in pairs(include("vj_ai/audio.lua")) do methods[name] = method end
 for name, method in pairs(include("vj_ai/cover.lua")) do methods[name] = method end
 for name, method in pairs(include("vj_ai/tactics.lua")) do methods[name] = method end
+for name, method in pairs(include("vj_ai/squad.lua")) do methods[name] = method end
+for name, method in pairs(include("vj_ai/possession.lua")) do methods[name] = method end
 for name, method in pairs(include("vj_ai/leap.lua")) do methods[name] = method end
 for name, method in pairs(include("vj_ai/surface.lua")) do methods[name] = method end
 for name, method in pairs(include("vj_ai/gaze.lua")) do methods[name] = method end
@@ -309,6 +328,13 @@ function AI.Attach(definition, profile)
     end
     -- GMod deep-copies table fields while deriving/spawning scripted entities.
     -- A getter preserves shared resource tables instead of cloning each bank.
+    if prepared.possession then
+        local previous = definition.Controller_Initialize
+        definition.Controller_Initialize = function(self, player, controller)
+            if previous then previous(self, player, controller) end
+            self:AIStartControl(player, controller)
+        end
+    end
     definition.AIProfile = function() return prepared end
     for name, method in pairs(methods) do definition[name] = method end
     return prepared

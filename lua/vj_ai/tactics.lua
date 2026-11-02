@@ -1,5 +1,6 @@
 -- VJ perception, coordinated tactics and interruptible idle/postcombat actions.
 local methods = {}
+VJAI.Kamikazes = VJAI.Kamikazes or setmetatable({}, {__mode = "k"})
 local function value(actor, setting, fallback)
     if type(setting) == "function" then setting = setting(actor) end
     if setting == nil then return fallback end
@@ -101,13 +102,16 @@ function methods:AITryFlank(now, enemy)
     if self.IsGuard or self.IsFollowing or self.DisableChasingEnemy then return false end
     if chance <= 0 or now < (self[state.next_check] or 0) or not self:Visible(enemy) then return false end
     self[state.next_check] = now + (config.check_interval or 4)
-    local allies = self:Allies_Check(config.ally_range or 900)
+    if self:AISquadAdvanceBusy(enemy, now) then return false end
+    local allies = self:AISquadAllies(config.ally_range or 900)
     local supported = false
     for _, ally in ipairs(allies or {}) do
         local allyConfig = IsValid(ally) and ally.AIProfile and ally:AIProfile().flank
         if allyConfig and ally[allyConfig.fields.enemy] == enemy and now < (ally[allyConfig.fields.finish] or 0)
             and not ally.Dead and not ally.VJ_Controlled and ally:IsMoving() then return false end
-        if IsValid(ally) and ally ~= self and ally:GetEnemy() == enemy then supported = true end
+        local flee = IsValid(ally) and ally.AIProfile and ally:AIProfile().flee
+        if IsValid(ally) and ally ~= self and not ally.Dead and not ally.VJ_Controlled
+            and not (flee and ally[flee.fields.active]) and ally:GetEnemy() == enemy then supported = true end
     end
     if not supported or math.Rand(0, 1) >= chance then return false end
     local origin, target = self:GetPos(), enemy:GetPos()
@@ -127,6 +131,7 @@ function methods:AITryFlank(now, enemy)
                 end)
                 self[state.finish] = now + (config.route_time or 3)
                 self[state.enemy] = enemy
+                self[state.schedule] = self.CurrentSchedule
                 self.NextChaseTime = now + (config.route_time or 3)
                 return true
             end
@@ -147,6 +152,114 @@ local function searchReady(actor, config, now)
     if actor:AIHasCapability("reactions") then return actor:AIReactionReady(now) end
     return not actor.Dead and actor:Health() > 0 and not actor.VJ_Controlled
         and not actor.AttackType and not actor:IsBusy("Activities")
+end
+
+-- Observed damage and firing geometry feed policy; they never set an enemy,
+-- read a hidden target's current position, or create their own navigation loop.
+function methods:AIRecordThreatDamage(damage, now, amount)
+    if not self:AIHasCapability("threat") then return end
+    amount = amount or damage:GetDamage()
+    if amount <= 0 then return end
+    local attacker = damage:GetAttacker()
+    if not IsValid(attacker) or attacker == self or self:Disposition(attacker) ~= D_HT then return end
+    local config = self:AIProfile().threat
+    local shield = self:AIProfile().shield
+    local protection = shield and self:AIHasCapability("shield") and value(self, shield.maximum, 0) or 0
+    local hit = self[config.fields.damage]
+    local remaining = hit and math.max(0, hit.pressure - (now - hit.time) * (config.decay or 0.25)) or 0
+    self[config.fields.damage] = {time = now, attacker = attacker,
+        pressure = math.min(2, remaining + amount / math.max(1, self:GetMaxHealth() + protection))}
+end
+
+function methods:AIUpdateThreat(now, enemy, visible)
+    if not self:AIHasCapability("threat") then return end
+    local config = self:AIProfile().threat
+    local state = self[config.fields.active]
+    if not IsValid(enemy) or self.Dead or self.VJ_Controlled then self[config.fields.active] = nil return end
+    if state and state.enemy == enemy and now < state.next_sample then return state end
+    if not state or state.enemy ~= enemy then state = {enemy = enemy, near_pressure = 0, time = now} end
+    state.near_pressure = math.max(0, state.near_pressure - (now - state.time) * (config.decay or 0.25))
+    state.time, state.next_sample = now, now + (config.interval or 0.5)
+    local hit = self[config.fields.damage]
+    state.pressure = hit and math.max(0, hit.pressure - (now - hit.time) * (config.decay or 0.25)) or 0
+    state.visible, state.exposed, state.can_attack, state.reason = visible == true, false, false, nil
+    if visible then
+        local origin, target = self:GetPos(), enemy:EyePos()
+        state.position = Vector(target)
+        local hidden = self:DoCoverTrace(self:WorldSpaceCenter(), target, true)
+        state.exposed = not hidden
+        -- Reuse the shared recent-shot cache; inspect only the known enemy.
+        local shot = VJAI.Gunfire and VJAI.Gunfire[enemy]
+        if shot and state.exposed and now - shot.time <= 0.5 and shot.time ~= state.shot then
+            state.shot = shot.time
+            local center = self:WorldSpaceCenter()
+            local along = (center - shot.origin):Dot(shot.direction)
+            if along > 0 and along <= shot.distance + 48
+                and center:DistToSqr(shot.origin + shot.direction * along) <= (config.near_distance or 64)^2 then
+                state.near_pressure = math.min(1, state.near_pressure + (config.near_pressure or 0.15))
+            end
+        end
+        local weapon = self.GetActiveWeapon and self:GetActiveWeapon()
+        local distance = origin:Distance(target)
+        if IsValid(weapon) and not weapon.IsMeleeWeapon and weapon.GetBulletPos then
+            local blocked = self:DoCoverTrace(weapon:GetBulletPos(), target, true)
+            state.can_attack = not blocked and distance >= (self.Weapon_MinDistance or 0)
+                and distance <= (self.Weapon_MaxDistance or math.huge)
+        end
+        state.blocked_since = not state.can_attack and (state.blocked_since or now) or nil
+    else
+        state.blocked_since = nil -- Losing sight belongs to remembered-position search.
+    end
+    state.pressure = state.pressure + state.near_pressure
+    local policy = value(self, config.policy, {})
+    local path = self[config.fields.path]
+    if visible and state.pressure >= (config.minimum_pressure or 0.1) then
+        if policy.unreachable and path and path.enemy == enemy and now - path.time <= (config.path_memory or 4) then
+            state.reason = "unreachable"
+        elseif policy.ineffective and state.blocked_since and now - state.blocked_since >= (config.blocked_time or 2) then
+            state.reason = "ineffective_fire"
+        elseif state.exposed and policy.dangerous and state.pressure >= (config.dangerous_pressure or 0.8) then
+            state.reason = "dangerous_target"
+        elseif state.exposed and policy.pressure and state.pressure >= (config.cover_pressure or 0.4) then
+            state.reason = "incoming_fire"
+        end
+    end
+    self[config.fields.active] = state
+    return state
+end
+
+function methods:AIThreatCoverRequested(now)
+    if not self:AIHasCapability("threat") or not self:AIHasCapability("cover") then return end
+    local profile = self:AIProfile()
+    local config, cover = profile.threat, profile.cover
+    local state = self[config.fields.active]
+    local policy = value(self, config.policy, {})
+    if not state or not policy.cover or not state.reason or state.enemy ~= self:GetEnemy()
+        or now - state.time > (config.interval or 0.5) + 0.2 or not state.visible
+        or self.IsGuard or self.IsFollowing or self.DisableChasingEnemy or self.VJ_Controlled
+        or self:GetNavType() ~= NAV_GROUND or not self:OnGround()
+        or now < (self[cover.fields.next_attempt] or 0)
+        or (config.allowed and not config.allowed(self)) then return end
+    local charge = profile.charge and self[profile.charge.fields.active]
+    if charge or (self.AIIsReloading and self:AIIsReloading()) then return end
+    return state.reason
+end
+
+function methods:AITacticalMoveReady(now, owned)
+    if self.Dead or self.VJ_Controlled or self.IsGuard or self.IsFollowing or self.DisableChasingEnemy
+        or self.AttackType or self.PauseAttacks or self:GetNavType() ~= NAV_GROUND or not self:OnGround()
+        or self:IsBusy("Activities") or (self.AIIsReloading and self:AIIsReloading()) then return false end
+    local disabled = GetConVar("ai_disabled")
+    if disabled and disabled:GetBool() then return false end
+    local profile = self:AIProfile()
+    if not searchReady(self, profile.controller or {}, now) then return false end
+    for _, name in ipairs({"cover", "charge", "flee", "kamikaze", "leap", "surface", "opening", "obstacle"}) do
+        local service = profile[name]
+        if service and self[service.fields.active] then return false end
+    end
+    if not owned and (now < (self.NextChaseTime or 0) or now < (self.TakingCoverT or 0)) then return false end
+    if profile.flank and now < (self[profile.flank.fields.finish] or 0) then return false end
+    return true
 end
 
 function methods:AIFinishSearch(now, expired)
@@ -171,6 +284,8 @@ function methods:AIStartSearch(now)
     if not settings.stimuli or not settings.stimuli[mode] then return false end
     local seen = self[config.fields.seen]
     if seen and seen.enemy ~= self:GetEnemy() then seen = nil end
+    local shared = self:AISquadObservation(self:GetEnemy(), now)
+    if shared and (not seen or shared.time > (seen.time or 0)) then seen = shared end
     local position = seen and seen.origin or self.EnemyData and self.EnemyData.VisiblePos or self:GetEnemyLastKnownPos()
     self[config.fields.active] = {position = Vector(position), deadline = deadline,
         presearch_until = math.min(deadline, now + sampleRange(settings.stimuli[mode].time)),
@@ -251,9 +366,9 @@ function methods:AITrySearchAction(now, enemy)
     -- completing, but cannot create a fresh parent budget on each activation.
     local untilTime = math.min(search.deadline, search.presearch_until)
     if untilTime <= now then return false end
-    local occupied = false
+    local occupied = self:AISquadAdvanceBusy(enemy, now)
     if value(self, config.squad, false) then
-        for _, ally in ipairs(self:Allies_Check(self.CallForHelpDistance or 800) or {}) do
+        for _, ally in ipairs(self:AISquadAllies(self.CallForHelpDistance or 800) or {}) do
             local allyConfig = IsValid(ally) and ally.AIProfile and ally:AIProfile().search
             local plan = allyConfig and ally[allyConfig.fields.active]
             if IsValid(ally) and not ally.Dead and not ally.VJ_Controlled and ally:GetEnemy() == enemy
@@ -290,6 +405,7 @@ function methods:AITrySearchAction(now, enemy)
         end)
     elseif choice < uncover + suppress then
         search.action, search.weapon = "suppress", weapon
+        search.burst_limit, search.bursts_fired = value(self, config.burst_count, nil), 0
         if profile.max_suppress > 0 then untilTime = math.min(untilTime, now + profile.max_suppress) end
         search.action_until = untilTime
         local activity = config.suppress_activity(self, weapon)
@@ -558,21 +674,27 @@ function methods:AIThinkIdle(now)
     local settings = value(self, config.settings, {})
     if settings.enabled == false or self.Dead or self.VJ_Controlled then self:AICancelIdle() return false end
     if self.Alerted or self:IsMoving() or self.IsGuard or self.IsFollowing then
-        self[fields.next_pose] = nil
+        self:AICancelIdle()
         return false
     end
     local pose = self[fields.active]
+    local plan, step
     if pose then
         if now < pose.finish and self.CurrentSchedule == pose.schedule then return true end
+        if self.CurrentSchedule == pose.schedule and pose.plan and pose.step < #pose.plan then
+            plan, step = pose.plan, pose.step + 1
+        end
         self:AICancelIdle()
     end
-    if now < (self.NextIdleTime or 0) then return false end
+    if not plan and now < (self.NextIdleTime or 0) then return false end
     local delay = settings.pose or {10, 20}
-    if not self[fields.next_pose] then self[fields.next_pose] = now + sampleRange(delay) return false end
-    if now < self[fields.next_pose] then return false end
+    if not plan and not self[fields.next_pose] then self[fields.next_pose] = now + sampleRange(delay) return false end
+    if not plan and now < self[fields.next_pose] then return false end
     self[fields.next_pose] = now + sampleRange(delay)
     local sequence
-    if config.select then sequence = config.select(self) else sequence = self:AISelectAction("idle_pose") end
+    if plan then sequence = plan[step]
+    elseif config.select then sequence = config.select(self) else sequence = self:AISelectAction("idle_pose") end
+    if type(sequence) == "table" then plan, step = sequence, 1 sequence = plan[1] end
     if not sequence or self:LookupSequence(sequence) < 0 then return false end
     local moving = self:GetSequenceMovement(self:LookupSequence(sequence), 0, 1)
     if moving then
@@ -585,7 +707,7 @@ function methods:AIThinkIdle(now)
     local animation, duration = self:PlayAnim("vjseq_" .. sequence, false, false, false, 0, {PlayBackRate = 1})
     if animation == ACT_INVALID or duration <= 0 then return false end
     self[fields.active] = {schedule = self.CurrentSchedule, finish = now + duration,
-        idle_until = now + duration, previous_idle = self.NextIdleTime}
+        idle_until = now + duration, previous_idle = self.NextIdleTime, plan = plan, step = step}
     self.NextIdleTime = now + duration
     return true
 end
@@ -715,6 +837,9 @@ function methods:AIUpdatePostcombat(now, enemy)
     local config = self.AIProfile and self:AIProfile().postcombat
     local action = config and self[config.fields.active]
     if not action then return end
+    -- Completed bursts yield to the authored postcombat reaction, rather than
+    -- treating their normal completion as an interrupted attack.
+    if action.firing and action.burst_done then self:AIEndCorpseFire(now) end
     if not self:AIHasCapability("postcombat") or value(self, config.settings, {}).enabled == false
         or self.Dead or self.VJ_Controlled or self.IsGuard or self.IsFollowing or now >= action.deadline
         or (IsValid(enemy) and enemy:Health() > 0)
@@ -807,6 +932,7 @@ function methods:AIUpdateSpacing(now, failed)
     if not config then return end
     local fields = driver.fields
     local function cancel() self[fields.spacing] = nil end
+    if (profile.squad and self[profile.squad.fields.position]) or (profile.ambush and self[profile.ambush.fields.active]) then cancel() return end
     if not self:AIHasCapability("controller") or profile.adapter ~= "human" then cancel() return end
     local schedule, enemy = self.CurrentSchedule, self:GetEnemy()
     if self.Dead or self.VJ_Controlled or not searchReady(self, driver, now)
@@ -856,6 +982,9 @@ end
 -- A host calls this driver from VJ's active-update hook. It is not a Think hook
 -- or a second navigation loop; it chooses which existing service may act next.
 function methods:AISuspendActions(now)
+    self:AIEndAmbush(now)
+    self:AIEndSquadPosition(now)
+    self:AIEndKamikaze(now, "suspended")
     self:AIEndSurface(now, "suspended")
     self:AIEndFlee(now, "suspended")
     self:AIEndOpening(now)
@@ -880,10 +1009,11 @@ function methods:AIThinkTactics(now)
     self[config.fields.next_tactic] = now + (config.tactic_interval or 0.2)
     local enemy = self:GetEnemy()
     self:AIUpdatePostcombat(now, enemy)
+    local visible = IsValid(enemy) and self.EnemyData and self.EnemyData.Visible and self:Visible(enemy)
+    self:AIUpdateThreat(now, enemy, visible)
     if config.before_tactics then config.before_tactics(self, now, enemy) end
     if self:AIThinkFlee(now) then return end
     self:AIUpdateSpacing(now)
-    local visible = IsValid(enemy) and self.EnemyData and self.EnemyData.Visible and self:Visible(enemy)
     local search = profile.search
     if self:AIHasCapability("search") then
         if visible then
@@ -892,16 +1022,26 @@ function methods:AIThinkTactics(now)
             self:AIFinishSearch(now, false)
             self[search.fields.seen] = {enemy = enemy, origin = Vector(enemy:GetPos()),
                 position = Vector(self:GetAimPosition(enemy, self:EyePos(), 0)), time = now}
+            self:AISquadObserve(self[search.fields.seen])
         elseif IsValid(enemy) and enemy:Health() > 0 then self:AIStartSearch(now) end
     elseif search then self:AIFinishSearch(now, false) end
     local searching = search and self[search.fields.active]
     self:AISetPerception(visible and "combat" or searching and "search" or self.Alerted and "alert" or "idle")
     if self:AIMaintainCover(now, enemy) then self:AIEndSearchAction(now) return end
-    if not searchReady(self, config, now) then self:AIEndSearchAction(now) return end
+    if not searchReady(self, config, now) then
+        self:AIEndAmbush(now) self:AIEndSquadPosition(now) self:AIEndSearchAction(now) return
+    end
     if self:AITryObstacle(now) then return end
     if not IsValid(enemy) and self:AIHearSound(now) then return end
-    if searching then self:AIThinkSearch(now, enemy) return end
+    -- Optional recovery priority: losing sight must not send an unprotected
+    -- actor searching before it can use its already requested cover policy.
+    local recovery = searching and config.cover_before_search and self:AIHasCapability("cover")
+        and config.cover_requested and config.cover_requested(self, now, enemy)
+    if searching and not recovery then
+        self:AIEndAmbush(now) self:AIEndSquadPosition(now) self:AIThinkSearch(now, enemy) return
+    end
     if not IsValid(enemy) or enemy:Health() <= 0 then
+        self:AIEndAmbush(now) self:AIEndSquadPosition(now)
         self:AIEndCharge(now)
         if self:AIThinkInvestigation(now) then return end
         if self:AIThinkPostcombat(now) then return end
@@ -909,15 +1049,19 @@ function methods:AIThinkTactics(now)
         if not investigation or not self[investigation.fields.active] then self:AIThinkIdle(now) end
         return
     end
-    if self:AIHasCapability("cover") and config.cover_requested and config.cover_requested(self, now, enemy) then
+    local threatCover = self:AIThreatCoverRequested(now)
+    if self:AIHasCapability("cover") and ((config.cover_requested and config.cover_requested(self, now, enemy)) or threatCover) then
         self:AIEndCharge(now)
-        self:AITakeCover(now)
+        self:AITakeCover(now, threatCover)
         return
     end
+    if self:AIThinkAmbush(now, enemy, visible) or self:AIThinkSquadPosition(now, enemy) then return end
+    if self:AITryAmbush(now, enemy, visible) or self:AITrySquadPosition(now, enemy) then return end
     if not self:AIMaintainCharge(now, enemy) then self:AITryFlank(now, enemy) end
 end
 
 function methods:AIThinkActions(now)
+    if self:AIThinkKamikaze(now) then return end
     if self:AILeapActive() or self:AISurfaceActive() then return end
     if not self:AIHasCapability("controller") then self:AISuspendActions(now) return end
     local profile = self:AIProfile()
@@ -999,7 +1143,69 @@ function methods:AIFleeDestination(threat, position)
     return best
 end
 
+-- Native zig-zag angle/period feed finite VJ waypoints. At most three detours,
+-- each swept and grounded; a failed detour falls back to the original route.
+function methods:AIFleeRoute(action, now, final)
+    local config = self:AIProfile().flee
+    local settings = value(self, config.settings, {})
+    local destination = action.destination
+    local origin = self:GetPos()
+    local delta = destination - origin
+    delta.z = 0
+    action.waypoint = nil
+    local period = settings.zigzag_period or 0
+    if not final and period > 0 and (settings.zigzag_angle or 0) > 0
+        and (action.detours or 0) < 3 and delta:Length() > 128 and now + period < action.deadline then
+        local direction = delta:GetNormalized()
+        direction:Rotate(Angle(0, math.deg(settings.zigzag_angle) * ((action.detours or 0) % 2 == 0 and 1 or -1), 0))
+        local point = origin + direction * math.min(160, delta:Length() * 0.5)
+        local mins, maxs = self:GetCollisionBounds()
+        local ground = util.TraceHull({start = point + Vector(0, 0, 24), endpos = point - Vector(0, 0, 72),
+            mins = Vector(mins.x, mins.y, 0), maxs = Vector(maxs.x, maxs.y, 2), mask = MASK_NPCSOLID, filter = self})
+        if ground.Hit and not ground.StartSolid and not ground.AllSolid and ground.HitNormal.z > 0.7 then
+            point = ground.HitPos + Vector(0, 0, 2)
+            local room = util.TraceHull({start = origin + Vector(0, 0, 2), endpos = point,
+                mins = mins, maxs = maxs, mask = MASK_NPCSOLID, filter = self})
+            -- Lane checks take a position, not the threat entity. Keep the
+            -- retreat's observed sample rather than querying a hidden enemy.
+            if not room.Hit and not room.StartSolid and not room.AllSolid
+                and self:AISquadPositionFree(point, now, action.position) then
+                destination, action.waypoint = point, true
+                action.detours = (action.detours or 0) + 1
+            end
+        end
+    end
+    action.next_zigzag, action.route_origin = now + math.max(0.5, period), Vector(origin)
+    action.arrived, action.failed, action.waypoint_done = nil, nil, nil
+    self:SetLastPosition(destination)
+    self:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH", function(schedule)
+        action.schedule = schedule
+        schedule.CanShootWhenMoving, schedule.TurnData = false, nil
+        schedule.RunCode_OnFinish = function()
+            if self[config.fields.active] == action and action.schedule == schedule then
+                if action.waypoint then action.waypoint_done = true else action.arrived = true end
+            end
+        end
+        schedule.RunCode_OnFail = function()
+            if self[config.fields.active] == action and action.schedule == schedule then action.failed = true end
+        end
+    end)
+end
+
+function methods:AIFleeBeginRoute(action, now)
+    local settings = value(self, self:AIProfile().flee.settings, {})
+    action.throwing = nil
+    action.deadline = now + math.max(1, settings.duration or 4)
+    for _, key in ipairs(fleeTimers) do
+        local previous = self[key] or 0
+        if previous < action.deadline then action.timers[key], self[key] = previous, action.deadline end
+    end
+    self:AIFleeRoute(action, now)
+end
+
 function methods:AIStartFlee(reason, threat, now)
+    local kamikaze = self:AIProfile().kamikaze
+    if kamikaze and self[kamikaze.fields.active] then return false end
     if not self:AIHasCapability("flee") or self.Dead or self:Health() <= 0 or self.VJ_Controlled
         or not IsValid(threat) or threat:Health() <= 0 or self:GetNavType() ~= NAV_GROUND
         or not self:OnGround() or self.IsGuard or self.IsFollowing or self.DisableChasingEnemy then return false end
@@ -1012,26 +1218,11 @@ function methods:AIStartFlee(reason, threat, now)
     if not destination then self[config.fields.next_attempt] = now + (config.failed_retry or 2) return false end
     self:AISuspendActions(now)
     local cower = settings.cower or {0, 0}
-    local action = {reason = reason, threat = threat, position = position, destination = destination,
+    local action = {reason = reason, threat = threat, position = position, destination = destination, started = now,
         deadline = now + math.max(1, settings.duration or 4), cower_time = math.Rand(cower[1], cower[2]), timers = {}}
     self[config.fields.active] = action
-    for _, key in ipairs(fleeTimers) do
-        local previous = self[key] or 0
-        if previous < action.deadline then action.timers[key], self[key] = previous, action.deadline end
-    end
-    self:SetLastPosition(destination)
-    self:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH", function(schedule)
-        action.schedule = schedule
-        schedule.CanShootWhenMoving = false
-        schedule.TurnData = nil
-        schedule.RunCode_OnFinish = function()
-            if self[config.fields.active] == action then action.arrived = true end
-        end
-        schedule.RunCode_OnFail = function()
-            if self[config.fields.active] == action then action.failed = true end
-        end
-    end)
     if config.started then config.started(self, action, now) end
+    if not (config.grenade and config.grenade(self, action, now)) then self:AIFleeBeginRoute(action, now) end
     return true
 end
 
@@ -1048,9 +1239,26 @@ function methods:AIThinkFlee(now)
         end
         return false
     end
+    if action.throwing then
+        if now >= action.deadline or not IsValid(action.threat) or action.threat ~= self:GetEnemy()
+            or action.threat:Health() <= 0 then self:AIEndFlee(now, "grenade_interrupted") return false end
+        if self.AttackType == VJ.ATTACK_TYPE_GRENADE then return true end
+        if self.AttackType then self:AIEndFlee(now, "interrupted") return false end
+        self:AIFleeBeginRoute(action, now)
+        return true
+    end
+    if action.failed and action.waypoint and now < action.deadline
+        and (not self.CurrentSchedule or self.CurrentSchedule == action.schedule) then self:AIFleeRoute(action, now, true) return true end
     if action.failed or not IsValid(action.threat) or action.threat:Health() <= 0
-        or self.AttackType or (not action.arrived and self.CurrentSchedule ~= action.schedule) then
+        or self.AttackType or (not action.arrived and not action.waypoint_done and self.CurrentSchedule ~= action.schedule)
+        or (action.waypoint_done and self.CurrentSchedule and self.CurrentSchedule ~= action.schedule) then
         self:AIEndFlee(now, "interrupted") return false
+    end
+    if self:AITryKamikaze(action, now) then return true end
+    if not action.holding and not action.arrived and now < action.deadline then
+        if action.waypoint_done then self:AIFleeRoute(action, now, now < action.next_zigzag) return true end
+        if action.waypoint and now >= action.next_zigzag
+            and self:GetPos():DistToSqr(action.route_origin) > 16 ^ 2 then self:AIFleeRoute(action, now) return true end
     end
     if action.arrived and not action.holding then
         if self.CurrentSchedule and self.CurrentSchedule ~= action.schedule then
@@ -1059,7 +1267,9 @@ function methods:AIThinkFlee(now)
         if action.cower_time > 0 and self:AIHasCapability("cover") and self:AICoverPoint(self:GetPos(), action.threat) then
             action.holding = true
             local old = action.deadline
-            action.deadline = now + action.cower_time
+            local settings = value(self, config.settings, {})
+            action.minimum = now + action.cower_time
+            action.deadline = now + math.max(action.cower_time, sampleRange(settings.cower_timeout or {0, 0}))
             for key in pairs(action.timers) do if self[key] == old then self[key] = action.deadline end end
             self:SCHEDULE_IDLE_STAND()
             action.schedule = self.CurrentSchedule
@@ -1068,11 +1278,17 @@ function methods:AIThinkFlee(now)
     elseif action.holding and (self:Visible(action.threat) or self.CurrentSchedule ~= action.schedule) then
         self:AIEndFlee(now, "exposed") return false
     end
+    local threatConfig = self:AIProfile().threat
+    local threat = threatConfig and self[threatConfig.fields.active]
+    if action.holding and now >= (action.minimum or action.deadline) and not self:Visible(action.threat)
+        and (not threat or (threat.pressure or 0) < 0.25) then
+        self:AIEndFlee(now, "recovered") return false
+    end
     if now >= action.deadline then self:AIEndFlee(now, "timeout") return false end
     return true
 end
 
-function methods:AIAllyLost(ally, now)
+function methods:AIAllyLost(ally, now, squadLeader)
     if not self:AIHasCapability("flee") or not IsValid(ally) then return false end
     local config = self:AIProfile().flee
     if config.notice_loss and not config.notice_loss(self, ally) then return false end
@@ -1085,12 +1301,121 @@ function methods:AIAllyLost(ally, now)
     end
     if losses.seen[ally] then return false end
     losses.seen[ally] = true
-    local leader = config.is_leader and config.is_leader(self, ally)
+    local leader = squadLeader
+    if leader == nil then leader = config.is_leader and config.is_leader(self, ally) end
     if not leader then losses.count = losses.count + 1 end
     local chance = leader and settings.leader_chance
         or (losses.count > 1 and settings.second_peer_chance or settings.peer_chance)
     if math.Rand(0, 1) >= (chance or 0) then return false end
     return self:AIStartFlee(leader and "leader_lost" or "peer_lost", self:GetEnemy(), now)
+end
+
+-- Optional panic escalation. One decision belongs to one real flee episode;
+-- this is not a spawn/visibility roll and never replaces VJ navigation.
+function methods:AIEndKamikaze(now, reason)
+    local config = self.AIProfile and self:AIProfile().kamikaze
+    local action = config and self[config.fields.active]
+    if not action then return end
+    self[config.fields.active], VJAI.Kamikazes[self] = nil, nil
+    if action.schedule and self.CurrentSchedule == action.schedule then self:ClearSchedule() self:StopMoving() end
+    for key, previous in pairs(action.timers) do
+        if self[key] == action.deadline then self[key] = math.max(now, previous) end
+    end
+    for key, entry in pairs(action.options) do
+        if self[key] == entry.value then self[key] = entry.previous end
+    end
+    self[config.fields.last] = {time = now, reason = reason, phase = action.phase}
+    if config.finished then config.finished(self, action, now, reason) end
+end
+
+function methods:AITryKamikaze(fear, now)
+    if not self:AIHasCapability("kamikaze") or not fear or fear.kamikaze_checked then return false end
+    local config = self:AIProfile().kamikaze
+    if fear.reason ~= "leader_lost" and now - (fear.started or now) < (config.panic_time or 8) then return false end
+    fear.kamikaze_checked = true
+    local fields = config.fields
+    if self.Dead or self:Health() <= 0 or self.VJ_Controlled or self.AttackType or self:IsBusy("Activities")
+        or self.IsGuard or self.IsFollowing or self.DisableChasingEnemy
+        or not self:OnGround() or self:GetNavType() ~= NAV_GROUND
+        or self[fields.active] or (self[fields.attempts] or 0) >= (config.attempts or 2)
+        or now < (self[fields.next_attempt] or 0) or (config.allowed and not config.allowed(self, now)) then return false end
+    local enemy = fear.threat
+    if not IsValid(enemy) or enemy:Health() <= 0 then return false end
+    local count = 0
+    for actor, group in pairs(VJAI.Kamikazes) do
+        if not IsValid(actor) or actor.Dead then VJAI.Kamikazes[actor] = nil
+        elseif group == (config.group or "default") then count = count + 1 end
+    end
+    if count >= value(self, config.limit, 1) then return false end
+    self[fields.attempts] = (self[fields.attempts] or 0) + 1
+    self[fields.next_attempt] = now + (config.cooldown or 30)
+    if math.Rand(0, 1) >= value(self, config.chance, 0) then
+        self[fields.last] = {time = now, reason = "roll_failed"}
+        return false
+    end
+    local sequence = value(self, config.prepare_sequence)
+    if not sequence or self:LookupSequence(sequence) < 0 then return false end
+    if not self:AIValidateMotion(sequence, 0) then return false end
+    local action = {enemy = enemy, phase = "prepare", sequence = sequence, started = now, timers = {}, options = {}}
+    -- Resource creation is transactional: a partial pair must be removed by
+    -- the host and cannot consume the ordinary grenade inventory.
+    if not config.prepare or not config.prepare(self, action, now) then return false end
+    self:AISuspendActions(now)
+    if not self:AIPlayReaction("kamikaze", sequence, now) then
+        if config.finished then config.finished(self, action, now, "failed_prepare") end
+        return false
+    end
+    action.ready = reactionEnd(self)
+    action.schedule = self.CurrentSchedule
+    action.deadline = action.ready + (config.timeout or 10)
+    self[fields.active], VJAI.Kamikazes[self] = action, config.group or "default"
+    for _, key in ipairs({"NextIdleTime", "NextChaseTime", "NextDoAnyAttackT", "NextWeaponStrafeT", "TakingCoverT"}) do
+        local previous = self[key] or 0
+        if previous < action.deadline then action.timers[key], self[key] = previous, action.deadline end
+    end
+    for key, option in pairs({Weapon_UnarmedBehavior = false, Weapon_UnarmedBehavior_Active = false, HasGrenadeAttack = false}) do
+        action.options[key] = {previous = self[key], value = option}
+        self[key] = option
+    end
+    if config.started then config.started(self, action, now) end
+    return true
+end
+
+function methods:AIThinkKamikaze(now)
+    local config = self.AIProfile and self:AIProfile().kamikaze
+    local action = config and self[config.fields.active]
+    if not action then return false end
+    if self.Dead or self:Health() <= 0 then self:AIEndKamikaze(now, "death") return false end
+    if not self:AIHasCapability("kamikaze") or self.VJ_Controlled
+        or (config.allowed and not config.allowed(self, now)) then self:AIEndKamikaze(now, "disabled") return false end
+    if not IsValid(action.enemy) or action.enemy:Health() <= 0 or self:GetEnemy() ~= action.enemy
+        or self.IsGuard or self.IsFollowing or self.DisableChasingEnemy then
+        self:AIEndKamikaze(now, "lost_target") return false
+    end
+    if action.phase == "prepare" then
+        if now < action.ready then
+            if self.CurrentSchedule ~= action.schedule then self:AIEndKamikaze(now, "interrupted") return false end
+            return true
+        end
+        action.phase = "charge"
+        self:AIUpdateReaction(now)
+        self:SCHEDULE_ALERT_CHASE(false)
+        action.schedule = self.CurrentSchedule
+    end
+    if now < (action.next_check or 0) then return true end
+    action.next_check = now + 0.1
+    if now >= action.deadline or (self:GetPos():DistToSqr(action.enemy:GetPos()) <= (config.distance or 64) ^ 2
+        and self:Visible(action.enemy)) then
+        -- Detach action first so death hooks cannot release/detonate it twice.
+        self:AIEndKamikaze(now, "detonate")
+        return true
+    end
+    -- VJ owns the route. A failed/completed/replaced path drops the live
+    -- grenades instead of recalculating a new path every Think indefinitely.
+    if self.CurrentSchedule ~= action.schedule or not action.schedule then
+        self:AIEndKamikaze(now, "route_ended") return false
+    end
+    return true
 end
 
 return methods

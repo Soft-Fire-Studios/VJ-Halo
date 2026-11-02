@@ -216,6 +216,7 @@ function ENT:OnWeaponChange(weapon, previous, inventory)
     self.MeleeAttackAngleRadius = angle or data.melee.angle
     self.MeleeAttackDamageAngleRadius = angle or data.melee.hit_angle
     if IsValid(weapon) and weapon.CE8Attach then weapon:CE8Attach(self) end
+    self:AIConfigureWeapon(weapon)
 end
 
 function ENT:OnWeaponAttack()
@@ -251,7 +252,7 @@ function ENT:CE8PlayShieldSound(kind)
     if not choices or #choices == 0 then return end
     local sound = choices[math.random(#choices)]
     -- Equipment sounds stay separate from VJ speech and animation Foley.
-    self:EmitSound(sound, 75, 100, 1, CHAN_ITEM)
+    VJ.EmitSound(self, sound, 75, 100, 1, CHAN_AUTO)
     self.CE8ShieldSoundCounts = self.CE8ShieldSoundCounts or {}
     self.CE8ShieldSoundCounts[kind] = (self.CE8ShieldSoundCounts[kind] or 0) + 1
     return sound
@@ -285,7 +286,7 @@ function ENT:OnAnimEvent(event, eventTime, cycle, eventType, options)
     if event == 4005 then
         local choices = sounds.events[options]
         if choices and #choices > 0 then
-            self:EmitSound(choices[math.random(#choices)], 70, 100, 1, CHAN_BODY)
+            VJ.EmitSound(self, choices, 70, 100, 1, CHAN_AUTO)
         end
     elseif event == 4003 then
         self:CE8PlayDialogue(options, CurTime())

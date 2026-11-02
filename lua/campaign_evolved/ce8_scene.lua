@@ -3,8 +3,8 @@
 if SERVER then return end
 CE8=CE8 or {}
 if CE8.SceneState then return end
-local state={models=setmetatable({}, {__mode="k"}),freeModels={},modelCount=1,
-    lights={},lightCount=0,freeLights={},cookies={},cookieSlots={},modelSlots={},modelOwners=setmetatable({}, {__mode="v"}),parameters={},parameterKeys={},pending={},updates={},frame=-1,uploads=0}
+local state={layout=2,models=setmetatable({}, {__mode="k"}),freeModels={},modelCount=1,
+    regions={},regionCount=0,freeRegions={},lights={},lightCount=0,freeLights={},cookies={},cookieSlots={},modelSlots={},modelOwners=setmetatable({}, {__mode="v"}),parameters={},parameterKeys={},pending={},updates={},frame=-1,uploads=0}
 CE8.SceneState=state
 local target,writer,expander
 local vectors={Vector(),Vector(),Vector(),Vector()}
@@ -46,9 +46,9 @@ local function quad(material,x,y,w,h)
     mesh.Position(c);mesh.TexCoord(0,1,1);mesh.AdvanceVertex()
     mesh.Position(d);mesh.TexCoord(0,0,1);mesh.AdvanceVertex();mesh.End()
 end
-local function write(pixel,rows,count)
+local function write(pixel,rows,count,start)
     beginUpload()
-    for first=1,count,4 do
+    for first=start or 1,(start or 1)+count-1,4 do
         for r=0,3 do
             local row=rows[first+r]
             for c=1,4 do writer:SetFloat("$c"..r.."_"..suffixes[c],row and row[c] or 0) end
@@ -64,8 +64,17 @@ end
 local function row(record,index,x,y,z,w)
     local v=record.rows[index]
     if v[1]~=x or v[2]~=y or v[3]~=z or v[4]~=w then
-        record.dirty=true;v[1],v[2],v[3],v[4]=x,y,z,w
+        record.dirty=true
+        record.blocks=record.blocks or {};record.blocks[math.floor((index-1)/4)*4+1]=true
+        v[1],v[2],v[3],v[4]=x,y,z,w
     end
+end
+local function flush(record,pixel,count)
+    if not record.dirty then return end
+    if not record.uploaded then write(pixel,record.rows,count)
+    else for first in pairs(record.blocks) do write(pixel,record.rows,4,first) end end
+    record.dirty=false;record.uploaded=true
+    if record.blocks then for first in pairs(record.blocks) do record.blocks[first]=nil end end
 end
 local function beam(light)
     local texture=light.cookie;local frame=light.cookieFrame or 0
@@ -102,6 +111,7 @@ local function lightSlot(light)
         cached={slot=slot,rows=newRows(8),dirty=true};state.lights[light.key]=cached
     end
     cached.used=FrameNumber()
+    if cached.frame==FrameNumber() then return cached.slot end
     if light.mapLight and cached.source==light then return cached.slot end
     local rect=not light.mapLight and beam(light) or nil
     if light.cookie and not light.mapLight and not rect then return nil end
@@ -118,8 +128,47 @@ local function lightSlot(light)
         row(cached,6,a.x,a.y,a.z,light.diffuse or 1)
         row(cached,7,rect and rect.x or 0,rect and rect.y or 0,rect and 256 or 0,rect and 256 or 0)
     end
-    if cached.dirty then write(cached.slot*8,cached.rows,8);cached.dirty=false end
+    local receiver=light.target
+    if CE8.MaterialOwner and IsValid(receiver) then receiver=CE8.MaterialOwner(receiver) end
+    local receiverModel=IsValid(receiver) and state.models[receiver]
+    row(cached,8,IsValid(receiver) and (receiverModel and receiverModel.slot or 0) or -1,0,0,0)
+    flush(cached,cached.slot*8,8);cached.frame=FrameNumber()
     return cached.slot
+end
+-- Region records occupy unused rows 480..511 of the existing scene target.
+-- No new texture/sampler is needed. One shared list contains at most sixteen
+-- projectors followed by sixteen map lights; the shader caps contributing lights.
+local function regionSlot(region,lights)
+    local cached=state.regions[region]
+    if not cached then
+        local slot=table.remove(state.freeRegions)
+        if not slot and state.regionCount<1024 then slot=state.regionCount;state.regionCount=slot+1 end
+        if not slot then
+            local oldest,key
+            for candidate,record in pairs(state.regions) do
+                if FrameNumber()-record.used>2 and (not oldest or record.used<oldest.used) then oldest,key=record,candidate end
+            end
+            if oldest then slot=oldest.slot;state.regions[key]=nil end
+        end
+        if not slot then state.regionOverflow=true;return end
+        cached={slot=slot,rows=newRows(16),dirty=true};state.regions[region]=cached
+    end
+    cached.used=FrameNumber()
+    if cached.frame==FrameNumber() then return cached end
+    local ids=cached.ids or {};cached.ids=ids
+    for i=1,32 do ids[i]=0 end
+    local count=0
+    for _,light in ipairs(lights) do
+        local id=lightSlot(light)
+        if id and count<32 then count=count+1;ids[count]=id end
+    end
+    for i=0,7 do local at=i*4;row(cached,i+1,ids[at+1],ids[at+2],ids[at+3],ids[at+4]) end
+    row(cached,9,count,region.projectorCount or 0,region.limit or 16,0)
+    local pixel=245760+cached.slot*16
+    cached.u,cached.v=((pixel*2)%1024+.5)/1024,(math.floor(pixel*2/1024)+.5)/1024
+    cached.count=count
+    flush(cached,pixel,16);cached.frame=FrameNumber()
+    return cached
 end
 function CE8.SceneModel(ent)
     if CE8.MaterialOwner then ent=CE8.MaterialOwner(ent) end
@@ -227,6 +276,7 @@ local function updateScene(parameters)
             if #state.pending==0 then break end
             prepareParameters(state.pending[1]);table.remove(state.pending,1)
         end
+        if not parameters and CE8.BeginLightFrame then CE8.BeginLightFrame() end
         for slot,model in pairs(state.modelSlots) do
             local ent=state.modelOwners[slot]
             if not IsValid(ent) or FrameNumber()-model.used>120 then
@@ -235,20 +285,21 @@ local function updateScene(parameters)
             elseif not parameters and FrameNumber()-model.used<=2 then
                 local ambient=CE8.AmbientLighting(ent)
                 for i=1,6 do local c=ambient[i];row(model,i,c.x,c.y,c.z,0) end
-                local ids=model.ids or {};model.ids=ids
-                for i=1,16 do ids[i]=0 end
-                local count=0
-                for _,light in ipairs(CE8.GetDirectLights(ent)) do
-                    local id=lightSlot(light)
-                    if id and count<16 then count=count+1;ids[count]=id end
-                end
-                for i=0,3 do local at=i*4;row(model,7+i,ids[at+1],ids[at+2],ids[at+3],ids[at+4]) end
-                row(model,11,count,0,0,0)
-                if model.dirty then write(98304+model.slot*16,model.rows,16);model.dirty=false end
-                model.ready=true;ent.CE8SelectedLights=count;ent.CE8LightPasses=0
+                local lights,region=CE8.GetDirectLights(ent)
+                local shared=region and regionSlot(region,lights)
+                local count=shared and shared.count or 0
+                row(model,11,shared and (region.limit or 16) or 0,
+                    shared and shared.u or 0,shared and shared.v or 0,model.slot)
+                flush(model,98304+model.slot*16,16)
+                model.ready=true;ent.CE8SelectedLights=math.min(count,region and region.limit or 0);ent.CE8LightPasses=0
             end
         end
         if not parameters and FrameNumber()%120==0 then
+            for region,record in pairs(state.regions) do
+                if FrameNumber()-record.used>120 then
+                    state.freeRegions[#state.freeRegions+1]=record.slot;state.regions[region]=nil
+                end
+            end
             for key,light in pairs(state.lights) do
                 if FrameNumber()-light.used>120 then state.freeLights[#state.freeLights+1]=light.slot;state.lights[key]=nil end
             end

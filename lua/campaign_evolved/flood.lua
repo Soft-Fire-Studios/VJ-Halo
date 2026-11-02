@@ -3,6 +3,8 @@
 local Flood = {}
 local FX = include("campaign_evolved/weapon_fx.lua")
 local difficulty = SERVER and include("campaign_evolved/difficulty.lua")
+local Infection = SERVER and include("campaign_evolved/flood_infection.lua")
+local Gibs = SERVER and include("campaign_evolved/flood_gibs.lua")
 local function enabled(actor)
     local disabled = GetConVar("ai_disabled")
     return not actor.Dead and not (disabled and disabled:GetBool())
@@ -113,6 +115,189 @@ function Flood.ReleaseInfections(actor, position, count)
     return made
 end
 
+-- Tank spew is a VJ CUSTOM attack. Five authored contacts remain separate;
+-- child budgets/launch velocities are explicit Source adapter settings.
+function Flood.Spew(ENT, settings)
+    CE8 = CE8 or {}
+    CE8.FloodSpewChildren = CE8.FloodSpewChildren or setmetatable({}, {__mode = "k"})
+    local children = CE8.FloodSpewChildren
+    local locks = {"AttackAnimTime", "AnimLockTime", "NextChaseTime", "NextIdleTime", "NextDoAnyAttackT"}
+    local function budget(actor)
+        local own, total = 0, 0
+        for child, source in pairs(children) do
+            if not IsValid(child) or child.Dead or child:Health() <= 0 then children[child] = nil
+            else
+                total = total + 1
+                if source == actor then own = own + 1 end
+            end
+        end
+        return own < settings.live_limit and total < settings.global_limit
+    end
+    local function point(actor)
+        local id = actor:LookupAttachment(settings.attachment)
+        local marker = id > 0 and actor:GetAttachment(id)
+        if not marker then return end
+        local position = marker.Pos + actor:GetForward() * settings.offset_forward
+        local clear = util.TraceHull({start = marker.Pos, endpos = position,
+            mins = Vector(-12, -12, 0), maxs = Vector(12, 12, 24.12), mask = MASK_NPCSOLID, filter = actor})
+        if clear.Hit or clear.StartSolid or clear.AllSolid
+            or bit.band(util.PointContents(position), CONTENTS_WATER) ~= 0 then return end
+        return position
+    end
+    function ENT:CE8EndSpew(now, reason)
+        local action = self.CE8Spew
+        if not action then return end
+        self.CE8Spew = nil
+        local owns = self.AttackType == VJ.ATTACK_TYPE_CUSTOM and self.AttackSeed == action.seed
+        if owns then
+            self.AttackType, self.AttackState, self.AttackSeed = VJ.ATTACK_TYPE_NONE, VJ.ATTACK_STATE_DONE, 0
+        end
+        if action.schedule and self.CurrentSchedule == action.schedule then self:StopCurrentSchedule() end
+        for key, previous in pairs(action.timers) do
+            if self[key] == action.finish then self[key] = math.max(now, previous) end
+        end
+        self.CE8LastSpew = {time = now, reason = reason, children = action.children}
+    end
+    function ENT:CE8UpdateSpew(now)
+        local action = self.CE8Spew
+        if not action then return false end
+        if not enabled(self) or self:Health() <= 0 or self.Flinching or self.PauseAttacks
+            or self.AttackType ~= VJ.ATTACK_TYPE_CUSTOM or self.AttackSeed ~= action.seed
+            or self:GetState() ~= action.state
+            or (self.VJ_Controlled == true) ~= action.controlled
+            or self.CurrentSchedule ~= action.schedule
+            or (action.started and self:GetSequence() ~= action.sequence) then
+            self:CE8EndSpew(now, "interrupted") return false
+        end
+        if self:GetSequence() == action.sequence then action.started = true end
+        if now >= action.finish then self:CE8EndSpew(now, "finished") return false end
+        return true
+    end
+    function ENT:CE8TrySpew(now, enemy)
+        if self.CE8Spew or not enabled(self) or self:Health() <= 0 or self.AttackType
+            or self.Flinching or self.PauseAttacks or not self:OnGround() or self:GetNavType() ~= NAV_GROUND
+            or self:GetState() ~= VJ_STATE_NONE or self:IsBusy("Activities")
+            or now < (self.CE8NextSpew or 0) then return false end
+        if self.VJ_Controlled then
+            local controller = self.VJ_Controller
+            local player = IsValid(controller) and controller:GetPlayer()
+            if not IsValid(player) or not player:KeyDown(IN_ATTACK2) then return false end
+        end
+        if not IsValid(enemy) or enemy:Health() <= 0 or self:CheckRelationship(enemy) ~= D_HT or not self:Visible(enemy) then return false end
+        local ignored = GetConVar("ai_ignoreplayers")
+        if enemy:IsPlayer() and ignored and ignored:GetBool() then return false end
+        local delta = enemy:GetPos() - self:GetPos()
+        local distance = delta:Length()
+        if distance < settings.minimum or distance > settings.maximum
+            or self:GetForward():Dot(delta:GetNormalized()) < settings.facing then return false end
+        -- One eligible attempt owns its cooldown, including blocked placement
+        -- and failed probability. No chance or clearance loop every Think.
+        self.CE8NextSpew = now + settings.cooldown
+        if not budget(self) or (not self.VJ_Controlled and math.Rand(0, 1) >= settings.chance) then return false end
+        local sequence = self:LookupSequence(settings.sequence)
+        if sequence < 0 then return false end
+        local duration = self:SequenceDuration(sequence)
+        if duration <= 0 or not point(self) or not self:AIValidateMotion(settings.sequence, 0, enemy) then return false end
+        self:AISuspendActions(now)
+        self:StopCurrentSchedule()
+        if self.CurrentSchedule then return false end
+        self:StopMoving() self:ClearGoal() self:ResetTurnTarget() self:SetIdealYaw(self:GetAngles().y)
+        local action = {sequence = sequence, seed = now, state = self:GetState(), controlled = self.VJ_Controlled == true,
+            finish = now + duration, contacts = {}, children = 0, timers = {}}
+        for _, key in ipairs(locks) do action.timers[key] = self[key] or 0 end
+        self.CE8Spew = action
+        -- VJ's LetAttacks retains the animation lock without setting its global
+        -- PauseAttacks flag; our CUSTOM attack and timers own attack exclusion.
+        local animation, actualDuration = self:PlayAnim("vjseq_" .. settings.sequence, "LetAttacks", false, false, 0,
+            {PlayBackRate = 1})
+        if animation == ACT_INVALID or actualDuration <= 0 then self.CE8Spew = nil return false end
+        action.finish, action.schedule = now + actualDuration, self.CurrentSchedule
+        for key, previous in pairs(action.timers) do
+            if (self[key] or 0) <= action.finish then self[key] = action.finish else action.timers[key] = nil end
+        end
+        self.AttackType, self.AttackState, self.AttackSeed = VJ.ATTACK_TYPE_CUSTOM, VJ.ATTACK_STATE_STARTED, action.seed
+        return true
+    end
+    function ENT:CE8SpewContact(now, cycle)
+        if not self:CE8UpdateSpew(now) or type(cycle) ~= "number" or not self.CE8Spew.started then return false end
+        local frame = math.floor(cycle * (settings.frames - 1) + 0.5)
+        local action, contact = self.CE8Spew
+        for _, authored in ipairs(settings.contacts) do
+            if math.abs(frame - authored) <= 1 then contact = authored break end
+        end
+        if not contact or action.contacts[contact] then return false end
+        action.contacts[contact] = true
+        if not budget(self) then return false end
+        local position = point(self)
+        if not position then return false end
+        local yaw = self:GetAngles().y + math.Rand(-settings.spread, settings.spread)
+        local child = Flood.LaunchInfection(self, position, yaw, settings.launch)
+        if not IsValid(child) then return false end
+        children[child] = self
+        action.children = action.children + 1
+        self.AttackState = VJ.ATTACK_STATE_EXECUTED
+        return true
+    end
+    local attack, think, event, death, remove = ENT.OnThinkAttack, ENT.OnThink, ENT.OnAnimEvent, ENT.OnDeath, ENT.CustomOnRemove
+    function ENT:OnThinkAttack(isAttacking, enemy)
+        if self.CE8Spew or self:CE8TrySpew(CurTime(), enemy) then return end
+        if attack then return attack(self, isAttacking, enemy) end
+    end
+    function ENT:OnThink()
+        self:CE8UpdateSpew(CurTime())
+        return think(self)
+    end
+    function ENT:OnAnimEvent(id, eventTime, cycle, eventType, options)
+        event(self, id, eventTime, cycle, eventType, options)
+        if id == 4001 and options == "primary keyframe" then self:CE8SpewContact(CurTime(), cycle) end
+    end
+    function ENT:OnDeath(damage, hitgroup, status)
+        if status == "Init" then self:CE8EndSpew(CurTime(), "death") end
+        return death(self, damage, hitgroup, status)
+    end
+    function ENT:CustomOnRemove()
+        self:CE8EndSpew(CurTime(), "remove")
+        return remove(self)
+    end
+end
+
+-- Bind native damage regions to the current compiled hitbox set. The shared
+-- anatomy service owns all damage/weapon transitions; this supplies resources.
+function Flood.Anatomy(ENT, data, sounds)
+    local sets, regions = {}, data.anatomy.regions
+    for _, preset in pairs(data.anatomy.presets) do
+        for _, row in pairs(preset) do sets[row.index] = row.regions end
+    end
+    local settings = {regions = regions,
+        hit_regions = function(self) return sets[self:GetHitboxSet()] end,
+        direct_trace = function(self, damage)
+            local projectile = damage:GetInflictor()
+            return IsValid(projectile) and projectile.CE8ConsumeDamageTrace
+                and projectile:CE8ConsumeDamageTrace(self, damage) or nil
+        end,
+        hitbox_sets = function(self, lost)
+            local preset = data.anatomy.presets[self:CE8RankSettings().hitbox_set]
+            if not preset then return end
+            local left = lost.l_upperarm and 2 or lost.l_forearm and 1 or 0
+            local right = lost.r_upperarm and 2 or lost.r_forearm and 1 or 0
+            local key = "l" .. left .. "_r" .. right .. "_h" .. (lost.corpse_head and 1 or 0)
+                .. "_i" .. (lost.infection and 1 or 0)
+            local row = preset[key]
+            return row and row.index
+        end}
+    include("vj_ai/anatomy.lua").Attach(ENT, settings, {
+        severed = function(self, changed, state, damage)
+            Gibs.Sever(self, data.owner, regions, changed, damage)
+        end,
+        changed = function(self, region, state, damage)
+            if self.HasSounds == false or state.sound_at == CurTime() then return end
+            state.sound_at = CurTime()
+            -- Reuse the native shared limb sound, including its variation/gain.
+            FX.Sound(sounds.playback.combatform_limb_destroyed, damage:GetDamagePosition(), 75)
+        end
+    })
+end
+
 function Flood.Server(ENT, profile)
     local data = ENT:CE8Data()
     local voices = profile.sounds.dialogue[data.voice] or {}
@@ -175,7 +360,7 @@ function Flood.Server(ENT, profile)
                 local sounds = profile.sounds.events.infector_leap
                 local setting = GetConVar("vj_npc_snd_leap")
                 if self.HasSounds ~= false and (not setting or setting:GetBool()) and sounds and #sounds > 0 then
-                    self:EmitSound(sounds[math.random(#sounds)], 70, 100, 1, CHAN_BODY)
+                    VJ.EmitSound(self, sounds, 70, 100, 1, CHAN_AUTO)
                 end
             end
         end
@@ -251,7 +436,7 @@ function Flood.Server(ENT, profile)
     ENT.HasMeleeAttackKnockBack = data.owner == "flood_tank"
     ENT.HasMeleeAttackSounds, ENT.HasExtraMeleeAttackSounds, ENT.HasMeleeAttackMissSounds = false, false, false
     ENT.SoundTbl_MeleeAttack, ENT.SoundTbl_MeleeAttackExtra, ENT.SoundTbl_MeleeAttackMiss = false, false, false
-    ENT.CanFlinch = false -- Keep contact attacks coherent until native flinches are integrated.
+    ENT.CanFlinch = true -- VJ playback; shared gate protects contact attacks and leaps.
     ENT.Weapon_CanReload = data.adapter == "human" -- VJ refills without animation or cover.
     ENT.Weapon_RetreatDistance = 0
     ENT.Weapon_UnarmedBehavior = false
@@ -293,6 +478,24 @@ function Flood.Server(ENT, profile)
         end
     end
 
+    if data.owner == "flood_carrier" then
+        -- This bank is body foley, not a voice. Retain the existing VJ idle
+        -- requests/chances/timer while keeping it outside CurrentIdleSound.
+        function ENT:PlayIdleSound(combatIdle)
+            if not self.HasSounds or not self.HasIdleSounds then return end
+            local now = CurTime()
+            if self.IdleSoundBlockTime > now or self.NextIdleSoundT > now then return end
+            local combat = combatIdle and self.SoundTbl_CombatIdle
+            local chance = combat and self.CombatIdleSoundChance or self.IdleSoundChance
+            if math.random(1, chance) == 1 then
+                VJ.EmitSound(self, combat or self.SoundTbl_Idle,
+                    combat and self.CombatIdleSoundLevel or self.IdleSoundLevel,
+                    self:GetSoundPitch(combat and self.CombatIdleSoundPitch or self.IdleSoundPitch), 1, CHAN_AUTO)
+            end
+            self.NextIdleSoundT = now + math.Rand(self.NextSoundTime_Idle.a, self.NextSoundTime_Idle.b)
+        end
+    end
+
     function ENT:MeleeAttackTraceDirection() return self:GetForward() end
 
     if data.melee then
@@ -301,6 +504,7 @@ function Flood.Server(ENT, profile)
         ENT.MeleeAttackDamage = data.melee.damage[2]
         ENT.NextMeleeAttackTime = data.melee.cooldown
         function ENT:OnMeleeAttack(status, enemy)
+            if status == "PreInit" and self:AIIsReloading() then return true end
             if status == "PreInit" then
                 local _, key = self:AIAnimationSet()
                 local choices = data.melee_by_set[key] or data.melee_by_set.unarmed
@@ -473,7 +677,9 @@ function Flood.Server(ENT, profile)
             damage:SetDamage(shielded and data.bite.shield_damage or data.bite.damage)
             damage:SetDamageType(shielded and DMG_SHOCK or DMG_SLASH)
             damage:SetDamagePosition(point)
+            local infection = not shielded and Infection.PrepareBite(self, victim, damage:GetDamage())
             victim:TakeDamageInfo(damage)
+            if infection then Infection.FinishBite(self, victim, infection) end
             if shielded and IsValid(self) and not self.Dead then
                 local pop = DamageInfo()
                 pop:SetAttacker(game.GetWorld())
@@ -485,7 +691,7 @@ function Flood.Server(ENT, profile)
                 return
             end
             local sounds = profile.sounds.events.infector_wrestle
-            if self.HasSounds ~= false and sounds and #sounds > 0 then self:EmitSound(sounds[math.random(#sounds)], 65, 100, 1, CHAN_BODY) end
+            if self.HasSounds ~= false and sounds and #sounds > 0 then VJ.EmitSound(self, sounds, 65, 100, 1, CHAN_AUTO) end
         end
     end
 
@@ -494,6 +700,7 @@ function Flood.Server(ENT, profile)
             death(self, damage, hitgroup, status)
             if status ~= "Init" or self.CE8BurstPlayed then return end
             self.CE8BurstPlayed = true
+            if self.CanGibOnDeath then Gibs.Destroy(self, data.owner, damage) end
             local position = origin(self, data.anchors.explosion or data.anchors.body)
             local soundSetting = GetConVar("vj_npc_snd_death")
             if self.HasSounds ~= false and self.HasDeathSounds ~= false and (not soundSetting or soundSetting:GetBool()) then
@@ -509,5 +716,9 @@ function Flood.Server(ENT, profile)
             end
         end
     end
+    if data.spew then Flood.Spew(ENT, data.spew) end
+    if data.anatomy then Flood.Anatomy(ENT, data, profile.sounds) end
+    Infection.Attach(ENT, data)
+    Gibs.Attach(ENT, data, profile.sounds)
 end
 return Flood

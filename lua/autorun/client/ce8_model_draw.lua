@@ -30,12 +30,37 @@ function CE8.RefreshSpawnedModelDefinitions()
             end
         end
     end
+    -- Detached pieces share named material bindings, not the parent's bodygroup
+    -- slot layout. Their sole variant group must never index the character map.
+    local gibs=file.Exists("lua/campaign_evolved/flood_gib_models.lua","GAME")
+        and include("campaign_evolved/flood_gib_models.lua") or {}
+    for character,pieces in pairs(gibs) do
+        local entry=(catalog.characters or {})[character]
+        local parent=entry and entry.variants and entry.variants[entry.default_rank]
+        if parent then
+            local definition={ce8_only=true,material_bindings=parent.material_bindings}
+            for _,piece in pairs(pieces) do
+                local binding=piece.material_bindings and {ce8_only=true,material_bindings=piece.material_bindings} or definition
+                definitions[piece.model]={definition=binding,character=character,rank=entry.default_rank}
+            end
+        end
+    end
+    local armor=file.Exists("lua/campaign_evolved/armor_parts.lua","GAME")
+        and include("campaign_evolved/armor_parts.lua") or {}
+    for character,pieces in pairs(armor) do
+        for _,piece in pairs(pieces) do
+            definitions[piece.model]={definition={ce8_only=true,material_bindings=piece.material_bindings},
+                character=character,rank="minor"}
+        end
+    end
 end
 
 local function supported(ent)
     local model=string.lower((ent:GetModel() or ""):gsub("\\","/"))
     return model:find("models/campaign_evolved/ce8/atlas/",1,true)==1
         or model:find("models/campaign_evolved/ce8/material_sets/",1,true)==1
+        or model:find("models/campaign_evolved/ce8/gibs/",1,true)==1
+        or model:find("models/campaign_evolved/ce8/parts/",1,true)==1
         or model:find("models/campaign_evolved/ce8/ragdolls/",1,true)==1
 end
 

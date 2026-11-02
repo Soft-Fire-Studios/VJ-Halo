@@ -5,7 +5,7 @@ return {
     ["anchors"] = {
         ["body"] = "body",
         ["explosion"] = "fx_explosion",
-        ["eyes"] = "eyes",
+        ["eyes"] = false,
         ["head"] = "head",
         ["melee"] = false,
         ["primary_weapon"] = false,
@@ -39,7 +39,232 @@ return {
         ["sequence"] = "combat_unarmed_melee_suicide",
     },
     ["camera_bone"] = "head_r",
+    ["damage_families"] = {
+        ["any"] = {
+            ["h_ping"] = {
+                ["front"] = {
+                    ["gut"] = {
+                        "h_ping_front_gut_var1",
+                        "h_ping_front_gut_var2",
+                        "h_ping_front_gut_var3",
+                    },
+                    ["head"] = {
+                        "h_ping_front_head_var1",
+                        "h_ping_front_head_var2",
+                        "h_ping_front_head_var3",
+                        "h_ping_front_head_var4",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "h_ping_left_gut",
+                    },
+                    ["head"] = {
+                        "h_ping_left_head",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "h_ping_right_gut",
+                    },
+                    ["head"] = {
+                        "h_ping_right_head",
+                    },
+                },
+            },
+            ["s_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "s_ping_back_gut_var1",
+                        "s_ping_back_gut_var2",
+                        "s_ping_back_gut_var3",
+                    },
+                    ["head"] = {
+                        "s_ping_back_head_var1",
+                        "s_ping_back_head_var2",
+                        "s_ping_back_head_var3",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "s_ping_front_gut_var1",
+                        "s_ping_front_gut_var2",
+                        "s_ping_front_gut_var3",
+                    },
+                    ["head"] = {
+                        "s_ping_front_head_var1",
+                        "s_ping_front_head_var2",
+                        "s_ping_front_head_var3",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "s_ping_left_gut",
+                    },
+                    ["head"] = {
+                        "s_ping_left_head",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "s_ping_right_gut",
+                    },
+                    ["head"] = {
+                        "s_ping_right_head",
+                    },
+                },
+            },
+        },
+        ["unarmed"] = {
+            ["h_ping"] = {
+                ["front"] = {
+                    ["gut"] = {
+                        "h_ping_front_gut_var1",
+                        "h_ping_front_gut_var2",
+                        "h_ping_front_gut_var3",
+                    },
+                    ["head"] = {
+                        "h_ping_front_head_var1",
+                        "h_ping_front_head_var2",
+                        "h_ping_front_head_var3",
+                        "h_ping_front_head_var4",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "h_ping_left_gut",
+                    },
+                    ["head"] = {
+                        "h_ping_left_head",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "h_ping_right_gut",
+                    },
+                    ["head"] = {
+                        "h_ping_right_head",
+                    },
+                },
+            },
+            ["s_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "s_ping_back_gut_var1",
+                        "s_ping_back_gut_var2",
+                        "s_ping_back_gut_var3",
+                    },
+                    ["head"] = {
+                        "s_ping_back_head_var1",
+                        "s_ping_back_head_var2",
+                        "s_ping_back_head_var3",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "s_ping_front_gut_var1",
+                        "s_ping_front_gut_var2",
+                        "s_ping_front_gut_var3",
+                    },
+                    ["head"] = {
+                        "s_ping_front_head_var1",
+                        "s_ping_front_head_var2",
+                        "s_ping_front_head_var3",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "s_ping_left_gut",
+                    },
+                    ["head"] = {
+                        "s_ping_left_head",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "s_ping_right_gut",
+                    },
+                    ["head"] = {
+                        "s_ping_right_head",
+                    },
+                },
+            },
+        },
+    },
     ["damage_reactions"] = {
+        ["h_ping"] = {
+            ["front"] = {
+                ["gut"] = {
+                    "h_ping_front_gut_var1",
+                    "h_ping_front_gut_var2",
+                    "h_ping_front_gut_var3",
+                },
+                ["head"] = {
+                    "h_ping_front_head_var1",
+                    "h_ping_front_head_var2",
+                    "h_ping_front_head_var3",
+                    "h_ping_front_head_var4",
+                },
+            },
+            ["left"] = {
+                ["gut"] = {
+                    "h_ping_left_gut",
+                },
+                ["head"] = {
+                    "h_ping_left_head",
+                },
+            },
+            ["right"] = {
+                ["gut"] = {
+                    "h_ping_right_gut",
+                },
+                ["head"] = {
+                    "h_ping_right_head",
+                },
+            },
+        },
+        ["s_ping"] = {
+            ["back"] = {
+                ["gut"] = {
+                    "s_ping_back_gut_var1",
+                    "s_ping_back_gut_var2",
+                    "s_ping_back_gut_var3",
+                },
+                ["head"] = {
+                    "s_ping_back_head_var1",
+                    "s_ping_back_head_var2",
+                    "s_ping_back_head_var3",
+                },
+            },
+            ["front"] = {
+                ["gut"] = {
+                    "s_ping_front_gut_var1",
+                    "s_ping_front_gut_var2",
+                    "s_ping_front_gut_var3",
+                },
+                ["head"] = {
+                    "s_ping_front_head_var1",
+                    "s_ping_front_head_var2",
+                    "s_ping_front_head_var3",
+                },
+            },
+            ["left"] = {
+                ["gut"] = {
+                    "s_ping_left_gut",
+                },
+                ["head"] = {
+                    "s_ping_left_head",
+                },
+            },
+            ["right"] = {
+                ["gut"] = {
+                    "s_ping_right_gut",
+                },
+                ["head"] = {
+                    "s_ping_right_head",
+                },
+            },
+        },
     },
     ["default_weapon"] = "unarmed",
     ["dialogue_domain"] = "ce8_flood",
@@ -57,6 +282,35 @@ return {
         ["right"] = "left_foot_0",
     },
     ["forward_only"] = true,
+    ["gesture_reactions"] = {
+        ["h_ping_front_gut_var1"] = true,
+        ["h_ping_front_gut_var2"] = true,
+        ["h_ping_front_gut_var3"] = true,
+        ["h_ping_front_head_var1"] = true,
+        ["h_ping_front_head_var2"] = true,
+        ["h_ping_front_head_var3"] = true,
+        ["h_ping_front_head_var4"] = true,
+        ["h_ping_left_gut"] = true,
+        ["h_ping_left_head"] = true,
+        ["h_ping_right_gut"] = true,
+        ["h_ping_right_head"] = true,
+        ["s_ping_back_gut_var1"] = true,
+        ["s_ping_back_gut_var2"] = true,
+        ["s_ping_back_gut_var3"] = true,
+        ["s_ping_back_head_var1"] = true,
+        ["s_ping_back_head_var2"] = true,
+        ["s_ping_back_head_var3"] = true,
+        ["s_ping_front_gut_var1"] = true,
+        ["s_ping_front_gut_var2"] = true,
+        ["s_ping_front_gut_var3"] = true,
+        ["s_ping_front_head_var1"] = true,
+        ["s_ping_front_head_var2"] = true,
+        ["s_ping_front_head_var3"] = true,
+        ["s_ping_left_gut"] = true,
+        ["s_ping_left_head"] = true,
+        ["s_ping_right_gut"] = true,
+        ["s_ping_right_head"] = true,
+    },
     ["grip_max"] = 0,
     ["hull"] = {
         ["gun"] = 65,
@@ -150,6 +404,13 @@ return {
                 ["legs"] = 0,
             },
             ["class_name"] = "npc_vj_ce8_flood_carrier",
+            ["flinch"] = {
+                ["cooldown"] = 0.0,
+                ["soft"] = 0.0,
+                ["soft_unshielded"] = 0.0,
+                ["threshold"] = 25.0,
+                ["unshielded"] = 25.0,
+            },
             ["health"] = 50.0,
             ["hitbox_set"] = "default",
             ["loadout"] = {

@@ -2,10 +2,417 @@
 return {
     ["adapter"] = "human",
     ["aim"] = true,
+    ["anatomy"] = {
+        ["presets"] = {
+            ["default"] = {
+                ["l0_r0_h0_i0"] = {
+                    ["index"] = 0,
+                    ["name"] = "default",
+                    ["regions"] = {
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "corpse_head",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "r_forearm",
+                        "r_forearm",
+                        "r_forearm",
+                        "infection",
+                    },
+                },
+                ["l0_r0_h0_i1"] = {
+                    ["index"] = 1,
+                    ["name"] = "default_l0_r0_h0_i1",
+                    ["regions"] = {
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "corpse_head",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "r_forearm",
+                        "r_forearm",
+                        "r_forearm",
+                    },
+                },
+                ["l0_r0_h1_i0"] = {
+                    ["index"] = 2,
+                    ["name"] = "default_l0_r0_h1_i0",
+                    ["regions"] = {
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "r_forearm",
+                        "r_forearm",
+                        "r_forearm",
+                        "infection",
+                    },
+                },
+                ["l0_r0_h1_i1"] = {
+                    ["index"] = 3,
+                    ["name"] = "default_l0_r0_h1_i1",
+                    ["regions"] = {
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "r_forearm",
+                        "r_forearm",
+                        "r_forearm",
+                    },
+                },
+                ["l0_r1_h0_i0"] = {
+                    ["index"] = 4,
+                    ["name"] = "default_l0_r1_h0_i0",
+                    ["regions"] = {
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "corpse_head",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "r_upperarm",
+                        "infection",
+                    },
+                },
+                ["l0_r1_h0_i1"] = {
+                    ["index"] = 5,
+                    ["name"] = "default_l0_r1_h0_i1",
+                    ["regions"] = {
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "corpse_head",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "r_upperarm",
+                    },
+                },
+                ["l0_r1_h1_i0"] = {
+                    ["index"] = 6,
+                    ["name"] = "default_l0_r1_h1_i0",
+                    ["regions"] = {
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "r_upperarm",
+                        "infection",
+                    },
+                },
+                ["l0_r1_h1_i1"] = {
+                    ["index"] = 7,
+                    ["name"] = "default_l0_r1_h1_i1",
+                    ["regions"] = {
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "l_forearm",
+                        "r_upperarm",
+                    },
+                },
+                ["l1_r0_h0_i0"] = {
+                    ["index"] = 8,
+                    ["name"] = "default_l1_r0_h0_i0",
+                    ["regions"] = {
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "corpse_head",
+                        "r_forearm",
+                        "r_forearm",
+                        "r_forearm",
+                        "l_upperarm",
+                        "infection",
+                    },
+                },
+                ["l1_r0_h0_i1"] = {
+                    ["index"] = 9,
+                    ["name"] = "default_l1_r0_h0_i1",
+                    ["regions"] = {
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "corpse_head",
+                        "r_forearm",
+                        "r_forearm",
+                        "r_forearm",
+                        "l_upperarm",
+                    },
+                },
+                ["l1_r0_h1_i0"] = {
+                    ["index"] = 10,
+                    ["name"] = "default_l1_r0_h1_i0",
+                    ["regions"] = {
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "r_forearm",
+                        "r_forearm",
+                        "r_forearm",
+                        "l_upperarm",
+                        "infection",
+                    },
+                },
+                ["l1_r0_h1_i1"] = {
+                    ["index"] = 11,
+                    ["name"] = "default_l1_r0_h1_i1",
+                    ["regions"] = {
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "r_forearm",
+                        "r_forearm",
+                        "r_forearm",
+                        "l_upperarm",
+                    },
+                },
+                ["l1_r1_h0_i0"] = {
+                    ["index"] = 12,
+                    ["name"] = "default_l1_r1_h0_i0",
+                    ["regions"] = {
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "corpse_head",
+                        "l_upperarm",
+                        "r_upperarm",
+                        "infection",
+                    },
+                },
+                ["l1_r1_h0_i1"] = {
+                    ["index"] = 13,
+                    ["name"] = "default_l1_r1_h0_i1",
+                    ["regions"] = {
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "corpse_head",
+                        "l_upperarm",
+                        "r_upperarm",
+                    },
+                },
+                ["l1_r1_h1_i0"] = {
+                    ["index"] = 14,
+                    ["name"] = "default_l1_r1_h1_i0",
+                    ["regions"] = {
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "l_upperarm",
+                        "r_upperarm",
+                        "infection",
+                    },
+                },
+                ["l1_r1_h1_i1"] = {
+                    ["index"] = 15,
+                    ["name"] = "default_l1_r1_h1_i1",
+                    ["regions"] = {
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "body",
+                        "l_upperarm",
+                        "r_upperarm",
+                    },
+                },
+            },
+        },
+        ["regions"] = {
+            ["corpse_head"] = {
+                ["fraction"] = 0.15,
+            },
+            ["infection"] = {
+                ["fraction"] = 0.25,
+                ["lethal"] = true,
+            },
+            ["l_forearm"] = {
+                ["disables"] = {
+                    "melee",
+                    "leap",
+                    "charge",
+                },
+                ["fraction"] = 0.25,
+                ["stump"] = "l_upperarm",
+                ["stump_visible"] = 0,
+            },
+            ["r_forearm"] = {
+                ["disarm"] = true,
+                ["fraction"] = 0.25,
+                ["stump"] = "r_upperarm",
+                ["stump_visible"] = 0,
+            },
+        },
+    },
     ["anchors"] = {
         ["body"] = "body",
         ["explosion"] = false,
-        ["eyes"] = "eyes",
+        ["eyes"] = false,
         ["head"] = "head",
         ["melee"] = "melee",
         ["primary_weapon"] = "primary_weapon",
@@ -28,11 +435,797 @@ return {
         ["range"] = 1680.0,
         ["timeout"] = 7.0,
     },
+    ["damage_families"] = {
+        ["any"] = {
+            ["h_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_back_gut",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_front_gut",
+                    },
+                    ["l_arm"] = {
+                        "combat_any_any_h_ping_front_l_arm",
+                    },
+                    ["r_arm"] = {
+                        "combat_any_any_h_ping_front_r_arm",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_left_gut",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_right_gut",
+                    },
+                },
+            },
+            ["s_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_back_gut_var1",
+                        "combat_any_any_s_ping_back_gut_var2",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_front_gut_var1",
+                        "combat_any_any_s_ping_front_gut_var2",
+                    },
+                    ["head"] = {
+                        "combat_any_any_s_ping_front_head_var1",
+                        "combat_any_any_s_ping_front_head_var2",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_left_gut_var1",
+                        "combat_any_any_s_ping_left_gut_var2",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_right_gut_var1",
+                        "combat_any_any_s_ping_right_gut_var2",
+                    },
+                },
+            },
+        },
+        ["assault_rifle"] = {
+            ["h_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_back_gut",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_front_gut",
+                    },
+                    ["l_arm"] = {
+                        "combat_any_any_h_ping_front_l_arm",
+                    },
+                    ["r_arm"] = {
+                        "combat_any_any_h_ping_front_r_arm",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_left_gut",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_right_gut",
+                    },
+                },
+            },
+            ["s_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_back_gut_var1",
+                        "combat_any_any_s_ping_back_gut_var2",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_front_gut_var1",
+                        "combat_any_any_s_ping_front_gut_var2",
+                    },
+                    ["head"] = {
+                        "combat_any_any_s_ping_front_head_var1",
+                        "combat_any_any_s_ping_front_head_var2",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_left_gut_var1",
+                        "combat_any_any_s_ping_left_gut_var2",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_right_gut_var1",
+                        "combat_any_any_s_ping_right_gut_var2",
+                    },
+                },
+            },
+        },
+        ["battle_rifle"] = {
+            ["h_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_back_gut",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_front_gut",
+                    },
+                    ["l_arm"] = {
+                        "combat_any_any_h_ping_front_l_arm",
+                    },
+                    ["r_arm"] = {
+                        "combat_any_any_h_ping_front_r_arm",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_left_gut",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_right_gut",
+                    },
+                },
+            },
+            ["s_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_back_gut_var1",
+                        "combat_any_any_s_ping_back_gut_var2",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_front_gut_var1",
+                        "combat_any_any_s_ping_front_gut_var2",
+                    },
+                    ["head"] = {
+                        "combat_any_any_s_ping_front_head_var1",
+                        "combat_any_any_s_ping_front_head_var2",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_left_gut_var1",
+                        "combat_any_any_s_ping_left_gut_var2",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_right_gut_var1",
+                        "combat_any_any_s_ping_right_gut_var2",
+                    },
+                },
+            },
+        },
+        ["magnum"] = {
+            ["h_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_back_gut",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_front_gut",
+                    },
+                    ["l_arm"] = {
+                        "combat_any_any_h_ping_front_l_arm",
+                    },
+                    ["r_arm"] = {
+                        "combat_any_any_h_ping_front_r_arm",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_left_gut",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_right_gut",
+                    },
+                },
+            },
+            ["s_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_back_gut_var1",
+                        "combat_any_any_s_ping_back_gut_var2",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_front_gut_var1",
+                        "combat_any_any_s_ping_front_gut_var2",
+                    },
+                    ["head"] = {
+                        "combat_any_any_s_ping_front_head_var1",
+                        "combat_any_any_s_ping_front_head_var2",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_left_gut_var1",
+                        "combat_any_any_s_ping_left_gut_var2",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_right_gut_var1",
+                        "combat_any_any_s_ping_right_gut_var2",
+                    },
+                },
+            },
+        },
+        ["needler"] = {
+            ["h_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_back_gut",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_front_gut",
+                    },
+                    ["l_arm"] = {
+                        "combat_any_any_h_ping_front_l_arm",
+                    },
+                    ["r_arm"] = {
+                        "combat_any_any_h_ping_front_r_arm",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_left_gut",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_right_gut",
+                    },
+                },
+            },
+            ["s_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_back_gut_var1",
+                        "combat_any_any_s_ping_back_gut_var2",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_front_gut_var1",
+                        "combat_any_any_s_ping_front_gut_var2",
+                    },
+                    ["head"] = {
+                        "combat_any_any_s_ping_front_head_var1",
+                        "combat_any_any_s_ping_front_head_var2",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_left_gut_var1",
+                        "combat_any_any_s_ping_left_gut_var2",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_right_gut_var1",
+                        "combat_any_any_s_ping_right_gut_var2",
+                    },
+                },
+            },
+        },
+        ["plasma_pistol"] = {
+            ["h_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_back_gut",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_front_gut",
+                    },
+                    ["l_arm"] = {
+                        "combat_any_any_h_ping_front_l_arm",
+                    },
+                    ["r_arm"] = {
+                        "combat_any_any_h_ping_front_r_arm",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_left_gut",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_right_gut",
+                    },
+                },
+            },
+            ["s_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_back_gut_var1",
+                        "combat_any_any_s_ping_back_gut_var2",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_front_gut_var1",
+                        "combat_any_any_s_ping_front_gut_var2",
+                    },
+                    ["head"] = {
+                        "combat_any_any_s_ping_front_head_var1",
+                        "combat_any_any_s_ping_front_head_var2",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_left_gut_var1",
+                        "combat_any_any_s_ping_left_gut_var2",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_right_gut_var1",
+                        "combat_any_any_s_ping_right_gut_var2",
+                    },
+                },
+            },
+        },
+        ["plasma_rifle"] = {
+            ["h_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_back_gut",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_front_gut",
+                    },
+                    ["l_arm"] = {
+                        "combat_any_any_h_ping_front_l_arm",
+                    },
+                    ["r_arm"] = {
+                        "combat_any_any_h_ping_front_r_arm",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_left_gut",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_right_gut",
+                    },
+                },
+            },
+            ["s_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_back_gut_var1",
+                        "combat_any_any_s_ping_back_gut_var2",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_front_gut_var1",
+                        "combat_any_any_s_ping_front_gut_var2",
+                    },
+                    ["head"] = {
+                        "combat_any_any_s_ping_front_head_var1",
+                        "combat_any_any_s_ping_front_head_var2",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_left_gut_var1",
+                        "combat_any_any_s_ping_left_gut_var2",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_right_gut_var1",
+                        "combat_any_any_s_ping_right_gut_var2",
+                    },
+                },
+            },
+        },
+        ["rocket_launcher"] = {
+            ["h_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_back_gut",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_front_gut",
+                    },
+                    ["l_arm"] = {
+                        "combat_any_any_h_ping_front_l_arm",
+                    },
+                    ["r_arm"] = {
+                        "combat_any_any_h_ping_front_r_arm",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_left_gut",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_right_gut",
+                    },
+                },
+            },
+            ["s_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_back_gut_var1",
+                        "combat_any_any_s_ping_back_gut_var2",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_front_gut_var1",
+                        "combat_any_any_s_ping_front_gut_var2",
+                    },
+                    ["head"] = {
+                        "combat_any_any_s_ping_front_head_var1",
+                        "combat_any_any_s_ping_front_head_var2",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_left_gut_var1",
+                        "combat_any_any_s_ping_left_gut_var2",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_right_gut_var1",
+                        "combat_any_any_s_ping_right_gut_var2",
+                    },
+                },
+            },
+        },
+        ["shotgun"] = {
+            ["h_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_back_gut",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_front_gut",
+                    },
+                    ["l_arm"] = {
+                        "combat_any_any_h_ping_front_l_arm",
+                    },
+                    ["r_arm"] = {
+                        "combat_any_any_h_ping_front_r_arm",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_left_gut",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_right_gut",
+                    },
+                },
+            },
+            ["s_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_back_gut_var1",
+                        "combat_any_any_s_ping_back_gut_var2",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_front_gut_var1",
+                        "combat_any_any_s_ping_front_gut_var2",
+                    },
+                    ["head"] = {
+                        "combat_any_any_s_ping_front_head_var1",
+                        "combat_any_any_s_ping_front_head_var2",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_left_gut_var1",
+                        "combat_any_any_s_ping_left_gut_var2",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_right_gut_var1",
+                        "combat_any_any_s_ping_right_gut_var2",
+                    },
+                },
+            },
+        },
+        ["smg_rifle"] = {
+            ["h_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_back_gut",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_front_gut",
+                    },
+                    ["l_arm"] = {
+                        "combat_any_any_h_ping_front_l_arm",
+                    },
+                    ["r_arm"] = {
+                        "combat_any_any_h_ping_front_r_arm",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_left_gut",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_right_gut",
+                    },
+                },
+            },
+            ["s_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_back_gut_var1",
+                        "combat_any_any_s_ping_back_gut_var2",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_front_gut_var1",
+                        "combat_any_any_s_ping_front_gut_var2",
+                    },
+                    ["head"] = {
+                        "combat_any_any_s_ping_front_head_var1",
+                        "combat_any_any_s_ping_front_head_var2",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_left_gut_var1",
+                        "combat_any_any_s_ping_left_gut_var2",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_right_gut_var1",
+                        "combat_any_any_s_ping_right_gut_var2",
+                    },
+                },
+            },
+        },
+        ["sniper_rifle"] = {
+            ["h_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_back_gut",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_front_gut",
+                    },
+                    ["l_arm"] = {
+                        "combat_any_any_h_ping_front_l_arm",
+                    },
+                    ["r_arm"] = {
+                        "combat_any_any_h_ping_front_r_arm",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_left_gut",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_h_ping_right_gut",
+                    },
+                },
+            },
+            ["s_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_back_gut_var1",
+                        "combat_any_any_s_ping_back_gut_var2",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_front_gut_var1",
+                        "combat_any_any_s_ping_front_gut_var2",
+                    },
+                    ["head"] = {
+                        "combat_any_any_s_ping_front_head_var1",
+                        "combat_any_any_s_ping_front_head_var2",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_left_gut_var1",
+                        "combat_any_any_s_ping_left_gut_var2",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_any_any_s_ping_right_gut_var1",
+                        "combat_any_any_s_ping_right_gut_var2",
+                    },
+                },
+            },
+        },
+        ["unarmed"] = {
+            ["h_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_unarmed_h_ping_back_gut",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_unarmed_h_ping_front_gut",
+                    },
+                    ["l_arm"] = {
+                        "combat_unarmed_h_ping_front_l_arm",
+                    },
+                    ["r_arm"] = {
+                        "combat_unarmed_h_ping_front_r_arm",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_unarmed_h_ping_left_gut",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_unarmed_h_ping_right_gut",
+                    },
+                },
+            },
+            ["s_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "combat_unarmed_s_ping_back_gut_var1",
+                        "combat_unarmed_s_ping_back_gut_var2",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "combat_unarmed_s_ping_front_gut_var1",
+                        "combat_unarmed_s_ping_front_gut_var2",
+                    },
+                    ["head"] = {
+                        "combat_unarmed_s_ping_front_head_var1",
+                        "combat_unarmed_s_ping_front_head_var2",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "combat_unarmed_s_ping_left_gut_var1",
+                        "combat_unarmed_s_ping_left_gut_var2",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "combat_unarmed_s_ping_right_gut_var1",
+                        "combat_unarmed_s_ping_right_gut_var2",
+                    },
+                },
+            },
+        },
+    },
     ["damage_reactions"] = {
+        ["h_ping"] = {
+            ["back"] = {
+                ["gut"] = {
+                    "combat_any_any_h_ping_back_gut",
+                },
+            },
+            ["front"] = {
+                ["gut"] = {
+                    "combat_any_any_h_ping_front_gut",
+                },
+                ["l_arm"] = {
+                    "combat_any_any_h_ping_front_l_arm",
+                },
+                ["r_arm"] = {
+                    "combat_any_any_h_ping_front_r_arm",
+                },
+            },
+            ["left"] = {
+                ["gut"] = {
+                    "combat_any_any_h_ping_left_gut",
+                },
+            },
+            ["right"] = {
+                ["gut"] = {
+                    "combat_any_any_h_ping_right_gut",
+                },
+            },
+        },
+        ["s_ping"] = {
+            ["back"] = {
+                ["gut"] = {
+                    "combat_any_any_s_ping_back_gut_var1",
+                    "combat_any_any_s_ping_back_gut_var2",
+                },
+            },
+            ["front"] = {
+                ["gut"] = {
+                    "combat_any_any_s_ping_front_gut_var1",
+                    "combat_any_any_s_ping_front_gut_var2",
+                },
+                ["head"] = {
+                    "combat_any_any_s_ping_front_head_var1",
+                    "combat_any_any_s_ping_front_head_var2",
+                },
+            },
+            ["left"] = {
+                ["gut"] = {
+                    "combat_any_any_s_ping_left_gut_var1",
+                    "combat_any_any_s_ping_left_gut_var2",
+                },
+            },
+            ["right"] = {
+                ["gut"] = {
+                    "combat_any_any_s_ping_right_gut_var1",
+                    "combat_any_any_s_ping_right_gut_var2",
+                },
+            },
+        },
     },
     ["default_weapon"] = "unarmed",
     ["dialogue_domain"] = "ce8_flood",
     ["dialogue_rules"] = {
+    },
+    ["effects"] = {
+        ["file"] = "particles/halo/halo_beam.pcf",
+        ["normal"] = {
+            ["destroy"] = "hcea_flood_car_death",
+        },
     },
     ["faction"] = "CLASS_FLOOD",
     ["foot_attachments"] = {
@@ -40,6 +1233,28 @@ return {
         ["right"] = "right_foot",
     },
     ["forward_only"] = false,
+    ["gesture_reactions"] = {
+        ["combat_any_any_s_ping_back_gut_var1"] = true,
+        ["combat_any_any_s_ping_back_gut_var2"] = true,
+        ["combat_any_any_s_ping_front_gut_var1"] = true,
+        ["combat_any_any_s_ping_front_gut_var2"] = true,
+        ["combat_any_any_s_ping_front_head_var1"] = true,
+        ["combat_any_any_s_ping_front_head_var2"] = true,
+        ["combat_any_any_s_ping_left_gut_var1"] = true,
+        ["combat_any_any_s_ping_left_gut_var2"] = true,
+        ["combat_any_any_s_ping_right_gut_var1"] = true,
+        ["combat_any_any_s_ping_right_gut_var2"] = true,
+        ["combat_unarmed_s_ping_back_gut_var1"] = true,
+        ["combat_unarmed_s_ping_back_gut_var2"] = true,
+        ["combat_unarmed_s_ping_front_gut_var1"] = true,
+        ["combat_unarmed_s_ping_front_gut_var2"] = true,
+        ["combat_unarmed_s_ping_front_head_var1"] = true,
+        ["combat_unarmed_s_ping_front_head_var2"] = true,
+        ["combat_unarmed_s_ping_left_gut_var1"] = true,
+        ["combat_unarmed_s_ping_left_gut_var2"] = true,
+        ["combat_unarmed_s_ping_right_gut_var1"] = true,
+        ["combat_unarmed_s_ping_right_gut_var2"] = true,
+    },
     ["grip_max"] = 6,
     ["hull"] = {
         ["gun"] = 60,
@@ -67,7 +1282,6 @@ return {
         ["start"] = "any_any_leap_start",
     },
     ["melee"] = {
-        ["tracking_time"] = 0.3,
         ["angle"] = 22.5,
         ["cooldown"] = 1.5,
         ["damage"] = {
@@ -77,8 +1291,13 @@ return {
         ["hit_angle"] = 27.5,
         ["hit_range"] = 102.0,
         ["range"] = 102.0,
+        ["tracking_time"] = 0.3,
     },
     ["melee_by_set"] = {
+        ["any"] = {
+            "combat_any_any_melee_var1",
+            "combat_any_any_melee_var2",
+        },
         ["assault_rifle"] = {
             "combat_any_any_melee_var1",
             "combat_any_any_melee_var2",
@@ -651,6 +1870,13 @@ return {
                 ["r_upperarm"] = 0,
             },
             ["class_name"] = "npc_vj_ce8_flood_combat_human",
+            ["flinch"] = {
+                ["cooldown"] = 0.0,
+                ["soft"] = 0.0,
+                ["soft_unshielded"] = 0.0,
+                ["threshold"] = 30.0,
+                ["unshielded"] = 30.0,
+            },
             ["health"] = 100.0,
             ["hitbox_set"] = "default",
             ["loadout"] = {
@@ -665,6 +1891,11 @@ return {
             ["name"] = "Flood Combat Human",
             ["shield"] = 0,
         },
+    },
+    ["resurrection"] = {
+        ["limit"] = 2,
+        ["minimum_age"] = 4.0,
+        ["sequence"] = "any_any_resurrect_front_var1",
     },
     ["search"] = {
         ["radius"] = 640,
@@ -693,6 +1924,154 @@ return {
     },
     ["voice"] = "flood_marine",
     ["weapon_sets"] = {
+        ["any"] = {
+            ["aim_limits"] = {
+                ["combat_idle"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["combat_move_back"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["combat_move_front"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["combat_move_left"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["combat_move_right"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["combat_turn_left"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["combat_turn_right"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["combat_walk_back"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["combat_walk_front"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["combat_walk_left"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["combat_walk_right"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["crouch_idle"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["crouch_move_back"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["crouch_move_front"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["crouch_move_left"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["crouch_move_right"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["crouch_turn_left"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["crouch_turn_right"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["crouch_walk_back"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["crouch_walk_front"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["crouch_walk_left"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["crouch_walk_right"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["patrol_idle"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["patrol_run"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["patrol_walk"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["turn_left"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+                ["turn_right"] = {
+                    -59.99999999999999,
+                    59.99999999999999,
+                },
+            },
+            ["family"] = "any",
+            ["grip"] = 0,
+            ["hand_ik"] = false,
+            ["mount"] = false,
+            ["sequences"] = {
+                ["combat_idle"] = "combat_any_any_idle_var1",
+                ["combat_move_back"] = "combat_any_any_move_back",
+                ["combat_move_front"] = "combat_any_any_move_front_var1",
+                ["combat_move_left"] = "combat_any_any_move_left",
+                ["combat_move_right"] = "combat_any_any_move_right",
+                ["combat_turn_left"] = "combat_any_any_turn_left",
+                ["combat_turn_right"] = "combat_any_any_turn_right",
+                ["combat_walk_back"] = "combat_any_any_walk_back_var1",
+                ["combat_walk_front"] = "combat_any_any_walk_front_var1",
+                ["combat_walk_left"] = "combat_any_any_walk_left",
+                ["combat_walk_right"] = "combat_any_any_walk_right",
+                ["crouch_idle"] = "combat_any_any_idle_var1",
+                ["crouch_move_back"] = "combat_any_any_move_back",
+                ["crouch_move_front"] = "combat_any_any_move_front_var1",
+                ["crouch_move_left"] = "combat_any_any_move_left",
+                ["crouch_move_right"] = "combat_any_any_move_right",
+                ["crouch_turn_left"] = "combat_any_any_turn_left",
+                ["crouch_turn_right"] = "combat_any_any_turn_right",
+                ["crouch_walk_back"] = "combat_any_any_walk_back_var1",
+                ["crouch_walk_front"] = "combat_any_any_walk_front_var1",
+                ["crouch_walk_left"] = "combat_any_any_walk_left",
+                ["crouch_walk_right"] = "combat_any_any_walk_right",
+                ["fire"] = false,
+                ["melee"] = "combat_any_any_melee_var1",
+                ["patrol_idle"] = "combat_any_any_idle_var1",
+                ["patrol_run"] = "combat_any_any_move_front_var1",
+                ["patrol_walk"] = "combat_any_any_walk_front_var1",
+                ["reload"] = false,
+                ["turn_left"] = "combat_any_any_turn_left",
+                ["turn_right"] = "combat_any_any_turn_right",
+            },
+        },
         ["assault_rifle"] = {
             ["aim_limits"] = {
                 ["combat_idle"] = {
@@ -1967,6 +3346,90 @@ return {
         },
         ["smg_rifle"] = {
             ["aim_limits"] = {
+                ["combat_idle"] = {
+                    -14.393889430466096,
+                    7.6065818956099776,
+                },
+                ["combat_move_back"] = {
+                    -19.6240299477752,
+                    8.233394332157571,
+                },
+                ["combat_move_front"] = {
+                    -19.6240299477752,
+                    8.233394332157571,
+                },
+                ["combat_move_left"] = {
+                    -19.6240299477752,
+                    8.233394332157571,
+                },
+                ["combat_move_right"] = {
+                    -19.6240299477752,
+                    8.233394332157571,
+                },
+                ["combat_walk_back"] = {
+                    -19.6240299477752,
+                    8.233394332157571,
+                },
+                ["combat_walk_front"] = {
+                    -19.6240299477752,
+                    8.233394332157571,
+                },
+                ["combat_walk_left"] = {
+                    -19.6240299477752,
+                    8.233394332157571,
+                },
+                ["combat_walk_right"] = {
+                    -19.6240299477752,
+                    8.233394332157571,
+                },
+                ["crouch_idle"] = {
+                    -14.393889430466096,
+                    7.6065818956099776,
+                },
+                ["crouch_move_back"] = {
+                    -19.6240299477752,
+                    8.233394332157571,
+                },
+                ["crouch_move_front"] = {
+                    -19.6240299477752,
+                    8.233394332157571,
+                },
+                ["crouch_move_left"] = {
+                    -19.6240299477752,
+                    8.233394332157571,
+                },
+                ["crouch_move_right"] = {
+                    -19.6240299477752,
+                    8.233394332157571,
+                },
+                ["crouch_walk_back"] = {
+                    -19.6240299477752,
+                    8.233394332157571,
+                },
+                ["crouch_walk_front"] = {
+                    -19.6240299477752,
+                    8.233394332157571,
+                },
+                ["crouch_walk_left"] = {
+                    -19.6240299477752,
+                    8.233394332157571,
+                },
+                ["crouch_walk_right"] = {
+                    -19.6240299477752,
+                    8.233394332157571,
+                },
+                ["patrol_idle"] = {
+                    -14.393889430466096,
+                    7.6065818956099776,
+                },
+                ["patrol_run"] = {
+                    -19.6240299477752,
+                    8.233394332157571,
+                },
+                ["patrol_walk"] = {
+                    -19.6240299477752,
+                    8.233394332157571,
+                },
             },
             ["family"] = "rifle",
             ["grip"] = 0,

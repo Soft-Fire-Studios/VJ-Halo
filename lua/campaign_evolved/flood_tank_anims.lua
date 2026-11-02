@@ -5,7 +5,7 @@ return {
     ["anchors"] = {
         ["body"] = "body",
         ["explosion"] = false,
-        ["eyes"] = "eyes",
+        ["eyes"] = false,
         ["head"] = "head",
         ["melee"] = "melee",
         ["primary_weapon"] = false,
@@ -20,7 +20,181 @@ return {
         ["search"] = true,
     },
     ["camera_bone"] = "head_l",
+    ["damage_families"] = {
+        ["any"] = {
+            ["h_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "any_any_h_ping_back_gut",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "any_any_h_ping_front_gut_var1",
+                        "any_any_h_ping_front_gut_var2",
+                    },
+                    ["head"] = {
+                        "any_any_h_ping_front_head_var1",
+                        "any_any_h_ping_front_head_var2",
+                        "any_any_h_ping_front_head_var3",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "any_any_h_ping_left_gut",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "any_any_h_ping_right_gut",
+                    },
+                },
+            },
+            ["s_ping"] = {
+                ["back"] = {
+                    ["head"] = {
+                        "any_any_s_ping_back_head",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "any_any_s_ping_front_gut",
+                    },
+                    ["head"] = {
+                        "any_any_s_ping_front_head",
+                    },
+                    ["l_arm"] = {
+                        "any_any_s_ping_front_l_arm",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "any_any_s_ping_left_gut",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "any_any_s_ping_right_gut",
+                    },
+                },
+            },
+        },
+        ["unarmed"] = {
+            ["h_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "any_any_h_ping_back_gut",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "any_any_h_ping_front_gut_var1",
+                        "any_any_h_ping_front_gut_var2",
+                    },
+                    ["head"] = {
+                        "any_any_h_ping_front_head_var1",
+                        "any_any_h_ping_front_head_var2",
+                        "any_any_h_ping_front_head_var3",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "any_any_h_ping_left_gut",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "any_any_h_ping_right_gut",
+                    },
+                },
+            },
+            ["s_ping"] = {
+                ["back"] = {
+                    ["head"] = {
+                        "any_any_s_ping_back_head",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "any_any_s_ping_front_gut",
+                    },
+                    ["head"] = {
+                        "any_any_s_ping_front_head",
+                    },
+                    ["l_arm"] = {
+                        "any_any_s_ping_front_l_arm",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "any_any_s_ping_left_gut",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "any_any_s_ping_right_gut",
+                    },
+                },
+            },
+        },
+    },
     ["damage_reactions"] = {
+        ["h_ping"] = {
+            ["back"] = {
+                ["gut"] = {
+                    "any_any_h_ping_back_gut",
+                },
+            },
+            ["front"] = {
+                ["gut"] = {
+                    "any_any_h_ping_front_gut_var1",
+                    "any_any_h_ping_front_gut_var2",
+                },
+                ["head"] = {
+                    "any_any_h_ping_front_head_var1",
+                    "any_any_h_ping_front_head_var2",
+                    "any_any_h_ping_front_head_var3",
+                },
+            },
+            ["left"] = {
+                ["gut"] = {
+                    "any_any_h_ping_left_gut",
+                },
+            },
+            ["right"] = {
+                ["gut"] = {
+                    "any_any_h_ping_right_gut",
+                },
+            },
+        },
+        ["s_ping"] = {
+            ["back"] = {
+                ["head"] = {
+                    "any_any_s_ping_back_head",
+                },
+            },
+            ["front"] = {
+                ["gut"] = {
+                    "any_any_s_ping_front_gut",
+                },
+                ["head"] = {
+                    "any_any_s_ping_front_head",
+                },
+                ["l_arm"] = {
+                    "any_any_s_ping_front_l_arm",
+                },
+            },
+            ["left"] = {
+                ["gut"] = {
+                    "any_any_s_ping_left_gut",
+                },
+            },
+            ["right"] = {
+                ["gut"] = {
+                    "any_any_s_ping_right_gut",
+                },
+            },
+        },
     },
     ["default_weapon"] = "unarmed",
     ["dialogue_domain"] = "ce8_flood",
@@ -32,6 +206,14 @@ return {
         ["right"] = "right_foot",
     },
     ["forward_only"] = false,
+    ["gesture_reactions"] = {
+        ["any_any_s_ping_back_head"] = true,
+        ["any_any_s_ping_front_gut"] = true,
+        ["any_any_s_ping_front_head"] = true,
+        ["any_any_s_ping_front_l_arm"] = true,
+        ["any_any_s_ping_left_gut"] = true,
+        ["any_any_s_ping_right_gut"] = true,
+    },
     ["grip_max"] = 0,
     ["hull"] = {
         ["gun"] = 65,
@@ -40,7 +222,6 @@ return {
         ["radius"] = 46.2,
     },
     ["melee"] = {
-        ["tracking_time"] = 0.3,
         ["angle"] = 50.0,
         ["cooldown"] = 0.5,
         ["damage"] = {
@@ -50,6 +231,7 @@ return {
         ["hit_angle"] = 65.0,
         ["hit_range"] = 138.0,
         ["range"] = 138.0,
+        ["tracking_time"] = 0.3,
     },
     ["melee_by_set"] = {
         ["unarmed"] = {
@@ -567,6 +749,13 @@ return {
                 ["r_shoulder"] = 0,
             },
             ["class_name"] = "npc_vj_ce8_flood_tank",
+            ["flinch"] = {
+                ["cooldown"] = 4.0,
+                ["soft"] = 0.0,
+                ["soft_unshielded"] = 0.0,
+                ["threshold"] = 0.0,
+                ["unshielded"] = 85.0,
+            },
             ["health"] = 300.0,
             ["hitbox_set"] = "default",
             ["loadout"] = {
@@ -597,6 +786,37 @@ return {
         ["infection_spew"] = "any_infection_spew",
         ["melee_back"] = "any_melee_back",
         ["melee_tackle"] = "any_melee_tackle",
+    },
+    ["spew"] = {
+        ["attachment"] = "head",
+        ["chance"] = 0.800000011920929,
+        ["contacts"] = {
+            51,
+            74,
+            95,
+            117,
+            140,
+        },
+        ["cooldown"] = 14.0,
+        ["facing"] = 0.08715580058482462,
+        ["frames"] = 178,
+        ["global_limit"] = 32,
+        ["launch"] = {
+            ["horizontal"] = {
+                180,
+                300,
+            },
+            ["vertical"] = {
+                150,
+                240,
+            },
+        },
+        ["live_limit"] = 10,
+        ["maximum"] = 1400,
+        ["minimum"] = 200,
+        ["offset_forward"] = 16,
+        ["sequence"] = "any_infection_spew",
+        ["spread"] = 35,
     },
     ["voice"] = "flood_tank",
     ["weapon_sets"] = {

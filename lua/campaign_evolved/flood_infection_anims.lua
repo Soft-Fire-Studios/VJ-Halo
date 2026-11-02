@@ -5,7 +5,7 @@ return {
     ["anchors"] = {
         ["body"] = "body",
         ["explosion"] = false,
-        ["eyes"] = "eyes",
+        ["eyes"] = false,
         ["head"] = "head",
         ["melee"] = false,
         ["primary_weapon"] = false,
@@ -33,7 +33,40 @@ return {
         ["radius"] = 66.0,
     },
     ["camera_bone"] = "Pedestal",
+    ["damage_families"] = {
+        ["any"] = {
+            ["h_ping"] = {
+                ["front"] = {
+                    ["gut"] = {
+                        "h_ping_front_gut_var0",
+                        "h_ping_front_gut_var1",
+                        "h_ping_front_gut_var2",
+                    },
+                },
+            },
+        },
+        ["unarmed"] = {
+            ["h_ping"] = {
+                ["front"] = {
+                    ["gut"] = {
+                        "h_ping_front_gut_var0",
+                        "h_ping_front_gut_var1",
+                        "h_ping_front_gut_var2",
+                    },
+                },
+            },
+        },
+    },
     ["damage_reactions"] = {
+        ["h_ping"] = {
+            ["front"] = {
+                ["gut"] = {
+                    "h_ping_front_gut_var0",
+                    "h_ping_front_gut_var1",
+                    "h_ping_front_gut_var2",
+                },
+            },
+        },
     },
     ["default_weapon"] = "unarmed",
     ["dialogue_domain"] = "ce8_flood",
@@ -48,12 +81,34 @@ return {
     ["faction"] = "CLASS_FLOOD",
     ["foot_attachments"] = false,
     ["forward_only"] = false,
+    ["gesture_reactions"] = {
+    },
     ["grip_max"] = 0,
     ["hull"] = {
         ["gun"] = 12,
         ["height"] = 24.12,
         ["kind"] = "tiny",
         ["radius"] = 12.0,
+    },
+    ["infection"] = {
+        ["approach_timeout"] = 8,
+        ["corpse_sequence"] = "combat_unarmed_infect_var0",
+        ["corpse_wait"] = 6,
+        ["enabled"] = true,
+        ["max_jobs"] = 8,
+        ["reach"] = 24,
+        ["retry"] = 6,
+        ["search_interval"] = 2,
+        ["search_radius"] = 512,
+        ["sequences"] = {
+            ["flood_combat_elite"] = "any_any_any_infection_wrestle_elite",
+            ["flood_combat_human"] = "any_any_any_infection_wrestle",
+        },
+        ["vulnerability"] = 0.2,
+        ["wrestle"] = {
+            1.5,
+            3,
+        },
     },
     ["leap"] = {
         ["airborne"] = "combat_unarmed_leap_airborne",
@@ -149,6 +204,13 @@ return {
                 ["body"] = 0,
             },
             ["class_name"] = "npc_vj_ce8_flood_infection",
+            ["flinch"] = {
+                ["cooldown"] = 0,
+                ["soft"] = 0,
+                ["soft_unshielded"] = 0,
+                ["threshold"] = 0,
+                ["unshielded"] = 0,
+            },
             ["health"] = 1.0,
             ["hitbox_set"] = "default",
             ["loadout"] = {

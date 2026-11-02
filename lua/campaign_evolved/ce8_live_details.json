@@ -165954,6 +165954,1194 @@
       "texture_formats": {
         "SurfaceTexture": 12
       }
+    },
+    "carrier_burst": {
+      "name": "carrier_burst",
+      "material": "models/campaign_evolved/ce8/gibs/carrier/burst",
+      "source": "/Game/Characters/Flood/FloodCarrier/Material/MI_Flood_Carrier_Explode#f2fe17d57f0eaf6f",
+      "species": "flood_carrier",
+      "rank": "default",
+      "alias": "body",
+      "detail_library": "covenant",
+      "blocks": [
+        2,
+        1
+      ],
+      "colors": {
+        "layers": [],
+        "base_color": null,
+        "base_strength": 0.8999999761581421,
+        "mask": [
+          "detail maps mask",
+          "/Game/Characters/Flood/FloodCarrier/Textures/T_Flood_Carrier_Exploded_Masks#5e02f0429f23976f"
+        ],
+        "diagnostics": []
+      },
+      "parameters": {
+        "NormalStrength": 1.0,
+        "RoughnessScale": 1.0,
+        "RoughnessBias": 0.0,
+        "MetallicScale": 1.0,
+        "MetallicBias": 0.0,
+        "EnvironmentStrength": 1.0,
+        "EnvironmentLightInfluence": 1.0,
+        "FlashlightStrength": 1.0,
+        "LampStrength": 1.0,
+        "PointLightStrength": 1.0,
+        "EmissionStrength": 1.0,
+        "SpecularStrength": 1.0,
+        "AmbientStrength": 1.0,
+        "BaseStrength": 0.899999976,
+        "IridescenceWeight": 0.0,
+        "IridescenceThickness": 0.7,
+        "IridescenceBrightness": 1.0,
+        "IridescenceSaturation": 0.7,
+        "AlphaCutoff": -1.0,
+        "EnvironmentMaxMip": 5.0,
+        "DebugView": 0.0,
+        "EnvironmentTint": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "PaintColor1": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "PaintBlend1": "multiply",
+        "PaintColor2": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "PaintBlend2": "multiply",
+        "PaintColor3": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "PaintBlend3": "multiply",
+        "PaintColor4": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "PaintBlend4": "multiply",
+        "LockPaint1": 0.0,
+        "OverallPaintMode": 1,
+        "EmissionMode": "tint",
+        "EmissionColor": [
+          0.0,
+          8.700451850891113,
+          20.0
+        ],
+        "EmissionExposure": 1.0,
+        "EmissionTintByDiffuse": 0,
+        "EmissionBandWidth": 0.1,
+        "EmissionColor1": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "EmissionColor2": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "EmissionColor3": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "textures": {
+        "AlbedoTexture": "models/campaign_evolved/ce8/gibs/carrier/textures/burst_dif",
+        "NormalTexture": "models/campaign_evolved/ce8/gibs/carrier/textures/burst_nm",
+        "SurfaceTexture": "models/campaign_evolved/ce8/gibs/carrier/textures/burst_orme",
+        "PaintMaskTexture": "models/campaign_evolved/ce8/gibs/carrier/textures/burst_cm",
+        "DetailNormalAtlasTexture": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+        "DetailSurfaceAtlasTexture": "models/campaign_evolved/ce8/details/covenant/detail_orme",
+        "MaterialParameterTexture": "models/campaign_evolved/ce8/gibs/carrier/textures/burst_params",
+        "EnvironmentTexture": "models/cubemaps/fallout4cube_dithered_grey"
+      },
+      "dimensions": {
+        "AlbedoTexture": [
+          2048,
+          1024
+        ],
+        "NormalTexture": [
+          2048,
+          1024
+        ],
+        "SurfaceTexture": [
+          2048,
+          1024
+        ],
+        "PaintMaskTexture": [
+          1024,
+          512
+        ]
+      },
+      "source_detail_stages": [],
+      "detail_uv_mode": "primary",
+      "detail_controls": {
+        "DetailCount": 0,
+        "DetailNormalAtlasTexture": "models/campaign_evolved/ce8/details/covenant/detail_nm",
+        "DetailSurfaceAtlasTexture": "models/campaign_evolved/ce8/details/covenant/detail_orme"
+      },
+      "emission_cutoff": 0.05000000074505806,
+      "default_parameter_rows": [
+        [
+          2.0,
+          1.0,
+          0.05000000074505806,
+          1.0
+        ],
+        [
+          2048.0,
+          5632.0,
+          4096.0,
+          5120.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        [
+          2048.0,
+          1024.0,
+          2048.0,
+          1024.0
+        ],
+        [
+          2048.0,
+          1024.0,
+          1024.0,
+          512.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          -1.0,
+          -1.0
+        ],
+        [
+          2.0,
+          1.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          8.700451850891113,
+          20.0,
+          1.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          1.0,
+          0.0,
+          0.10000000149011612,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          1536.0,
+          5120.0,
+          256.0,
+          256.0
+        ],
+        [
+          2048.0,
+          4096.0,
+          512.0,
+          512.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          2048.0,
+          2048.0
+        ],
+        [
+          0.0,
+          0.0,
+          2048.0,
+          2048.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          4096.0,
+          512.0,
+          512.0
+        ],
+        [
+          2048.0,
+          0.0,
+          2048.0,
+          2048.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          512.0,
+          4096.0,
+          512.0,
+          512.0
+        ],
+        [
+          2560.0,
+          4096.0,
+          512.0,
+          512.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1024.0,
+          4096.0,
+          512.0,
+          512.0
+        ],
+        [
+          2048.0,
+          2048.0,
+          1024.0,
+          1024.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1536.0,
+          4096.0,
+          512.0,
+          512.0
+        ],
+        [
+          2048.0,
+          2048.0,
+          1024.0,
+          1024.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1792.0,
+          5120.0,
+          256.0,
+          256.0
+        ],
+        [
+          3584.0,
+          4608.0,
+          256.0,
+          256.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          3072.0,
+          2048.0,
+          1024.0,
+          1024.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ],
+        [
+          2048.0,
+          2048.0,
+          1024.0,
+          1024.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          4608.0,
+          512.0,
+          512.0
+        ],
+        [
+          3072.0,
+          4096.0,
+          512.0,
+          512.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          512.0,
+          4608.0,
+          512.0,
+          512.0
+        ],
+        [
+          3584.0,
+          4096.0,
+          512.0,
+          512.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          2048.0,
+          1024.0,
+          1024.0
+        ],
+        [
+          2048.0,
+          3072.0,
+          1024.0,
+          1024.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1024.0,
+          2048.0,
+          1024.0,
+          1024.0
+        ],
+        [
+          3072.0,
+          3072.0,
+          1024.0,
+          1024.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1024.0,
+          4608.0,
+          512.0,
+          512.0
+        ],
+        [
+          0.0,
+          2048.0,
+          2048.0,
+          2048.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          3072.0,
+          1024.0,
+          1024.0
+        ],
+        [
+          0.0,
+          4096.0,
+          1024.0,
+          1024.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1536.0,
+          4608.0,
+          512.0,
+          512.0
+        ],
+        [
+          2048.0,
+          4608.0,
+          512.0,
+          512.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          5120.0,
+          512.0,
+          512.0
+        ],
+        [
+          2560.0,
+          4608.0,
+          512.0,
+          512.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          512.0,
+          5120.0,
+          512.0,
+          512.0
+        ],
+        [
+          1024.0,
+          4096.0,
+          1024.0,
+          1024.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1024.0,
+          5120.0,
+          512.0,
+          512.0
+        ],
+        [
+          3072.0,
+          4608.0,
+          512.0,
+          512.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          1024.0,
+          3072.0,
+          1024.0,
+          1024.0
+        ],
+        [
+          2560.0,
+          4096.0,
+          512.0,
+          512.0
+        ],
+        [
+          1.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "atlas_page": {
+        "name": "carrier_burst",
+        "material": "models/campaign_evolved/ce8/gibs/carrier/burst",
+        "tiles": [
+          0,
+          1
+        ],
+        "layout": [
+          2,
+          1
+        ],
+        "mask_format": 2
+      },
+      "emission_resolved": {
+        "source": "/Game/Characters/Flood/FloodCarrier/Material/MI_Flood_Carrier_Explode#f2fe17d57f0eaf6f",
+        "scope": [
+          0,
+          0
+        ],
+        "mode": "tint",
+        "cpd_color": false,
+        "cpd_runtime_required": false,
+        "native_parameters": [
+          {
+            "kind": "Scalar",
+            "name": "emissive multiplier",
+            "value": 1.0,
+            "source": "/Game/Characters/Flood/FloodCarrier/Material/MI_Flood_Carrier_01#b861aae32f5a56cf"
+          },
+          {
+            "kind": "Vector",
+            "name": "emissive tint 1",
+            "value": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "source": "/Game/Characters/Flood/FloodCarrier/Material/MI_Flood_Carrier_01#b861aae32f5a56cf"
+          },
+          {
+            "kind": "Vector",
+            "name": "emissive tint 2",
+            "value": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "source": "/Game/Characters/Flood/FloodCarrier/Material/MI_Flood_Carrier_01#b861aae32f5a56cf"
+          },
+          {
+            "kind": "Vector",
+            "name": "emissive tint 3",
+            "value": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "source": "/Game/Characters/Flood/FloodCarrier/Material/MI_Flood_Carrier_01#b861aae32f5a56cf"
+          },
+          {
+            "kind": "Vector",
+            "name": "emissive tint",
+            "value": [
+              0.0,
+              8.700451850891113,
+              20.0,
+              1.0
+            ],
+            "source": "/Game/Characters/Flood/FloodCarrier/Material/MI_Flood_Carrier_01#b861aae32f5a56cf"
+          },
+          {
+            "kind": "StaticSwitch",
+            "name": "use tricolor emissive",
+            "value": false,
+            "source": "/Game/Characters/Flood/FloodCarrier/Material/MI_Flood_Carrier_01#b861aae32f5a56cf"
+          },
+          {
+            "kind": "StaticSwitch",
+            "name": "use basecolor for tint",
+            "value": false,
+            "source": "/Game/Characters/Flood/FloodCarrier/Material/MI_Flood_Carrier_01#b861aae32f5a56cf"
+          }
+        ],
+        "palette_decode": "nearest tenths from ORME A, clamped to 1..3; inferred from native texture distributions, expression links unavailable",
+        "exposure": "hue-preserving HDR tint normalization before pixel masks/texture fades; UE eye adaptation is not reproduced"
+      }
     }
   },
   "libraries": {

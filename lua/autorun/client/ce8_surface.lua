@@ -182,8 +182,23 @@ local paintRegisters = {
     {"$c0_x","$c0_y","$c0_z","$c0_w"}, {"$c1_x","$c1_y","$c1_z","$c1_w"},
     {"$c2_x","$c2_y","$c2_z","$c2_w"}, {"$c3_x","$c3_y","$c3_z","$c3_w"}
 }
-local function writeColor(material, region, value, scalar)
+local function writeColor(self, material, region, value, scalar)
     local fields = paintRegisters[region]
+    -- Live surfaces own these registers. Compare the last material upload,
+    -- not an entity/frame cache: alternating actors and in-place palette edits
+    -- must still take effect immediately. Effect families overwrite these
+    -- registers after the parent bind, so they keep the unconditional path.
+    if self.liveRecord then
+        local uploaded=self.paintUpload
+        if not uploaded then uploaded={};self.paintUpload=uploaded end
+        local previous=uploaded[region]
+        if not previous then previous={};uploaded[region]=previous end
+        if previous[1]~=value.x then material:SetFloat(fields[1],value.x);previous[1]=value.x end
+        if previous[2]~=value.y then material:SetFloat(fields[2],value.y);previous[2]=value.y end
+        if previous[3]~=value.z then material:SetFloat(fields[3],value.z);previous[3]=value.z end
+        if previous[4]~=scalar then material:SetFloat(fields[4],scalar);previous[4]=scalar end
+        return
+    end
     material:SetFloat(fields[1], value.x)
     material:SetFloat(fields[2], value.y)
     material:SetFloat(fields[3], value.z)
@@ -220,10 +235,10 @@ local function writePaint(self, material, ent)
         colors[region] = colors[region] or self.colors[region]
     end
     local detail,normal,specular = CE8.MaterialLOD(ent)
-    writeColor(material, 1, colors[1], lodCarrier(parameter(self,overrides,"normalstrength")*normal,detail))
-    writeColor(material, 2, colors[2], parameter(self,overrides,"roughnessscale"))
-    writeColor(material, 3, colors[3], parameter(self,overrides,"roughnessbias"))
-    writeColor(material, 4, colors[4], parameter(self,overrides,"metallicscale"))
+    writeColor(self, material, 1, colors[1], lodCarrier(parameter(self,overrides,"normalstrength")*normal,detail))
+    writeColor(self, material, 2, colors[2], parameter(self,overrides,"roughnessscale"))
+    writeColor(self, material, 3, colors[3], parameter(self,overrides,"roughnessbias"))
+    writeColor(self, material, 4, colors[4], parameter(self,overrides,"metallicscale"))
     return overrides,specular
 end
 
@@ -231,6 +246,7 @@ local surfaceProxy = {
     name = "CE8Surface",
     init = function(self, material, values)
         self.defaults, self.colors, self.paintColors = {}, {}, {}
+        self.paintUpload,self.sceneSurfaceUpload=nil,nil
         for key, schema in pairs(CE8.Controls) do
             self.defaults[key] = math.Clamp(number(values[key], schema.default), schema.min, schema.max)
         end
@@ -292,8 +308,8 @@ local surfaceProxy = {
         local modelSlot=CE8.SceneModel and CE8.SceneModel(ent) or 0
         local scene=CE8.SceneMaterial and CE8.SceneMaterial(material,not self.liveRecord and CE8.SceneState.brdf)
         self.sceneActive=scene
-        -- Always reset every field at bind, including unbound/editor draws.
-        -- Two entities sharing one VMT cannot inherit each other's palette/state.
+        -- Resolve every field at bind, including unbound/editor draws. Only
+        -- skip uploads whose last value on this material is already identical.
         local overrides,specular = writePaint(self, material, ent)
         local lights = lighting(ent)
         local x, nx, y, ny, z, nz = unpack(lights)
@@ -310,18 +326,36 @@ local surfaceProxy = {
         local green = tint.y * strength * (1-influence + influence*exposureY)
         local blue = tint.z * strength * (1-influence + influence*exposureZ)
         local ambient = parameter(self,overrides,"ambientstrength")
-        self.matrixA:SetUnpacked(
-            x.x*ambient, x.y*ambient, x.z*ambient, parameter(self,overrides,"metallicbias"),
-            nx.x*ambient, nx.y*ambient, nx.z*ambient, red,
-            y.x*ambient, y.y*ambient, y.z*ambient, parameter(self,overrides,"emissionstrength"),
-            ny.x*ambient, ny.y*ambient, ny.z*ambient, blue)
-        self.matrixB:SetUnpacked(
-            z.x*ambient, z.y*ambient, z.z*ambient, green,
-            nz.x*ambient, nz.y*ambient, nz.z*ambient, parameter(self,overrides,"basestrength"),
-            parameter(self,overrides,"iridescenceweight"), parameter(self,overrides,"iridescencethickness"),
-            parameter(self,overrides,"iridescencebrightness"), parameter(self,overrides,"iridescencesaturation"),
-            self.surfaceBits, parameter(self,overrides,"alphacutoff"), parameter(self,overrides,"environmentmaxmip"),
-            lodCarrier(parameter(self,overrides,"debugview"),specular))
+        local iridescence=parameter(self,overrides,"iridescenceweight")
+        local thickness=parameter(self,overrides,"iridescencethickness")
+        local brightness=parameter(self,overrides,"iridescencebrightness")
+        local saturation=parameter(self,overrides,"iridescencesaturation")
+        local cutoff=parameter(self,overrides,"alphacutoff")
+        local maxMip=parameter(self,overrides,"environmentmaxmip")
+        local debug=lodCarrier(parameter(self,overrides,"debugview"),specular)
+        local uploadB=true
+        if scene and self.liveRecord then
+            -- Scene c15/c16 are unused; ambient is read from the scene texture.
+            -- The remaining rows are shared material settings, usually identical
+            -- across an entire swarm. No model/lighting data is cached here.
+            local p=self.sceneSurfaceUpload
+            if p and p[1]==iridescence and p[2]==thickness and p[3]==brightness and p[4]==saturation
+                and p[5]==self.surfaceBits and p[6]==cutoff and p[7]==maxMip and p[8]==debug then
+                uploadB=false
+            else
+                p=p or {};self.sceneSurfaceUpload=p
+                p[1],p[2],p[3],p[4]=iridescence,thickness,brightness,saturation
+                p[5],p[6],p[7],p[8]=self.surfaceBits,cutoff,maxMip,debug
+                self.matrixB:SetUnpacked(0,0,0,0,0,0,0,0,iridescence,thickness,brightness,saturation,
+                    self.surfaceBits,cutoff,maxMip,debug)
+            end
+        else
+            self.sceneSurfaceUpload=nil
+            self.matrixB:SetUnpacked(
+                z.x*ambient, z.y*ambient, z.z*ambient, green,
+                nz.x*ambient, nz.y*ambient, nz.z*ambient, parameter(self,overrides,"basestrength"),
+                iridescence,thickness,brightness,saturation,self.surfaceBits,cutoff,maxMip,debug)
+        end
         if scene then
             self.matrixA:SetUnpacked(red,green,blue,parameter(self,overrides,"basestrength"),
                 parameter(self,overrides,"metallicbias"),parameter(self,overrides,"emissionstrength"),
@@ -329,9 +363,15 @@ local surfaceProxy = {
                 ((modelSlot%32)*32+.5)/1024,(192+math.floor(modelSlot/32)+.5)/1024,0,0,
                 parameter(self,overrides,"flashlightstrength"),0,0,0)
             material:SetTexture("$texture7",CE8.SceneState.texture)
+        else
+            self.matrixA:SetUnpacked(
+                x.x*ambient, x.y*ambient, x.z*ambient, parameter(self,overrides,"metallicbias"),
+                nx.x*ambient, nx.y*ambient, nx.z*ambient, red,
+                y.x*ambient, y.y*ambient, y.z*ambient, parameter(self,overrides,"emissionstrength"),
+                ny.x*ambient, ny.y*ambient, ny.z*ambient, blue)
         end
         material:SetMatrix("$viewprojmat", self.matrixA)
-        material:SetMatrix("$invviewprojmat", self.matrixB)
+        if uploadB then material:SetMatrix("$invviewprojmat", self.matrixB) end
     end
 }
 matproxy.Add(surfaceProxy)

@@ -1,0 +1,10 @@
+"UnlitGeneric"
+{
+    "$basetexture" "campaign_evolved/hud/textures/scopes_battle_rifle_scope"
+    "$translucent" "1"
+    "$vertexalpha" "1"
+    "$vertexcolor" "1"
+    "$ignorez" "1"
+    "$nolod" "1"
+    "$nodecal" "1"
+}

@@ -72,7 +72,7 @@ function methods:AICoverPoint(position, enemy)
     return true
 end
 
-function methods:AIFindCover(enemy, excluded)
+function methods:AIFindCover(enemy, excluded, firing)
     if not self:AIHasCapability("cover") then return false end
     local config = self:AIProfile().cover
     if not IsValid(enemy) then return end
@@ -129,8 +129,10 @@ function methods:AIFindCover(enemy, excluded)
             position = ground.HitPos + Vector(0, 0, 2)
             local space = util.TraceHull({start = position, endpos = position,
                 mins = mins, maxs = maxs, mask = MASK_NPCSOLID, filter = filter})
-            if not space.Hit and not space.StartSolid and not space.AllSolid and pointValid(self, config, position, enemy) then
-                return position
+            if not space.Hit and not space.StartSolid and not space.AllSolid
+                and self:AISquadPositionFree(position, CurTime(), firing and enemy:EyePos() or nil) then
+                if (firing and self:AIProtectedFirePoint(position, enemy))
+                    or (not firing and pointValid(self, config, position, enemy)) then return position end
             end
         end
     end
@@ -140,6 +142,7 @@ function methods:AICoverRoute(cover, position, now)
     if not self:AIHasCapability("cover") then return false end
     local config = self:AIProfile().cover
     cover.phase, cover.arrived, cover.failed = "seek", false, false
+    cover.destination = position and Vector(position) or nil
     cover.tries = (cover.tries or 0) + 1
     cover.tried = cover.tried or {}
     cover.search_deadline = cover.search_deadline or now + (config.search_time or 10)
@@ -177,10 +180,12 @@ function methods:AICoverRoute(cover, position, now)
     end
 end
 
-function methods:AITakeCover(now)
+function methods:AITakeCover(now, reason)
     if not self:AIHasCapability("cover") then return false end
     local config = self:AIProfile().cover
-    local cover = {phase = "seek", search_deadline = now + (config.search_time or 10), hide_time = value(self, config.hide_time, 2)}
+    self:AIEndAmbush(now)
+    self:AIEndSquadPosition(now)
+    local cover = {phase = "seek", reason = reason, search_deadline = now + (config.search_time or 10), hide_time = value(self, config.hide_time, 2)}
     self[config.fields.active] = cover
     routeCover(self, config, cover, findCover(self, config, self:GetEnemy()), now)
     if config.started then config.started(self, cover, now) end
@@ -195,8 +200,10 @@ function methods:AIMaintainCover(now, enemy)
     if not IsValid(enemy) or self.Dead or self.VJ_Controlled then self:AIFinishCover(now) return false end
     if cover.phase == "seek" then
         if not cover.failed and now < cover.deadline and (self:IsMoving() or not cover.arrived) then return true end
-        if not cover.failed and not self:IsMoving() and pointValid(self, config, self:GetPos(), enemy) then
+        if not cover.failed and not self:IsMoving() and pointValid(self, config, self:GetPos(), enemy)
+            and self:AISquadPositionFree(self:GetPos(), now) then
             cover.phase = "hold"
+            cover.destination = Vector(self:GetPos())
             cover.minimum = now + cover.hide_time
             cover.deadline = now + value(self, config.maximum_hold, cover.hide_time + 5)
             cover.check_at = now + (config.check_interval or 0.5)
@@ -241,6 +248,115 @@ function methods:AIMaintainCover(now, enemy)
     if now >= reactionEnd(self) and not self:IsBusy("Activities") then
         play(self, config, "idle", now)
     end
+    return true
+end
+
+-- A sniper needs body protection AND a clear muzzle, not a bunker position
+-- from which no shot can leave. No synthetic aim point or wall penetration.
+function methods:AIProtectedFirePoint(position, enemy)
+    if not IsValid(enemy) or not self:AIHasCapability("ambush") then return false end
+    local weapon = self:GetActiveWeapon()
+    if not IsValid(weapon) or weapon.IsMeleeWeapon or not weapon.GetBulletPos then return false end
+    local distance = position:Distance(enemy:GetPos())
+    if distance < math.max(self:AIProfile().ambush.minimum_distance or 480, self.Weapon_MinDistance or 0)
+        or distance > (self.Weapon_MaxDistance or 2400) then return false end
+    local mins, maxs = self:GetCollisionBounds()
+    local torso = position + Vector(0, 0, (maxs.z - mins.z) * 0.4 + mins.z)
+    local hidden, trace = self:DoCoverTrace(torso, enemy:EyePos(), true)
+    local radius = math.max(math.abs(mins.x), math.abs(mins.y), maxs.x, maxs.y)
+    if not hidden or not trace or not trace.Hit or trace.StartSolid or trace.AllSolid
+        or torso:Distance(trace.HitPos) > radius + 64 or math.abs(trace.HitNormal.z) > 0.65 then return false end
+    local object = trace.Entity
+    if IsValid(object) and (object:IsNPC() or object:IsPlayer() or object:IsNextBot()) then return false end
+    local muzzle = position + (weapon:GetBulletPos() - self:GetPos())
+    return not self:DoCoverTrace(muzzle, enemy:EyePos(), true)
+end
+
+function methods:AIEndAmbush(now)
+    local config = self:AIProfile().ambush
+    local action = config and self[config.fields.active]
+    if not action then return end
+    self[config.fields.active] = nil
+    self[config.fields.next_attempt] = now + (config.cooldown or 12)
+    for key, previous in pairs(action.timers) do
+        if self[key] == action.hold_until then self[key] = math.max(now, previous) end
+    end
+    local squad = self:AIProfile().squad
+    local move = squad and self[squad.fields.position]
+    if move and move.purpose == "ambush" then self:AIEndSquadPosition(now) end
+end
+
+function methods:AIAmbushCanFire()
+    if self.VJ_Controlled then return true end
+    local config = self:AIProfile().ambush
+    local action = config and self[config.fields.active]
+    return not action or action.phase == "fire"
+end
+
+function methods:AIThinkAmbush(now, enemy, visible)
+    local config = self:AIProfile().ambush
+    local action = config and self[config.fields.active]
+    if not action then return false end
+    local weapon = self:GetActiveWeapon()
+    if not self:AIHasCapability("ambush") or not self:AITacticalMoveReady(now, true)
+        or enemy ~= action.enemy or not IsValid(enemy) or enemy:Health() <= 0 or not visible
+        or weapon ~= action.weapon or now >= action.deadline then self:AIEndAmbush(now) return false end
+    if action.phase == "move" then
+        if self:AIThinkSquadPosition(now, enemy) then return true end
+        if self:GetPos():DistToSqr(action.position) > 48^2 then self:AIEndAmbush(now) return false end
+        action.phase, action.wait_until = "wait", now + (config.wait_time or 1.5)
+        self:StopMoving()
+        action.hold_until = now + (config.fire_time or 3) + (config.wait_time or 1.5)
+        for _, key in ipairs({"NextChaseTime", "NextWeaponStrafeT", "NextMoveOnGunCoveredT"}) do
+            local previous = self[key] or 0
+            if previous < action.hold_until then action.timers[key], self[key] = previous, action.hold_until end
+        end
+    elseif self:IsMoving() or (self.TakingCoverT or 0) > now then
+        -- Native VJ danger/reload movement may replace a stationary firing
+        -- state without going through one of our authored reaction callbacks.
+        self:AIEndAmbush(now) return false
+    end
+    if now >= (action.check_at or 0) then
+        action.check_at = now + 0.5
+        if not self:AIProtectedFirePoint(self:GetPos(), enemy) then self:AIEndAmbush(now) return false end
+    end
+    if action.phase == "wait" then
+        local policy = value(self, config.policy, {})
+        -- A visible target looking away is an observable opening, not knowledge
+        -- of its hidden health/ammo/state. Coordination uses allies' real shots.
+        local opening = policy.vulnerable and enemy:GetForward():Dot((self:GetPos() - enemy:GetPos()):GetNormalized()) < 0.25
+        if policy.coordinated and not opening then
+            for _, ally in ipairs(self:AISquadAllies(900)) do
+                if ally:GetEnemy() == enemy and ally.EnemyData and ally.EnemyData.Visible
+                    and (ally.WeaponLastShotTime or -100) >= action.started then opening = true break end
+            end
+        end
+        if opening or now >= action.wait_until then
+            action.phase, action.fire_until = "fire", now + (config.fire_time or 3)
+        end
+    elseif now >= action.fire_until then self:AIEndAmbush(now) return false end
+    return true
+end
+
+function methods:AITryAmbush(now, enemy, visible)
+    if not self:AIHasCapability("ambush") or not visible or not IsValid(enemy)
+        or not self:AITacticalMoveReady(now) then return false end
+    local config = self:AIProfile().ambush
+    if now < (self[config.fields.next_attempt] or 0) then return false end
+    self[config.fields.next_attempt] = now + (config.cooldown or 12)
+    local weapon = self:GetActiveWeapon()
+    if not IsValid(weapon) or weapon.IsMeleeWeapon
+        or self:GetPos():Distance(enemy:GetPos()) < math.max(config.minimum_distance or 480, self.Weapon_MinDistance or 0)
+        or self:GetPos():Distance(enemy:GetPos()) > (self.Weapon_MaxDistance or 2400)
+        or (weapon.Clip1 and weapon:Clip1() == 0)
+        or self:AISquadAdvanceBusy(enemy, now) then return false end
+    local point = self:AIFindCover(enemy, nil, true)
+    if not point then return false end
+    local action = {phase = "move", enemy = enemy, weapon = weapon, position = point, started = now,
+        deadline = now + (config.timeout or 10), timers = {}}
+    self[config.fields.active] = action
+    if self:GetPos():DistToSqr(point) <= 24^2 then return self:AIThinkAmbush(now, enemy, visible) end
+    if not self:AIStartSquadPosition(point, enemy, now, "ambush") then self:AIEndAmbush(now) return false end
     return true
 end
 

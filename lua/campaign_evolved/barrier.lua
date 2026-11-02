@@ -27,6 +27,7 @@ function B.ApplyStats(actor, initialize)
     actor:SetNW2Float("ce8_barrier_max", maximum)
     actor:SetNW2Float("ce8_barrier_value", actor.AIShield or maximum)
     actor:SetNW2Bool("ce8_barrier_down", actor.CE8BarrierDown == true or maximum <= 0)
+    if not initialize and actor.CE8UpdateEquipment then actor:CE8UpdateEquipment() end
 end
 
 function B.Profile(sounds)
@@ -38,27 +39,51 @@ function B.Profile(sounds)
         recharge_time = function(self) return self:CE8RankSettings().recharge_time end,
         resistance = function() return difficulty.Multiplier("shield_resistance") end,
         network = {value = "ce8_barrier_value", maximum = "ce8_barrier_max", hit = "ce8_barrier_hit"},
-        accept_damage = function(self) return B.Active(self.CE8Barrier) end,
+        accept_damage = function(self) return B.ActorActive(self) end,
+        effect = function(self, kind, position, angles)
+            if not CE8.ShieldParticlesReady then return end
+            if kind == "disperse" then
+                -- The depleted barrier has already been removed. The Elite
+                -- effect samples a model and expects its origin; use the living
+                -- owner so the burst survives removal, without a helper entity.
+                ParticleEffectAttach("hcea_shield_disperse", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+                return
+            end
+            if kind ~= "impact" then return end
+            local prop = self.CE8MergedBarrier and self or self.CE8ShieldProp
+            if not IsValid(prop) then return end
+            -- Reuse the Elite impact at the actual contact, with the barrier
+            -- supplying its model particles rather than the Jackal's body.
+            ParticleEffect("hcea_shield_impact", position, angles, prop)
+        end,
         depleted = function(self, damage, now)
             self.CE8BarrierDown = true
             self:SetNW2Bool("ce8_barrier_down", true)
             self.CE8FleeRequest = {reason = "shield_lost", time = now}
+            if self.CE8MergedBarrier then self:CE8UpdateEquipment() else self:CE8RemoveEquipment() end
         end,
         regenerated = function(self, now)
             if self.CE8BarrierDown and self.AIShield >= self.CE8BarrierMax then
                 self.CE8BarrierDown = false
                 self:SetNW2Bool("ce8_barrier_down", false)
                 self:SetNW2Float("ce8_barrier_restored", now)
+                self:CE8UpdateEquipment()
             end
         end,
         sound = function(self, kind)
             if self.HasSounds == false then return end
             local prop = self.CE8ShieldProp
-            local pos = IsValid(prop) and prop:GetPos() or self:WorldSpaceCenter()
+            local socket = self.CE8MergedBarrier and self:GetAttachment(self:LookupAttachment("shield"))
+            local pos = socket and socket.Pos or IsValid(prop) and prop:GetPos() or self:WorldSpaceCenter()
             if kind == "impact" then fx.Sound(impact, pos, 75)
-            elseif kind == "pop" then fx.Sound(sounds.effects.jackal_shield_death, pos, 80) end
+            elseif kind == "pop" then fx.Sound(sounds.playback.jackal_shield_death, pos, 80)
+            elseif kind == "recharge" then
+                -- Native redeploy is a finite equipment cue, not a dialogue or
+                -- looping recharge channel. The shield service starts it once.
+                fx.EntitySound(sounds.playback.jackal_shield_redeploy, self, 75)
+            end
         end,
-        after_damage = function(self, damage, hitgroup, now)
+        after_damage = function(self, damage, hitgroup, now, previous, amount, blocked)
             local disabled = GetConVar("ai_disabled")
             if (disabled and disabled:GetBool()) or self.VJ_Controlled or self:GetState() == VJ_STATE_FREEZE then return end
             local attacker = damage:GetAttacker()
@@ -71,17 +96,27 @@ function B.Profile(sounds)
                     if not IsValid(enemy) or enemy == attacker or enemy:Health() <= 0 then self:ForceSetEnemy(attacker, false) end
                 end
             end
-            if self.CanFlinch then self:Flinch(damage, hitgroup) end
+            if self.CanFlinch then
+                self.CE8ShieldFlinchAmount = amount
+                self:Flinch(damage, hitgroup)
+                self.CE8ShieldFlinchAmount = nil
+            end
         end
     }
 end
 
-function B.Active(entity)
-    if not IsValid(entity) then return false end
-    local actor = entity:GetOwner()
+function B.ActorActive(actor)
+    local visible=IsValid(actor) and IsValid(actor.CE8ShieldProp)
+    if IsValid(actor) and actor.CE8MergedBarrier then
+        local id=actor:FindBodygroupByName("barrier")
+        visible=id~=nil and id>=0 and (actor:GetBodygroup(id) or 0)>0
+    end
     return IsValid(actor) and not actor.Dead and actor:Health() > 0
-        and actor:AIHasCapability("shield") and IsValid(actor.CE8ShieldProp)
+        and actor:AIHasCapability("shield") and visible
         and not actor.CE8BarrierDown and (actor.AIShield or 0) > 0
+end
+function B.Active(entity)
+    return IsValid(entity) and B.ActorActive(entity:GetOwner())
 end
 
 function B.Trace(entity, start, delta)
@@ -103,10 +138,15 @@ end
 
 function B.Damage(entity, damage)
     if not B.Active(entity) then return end
-    local actor, attacker = entity:GetOwner(), damage:GetAttacker()
-    if attacker == actor then return end
-    if IsValid(attacker) and attacker:IsNPC() and attacker:Disposition(actor) == D_LI then return end
-    actor:AIShieldDamage(damage, HITGROUP_LEFTARM, CurTime())
+    return B.DamageActor(entity:GetOwner(),damage)
+end
+function B.DamageActor(actor, damage, hitgroup)
+    if not B.ActorActive(actor) then damage:SetDamage(0) return end
+    local attacker = damage:GetAttacker()
+    if attacker == actor then damage:SetDamage(0) return end
+    if IsValid(attacker) and attacker:IsNPC() and attacker:Disposition(actor) == D_LI then damage:SetDamage(0) return end
+    if actor.AIRecordThreatDamage then actor:AIRecordThreatDamage(damage, CurTime()) end
+    actor:AIShieldDamage(damage, hitgroup or HITGROUP_GENERIC, CurTime())
     -- This hit touched the barrier, which may lie outside the body. Never send
     -- overflow damage to the actor without a second body intersection.
     damage:SetDamage(0)
@@ -115,19 +155,36 @@ end
 -- Physical CE8 shots also sweep the small native mesh. This catches fast shots
 -- independently of VPhysics/anim-entity contact support; no global Think hook.
 function B.ProjectileHit(projectile, start, finish)
-    if not start or not next(CE8.Barriers) then return end
+    if not start then return end
+    local modular=PRP and PRP.Colliders and next(PRP.Colliders.Proxies)
+    if not next(CE8.Barriers) and not modular then return end
+    local owner = projectile:GetOwner()
+    local function accepts(entity)
+        return entity ~= projectile and entity ~= owner and not entity.IsCE8Barrier
+            and not entity.ColliderBodies
+            and not (entity.IsPRPCollider and IsValid(owner) and entity:GetOwner() == owner)
+    end
     local nearest, target
     for entity in pairs(CE8.Barriers) do
         if not IsValid(entity) then CE8.Barriers[entity] = nil
-        elseif entity:GetOwner() ~= projectile:GetOwner() then
+        elseif entity:GetOwner() ~= owner then
             local hit = B.Trace(entity, start, finish - start)
             if hit and (not nearest or hit.Fraction < nearest.Fraction) then nearest, target = hit, entity end
+        end
+    end
+    if modular then
+        local radius=projectile.CE8CollisionRadius or 1
+        local tr=util.TraceHull({start=start,endpos=finish,mins=Vector(-radius,-radius,-radius),maxs=Vector(radius,radius,radius),
+            mask=MASK_SHOT,filter=accepts})
+        if IsValid(tr.Entity) and tr.Entity.IsPRPCollider and (not nearest or tr.Fraction<nearest.Fraction) then
+            return {HitEntity=tr.Entity,HitPos=tr.HitPos,HitNormal=tr.HitNormal,TheirSurfaceProps=tr.SurfaceProps,
+                TheirOldVelocity=vector_origin,DeltaTime=engine.TickInterval(),CE8BarrierHit=true}
         end
     end
     if not nearest then return end
     -- Walls and ordinary props still win if they occur before the barrier.
     local obstruction = util.TraceLine({start = start, endpos = nearest.HitPos,
-        mask = MASK_SHOT, filter = function(ent) return ent ~= projectile and ent ~= projectile:GetOwner() and not ent.IsCE8Barrier end})
+        mask = MASK_SHOT, filter = accepts})
     if obstruction.Hit and obstruction.Fraction < 0.999 then return end
     return {HitEntity = target, HitPos = nearest.HitPos, HitNormal = nearest.Normal,
         TheirSurfaceProps = util.GetSurfaceIndex("default_silent"), TheirOldVelocity = vector_origin,

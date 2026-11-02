@@ -3,14 +3,15 @@
 local Host = {}
 -- Weapon users share Human scheduling. Cover/retreat are independent choices.
 Host.Roster = {
-    elite = {adapter = "human"}, grunt = {adapter = "human"},
-    jackal = {adapter = "human"}, brute = {adapter = "human"},
+    elite = {adapter = "human", squad = true}, grunt = {adapter = "human", squad = true},
+    jackal = {adapter = "human", squad = true},
+    brute = {adapter = "human", squad = true, flee = false, unarmed_flee = false},
     hunter = {adapter = "human", cover = false, reload_cover = false, flee = false,
         retreat_distance = 0, unarmed_flee = false, crouch_fire = false, occlusion_delay = false},
     flood_combat_human = {adapter = "human", cover = false, reload_cover = false, flee = false,
-        retreat_distance = 0, unarmed_flee = false, crouch_fire = false, occlusion_delay = false, strafe = false},
+        retreat_distance = 0, unarmed_flee = false, crouch_fire = false, occlusion_delay = false, strafe = false, generic_weapons = true},
     flood_combat_elite = {adapter = "human", cover = false, reload_cover = false, flee = false,
-        retreat_distance = 0, unarmed_flee = false, crouch_fire = false, occlusion_delay = false, strafe = false},
+        retreat_distance = 0, unarmed_flee = false, crouch_fire = false, occlusion_delay = false, strafe = false, generic_weapons = true},
     flood_tank = {adapter = "creature"}, flood_infection = {adapter = "creature"},
     flood_carrier = {adapter = "creature"}
 }
@@ -29,13 +30,40 @@ if SERVER then
     heads = CE8.HeadProfiles
 end
 
+function Host.Weapons(ENT, data)
+    if SERVER then AddCSLuaFile("vj_ai/weapons.lua") end
+    local pickup = Host.Option(data, "generic_weapons", false)
+    include("vj_ai/weapons.lua").Attach(ENT, {
+        mount = {attachment = "right_hand", pos = Vector(), ang = Angle(0, 90, 180),
+            model_angle = Angle(0, 0, 180)},
+        native = function(weapon) return weapon.CE8Attach ~= nil end,
+        accepts = function(weapon) return not weapon.CE8Attach or data.weapon_sets[weapon.CE8WeaponName] ~= nil end,
+        pickup = pickup and {radius = 512, reach = 80, interval = 2, timeout = 6, enemy_distance = 128} or nil,
+        allowed = function(self)
+            return not self.CE8Rising and not (self.AIAnatomy and self.AIAnatomy.disarmed)
+        end
+    })
+end
+
 function Host.Shared(ENT, owner, adapter)
+    if owner=="jackal" then
+        ENT.CE8MergedBarrier=true
+        ENT.ColliderFile="npc_vj_ce8_jackal_collision.json"
+        ENT.ColliderBodies=include("campaign_evolved/jackal_colliders.lua")
+        function ENT:OnColliderImpactTrace(proxy)
+            if (proxy.ColliderSurface or proxy:GetNW2String("prp_surface"))=="default_silent" then return true end
+        end
+        if SERVER then
+            AddCSLuaFile("campaign_evolved/jackal_colliders.lua")
+            AddCSLuaFile("campaign_evolved/jackal_collision.lua")
+        end
+    end
     local data = include("campaign_evolved/" .. owner .. "_anims.lua")
     adapter = adapter or Host.Option(data, "adapter", "human")
     function ENT:CE8Data() return data end
     function ENT:CE8RankSettings() return data.ranks[self.CE8Rank or "minor"] end
     function ENT:CE8WeaponMount(weapon)
-        local set = data.weapon_sets[weapon.CE8WeaponName]
+        local set = IsValid(weapon) and data.weapon_sets[weapon.CE8WeaponName]
         return set and set.mount
     end
     function ENT:CE8WeaponGrip(weapon)
@@ -51,16 +79,100 @@ function Host.Shared(ENT, owner, adapter)
         adapter = adapter, capabilities = {movement = true, aim = data.aim ~= false, grip = (data.grip_max or 0) > 0},
         forward_only = data.forward_only,
         sets = data.weapon_sets, default_set = data.default_weapon,
-        weapon_key = function(self, weapon) return weapon.CE8WeaponName end,
+        weapon_key = function(self, weapon)
+            if data.weapon_sets[weapon.CE8WeaponName] then return weapon.CE8WeaponName end
+            return Host.Option(data, "generic_weapons", false) and "any" or nil
+        end,
         track_without_firing = true,
-        aim_allowed = function(self) return not self.AIFlee end,
-        crouch_allowed = function(self) return not self.AIFlee end,
+        blind_point = function(self, target)
+            if not SERVER or not self.AICorpseFirePoint then return end
+            local weapon = self:GetActiveWeapon()
+            return self:AICorpseFirePoint(weapon) or self:AISuppressionPoint(weapon, target)
+        end,
+        aim_allowed = function(self) return not self.AIFlee and not self.AIKamikaze end,
+        crouch_allowed = function(self) return not self.AIFlee and not self.AIKamikaze end,
         grip = {parameter = "grip", minimum = 0, maximum = data.grip_max, default = 0}
     })
+    if adapter == "human" then Host.Weapons(ENT, data) end
     function ENT:CE8ApplyGrip(amount) return self:AIApplyGrip(amount) end
     function ENT:FireAnimationEvent(pos, ang, event)
         if event >= 4001 and event <= 4007 then return true end
     end
+end
+
+function Host.Tactics(profile, data, owner)
+    owner = owner or data.owner
+    profile.capabilities.threat = profile.adapter == "human"
+    -- These are Source pressure units, not Halo's undocumented danger score.
+    local thresholds = {grunt = 0.25, jackal = 0.4, elite = 0.65, brute = 0.85}
+    profile.threat = {
+        interval = 0.5, cover_pressure = thresholds[owner] or 0.5,
+        policy = function(self)
+            local rank = self.CE8RankSettings and self:CE8RankSettings()
+            if rank and rank.tactics then return rank.tactics end
+            local defensive = owner == "elite" or owner == "brute"
+            return {cover = defensive, pressure = defensive, dangerous = defensive,
+                unreachable = defensive, ineffective = defensive}
+        end,
+        allowed = function(self)
+            return not self.CE8BerserkUntil and not self.CE8PendingShieldBreak and not self.CE8PendingBerserk
+        end
+    }
+    if profile.squad then
+        profile.squad.positioning = {spacing = 96, lane_width = 48, interval = 3, cooldown = 5, radius = 192, route_time = 4}
+    end
+    return profile
+end
+
+-- Possession publishes a small snapshot only while controlled; VJ supplies
+-- health, weapon identity and ammunition through its existing controller.
+function Host.Possession(owner)
+    CE8 = CE8 or {}
+    CE8.ControlProfiles = CE8.ControlProfiles or include("campaign_evolved/possession.lua").owners
+    return {
+        settings = CE8.ControlProfiles[owner],
+        ignore = function(self) return self.ColliderParts or self.CE8ArmorParts end,
+        started = function(self, state)
+            state.controller.VJC_Player_DrawHUD = false
+            state.controller:SetHUDEnabled(false)
+            state.controller:SetNW2Bool("ce8_hud", true)
+        end,
+        stopped = function(self, state)
+            state.controller:SetNW2Bool("ce8_hud", false)
+            state.controller:SetHUDEnabled(state.hud ~= false)
+        end,
+        changed = function(self, state)
+            if IsValid(state.controller) then state.controller:SetNW2Bool("ce8_crouched", state.crouched) end
+        end,
+        update = function(self, state, now)
+            local controller, shield, maximum = state.controller, 0, 0
+            local _, stance = self:AIAnimationSet()
+            local controls = self:AIProfile().possession.settings
+            controller:SetNW2Bool("ce8_crouch_supported", controls.crouch.enabled and controls.crouch.sets[stance] == true)
+            local profile = self:AIProfile().shield
+            if profile and self:AIHasCapability("shield") then
+                shield = self[profile.fields.value] or 0
+                maximum = profile.maximum
+                if type(maximum) == "function" then maximum = maximum(self) end
+                maximum = tonumber(maximum) or 0
+            end
+            controller:SetNW2Vector("ce8_vitals", Vector(shield, maximum, self.CE8Grenades or 0))
+            controller:SetNW2Float("ce8_max_health", self:GetMaxHealth())
+            local weapon = self.GetActiveWeapon and self:GetActiveWeapon()
+            local heat, charge, clip = 0, 0, 0
+            if IsValid(weapon) then
+                local values = weapon.CE8Data
+                local threshold = values and values.heat and values.heat.threshold or 0
+                heat = threshold > 0 and math.Clamp((weapon.CE8Heat or 0) / threshold, 0, 1) or 0
+                local charging = weapon.CE8Charge
+                if type(charging) == "table" and charging.finish and charging.start then
+                    charge = math.Clamp((now - charging.start) / math.max(0.001, charging.finish - charging.start), 0, 1)
+                end
+                clip = weapon.Primary and weapon.Primary.ClipSize or 0
+            end
+            controller:SetNW2Vector("ce8_weapon_state", Vector(heat, charge, clip))
+        end
+    }
 end
 
 function Host.Profile(data, adapter)
@@ -73,15 +185,18 @@ function Host.Profile(data, adapter)
         [MAT_TILE] = "brittle", [MAT_PLASTIC] = "rubber", [MAT_FOLIAGE] = "soft_organic",
         [MAT_FLESH] = "flesh", [MAT_BLOODYFLESH] = "flesh", [MAT_ALIENFLESH] = "flesh", [MAT_WARPSHIELD] = "energy"
     }
-    return {
+    local profile = {
         adapter = adapter, sounds = sounds,
+        possession = Host.Possession(data.owner),
         gaze = {rig = heads[data.owner]},
-        capabilities = {gaze = true, controller = true, cover = Host.Option(data, "cover", adapter == "human"),
+        capabilities = {gaze = true, squad = Host.Option(data, "squad", false), controller = true, cover = Host.Option(data, "cover", adapter == "human"),
             flee = Host.Option(data, "flee", adapter == "human"), dialogue = Host.Option(data, "dialogue", true),
             footsteps = Host.Option(data, "footsteps", true), search = Host.Option(data, "search", true), reactions = true,
             charge = data.charge ~= nil,
             shield = data.owner == "jackal" and function(self) return (self:CE8RankSettings().native_shield or 0) > 0 end or false},
         shield = data.owner == "jackal" and barrier.Profile(sounds) or nil,
+        -- Nearby groups are a Source policy, not Halo mission squad placement.
+        squad = Host.Option(data, "squad", false) and {key = "covenant", limit = 8, radius = 900} or nil,
         lifecycle = {
                 shutdown = function(self) if self.CE8RemoveEquipment then self:CE8RemoveEquipment() end end
         },
@@ -95,15 +210,21 @@ function Host.Profile(data, adapter)
                 if (disabled and disabled:GetBool()) or self:GetState() == VJ_STATE_FREEZE then return false end
                 return true
             end,
-            is_leader = function(self, ally) return ally.AISquadLeader == true end,
-            notice_loss = function(self, ally) return self:Disposition(ally) == D_LI and self:Visible(ally) end,
+            is_leader = function(self, ally) return self:AISquadIsLeader(ally) end,
+            notice_loss = function(self, ally)
+                return (not self:AIHasCapability("squad") or self:AISquadMember(ally))
+                    and self:Disposition(ally) == D_LI and self:Visible(ally)
+            end,
             started = function(self, action)
                 self:ResetTurnTarget()
                 self:AIPlayDialogue("flee", CurTime(), action)
             end
         },
-        reactions = {damage = {families = {any = data.damage_reactions or {}}, default_family = "any",
-            default_region = "gut", hitgroups = {[HITGROUP_HEAD] = "head", [HITGROUP_LEFTARM] = "l_arm",
+        reactions = {family = data.damage_families and function(self) local _, key = self:AIAnimationSet() return key end or nil,
+            ignore = function(self) return self.ColliderParts or self.CE8ArmorParts end,
+            damage = {families = data.damage_families or {any = data.damage_reactions or {}}, default_family = "any",
+            default_region = "gut", hitgroups = {[HITGROUP_HEAD] = "head", [HITGROUP_CHEST] = "chest",
+                [HITGROUP_STOMACH] = "gut", [HITGROUP_LEFTARM] = "l_arm",
                 [HITGROUP_RIGHTARM] = "r_arm", [HITGROUP_LEFTLEG] = "l_leg", [HITGROUP_RIGHTLEG] = "r_leg"}}},
         search = {
             default_mode = "normal", mode = "normal",
@@ -129,6 +250,7 @@ function Host.Profile(data, adapter)
             end
         }
     }
+    return Host.Tactics(profile, data)
 end
 
 function Host.Server(ENT, profile)
@@ -178,6 +300,14 @@ function Host.Server(ENT, profile)
     function ENT:CE8CacheActivities(weapon) return self:AIAnimationActivities(weapon) end
     function ENT:SetAnimationTranslations(hold, weapon) return self:AISetAnimationTranslations(hold, weapon) end
     function ENT:TranslateActivity(act)
+        if self.AIKamikaze and self.AIKamikaze.phase == "charge" and data.kamikaze then
+            local sequence
+            if act == ACT_IDLE or act == ACT_IDLE_ANGRY then sequence = data.kamikaze.idle
+            elseif act == ACT_RUN or act == ACT_WALK or act == ACT_RUN_AIM or act == ACT_WALK_AIM or act == ACT_RUN_PROTECTED then
+                sequence = data.kamikaze.run
+            end
+            if sequence then return self:GetSequenceActivity(self:LookupSequence(sequence)) end
+        end
         if self.AIFlee then
             local a = self:AIAnimationActivities()
             if self.AIFlee.holding and (act == ACT_IDLE or act == ACT_IDLE_ANGRY) then return a.flee_idle or a.crouch_idle end
@@ -188,18 +318,21 @@ function Host.Server(ENT, profile)
         return self:AITranslateActivity(act)
     end
     function ENT:GetTurnAngle(angle)
-        if self.AIFlee then return self:AIMotionBase("GetTurnAngle", angle) end
+        if self.AIFlee or self.AIKamikaze then return self:AIMotionBase("GetTurnAngle", angle) end
         return self:AIGetTurnAngle(angle)
     end
     function ENT:OverrideMoveFacing(interval, move)
-        if self.AIFlee then return self:AIMotionBase("OverrideMoveFacing", interval, move) end
+        if self.AIFlee or self.AIKamikaze then return self:AIMotionBase("OverrideMoveFacing", interval, move) end
         return self:AIOverrideMoveFacing(interval, move)
     end
-    function ENT:UpdatePoseParamTracking(reset) if not self.AIFlee then return self:AIUpdatePoseTracking(reset) end end
+    function ENT:UpdatePoseParamTracking(reset) if not self.AIFlee and not self.AIKamikaze then return self:AIUpdatePoseTracking(reset) end end
     function ENT:GetHeadDirection() return self:AIHeadDirection() end
     function ENT:GetAimPosition(...) return self:AIMotionAimPosition(...) end
     function ENT:SetTurnTarget(...) return self:AIMotionTurnTarget(...) end
     function ENT:PlayAnim(...) return self:AIMotionPlayAnim(...) end
+    function ENT:OnMeleeAttack(status)
+        if status == "PreInit" and self:AIIsReloading() then return true end
+    end
     function ENT:OnDangerDetected()
         -- VJ's default danger response runs to cover. Species can override this
         -- hook later with an authored brace/dive without enabling fleeing.
@@ -208,6 +341,7 @@ function Host.Server(ENT, profile)
     function ENT:OnTaskFailed(code, message) self:AITaskFailed(code, message, CurTime()) end
     function ENT:Init()
         local rank, hull = self:CE8RankSettings(), data.hull
+        if rank.flinch then self.FlinchChance = 1 end
         self:CE8ApplyStats(true)
         self:AIInitialize(CurTime())
         self:CapabilitiesAdd(CAP_MOVE_SHOOT)
@@ -221,7 +355,7 @@ function Host.Server(ENT, profile)
         self:SetNW2String("ce8_rank", self.CE8Rank or "minor")
         self:AIApplyGrip(0)
         self:SetNW2Int("ce8_grip", 0)
-        self.CE8Voice = data.voice or data.owner
+        self.CE8Voice = data.voices and data.voices[math.random(#data.voices)] or data.voice or data.owner
         local bank = sounds.dialogue[self.CE8Voice] or {}
         for category, cue in pairs({Idle = "idle", CombatIdle = "thrtn", Alert = "seefoe", Investigate = "invsgt",
             LostEnemy = "lst_cntct", AllyDeath = "lmnt_deadally", Pain = "pain", Death = "dth",
@@ -243,17 +377,38 @@ function Host.Server(ENT, profile)
     function ENT:OnCreateSound(sound, path) self:AIObserveDialogue(sound, path, CurTime(), self:GetEnemy()) end
     function ENT:OnDamaged(damage, hitgroup, status)
         if status == "PreDamage" then
+            self:AIRecordThreatDamage(damage, CurTime())
             damage:SetDamage(damage:GetDamage() / difficulty.Multiplier("resistance"))
-        elseif status == "PostDamage" and self:AIHasCapability("flee") and self:Health() > 0
+        elseif status == "PostDamage" and self:AIHasCapability("flee") and not self.AIKamikaze and self:Health() > 0
             and self:Health() / self:GetMaxHealth() <= self:CE8RankSettings().retreat.critical_fraction then
             self.CE8FleeRequest = {reason = "wounded", time = CurTime()}
         end
     end
     function ENT:OnFlinch(damage, hitgroup, status)
         if status ~= "Init" then return end
-        if self.AIFlee or self.AttackType then return true end
-        local sequence = self:AISelectDamage("h_ping", damage, hitgroup)
+        if self.Dead or self:Health() <= 0 or self.AIFlee or self.AIKamikaze or self.AttackType
+            or self.AILeap or self.AISurface or self.CE8BurstPlayed or self.CE8Rising then return true end
+        local settings = self:CE8RankSettings().flinch
+        local kind = "h_ping"
+        if settings then
+            local shield = self.CE8ShieldFlinchAmount or damage:GetDamage()
+            local threshold = self.CE8ShieldFlinchAmount and settings.threshold or settings.unshielded
+            if shield < threshold then
+                local soft = self.CE8ShieldFlinchAmount and settings.soft or settings.soft_unshielded
+                if soft == nil or shield < soft then return true end
+                kind = "s_ping"
+            end
+            self.FlinchCooldown = kind == "h_ping" and settings.cooldown > 0 and settings.cooldown or false
+        end
+        -- Let VJ select an explicit hitgroup map after our normal reaction gates.
+        for _, entry in ipairs(self.FlinchHitGroupMap or {}) do
+            if VJ.HasValue(entry.HitGroup, hitgroup) then return end
+        end
+        local sequence = self:AISelectDamage(kind, damage, hitgroup)
         if not sequence then return true end
+        if data.gesture_reactions and data.gesture_reactions[sequence:sub(7)] then
+            sequence = "vjges_" .. sequence:sub(7)
+        end
         self.AnimTbl_Flinch = sequence
     end
     function ENT:OnDeath(damage, hitgroup, status) if status == "Init" then self:AIShutdown(CurTime(), "death") end end
@@ -267,7 +422,7 @@ function Host.Server(ENT, profile)
     function ENT:OnAnimEvent(event, eventTime, cycle, eventType, options)
         if event == 4005 then
             local choices = sounds.events[options]
-            if self.HasSounds ~= false and choices and #choices > 0 then self:EmitSound(choices[math.random(#choices)], 70, 100, 1, CHAN_BODY) end
+            if self.HasSounds ~= false and choices and #choices > 0 then VJ.EmitSound(self, choices, 70, 100, 1, CHAN_AUTO) end
         elseif event == 4003 then self:AIPlayDialogue(options, CurTime())
         elseif event == 4001 and (options == "left foot" or options == "right foot") then
             self:AIFootstep(options == "left foot" and "left" or "right")
@@ -301,6 +456,7 @@ function ENT:CE8BindRenderer()
             -- A Lua Draw callback can enter RenderOverride again through
             -- DrawModel. Reuse the outer pass's materials/blend/depth state.
             if actor.CE8DrawingModel then actor:DrawModel(flags) return end
+            if actor.CE8UpdateRenderFrame then actor:CE8UpdateRenderFrame() end
             local previous = actor.CE8DrawingModel
             actor.CE8DrawingModel = true
             local ok, message = xpcall(function() draw(actor, flags) end, debug.traceback)
@@ -317,10 +473,12 @@ function ENT:CE8BindRenderer()
 end
 
 function ENT:Init()
+    if self.AIConfigureWeapon then self:AIConfigureWeapon(self:GetActiveWeapon()) end
     self:CE8BindRenderer()
 end
 
 function ENT:Think()
+    if self.AIConfigureWeapon then self:AIConfigureWeapon(self:GetActiveWeapon()) end
     self:CE8BindRenderer()
 end
 

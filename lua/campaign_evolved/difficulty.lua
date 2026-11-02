@@ -98,9 +98,14 @@ function difficulty.RefreshActors()
     end
 end
 
-function difficulty.ApplyDamage(_, damage)
+function difficulty.ApplyDamage(target, damage)
     -- One shared dispatch covers VJ bullets, melee, other equipped weapons,
     -- explosions and supercombines. Never re-dispatch TakeDamageInfo here.
+    if IsValid(target) then
+        if target.CE8ForwardedArmorDamage == damage then return end
+        local hit = target.ColliderDamage
+        if hit and hit.already_scaled and CE8 and CE8.Collision and CE8.Collision.IsForwarded(target, damage) then return end
+    end
     local attacker, inflictor = damage:GetAttacker(), damage:GetInflictor()
     if (IsValid(attacker) and attacker.IsCE8SNPC)
         or (IsValid(inflictor) and inflictor.CE8NPCDamage) then
@@ -225,6 +230,8 @@ if CLIENT then
         panel:NumSlider("Normal map distance", "ce8_normal_distance", 0, 32768, 0)
         panel:NumSlider("Specular / reflection distance", "ce8_specular_distance", 0, 32768, 0)
         panel:Help("The energy blade uses detail distance for its animated layers and normal distance for flow distortion. Its emissive silhouette remains visible; it does not calculate lighting or reflections.")
+        panel:CheckBox("Show Hunter collision wireframe", "ce8_collision_debug")
+        panel:Help("Aim at a Hunter to select it. The colored wireframe follows that Hunter until you aim at another. Hidden bodygroups are omitted. Debug display starts disabled each session.")
         local reset=panel:Button("Restore rendering defaults")
         reset.DoClick=function()
             RunConsoleCommand("ce8_detail_distance","1024")

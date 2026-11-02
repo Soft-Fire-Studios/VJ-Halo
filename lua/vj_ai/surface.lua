@@ -26,6 +26,12 @@ local function project(direction, normal)
     return direction - normal * direction:Dot(normal)
 end
 
+local function turnDirection(direction, from, to)
+    -- Rotate a tangent onto the adjacent face without losing the component
+    -- that crosses the edge. Opposing faces are rejected before this call.
+    return (direction - (from + to) * (direction:Dot(to) / (1 + from:Dot(to)))):GetNormalized()
+end
+
 local function hull(action, normal)
     -- SOLID_BBOX stays axis aligned. Center its compact cube on the rotated
     -- body, so the origin/belly can approach a wall without a floating gap.
@@ -53,11 +59,24 @@ local function attackRange(actor, enemy, config)
         and math.abs(delta.z) <= 64 and actor:Visible(enemy)
 end
 
-local function changeSurface(actor, action, normal, direction)
+local function changeSurface(actor, action, normal, direction, incoming)
+    local center = actor:GetPos() + action.normal * action.radius
+    local corner = action.corner
+    -- Target projection can point straight back into the face just left.
+    -- Reject that local loop instead of repeatedly pivoting the whole body.
+    if corner and normal:Dot(corner.normal) > 0.95 and direction:Dot(corner.approach) < -0.1
+        and center:DistToSqr(corner.center) < (action.radius * 6) ^ 2 then
+        return false, "corner_return"
+    end
     local low, high = hull(action, normal)
     local pivot = actor:GetPos() + (action.normal - normal) * action.radius
     local clear = trace(actor, pivot, pivot, low, high)
     if clear.StartSolid or clear.AllSolid then return false end
+    if normal:Dot(action.normal) < 0.7 then
+        local approach = project(normal, action.normal):GetNormalized()
+        if approach:Dot(incoming) < 0 then approach = -approach end
+        action.corner = {normal = action.normal, center = center, direction = direction, approach = approach}
+    end
     actor:SetPos(pivot)
     actor:SetCollisionBounds(low, high)
     action.low, action.high, action.normal = low, high, normal
@@ -75,8 +94,10 @@ local function roundEdge(actor, action, config, now)
     local extent = action.radius * (math.abs(edge.normal.x) + math.abs(edge.normal.y) + math.abs(edge.normal.z))
     local remaining = extent + 2 - (center - edge.point):Dot(edge.normal)
     if remaining <= 0.5 then
-        local direction = project(-normal, edge.normal):GetNormalized()
-        if not changeSurface(actor, action, edge.normal, direction) then actor:AIEndSurface(now, "corner_clearance") return false end
+        local incoming = project(edge.normal, normal):GetNormalized()
+        local direction = turnDirection(incoming, normal, edge.normal)
+        local changed, reason = changeSurface(actor, action, edge.normal, direction, incoming)
+        if not changed then actor:AIEndSurface(now, reason or "corner_clearance") return false end
         action.edge = nil
         actor:SetLocalVelocity(direction * config.speed)
         return true
@@ -244,16 +265,27 @@ function methods:AIUpdateSurface(now)
     end
     if direction:LengthSqr() < 1 then self:AIEndSurface(now, "no_direction") return false end
     direction = direction:GetNormalized()
+    local corner = action.corner
+    if corner then
+        local center = position + normal * action.radius
+        if not corner.cleared then
+            -- Finish crossing the edge before projecting pursuit back onto
+            -- the new face. Use body-center travel, not the origin's pivot.
+            corner.cleared = (center - corner.center):Dot(corner.direction) >= action.radius * 2 + 8
+            if not corner.cleared then direction = project(corner.direction, normal):GetNormalized() end
+        end
+        if corner.cleared and center:DistToSqr(corner.center) >= (action.radius * 6) ^ 2 then
+            action.corner = nil
+        end
+    end
     local low, high, offset = hull(action, normal)
     local support = trace(self, position + normal * 8, position - normal * (offset + 38))
     if not usable(support) then self:AIEndSurface(now, "lost_support") return false end
     local ahead = position + direction * (config.speed * 0.12 + 12)
     local front = trace(self, position, ahead, low, high)
     local nextNormal = normal
-    local concave = false
     if usable(front) and front.HitNormal:Dot(normal) < 0.7 then
         nextNormal = front.HitNormal:GetNormalized()
-        concave = true
     elseif front.StartSolid or front.AllSolid then
         self:AIEndSurface(now, "blocked") return false
     else
@@ -274,9 +306,10 @@ function methods:AIUpdateSurface(now)
     end
     if nextNormal:Dot(normal) < -0.1 then self:AIEndSurface(now, "sharp_edge") return false end
     if nextNormal:Dot(normal) < 0.99 then
-        direction = project(direction, nextNormal):GetNormalized()
-        if direction:LengthSqr() < 0.1 then direction = project(concave and normal or -normal, nextNormal):GetNormalized() end
-        if not changeSurface(self, action, nextNormal, direction) then self:AIEndSurface(now, "corner_clearance") return false end
+        local incoming = direction
+        direction = turnDirection(direction, normal, nextNormal)
+        local changed, reason = changeSurface(self, action, nextNormal, direction, incoming)
+        if not changed then self:AIEndSurface(now, reason or "corner_clearance") return false end
     end
     action.angle = direction:AngleEx(action.normal)
     local distance = (position - support.HitPos):Dot(normal)

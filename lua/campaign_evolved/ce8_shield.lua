@@ -61,6 +61,7 @@ matproxy.Add({name="CE8Shield",
         local reveal,flash=1,0
         local vitality=math.Clamp(p("ShieldVitality"),0,1)
         local owner=IsValid(ent) and ent.GetNW2Entity and ent:GetNW2Entity("ce8_barrier_owner")
+        if IsValid(ent) and ent.CE8MergedBarrier then owner=ent end
         if IsValid(owner) then
             local maximum=owner:GetNW2Float("ce8_barrier_max",-1)
             if maximum>=0 and not (overrides and overrides.shieldvitality~=nil) then

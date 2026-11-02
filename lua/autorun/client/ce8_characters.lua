@@ -99,6 +99,11 @@ function CE8.BindCharacter(ent, definition, custom, normalSpawn)
 
     end
     ent.RenderOverride = function(self, flags)
+        -- Networked effects can replace the client flag after initial binding,
+        -- especially on Sandbox props/ragdolls. The shader already lights the
+        -- beam, so keep the native projector pass excluded at submission time.
+        if self.CE8Draft and EF_NOFLASHLIGHT and self.IsEffectActive
+            and not self:IsEffectActive(EF_NOFLASHLIGHT) then self:AddEffects(EF_NOFLASHLIGHT) end
         if self.CE8DrawingEmissive then self:DrawModel(flags) return end
         local depth = bit.bor(STUDIO_SHADOWDEPTHTEXTURE or 0,STUDIO_SSAODEPTHTEXTURE or 0)
         if flags and bit.band(flags,depth)~=0 then
@@ -156,7 +161,7 @@ function CE8.SpawnCharacterPreview(character, permutation)
     character=string.lower(character or "")
     permutation=permutation and string.lower(permutation)
     local definition = CE8.GetAssembly(character,permutation)
-    assert(definition,"Unknown CE8 character/permutation; use ce8_character_list")
+    assert(definition,"Unknown CE8 character/permutation")
     local entry=(CE8.Assemblies or {}).characters and CE8.Assemblies.characters[character]
     permutation=permutation or (entry and entry.default_rank) or "minor"
     local player = LocalPlayer()
@@ -184,130 +189,15 @@ function CE8.SpawnCharacterPreview(character, permutation)
     return entities
 end
 
-if not concommand then return end
-CE8CharacterPreviewEntities = CE8CharacterPreviewEntities or {}
-local preview = CE8CharacterPreviewEntities
-local function remove(character)
-    for index=#preview,1,-1 do
-        local ent=preview[index]
-        if not IsValid(ent) or not character or ent.CE8CharacterName==character then
-            if IsValid(ent) then ent:Remove() end
-            table.remove(preview,index)
-        end
+-- Remove retired preview/debug aliases from an already running session.
+if concommand and concommand.Remove then
+    for _,name in ipairs({"ce8_character_list","ce8_character_preview","ce8_character_param",
+        "ce8_character_params","ce8_character_envtint","ce8_character_color","ce8_character_bodygroup",
+        "ce8_character_status","ce8_character_remove","ce8_ragdoll","ce8_ragdoll_list","ce8_perf_stop"}) do
+        concommand.Remove(name)
     end
 end
-local function status()
-    local report={entities={}}
-    for _,ent in ipairs(preview) do
-        if IsValid(ent) then
-            local p=ent:GetPos()
-            report.entities[#report.entities+1]={character=ent.CE8CharacterName,rank=ent.CE8CharacterRank,
-                custom=ent.CE8Draft,position={p.x,p.y,p.z},parts=CE8.AssemblyStatus(ent),
-                spawn_position_error=ent.CE8SpawnPosition and p:Distance(ent.CE8SpawnPosition)}
-        end
-    end
-    PrintTable(report)
-    return report
-end
-concommand.Add("ce8_character_list",function()
-    CE8.GetAssembly("elite","minor")
-    for character,entry in pairs((CE8.Assemblies or {}).characters or {}) do
-        print(character..": "..table.concat(table.GetKeys(entry.variants),", "))
-    end
-end)
-local function spawn(character,permutation)
-    character=string.lower(character or "")
-    if not CE8.GetAssembly(character,permutation) then print("Unknown CE8 character/permutation; use ce8_character_list");return end
-    remove(character)
-    local entities=CE8.SpawnCharacterPreview(character,permutation)
-    for _,ent in ipairs(entities or {}) do preview[#preview+1]=ent end
-end
-concommand.Add("ce8_character_preview",function(_,_,args)
-    spawn(args[1] or "elite",args[2])
-end)
-local function parameter(_,_,args)
-    local name,value=string.lower(args[1] or ""),tonumber(args[2])
-    local schema=(CE8.Controls or {})[name]
-    if not schema or (args[2]~="default" and (not value or value~=value or math.abs(value)==math.huge)) then
-        print("ce8_character_param <named parameter> <value|default>");return
-    end
-    for _,ent in ipairs(preview) do
-        if IsValid(ent) and ent.CE8Draft and (not args[3] or ent.CE8CharacterName==args[3]) then
-            ent.CE8Parameters[name]=value and math.Clamp(value,schema.min,schema.max) or nil
-        end
-    end
-end
-concommand.Add("ce8_character_param",parameter)
-local function parameters()
-    for _,info in SortedPairs(CE8.Controls or {}) do
-        print(info.name.." ("..info.min..".."..info.max..", default "..info.default..")")
-    end
-end
-concommand.Add("ce8_character_params",parameters)
-local function environmentTint(_,_,args)
-    for _,ent in ipairs(preview) do
-        if IsValid(ent) then
-            ent.CE8EnvironmentTint=args[1]~="default" and Vector(math.max(tonumber(args[1]) or 1,0),
-                math.max(tonumber(args[2]) or 1,0),math.max(tonumber(args[3]) or 1,0)) or nil
-        end
-    end
-end
-concommand.Add("ce8_character_envtint",environmentTint)
-local function palette(_,_,args)
-    local region=math.Clamp(math.floor(tonumber(args[1]) or 1),1,4)
-    local field="CampaignPortColor"..(region==1 and "" or region)
-    local indexedReset=tonumber(args[1])~=nil and args[2]=="default"
-    local indexed=indexedReset or (#args>=4 and tonumber(args[4])~=nil)
-    local scope
-    if indexedReset then scope=args[3]
-    elseif indexed then scope=args[5]
-    elseif args[1]=="default" then scope=args[2]
-    else scope=args[4] end
-    for _,ent in ipairs(preview) do
-        if IsValid(ent) and (not scope or ent.CE8CharacterName==scope) then
-            if indexed then
-                -- Channel controls are shared by the entire character. They
-                -- never address individual armor materials or atlas cells.
-                if isvector(ent.CE8OverallColor) then
-                    for index=1,4 do ent["CampaignPortColor"..(index==1 and "" or index)]=ent.CE8OverallColor end
-                    ent.CE8OverallColor=nil
-                end
-                ent[field]=args[2]~="default" and Vector(math.Clamp(tonumber(args[2]) or 255,0,255)/255,
-                    math.Clamp(tonumber(args[3]) or 255,0,255)/255,math.Clamp(tonumber(args[4]) or 255,0,255)/255) or nil
-            else
-                ent.CE8OverallColor=args[1]~="default" and Vector(math.Clamp(tonumber(args[1]) or 255,0,255)/255,
-                    math.Clamp(tonumber(args[2]) or 255,0,255)/255,math.Clamp(tonumber(args[3]) or 255,0,255)/255) or nil
-                for index=1,4 do
-                    ent["CampaignPortColor"..(index==1 and "" or index)]=
-                        (ent.CE8CharacterDefinition or {}).color_mode~="overall" and ent.CE8OverallColor or nil
-                end
-            end
-        end
-    end
-end
-concommand.Add("ce8_character_color",palette)
-concommand.Add("ce8_character_bodygroup",function(_,_,args)
-    local name,value=args[1] or "armor",math.floor(tonumber(args[2]) or 0)
-    for _,ent in ipairs(preview) do
-        if IsValid(ent) then
-            local parts={ent}
-            for _,part in pairs(ent.CE8AssemblyParts or {}) do parts[#parts+1]=part end
-            for _,part in ipairs(parts) do
-                for _,group in ipairs(part:GetBodyGroups()) do
-                    if group.name==name or group.name:match("^"..name.."_%d+$") then
-                        part:SetBodygroup(group.id,math.Clamp(value,0,group.num-1))
-                    end
-                end
-            end
-        end
-    end
-end)
-concommand.Add("ce8_character_status",status)
-concommand.Add("ce8_character_remove",function(_,_,args) remove(args and args[1]) end)
-hook.Add("ShutDown","CE8CharacterCleanup",remove)
-for _,ent in ipairs(preview) do
-    if IsValid(ent) and ent.CE8CharacterName then
-        local definition=CE8.GetAssembly(ent.CE8CharacterName,ent.CE8CharacterRank)
-        if definition then CE8.BindCharacter(ent,definition,ent.CE8Draft) end
-    end
-end
+for _,entity in ipairs(CE8CharacterPreviewEntities or {}) do if IsValid(entity) then entity:Remove() end end
+CE8CharacterPreviewEntities=nil
+if CE8PerfSession and CE8PerfSession.Stop then CE8PerfSession:Stop("retired") end
+if hook and hook.Remove then hook.Remove("ShutDown","CE8CharacterCleanup") end

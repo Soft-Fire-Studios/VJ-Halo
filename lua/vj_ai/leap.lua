@@ -32,7 +32,8 @@ end
 
 function methods:AILeapActive()
     local config = self.AIProfile and self:AIProfile().leap
-    return config and self[config.fields.active] or nil
+    local control = self.AIProfile and self:AIProfile().possession
+    return (config and self[config.fields.active]) or (control and self[control.fields.jump]) or nil
 end
 
 -- Solve once for a visible target. No homing, position teleport, or target
@@ -74,10 +75,11 @@ end
 
 function methods:AIEndLeap(now, reason)
     local config = self.AIProfile and self:AIProfile().leap
-    local action = config and self[config.fields.active]
+    local action = self:AILeapActive()
     if not action then return end
-    self[config.fields.active] = nil
-    self[config.fields.next_attempt] = now + (config.cooldown or 2)
+    config = action.config or config
+    self[action.field or config.fields.active] = nil
+    self[action.next_field or config.fields.next_attempt] = now + (config.cooldown or 2)
     if ownsLayer(self, action) then self:RemoveLayer(action.layer) end
     -- A death/freeze/other attack can supersede our state. Release only values
     -- still owned by this attack, preserving newer schedules and locks.
@@ -94,14 +96,14 @@ function methods:AIEndLeap(now, reason)
     for key, previous in pairs(action.timers) do
         if self[key] == action.deadline then self[key] = math.max(now, previous) end
     end
-    self[config.fields.last] = {time = now, reason = reason}
+    self[action.last_field or config.fields.last] = {time = now, reason = reason}
     if config.finished then config.finished(self, action, now, reason) end
 end
 
 function methods:AILaunchLeap(action, now)
-    local config = self:AIProfile().leap
+    local config = action.config or self:AIProfile().leap
     -- Recheck after takeoff anticipation: obstacles/targets may have moved.
-    local plan = self:AIPlanLeap(action.target, config)
+    local plan = action.manual and self:AIPlanControlLeap(config) or self:AIPlanLeap(action.target, config)
     if not plan then self:AIEndLeap(now, "blocked_takeoff") return false end
     if not play(self, action, config.airborne, now) then self:AIEndLeap(now, "missing_airborne") return false end
     action.phase, action.launched, action.plan = "airborne", now, plan
@@ -116,6 +118,7 @@ function methods:AILaunchLeap(action, now)
 end
 
 function methods:AITryLeap(now, enemy)
+    if self.VJ_Controlled and self:AIProfile().possession then return false end
     if not self:AIHasCapability("leap") or self:AILeapActive() or self:AISurfaceActive() or disabled(self) or self.AttackType
         or self.PauseAttacks or not self:OnGround() or self:GetNavType() ~= NAV_GROUND
         or self:GetMoveType() ~= MOVETYPE_STEP or self:GetState() ~= VJ_STATE_NONE or self:IsBusy("Activities") then return false end
@@ -140,6 +143,37 @@ function methods:AITryLeap(now, enemy)
     self[config.fields.next_attempt] = now + math.Rand(retry[1], retry[2])
     if not self.VJ_Controlled and math.Rand(0, 1) >= (config.chance or 1) then return false end
     if config.start and not self:AIValidateMotion(config.start, 0, enemy) then return false end
+    return self:AICommitLeap(now, enemy, config, false)
+end
+
+-- Manual possession jumps use the same launch/landing/cleanup as attack leaps.
+-- Only takeoff clearance is required: Source swept flight handles walls and
+-- landing on intermediate ledges. The chosen impulse never tracks a target.
+function methods:AIPlanControlLeap(config)
+    local origin = self:GetPos()
+    local mins, maxs = self:GetCollisionBounds()
+    local filter = {self, self.GetActiveWeapon and self:GetActiveWeapon()}
+    for _, part in pairs(config.manual_ignore or {}) do filter[#filter + 1] = part end
+    local trace = util.TraceHull({start = origin + Vector(0,0,1),
+        endpos = origin + Vector(0,0,math.min(16, config.manual_velocity.z * 0.04)),
+        mins = mins, maxs = maxs, mask = MASK_NPCSOLID, filter = filter,
+        collisiongroup = config.collision_group})
+    if trace.Hit or trace.StartSolid or trace.AllSolid then return end
+    return {velocity = Vector(config.manual_velocity), duration = config.manual_duration}
+end
+
+function methods:AIStartControlLeap(now, config)
+    if not self.VJ_Controlled or not self:AIProfile().possession or self:AILeapActive()
+        or self:AISurfaceActive() or disabled(self) or self.AttackType or self.PauseAttacks
+        or self:IsBusy("Activities") or not self:OnGround() or self:GetNavType() ~= NAV_GROUND
+        or self:GetMoveType() ~= MOVETYPE_STEP or self:GetState() ~= VJ_STATE_NONE then return false end
+    if not sequence(self, config.airborne) or (config.start and not sequence(self, config.start)) then return false end
+    if not self:AIPlanControlLeap(config) then return false end
+    if config.start and not self:AIValidateMotion(config.start, 0) then return false end
+    return self:AICommitLeap(now, nil, config, true)
+end
+
+function methods:AICommitLeap(now, enemy, config, manual)
     self:AISuspendActions(now)
     self:StopCurrentSchedule()
     if self.CurrentSchedule then return false end -- A completion callback installed a new owner.
@@ -148,10 +182,14 @@ function methods:AITryLeap(now, enemy)
     self:ClearGoal()
     self:ResetTurnTarget()
     self:SetIdealYaw(self:GetAngles().y)
-    local action = {target = enemy, seed = now, state = self:GetState(), phase = "start", timers = {},
+    local control = self:AIProfile().possession
+    local action = {manual = manual, config = config,
+        field = manual and control.fields.jump or config.fields.active,
+        next_field = manual and control.fields.next_jump or config.fields.next_attempt,
+        last_field = manual and control.fields.last_jump or config.fields.last, target = enemy, seed = now, state = self:GetState(), phase = "start", timers = {},
         move_type = self:GetMoveType(), move_collide = self:GetMoveCollide(), had_fly = self:IsFlagSet(FL_FLY), controlled = self.VJ_Controlled == true,
         deadline = now + 6, victims = {}}
-    self[config.fields.active] = action
+    self[action.field] = action
     for _, key in ipairs(timers) do
         local previous = self[key] or 0
         if previous < action.deadline then action.timers[key], self[key] = previous, action.deadline end
@@ -166,8 +204,8 @@ end
 function methods:AIUpdateLeap(now)
     local action = self:AILeapActive()
     if not action then return false end
-    local config = self:AIProfile().leap
-    if not self:AIHasCapability("leap") or disabled(self) or (config.allowed and not config.allowed(self)) or self.AttackType ~= VJ.ATTACK_TYPE_CUSTOM
+    local config = action.config or self:AIProfile().leap
+    if (not action.manual and not self:AIHasCapability("leap")) or disabled(self) or (config.allowed and not config.allowed(self)) or self.AttackType ~= VJ.ATTACK_TYPE_CUSTOM
         or self.AttackSeed ~= action.seed or self.PauseAttacks or self:GetState() ~= VJ_STATE_ONLY_ANIMATION_CONSTANT
         or (action.physics and self:GetMoveType() ~= MOVETYPE_FLYGRAVITY)
         or (self.VJ_Controlled == true) ~= action.controlled or self:GetSequence() ~= action.sequence
@@ -224,7 +262,7 @@ function methods:AILeapContact(eventCycle, eventTime)
     local action = self:AILeapActive()
     if not action or action.phase ~= "airborne" or not ownsLayer(self, action)
         or disabled(self) or self.AttackType ~= VJ.ATTACK_TYPE_CUSTOM or self.AttackSeed ~= action.seed then return false end
-    local config = self:AIProfile().leap
+    local config = action.config or self:AIProfile().leap
     if type(eventTime) ~= "number" or eventTime < action.melee_at then return false end
     -- Source supplies no layer ID with events. Require our live strike layer
     -- and its authored contact window before allowing aerial damage.

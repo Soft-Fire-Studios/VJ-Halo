@@ -56,9 +56,19 @@ local function vector(values) return Vector(values[1], values[2], values[3]) end
 local function angle(values) return Angle(values[1], values[2], values[3]) end
 
 function SWEP:CE8Attach(owner)
-    if not IsValid(owner) or not (owner.IsCE8SNPC or owner.IsCE8Elite) then return false end
-    local mount = owner.CE8WeaponMount and owner:CE8WeaponMount(self) or data.parent_offset
-    local id = owner:LookupAttachment(data.parent_attachment)
+    if not IsValid(owner) then return false end
+    if self.CE8MountOwner ~= owner then self.CE8Attached = false end
+    self.CE8MountOwner = owner
+    local mount
+    if owner.IsCE8SNPC or owner.IsCE8Elite then
+        mount = owner.CE8WeaponMount and owner:CE8WeaponMount(self) or data.parent_offset
+    elseif owner.LookupBone and owner:LookupBone("ValveBiped.Bip01_R_Hand") then
+        -- The Valve attachment already rolls the hand frame upright. Align
+        -- our authored Marine grip to it, preserving the weapon's grip pivot.
+        mount = data.valve_offset
+    end
+    if not mount then return false end
+    local id = owner:LookupAttachment(mount.attachment or data.parent_attachment)
     if id <= 0 then return false end
     self:RemoveEffects(EF_BONEMERGE)
     self:AddEffects(EF_PARENT_ANIMATES)
@@ -73,6 +83,7 @@ function SWEP:CE8Attach(owner)
 end
 
 function SWEP:OnEquip(owner)
+    self.CE8DropPhysics = nil
     self.NPC_BulletSpawnAttachment = data.attack_origin or data.muzzle
     local label = IsValid(owner) and owner.CE8UnitLabel
     self.CE8AnimationClass = data.unit_classes[label] or data.native_class
@@ -82,7 +93,13 @@ function SWEP:OnEquip(owner)
     self:CE8Attach(owner)
     self.CE8Burst = nil
     self.CE8Trigger, self.CE8NextTriggerT = nil, nil
-    self.NPC_FiringDistanceMax = difficulty.Unit(data, owner).max_range or data.max_range
+    local unit = difficulty.Unit(data, owner)
+    self.NPC_FiringDistanceMax = unit.max_range or data.max_range
+    if owner.CE8Data and owner:CE8Data().weapon_profiles and unit.min_range then
+        -- VJ clamps the owner before OnEquip. Apply this rank's authored
+        -- weapon limits here so its cached 2400-unit default cannot cap snipers.
+        owner.Weapon_MinDistance, owner.Weapon_MaxDistance = unit.min_range, unit.max_range
+    end
     self.CE8FireEnemy = nil
     self.CE8NextBurstT = nil
     self.CE8FireOwner = nil
@@ -123,6 +140,13 @@ function SWEP:CE8UpdateHeat(now)
     if recovered or not self.CE8HeatNetworked then self:CE8SyncHeat(now) end
 end
 
+local function knownState(owner, kind)
+    local profile = owner.AIProfile and owner:AIProfile()
+    local config = profile and profile[kind]
+    local field = config and config.fields.active or (kind == "postcombat" and "CE8PostCombat" or "CE8Search")
+    return owner[field], field, config
+end
+
 function SWEP:CE8UpdateFireContext(owner, now)
     local enemy = owner:GetEnemy()
     local reloading = owner.GetWeaponState and owner:GetWeaponState() == VJ.WEP_STATE_RELOADING
@@ -138,8 +162,11 @@ function SWEP:CE8UpdateFireContext(owner, now)
     end
     local ready = visible and active and not reloading or false
     local blind, corpse
-    if owner.CE8BlindFirePoint and (not visible or (owner.CE8PostCombat and owner.CE8PostCombat.firing)) then
-        blind, corpse = owner:CE8BlindFirePoint(self, enemy)
+    local remains = knownState(owner, "postcombat")
+    if not visible or (remains and remains.firing) then
+        if owner.AICorpseFirePoint then blind, corpse = owner:AICorpseFirePoint(self) end
+        if not blind and owner.AISuppressionPoint then blind = owner:AISuppressionPoint(self, enemy) end
+        if not blind and owner.CE8BlindFirePoint then blind, corpse = owner:CE8BlindFirePoint(self, enemy) end
     end
     if corpse then enemy, visible = corpse, false end
     self.CE8CorpseTarget = corpse
@@ -161,14 +188,14 @@ end
 local function finishKnownBurst(action, corpse)
     if not action then return end
     action.bursts_fired = (action.bursts_fired or 0) + 1
-    if corpse then
+    if corpse or action.burst_limit then
         action.burst_done = action.bursts_fired >= (action.burst_limit or 1)
     end -- Suppression retains normal bursts until its action deadline.
 end
 
 function SWEP:CE8FireKnownPosition(owner, now)
     if not self.CE8BlindAim then return end
-    local action = self.CE8CorpseTarget and owner.CE8PostCombat or owner.CE8Search
+    local action = knownState(owner, self.CE8CorpseTarget and "postcombat" or "search")
     -- Count an interrupted burst once, preserving its ordinary separation.
     -- The next burst keeps its normal pause; corpse fire also has a count cap.
     if self.CE8Burst and now >= self.CE8Burst.finish then
@@ -207,7 +234,9 @@ function SWEP:CE8FireKnownPosition(owner, now)
 end
 
 function SWEP:CE8FireCorpse(owner, now)
-    local point, corpse = owner:CE8CorpseFirePoint(self)
+    local point, corpse
+    if owner.AICorpseFirePoint then point, corpse = owner:AICorpseFirePoint(self)
+    else point, corpse = owner:CE8CorpseFirePoint(self) end
     if not point or corpse ~= self.CE8CorpseTarget then return end
     -- VJ's native checks/PrimaryAttack require an enemy entity. Supply the
     -- actual corpse only during this synchronous call; never add it to enemy
@@ -215,18 +244,20 @@ function SWEP:CE8FireCorpse(owner, now)
     local previous, cached, state = owner:GetEnemy(), owner.EnemyData, owner.WeaponAttackState
     local context = setmetatable({Target = corpse, Visible = false,
         Distance = owner:GetPos():Distance(point)}, {__index = cached})
-    owner.CE8CorpseShot = corpse
+    local _, field, config = knownState(owner, "postcombat")
+    local transient = config and config.fields.transient_target or "CE8CorpseShot"
+    owner[transient] = corpse
     owner:SetEnemy(corpse)
     owner.EnemyData = context
     local ok, failure = xpcall(function() self:CE8FireKnownPosition(owner, now) end, debug.traceback)
     if IsValid(owner) then
-        owner.CE8CorpseShot = nil
+        owner[transient] = nil
         if owner:GetEnemy() == corpse then owner:SetEnemy(IsValid(previous) and previous or NULL) end
         if owner.EnemyData == context then owner.EnemyData = cached end
         if owner.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND then owner.WeaponAttackState = state end
         if not ok then
-            owner:CE8EndCorpseFire(now)
-            owner.CE8PostCombat = nil
+            if owner.AIEndCorpseFire then owner:AIEndCorpseFire(now) else owner:CE8EndCorpseFire(now) end
+            owner[field] = nil
             ErrorNoHalt("CE8 corpse firing: " .. tostring(failure) .. "\n")
         end
     end
@@ -416,7 +447,7 @@ end
 function SWEP:OnThink()
     self:CE8SyncGaugeAmmo()
     local owner = self:GetOwner()
-    if IsValid(owner) and (owner.IsCE8SNPC or owner.IsCE8Elite) and (self:GetParent() ~= owner or not self.CE8Attached) then
+    if IsValid(owner) and (self.CE8MountOwner ~= owner or (self.CE8Attached and self:GetParent() ~= owner)) then
         self:CE8Attach(owner)
     end
     if SERVER and IsValid(owner) and owner:IsNPC() then
@@ -447,7 +478,7 @@ function SWEP:OnPrimaryAttack(status)
         if SERVER and data.projectile and IsValid(owner) then self:CE8SpawnProjectile(owner) end
         for index = 2, #layers do
             local choices = layers[index]
-            if choices and #choices > 0 then self:EmitSound(choices[math.random(#choices)], 85, 100, 1, CHAN_AUTO) end
+            if choices and #choices > 0 then VJ.EmitSound(self, choices, 85, 100, 1, CHAN_AUTO) end
         end
         if SERVER then
             if eventMelee(owner) then
@@ -475,14 +506,15 @@ function SWEP:OnPrimaryAttack_BulletCallback(attacker, trace, damage)
     if not SERVER or data.projectile or not data.needle or damage:GetDamage() <= 0 then return end
     local target = trace.Entity
     if target == attacker then return end
-    local contact = effects.NeedleContact(target, trace)
+    local contact,receiver,bone = effects.NeedleContact(target, trace)
     if not contact then return end
+    target=receiver
     local health = contact == "unit" and target:Health() or nil
     -- The callback runs before Source applies bullet damage. Copy the trace
     -- values now; DamageInfo must not be retained beyond this callback.
     local hit = {HitPos = Vector(trace.HitPos), Normal = Vector(trace.Normal),
         HitBox = trace.HitBox, HitBoxSet = trace.HitBoxSet, PhysicsBone = trace.PhysicsBone,
-        MatType = trace.MatType, HitSky = trace.HitSky}
+        MatType = trace.MatType, HitSky = trace.HitSky, ColliderBone=bone}
     timer.Simple(0, function()
         if not IsValid(target) or (health and (target:Health() <= 0 or target:Health() >= health)) then return end
         local projectile = ents.Create("obj_ce8_projectile")
@@ -502,14 +534,50 @@ function SWEP:OnPrimaryAttack_BulletCallback(attacker, trace, damage)
     end)
 end
 
-function SWEP:OnDrop()
+function SWEP:OnDrop(owner)
     local pos, ang = self:GetPos(), self:GetAngles()
-    baseclass.Get("weapon_vj_base").OnDrop(self)
+    baseclass.Get("weapon_vj_base").OnDrop(self, owner)
     self:SetParent(NULL)
     self:RemoveEffects(EF_PARENT_ANIMATES)
     self:SetPos(pos)
     self:SetAngles(ang)
+    if SERVER and self.CE8Attached then
+        -- Our attachment deliberately removes EF_BONEMERGE. Source's drop
+        -- can therefore initialize physics before this custom parent clears.
+        -- Death may run inside a projectile's physics callback. Rebuild the
+        -- unparented model PHY only after that callback has returned.
+        local pending = {}
+        self.CE8DropPhysics = pending
+        timer.Simple(0, function()
+            if not IsValid(self) or self.CE8DropPhysics ~= pending then return end
+            self.CE8DropPhysics = nil
+            if IsValid(self:GetOwner()) or IsValid(self:GetParent()) or self.CE8Attached then return end
+            -- VJ applies its death impulse/mass/gravity AFTER OnDrop returns.
+            -- Read those now instead of restoring a stale pre-death snapshot.
+            local previous = self:GetPhysicsObject()
+            local velocity = IsValid(previous) and previous:GetVelocity() or self:GetVelocity()
+            local spin = IsValid(previous) and previous:GetAngleVelocity() or Vector()
+            local mass = IsValid(previous) and previous:GetMass()
+            local gravity = not IsValid(previous) or previous:IsGravityEnabled()
+            if self:PhysicsInit(SOLID_VPHYSICS) then
+                self:SetMoveType(MOVETYPE_VPHYSICS)
+                self:SetCollisionGroup(COLLISION_GROUP_WEAPON)
+                self:AddSolidFlags(FSOLID_TRIGGER) -- Preserve engine pickup touch.
+                local physics = self:GetPhysicsObject()
+                if IsValid(physics) then
+                    if mass then physics:SetMass(mass) end
+                    physics:EnableCollisions(true)
+                    physics:EnableMotion(true)
+                    physics:EnableGravity(gravity)
+                    physics:SetVelocity(velocity)
+                    physics:AddAngleVelocity(spin)
+                    physics:Wake()
+                end
+            end
+        end)
+    end
     self.CE8Attached = false
+    self.CE8MountOwner = nil
     self.CE8Trigger, self.CE8NextTriggerT = nil, nil
 end
 

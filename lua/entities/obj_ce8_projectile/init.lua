@@ -13,6 +13,76 @@ ENT.HasIdleSounds = false
 ENT.HasOnCollideSounds = false
 ENT.CE8CollisionRadius = 1
 
+local function contactHitbox(trace, target, set)
+    return trace and trace.Hit and not trace.StartSolid and not trace.AllSolid
+        and trace.Entity == target and type(trace.HitBox) == "number"
+        and trace.HitBox >= 0 and trace.HitBox < target:GetHitBoxCount(set)
+        and trace.HitBox % 1 == 0 and (trace.HitBoxSet == nil or trace.HitBoxSet == set)
+        and bit.band(trace.Contents or 0, CONTENTS_HITBOX) ~= 0
+end
+
+-- Physics contacts usually contain a hull hit, not a model hitbox. Refine only
+-- an actual victim contact, once, along that projectile's incoming trajectory.
+function ENT:CE8ContactTrace(collision, target)
+    local set = target:GetHitboxSet()
+    if contactHitbox(collision, target, set) then
+        collision.HitBoxSet = set
+        return collision
+    end
+    local velocity = collision.OurOldVelocity or collision.Normal
+    if not velocity or velocity:LengthSqr() <= 0 or not collision.HitPos then return end
+    local direction = velocity:GetNormalized()
+    local trace = util.TraceLine({start = collision.HitPos - direction * 8,
+        endpos = collision.HitPos + direction * (target:BoundingRadius() * 2 + 8),
+        mask = MASK_SHOT, filter = function(entity) return entity == target end})
+    if contactHitbox(trace, target, set) then
+        trace.HitBoxSet = set
+        return trace
+    end
+end
+
+function ENT:CE8ConsumeDamageTrace(target, damage)
+    local contact = self.CE8DamageContact
+    if not contact or contact.target ~= target or contact.time ~= CurTime()
+        or damage:GetInflictor() ~= self or damage:GetAttacker() ~= contact.attacker
+        or damage:GetDamageType() ~= contact.kind or damage:IsDamageType(DMG_BLAST)
+        or damage:GetDamagePosition():DistToSqr(contact.position) >= 0.0001 then return end
+    self.CE8DamageContact = nil
+    return contact.trace
+end
+
+function ENT:DealDamage(collision, physics)
+    self.CE8DamageContact = nil
+    local target = collision and collision.HitEntity
+    -- VJ applies radius damage before direct damage. Do not publish a contact
+    -- for either component of those projectiles, even when they share a victim.
+    if self.DoesDirectDamage and not self.DoesRadiusDamage
+        and bit.band(self.DirectDamageType, DMG_BLAST) == 0
+        and IsValid(target) and target.AIAnatomyBinding then
+        local trace = self:CE8ContactTrace(collision, target)
+        if trace then
+            local owner = self:GetOwner()
+            self.CE8DamageContact = {target = target, trace = trace, time = CurTime(),
+                position = Vector(collision.HitPos), kind = self.DirectDamageType,
+                attacker = IsValid(owner) and owner or self}
+        end
+    end
+    local previousBlast=self.CE8BlastOrigin
+    if self.DoesRadiusDamage then
+        self.CE8BlastOrigin=collision and collision.HitPos or self:GetPos()
+        local parent=self.VJ_ST_Grabbed and self:GetParent()
+        if IsValid(parent) and parent:IsNPC() then self.CE8BlastOrigin=parent:GetPos() end
+    end
+    if not self.CE8DamageContact and not self.CE8BlastOrigin then return self.BaseClass.DealDamage(self, collision, physics) end
+    -- Keep VJ's filtering, special-entity handling and single damage call. The
+    -- provenance exists only during that call, including when a callback fails.
+    local ok, result = pcall(self.BaseClass.DealDamage, self, collision, physics)
+    self.CE8DamageContact = nil
+    self.CE8BlastOrigin=previousBlast
+    if not ok then error(result, 0) end
+    return result
+end
+
 function ENT:PreInit()
     local data = self.CE8Data
     if not data then self:Remove() return end
@@ -67,7 +137,11 @@ function ENT:InitPhys()
         physics:EnableGravity(false)
         physics:EnableDrag(false)
         physics:SetBuoyancyRatio(0)
-        if self.CE8Data.grenade then physics:SetMaterial("metal") end
+        if self.CE8Data.grenade then
+            physics:SetMaterial("metal")
+            local settling = self.CE8Data.settling
+            if settling then physics:SetDamping(0, settling.angular_damping) end
+        end
     end
     return true
 end
@@ -126,9 +200,71 @@ function ENT:CE8GrenadeSound(kind)
     local cues = self.CE8Data.sounds
     for _, choices in ipairs(cues and cues[kind] or {}) do
         if #choices > 0 then
-            self:EmitSound(choices[math.random(#choices)], kind == "explode" and 100 or 70, 100, 1, CHAN_AUTO)
+            if kind == "explode" then
+                -- This entity is removed immediately after its destruction hook.
+                EmitSound(choices[math.random(#choices)], self:GetPos(), 0, CHAN_AUTO, 1, 100, 0, 100)
+            else
+                VJ.EmitSound(self, choices, 70, 100, 1, CHAN_AUTO)
+            end
         end
     end
+end
+
+-- Kamikaze grenades use the same projectile, particles, sounds and blast as
+-- thrown grenades. Parenting pauses their fuse; release restores real physics.
+function ENT:CE8Hold(actor, attachment)
+    if not self.CE8Data.grenade or self.Dead or self.CE8HeldBy or not IsValid(actor) then return false end
+    local id = actor:LookupAttachment(attachment)
+    local transform = id and id > 0 and actor:GetAttachment(id)
+    local physics = self:GetPhysicsObject()
+    if not transform or not IsValid(physics) then return false end
+    physics:EnableMotion(false)
+    self:SetMoveType(MOVETYPE_NONE)
+    self:SetSolid(SOLID_NONE)
+    self:AddEffects(EF_PARENT_ANIMATES)
+    self:SetParent(actor, id)
+    self:SetLocalPos(Vector(0, 0, 0))
+    self:SetLocalAngles(Angle(0, 0, 0))
+    self.CE8HeldBy = actor
+    self.CE8DetonateAt = nil
+    return true
+end
+
+function ENT:CE8ReleaseHeld(armDelay)
+    if self.Dead or not self.CE8HeldBy then return false end
+    local actor = self.CE8HeldBy
+    local position, angles = self:GetPos(), self:GetAngles()
+    self.CE8HeldBy = nil
+    self:SetParent(nil)
+    self:RemoveEffects(EF_PARENT_ANIMATES)
+    self:SetMoveType(MOVETYPE_VPHYSICS)
+    self:SetSolid(SOLID_VPHYSICS)
+    self:SetPos(position)
+    self:SetAngles(angles)
+    local physics = self:GetPhysicsObject()
+    if IsValid(physics) then
+        physics:EnableMotion(true)
+        physics:Wake()
+        physics:SetVelocityInstantaneous(IsValid(actor) and actor:GetVelocity() or Vector(0, 0, 0))
+    end
+    local now = CurTime()
+    self.CE8ArmedAt = now
+    self.CE8DetonateAt = now + math.max(0, armDelay or math.Rand(self.CE8Data.fuse[1], self.CE8Data.fuse[2]))
+    self.CE8Expires = math.max(self.CE8Expires or 0, self.CE8DetonateAt + 1)
+    self:CE8GrenadeSound("arm")
+    return true
+end
+
+function ENT:CE8DetonateHeld()
+    if self.Dead or not self.CE8HeldBy then return false end
+    local physics = self:GetPhysicsObject()
+    if not IsValid(physics) then return false end
+    local collision = {HitPos = self:GetPos(), HitNormal = Vector(0, 0, 1), HitEntity = game.GetWorld()}
+    self.CE8HeldBy = nil
+    self.Dead = true
+    self:DealDamage(collision, physics)
+    self:Destroy(collision, physics)
+    return true
 end
 
 function ENT:CE8AdvanceVelocity(velocity, dt)
@@ -151,7 +287,7 @@ function ENT:CE8AdvanceVelocity(velocity, dt)
 end
 
 function ENT:OnCollision(collision, physics)
-    if self.CE8BarrierPending then return true end
+    if self.CE8BarrierPending or self.CE8HeldBy then return true end
     if CE8 and CE8.Barrier then CE8.Barrier.Redirect(self, collision) end
     if self.CE8NeedlePending or self.CE8NeedleTarget then return true end
     if not self.CE8Data.grenade and not self.CE8RicochetPending and self.CE8Sounds then
@@ -161,10 +297,12 @@ function ENT:OnCollision(collision, physics)
     end
     if self.CE8Data.needle then
         local target = collision.HitEntity
-        local contact = target ~= self:GetOwner() and effects.NeedleContact(target, collision)
+        local contact,receiver,bone
+        if target~=self:GetOwner() then contact,receiver,bone=effects.NeedleContact(target,collision) end
         if contact then
-            self.CE8NeedlePending = target
-            self.CE8NeedleHealth = contact == "unit" and target:Health() or nil
+            self.CE8NeedlePending = receiver
+            self.CE8NeedleHealth = contact == "unit" and receiver:Health() or nil
+            collision.ColliderBone=bone
             self.CE8NeedleAccepted = contact == "surface"
             self.CollisionBehavior = VJ.PROJ_COLLISION_PERSIST
             return -- VJ deals the impact once, then defers OnCollisionPersist.
@@ -222,8 +360,17 @@ function ENT:OnCollision(collision, physics)
             -- Native response loses tangent and normal velocity independently.
             -- Work relative to the contacted surface, then restore its motion.
             local normalVelocity = normal * approach
+            local settling = self.CE8Data.settling
             local reflected = (incoming - normalVelocity) * (1 - response.parallel_friction)
-                - normalVelocity * (1 - response.perpendicular_friction) + surfaceVelocity
+                    * (settling and settling.slide_scale or 1)
+                - normalVelocity * (1 - response.perpendicular_friction)
+                    * (settling and settling.bounce_scale or 1)
+            -- Only settle on an upward supporting surface. Wall contacts must
+            -- still fall, and a moving prop's world velocity must be preserved.
+            if settling and normal.z > 0.7 and reflected:LengthSqr() <= settling.rest_speed ^ 2 then
+                reflected = Vector(0, 0, 0)
+            end
+            reflected = reflected + surfaceVelocity
             self.CE8RicochetPending = true
             timer.Simple(0, function()
                 if not IsValid(self) or self.Dead then return end
@@ -235,6 +382,7 @@ function ENT:OnCollision(collision, physics)
                 -- supersede this bounce if both contacts occurred this tick.
                 object:Wake()
                 object:SetVelocityInstantaneous(reflected)
+                if settling then object:AddAngleVelocity(-object:GetAngleVelocity()) end
             end)
         end
         return true -- World contacts bounce/settle, never detonate on impact.
@@ -295,7 +443,7 @@ function ENT:OnDealDamage(collision, physics, hitEntities)
     local target = self.CE8NeedlePending
     if not IsValid(target) or not hitEntities or not self.CE8NeedleHealth then return end
     for _, hit in ipairs(hitEntities) do
-        if hit == target and target:Health() < self.CE8NeedleHealth then
+        if (hit == target or IsValid(hit) and hit.IsPRPCollider and hit:GetOwner()==target) and target:Health() < self.CE8NeedleHealth then
             self.CE8NeedleAccepted = true
             return
         end
@@ -315,21 +463,23 @@ end
 
 function ENT:CE8EmbedNeedle(target, hit)
     if self.Dead or self.CE8NeedleTarget or not self.CE8Data.needle or target == self:GetOwner() then return false end
-    local contact = effects.NeedleContact(target, hit)
+    local contact,receiver,colliderBone = effects.NeedleContact(target, hit)
     if not contact then return false end
+    target=receiver
+    colliderBone=colliderBone or hit.ColliderBone
     local unit, world = contact == "unit", target:IsWorld()
     local direction = hit.OurOldVelocity or hit.Normal or self:GetForward()
     if direction:LengthSqr() == 0 then direction = self:GetForward() end
     direction = direction:GetNormalized()
     -- Physics contacts can contain only a hull hit. Resolve its actual hitbox
     -- along the incoming path; never pick a nearby bone by distance.
-    if unit and hit.HitBox == nil then
+    if unit and hit.HitBox == nil and colliderBone==nil then
         local trace = util.TraceLine({start = hit.HitPos - direction * (target:BoundingRadius() * 2 + 8),
             endpos = hit.HitPos + direction * 8, mask = MASK_SHOT,
             filter = function(entity) return entity == target end})
         if trace.Entity == target then hit = trace end
     end
-    local bone = not world and hit.HitBox ~= nil and target:GetHitBoxBone(hit.HitBox, hit.HitBoxSet or 0)
+    local bone = colliderBone or not world and hit.HitBox ~= nil and target:GetHitBoxBone(hit.HitBox, hit.HitBoxSet or 0)
     if not bone and not world and hit.PhysicsBone ~= nil then bone = target:TranslatePhysBoneToBone(hit.PhysicsBone) end
     local matrix = bone and bone >= 0 and target:GetBoneParent(bone) >= 0 and
         target:BoneHasFlag(bone, BONE_USED_BY_VERTEX_LOD0) and target:GetBoneMatrix(bone)
@@ -429,6 +579,7 @@ function ENT:CE8Supercombine(position, host)
     local maximum = math.Rand(blast.amount[1], blast.amount[2])
     self.DoesDirectDamage = true
     self.DirectDamageType = DMG_BLAST
+    self.CE8BlastOrigin=position
     -- VJ's radius helper cannot set this curve or a per-recipient damage value.
     -- Keep its existing DealDamage path for filtering, attribution and special
     -- entities; only the radius, obstruction test and falloff are CE8-specific.
@@ -470,7 +621,9 @@ function ENT:OnDestroy(collision)
     if self.CE8Combined then
         effects.Supercombine(self.CE8Data, collision.HitPos)
         for _, choices in ipairs(self.CE8Data.needle.sounds or {}) do
-            if #choices > 0 then self:EmitSound(choices[math.random(#choices)], 100, 100, 1, CHAN_AUTO) end
+            if #choices > 0 then
+                EmitSound(choices[math.random(#choices)], collision.HitPos, 0, CHAN_AUTO, 1, 100, 0, 100)
+            end
         end
         return
     end
@@ -500,8 +653,13 @@ function ENT:CustomOnRemove()
     self.CE8NeedleTarget, self.CE8NeedleGroup = nil, nil
 end
 
+function ENT:StartTouch(entity)
+    if entity.ColliderParts and self.CE8Data and not self.CE8Data.grenade then return end
+    return self.BaseClass.StartTouch(self,entity)
+end
+
 function ENT:PhysicsUpdate(physics)
-    if self.Dead or self.CE8BarrierPending or self.CE8RicochetPending or self.CE8GrenadePending or self.CE8StuckTo
+    if self.Dead or self.CE8HeldBy or self.CE8BarrierPending or self.CE8RicochetPending or self.CE8GrenadePending or self.CE8StuckTo
         or self.CE8NeedlePending or self.CE8NeedleTarget then return end
     local data = self.CE8Data
     if not data then return end
@@ -538,6 +696,15 @@ end
 
 function ENT:OnThink()
     if self.Dead then return end
+    if self.CE8HeldBy then
+        if not IsValid(self.CE8HeldBy) or self.CE8HeldBy:Health() <= 0 or self.CE8HeldBy.Dead then
+            self:CE8ReleaseHeld()
+        elseif CurTime() >= self.CE8Expires then
+            -- Safety bound if the owning AI was interrupted without cleanup.
+            self:Remove()
+        end
+        return
+    end
     if CurTime() >= self.CE8Expires then
         if self.CE8Data.needle then self:CE8ExpireNeedle() else self:Remove() end
         return

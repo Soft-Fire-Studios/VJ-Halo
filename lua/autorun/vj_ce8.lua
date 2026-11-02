@@ -3,6 +3,13 @@
 if SERVER then
     CE8 = CE8 or {}
     CE8.HeadProfiles = include("campaign_evolved/heads.lua")
+    CE8.ControlProfiles = include("campaign_evolved/possession.lua").owners
+end
+if SERVER then
+    AddCSLuaFile("campaign_evolved/hud.lua")
+    AddCSLuaFile("autorun/client/ce8_hud.lua")
+else
+    include("autorun/client/ce8_hud.lua")
 end
 local covenantWeapons = include("campaign_evolved/weapons.lua")
 local difficulty = include("campaign_evolved/difficulty.lua")
@@ -12,6 +19,13 @@ if SERVER then
     AddCSLuaFile("campaign_evolved/elite_anims.lua")
     AddCSLuaFile("campaign_evolved/human.lua")
     AddCSLuaFile("campaign_evolved/actor.lua")
+    AddCSLuaFile("campaign_evolved/flood_gib_models.lua")
+    AddCSLuaFile("campaign_evolved/armor_parts.lua")
+    AddCSLuaFile("campaign_evolved/collision.lua")
+    AddCSLuaFile("autorun/client/ce8_collision_debug.lua")
+    AddCSLuaFile("campaign_evolved/hunter_colliders.lua")
+    AddCSLuaFile("campaign_evolved/jackal_colliders.lua")
+    AddCSLuaFile("campaign_evolved/jackal_collision.lua")
     AddCSLuaFile("campaign_evolved/sounds/elite.lua")
     AddCSLuaFile("campaign_evolved/sounds/elite_shield.lua")
     AddCSLuaFile("campaign_evolved/weapons.lua")
@@ -34,12 +48,20 @@ if not VJ or not VJ.AddNPC_HUMAN then
     return
 end
 
+include("campaign_evolved/collision.lua")
+
 -- Register explicitly as well as supporting GMod's normal entity loader. This
 -- lets lua_openscript load the new classes into an already running local map.
 local previousENT, previousSWEP = ENT, SWEP
 local eliteData
 local rosterData = {}
 local ok, message = xpcall(function()
+    ENT = {}
+    include("entities/obj_prp_collider.lua")
+    scripted_ents.Register(ENT, "obj_prp_collider")
+    ENT = {}
+    include("entities/obj_ce8_armor.lua")
+    scripted_ents.Register(ENT, "obj_ce8_armor")
     ENT = {}
     include("entities/obj_ce8_barrier.lua")
     scripted_ents.Register(ENT, "obj_ce8_barrier")
@@ -62,7 +84,7 @@ local ok, message = xpcall(function()
             scripted_ents.Register(ENT, eliteData.ranks[rank].class_name)
         end
     end
-    for _, owner in ipairs({"grunt", "jackal", "hunter", "flood_combat_human", "flood_combat_elite",
+    for _, owner in ipairs({"grunt", "jackal", "brute", "hunter", "flood_combat_human", "flood_combat_elite",
         "flood_tank", "flood_infection", "flood_carrier"}) do
         ENT = {}
         if owner:sub(1, 6) == "flood_" then
@@ -151,7 +173,8 @@ if SERVER then
     hook.Add("PostEntityFireBullets", "CE8Gunfire", core.ObserveBullet)
     hook.Add("CreateEntityRagdoll", "CE8PostCombatCorpse", function(victim, corpse)
         local actor = IsValid(victim) and victim.CE8CorpseObserver
-        local action = IsValid(actor) and actor.CE8PostCombat
+        local config = IsValid(actor) and actor.AIProfile and actor:AIProfile().postcombat
+        local action = config and actor[config.fields.active]
         if action and action.victim == victim and IsValid(corpse) then action.corpse = corpse end
     end)
     concommand.Add("ce8_weapon_report", function(ply)
@@ -171,37 +194,187 @@ if SERVER then
         file.Write("campaign_evolved/weapon_fire.json", util.TableToJSON(report, true))
         print("CE8 weapon firing report saved: " .. weapon.CE8WeaponName)
     end)
-    -- Apply the facing correction to existing NPCs on explicit Lua reload.
-    for _, actor in ipairs(ents.FindByClass("npc_vj_ce8_elite*")) do
-        actor.ConstantlyFaceEnemy = false
-        actor.SoundTbl_GrenadeSight = actor.SoundTbl_DangerSight
-        local footsteps = GetConVar("vj_npc_snd_footstep")
-        actor.HasFootstepSounds = not footsteps or footsteps:GetBool()
-        actor.DisableFootStepSoundTimer = true
-        actor.CE8FootAttachments = nil
-        actor.CE8FootstepLast = nil
-        if actor.CE8ApplyStats then actor:CE8ApplyStats(false) end
-        actor.CE8ActivitySets = nil
-        if actor.CE8ConfigureAI then
-            actor:CE8ConfigureAI()
-            if actor.JumpParams.Enabled then actor:CapabilitiesAdd(CAP_MOVE_JUMP) end
-        end
-        local weapon = actor.GetActiveWeapon and actor:GetActiveWeapon()
-        local settings = IsValid(weapon) and covenantWeapons[weapon.CE8WeaponName]
-        if settings then
-            weapon.CE8Data = settings
-            weapon.CE8Grip = settings.grip
-            weapon.CE8GripType = settings.grip_type
-            if weapon.OnEquip then weapon:OnEquip(actor) end
-            if actor.OnWeaponChange then actor:OnWeaponChange(weapon) end
-        end
-        local facing = actor.CurrentSchedule and actor.CurrentSchedule.TurnData
-        if facing and (facing.Type == VJ.FACE_ENEMY or facing.Type == VJ.FACE_ENEMY_VISIBLE)
-            and IsValid(actor:GetEnemy()) then
-            actor:SetTurnTarget("Enemy", -1, false, facing.Type == VJ.FACE_ENEMY_VISIBLE)
-            actor.TurnData.IsSchedule = true
+    -- Refresh supported Human profiles on explicit reload, preserving health,
+    -- shield damage, grenade counts and active berserk state.
+    for _, actor in ipairs(ents.FindByClass("npc_vj_ce8_*")) do
+        -- Retire native head control on existing Human and Creature actors too.
+        if actor.AIPrepareGaze then actor:AIPrepareGaze() end
+        if actor.IsCE8Elite or actor.CE8UnitLabel == "grunt" or actor.CE8UnitLabel == "jackal" or actor.CE8UnitLabel == "brute" then
+            actor.ConstantlyFaceEnemy = false
+            actor.SoundTbl_GrenadeSight = actor.SoundTbl_DangerSight
+            local footsteps = GetConVar("vj_npc_snd_footstep")
+            actor.HasFootstepSounds = not footsteps or footsteps:GetBool()
+            actor.DisableFootStepSoundTimer = true
+            actor.CE8FootAttachments = nil
+            actor.CE8FootstepLast = nil
+            if actor.CE8ApplyStats then actor:CE8ApplyStats(false) end
+            actor.CE8ActivitySets = nil
+            if actor.AIMotionProfile then
+                local fields = actor:AIMotionProfile().fields
+                actor[fields.activity_sets], actor[fields.activities] = nil, nil
+            end
+            if actor.CE8ConfigureAI then
+                actor:CE8ConfigureAI()
+                if actor.JumpParams and actor.JumpParams.Enabled then actor:CapabilitiesAdd(CAP_MOVE_JUMP) end
+            end
+            local weapon = actor.GetActiveWeapon and actor:GetActiveWeapon()
+            local settings = IsValid(weapon) and covenantWeapons[weapon.CE8WeaponName]
+            if settings then
+                weapon.CE8Data = settings
+                weapon.CE8Grip = settings.grip
+                weapon.CE8GripType = settings.grip_type
+                if weapon.OnEquip then weapon:OnEquip(actor) end
+                if actor.OnWeaponChange then actor:OnWeaponChange(weapon) end
+            end
+            local facing = actor.CurrentSchedule and actor.CurrentSchedule.TurnData
+            if facing and (facing.Type == VJ.FACE_ENEMY or facing.Type == VJ.FACE_ENEMY_VISIBLE)
+                and IsValid(actor:GetEnemy()) then
+                actor:SetTurnTarget("Enemy", -1, false, facing.Type == VJ.FACE_ENEMY_VISIBLE)
+                actor.TurnData.IsSchedule = true
+            end
         end
     end
+    concommand.Add("ce8_squad_report", function(ply, _, args)
+        if not IsValid(ply) or not ply:IsAdmin() then return end
+        local actor = ply:GetEyeTrace().Entity
+        if IsValid(actor) and (actor.IsCE8Barrier or actor.IsPRPCollider) then actor = actor:GetOwner() end
+        if not IsValid(actor) or not actor.AISquadReport then
+            ply:ChatPrint("Aim at a Campaign Evolved NPC.") return
+        end
+        local report = actor:AISquadReport()
+        if actor.ColliderParts then
+            report.collision={last=actor.ColliderLastHit,proxies=table.Count(actor.ColliderParts),parts={}}
+            for _,name in ipairs({"shield","backplate","topplate","weakspot_shell"}) do
+                report.collision.parts[name]=CE8.Collision.Active(actor,name)
+            end
+        end
+        if args and args[1] == "shield" and actor.CE8MergedBarrier then
+            report.shield={merged=true,value=actor.AIShield,maximum=actor.CE8BarrierMax,
+                down=actor.CE8BarrierDown,active=CE8.Barrier.ActorActive(actor),
+                bodygroup=actor:GetBodygroup(actor:FindBodygroupByName("barrier")),
+                last=actor.ColliderLastHit}
+        elseif args and args[1] == "shield" then
+            local part = actor.CE8Barrier
+            if not IsValid(part) then ply:ChatPrint("This NPC has no active shield entity.") return end
+            local frame = part:CE8AttachmentFrame()
+            local physics = part:GetPhysicsObject()
+            report.shield = {entity = part:EntIndex(), model = part:GetModel(),
+                value = actor.AIShield, maximum = actor.CE8BarrierMax, down = actor.CE8BarrierDown,
+                active = CE8.Barrier.Active(part), position = part:GetPos(), angles = part:GetAngles(),
+                frame = frame, solid = part:GetSolid(), flags = part:GetSolidFlags(),
+                collision_group = part:GetCollisionGroup(), move_type = part:GetMoveType(),
+                parent = IsValid(part:GetParent()), physics = IsValid(physics), rays = {}}
+            if IsValid(physics) then
+                report.shield.physics_position, report.shield.physics_angles = physics:GetPos(), physics:GetAngles()
+            end
+            if frame then
+                for _, height in ipairs({0, 10, -10}) do
+                    local start = LocalToWorld(Vector(60, 0, height), angle_zero, frame.Pos, frame.Ang)
+                    local finish = LocalToWorld(Vector(-60, 0, height), angle_zero, frame.Pos, frame.Ang)
+                    local hit = util.TraceLine({start = start, endpos = finish, mask = MASK_SHOT,
+                        filter = function(ent) return ent == part end})
+                    local native = CE8.Barrier.Trace(part, start, finish - start)
+                    report.shield.rays[#report.shield.rays + 1] = {height = height,
+                        engine_hit = hit.Entity == part, engine_entity = IsValid(hit.Entity) and hit.Entity:GetClass(),
+                        position = hit.HitPos, native_hit = native ~= nil, native_position = native and native.HitPos}
+                end
+            end
+        end
+        local timerName = "CE8SquadReport" .. ply:EntIndex()
+        timer.Remove(timerName)
+        hook.Remove("PostEntityFireBullets", timerName)
+        hook.Remove("PostEntityTakeDamage", timerName)
+        local function save()
+            file.CreateDir("campaign_evolved")
+            file.Write("campaign_evolved/squad.json", util.TableToJSON(report, true))
+            local latest = report.samples and report.samples[#report.samples].squad or report
+            print(string.format("CE8 squad: %d members, leader %s. Report saved%s.",
+                #(latest.members or {}), tostring(latest.leader or "none"),
+                report.samples and (" (" .. #report.samples .. " samples)") or ""))
+        end
+        local mode = args and args[1]
+        if mode == "shield" then
+            local part = actor.CE8MergedBarrier and actor.ColliderParts and actor.ColliderParts.default_silent or actor.CE8Barrier
+            local weapon = ply:GetActiveWeapon()
+            report.shield.player_weapon = IsValid(weapon) and weapon:GetClass()
+            report.shield.health_before = actor:Health()
+            report.shield.shots, report.shield.damage = {}, {}
+            hook.Add("PostEntityFireBullets", timerName, function(shooter, bullet)
+                if shooter ~= ply or #report.shield.shots >= 32 then return end
+                local trace = bullet.Trace
+                local firedWeapon = shooter:GetActiveWeapon()
+                report.shield.shots[#report.shield.shots + 1] = {entity = IsValid(trace.Entity) and trace.Entity:GetClass(),
+                    hit = trace.HitPos, shield = trace.Entity == part, actor = trace.Entity == actor,
+                    time = CurTime(), weapon = IsValid(firedWeapon) and firedWeapon:GetClass()}
+            end)
+            hook.Add("PostEntityTakeDamage", timerName, function(target, damage, accepted)
+                if (target ~= part and target ~= actor) or #report.shield.damage >= 32 then return end
+                report.shield.damage[#report.shield.damage + 1] = {shield = target == part,
+                    amount = damage:GetDamage(), accepted = accepted, value = actor.AIShield,
+                    health = IsValid(actor) and actor:Health()}
+            end)
+            ply:ChatPrint("CE8 shield: recording 10 seconds. Close the console and shoot the shield.")
+            timer.Create(timerName, 10, 1, function()
+                hook.Remove("PostEntityFireBullets", timerName)
+                hook.Remove("PostEntityTakeDamage", timerName)
+                report.shield.health_after = IsValid(actor) and actor:Health()
+                report.shield.value_after = IsValid(actor) and actor.AIShield
+                save()
+            end)
+            return
+        end
+        if mode ~= "watch" and mode ~= "motion" then save() return end
+        report = {mode = mode, started = CurTime(), samples = {{elapsed = 0, squad = report}}}
+        local count = mode == "motion" and 240 or 24
+        ply:ChatPrint(mode == "motion" and "CE8: recording this NPC for 12 seconds. Close the console and reproduce the movement snap."
+            or "CE8 squad: recording for 12 seconds. Close the console and break line of sight.")
+        timer.Create(timerName, 12 / count, count, function()
+            if not IsValid(actor) or not IsValid(ply) then
+                timer.Remove(timerName)
+                report.stopped = "actor_or_player_removed"
+                save() return
+            end
+            local sample = {elapsed = CurTime() - report.started, squad = actor:AISquadReport()}
+            if mode == "motion" then
+                local sequence = actor:GetSequence()
+                local fields = actor:AIMotionProfile().fields
+                local turn = actor[fields.aim_turn]
+                local motion = {entity = actor:EntIndex(), model = actor:GetModel(), position = actor:GetPos(),
+                    angles = actor:GetAngles(), velocity = actor:GetMoveVelocity(), moving = actor:IsMoving(),
+                    sequence = actor:GetSequenceName(sequence), cycle = actor:GetCycle(),
+                    activity = actor:GetActivity(), sequence_activity = actor:GetSequenceActivity(sequence),
+                    move_direction = actor[fields.move_direction], facing_direction = actor[fields.facing_direction],
+                    move_intent = actor[fields.move_intent], schedule = actor.CurrentSchedule and actor.CurrentSchedule.Name,
+                    goal_type = actor:GetCurGoalType(), ideal_yaw = actor:GetIdealYaw(),
+                    schedule_moving = actor.CurrentSchedule and actor.CurrentSchedule.HasMovement,
+                    schedule_firing = actor.CurrentSchedule and actor.CurrentSchedule.CanShootWhenMoving,
+                    turn_type = actor.TurnData and actor.TurnData.Type,
+                    turn_schedule = actor.TurnData and actor.TurnData.IsSchedule,
+                    turn_stop_on_face = actor.TurnData and actor.TurnData.StopOnFace,
+                    attack = actor.AttackType, flinching = actor.Flinching, busy = actor:IsBusy("Activities"),
+                    controlled = actor.VJ_Controlled, poses = {}, attachments = {}, layers = {}}
+                for _, name in ipairs({"aim_yaw", "aim_pitch", "head_yaw", "head_pitch"}) do
+                    if actor:LookupPoseParameter(name) >= 0 then motion.poses[name] = actor:GetPoseParameter(name) end
+                end
+                -- Read engine attachments; do not rebuild/cache/manipulate bones
+                -- or write any pose, facing, sequence or navigation state.
+                for _, name in ipairs({"forward", "head_forward", "chest"}) do
+                    local id = actor:LookupAttachment(name)
+                    if id > 0 then motion.attachments[name] = actor:GetAttachment(id) end
+                end
+                for layer = 0, 14 do
+                    if actor:IsValidLayer(layer) then
+                        motion.layers[#motion.layers + 1] = {id = layer,
+                            sequence = actor:GetSequenceName(actor:GetLayerSequence(layer)),
+                            cycle = actor:GetLayerCycle(layer), aim_turn = turn and turn.layer == layer or false}
+                    end
+                end
+                sample.motion = motion
+            end
+            report.samples[#report.samples + 1] = sample
+            if #report.samples >= count + 1 then save() end
+        end)
+    end)
     concommand.Add("ce8_elite_ai_report", function(ply)
         if not IsValid(ply) or not ply:IsAdmin() then return end
         local actor = ply:GetEyeTrace().Entity
@@ -246,7 +419,7 @@ if SERVER then
                 primary_wait = remaining(weapon.NPC_NextPrimaryFireT), overheated = weapon.CE8Overheated,
                 cone = weapon.NPC_FiringCone, clip = weapon:Clip1()}
         end
-        local report = {engagement = engagement, rank = actor.CE8Rank, health = actor:Health(), shield = actor.CE8Shield, shield_max = actor.CE8ShieldMax,
+        local report = {engagement = engagement, squad = actor:AISquadReport(), rank = actor.CE8Rank, health = actor:Health(), shield = actor.CE8Shield, shield_max = actor.CE8ShieldMax,
             behavior_profile = profile.behavior, grenades = actor.CE8Grenades,
             combat_multipliers = difficulty.Combat(),
             base_health = profile.health, base_shield = profile.shield,
