@@ -216,7 +216,8 @@ function methods:AITranslateActivity(act)
     local fields = config.fields
     if not self:AIMotionEnabled("movement") then return self:AIMotionBase("TranslateActivity", act) end
     local a = self:AIAnimationActivities()
-    local crouched = self.AIControlCrouched and self:AIControlCrouched()
+    local crouched = (self.AIControlCrouched and self:AIControlCrouched())
+        or (self.AIDefenseCrouched and self:AIDefenseCrouched())
     if crouched and a.crouch_idle and (act == ACT_IDLE or act == ACT_IDLE_ANGRY or act == ACT_COVER_LOW
         or act == ACT_RANGE_ATTACK1 or act == ACT_RANGE_ATTACK1_LOW) then return a.crouch_idle end
     if act == ACT_JUMP and self:GetNavType() == NAV_JUMP and self:IsGoalActive() then
@@ -278,6 +279,26 @@ function methods:AITranslateActivity(act)
         return baseActivity
     end
     return self:AIMotionBase("TranslateActivity", act)
+end
+
+-- Refresh only the stance when its policy changes, preserving VJ's current
+-- movement route and firing timers. No recurring PlayAnim or schedule reset.
+function methods:AIRefreshStance(crouched)
+    if not self:AIMotionEnabled("movement") then return end
+    local a = self:AIAnimationActivities()
+    local config = self:AIMotionProfile()
+    if self.CurrentSchedule then self.CurrentSchedule[config.fields.schedule_crouch] = nil end
+    if self:IsMoving() then
+        self:SetMovementActivity(self:TranslateActivity(crouched and ACT_WALK or ACT_RUN))
+    else
+        local current = self:GetSequenceActivity(self:GetSequence())
+        if current == a.combat_idle or current == a.crouch_idle or current == a.patrol_idle then
+            self:SetIdealActivity(crouched and a.crouch_idle or a.combat_idle)
+        end
+    end
+    if self.WeaponAttackAnim == a.combat_idle or self.WeaponAttackAnim == a.crouch_idle then
+        self.WeaponAttackAnim = crouched and a.crouch_idle or a.combat_idle
+    end
 end
 
 local movementYaw = {front = 0, back = 180, left = 90, right = -90}
@@ -512,7 +533,36 @@ function methods:AIAnimateAimTurn(eligible, inside, yaw, posture)
         finish = now + self:SequenceDuration(sequence) / rate}
 end
 
+function methods:AIPrepareAttackTurn(sequence, enemy)
+    local side = type(sequence) == "string" and sequence:match("_melee_(%a+)$")
+    if (side ~= "back" and side ~= "left" and side ~= "right")
+        or not IsValid(enemy) or self.AttackType then return true end
+    local id = self:LookupSequence(sequence)
+    if id < 0 then return false end
+    local valid, _, rotation = self:GetSequenceMovement(id, 0, 1)
+    if not valid or math.abs(rotation.y) < 1 then return false end
+    -- The sector selector permits off-center targets. Align BEFORE committing,
+    -- so the compiled turn starts from the heading that reaches that bearing.
+    -- VJ supplies its ordinary turn speed; no snapping or mid-swing tracking.
+    local position = self:GetPos()
+    local desired = (enemy:GetPos() - position):Angle().y - rotation.y
+    if math.abs(math.AngleDifference(desired, self:GetAngles().y)) <= 3 then return true end
+    self:StopMoving()
+    self:ClearGoal()
+    self:AIMotionBase("SetTurnTarget", position + Angle(0, desired, 0):Forward() * 64)
+    return false
+end
+
 function methods:AIMotionTurnTarget(target, faceTime, stopOnFace, visibleOnly)
+    local attack = self.AnimTbl_MeleeAttack
+    local side = type(attack) == "string" and attack:match("_melee_(%a+)$")
+    if self.AttackType == VJ.ATTACK_TYPE_MELEE and (side == "back" or side == "left" or side == "right") then
+        -- The compiled LZR curve owns this committed strike, including the
+        -- initial Human Base turn request and possession's repeated requests.
+        self:ResetTurnTarget()
+        self:SetIdealYaw(self:GetAngles().y)
+        return false
+    end
     local config = self:AIMotionProfile()
     local fields = config.fields
     -- Possession bypasses Human Base's aim cone: it faces the bullseye entity

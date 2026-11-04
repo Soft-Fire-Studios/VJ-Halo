@@ -22,7 +22,6 @@ if SERVER then
     AddCSLuaFile("campaign_evolved/flood_gib_models.lua")
     AddCSLuaFile("campaign_evolved/armor_parts.lua")
     AddCSLuaFile("campaign_evolved/collision.lua")
-    AddCSLuaFile("autorun/client/ce8_collision_debug.lua")
     AddCSLuaFile("campaign_evolved/hunter_colliders.lua")
     AddCSLuaFile("campaign_evolved/jackal_colliders.lua")
     AddCSLuaFile("campaign_evolved/jackal_collision.lua")
@@ -30,11 +29,21 @@ if SERVER then
     AddCSLuaFile("campaign_evolved/sounds/elite_shield.lua")
     AddCSLuaFile("campaign_evolved/weapons.lua")
     AddCSLuaFile("campaign_evolved/weapon.lua")
+    -- Custom-directory renderer helpers are not sent with client autoruns.
+    -- A joining client needs the whole include chain, even without local Lua.
+    AddCSLuaFile("campaign_evolved/ce8_assembly.lua")
+    AddCSLuaFile("campaign_evolved/ce8_lighting.lua")
+    AddCSLuaFile("campaign_evolved/ce8_map_lights.lua")
+    AddCSLuaFile("campaign_evolved/ce8_scene.lua")
+    AddCSLuaFile("campaign_evolved/ce8_hunter.lua")
+    AddCSLuaFile("campaign_evolved/ce8_live_details.lua")
+    AddCSLuaFile("campaign_evolved/ce8_blade.lua")
     AddCSLuaFile("campaign_evolved/ce8_gauge.lua")
     AddCSLuaFile("campaign_evolved/ce8_shield.lua")
     AddCSLuaFile("campaign_evolved/weapon_fx.lua")
     AddCSLuaFile("campaign_evolved/ballistics.lua")
     AddCSLuaFile("campaign_evolved/difficulty.lua")
+    AddCSLuaFile("campaign_evolved/ce8_bloom.lua")
     for name in pairs(covenantWeapons) do
         AddCSLuaFile("weapons/weapon_vj_ce8_" .. name .. ".lua")
         AddCSLuaFile("campaign_evolved/sounds/" .. name .. ".lua")
@@ -131,6 +140,13 @@ if CLIENT and CE8 and CE8.RefreshSpawnedModelDefinitions then CE8.RefreshSpawned
 for _, actor in ipairs(ents.FindByClass("npc_vj_ce8_elite*")) do
     actor.CE8AnimationData = nil
 end
+-- Refresh only Infection movement on explicit reload. The rest of the roster
+-- retains its native movement policy; PRP owns the separate damage carriers.
+for _, actor in ipairs(ents.FindByClass("npc_vj_ce8_flood_infection")) do
+    if SERVER then actor:SetCollisionGroup(COLLISION_GROUP_NPC) end
+    actor:SetCustomCollisionCheck(true)
+    actor:CollisionRulesChanged()
+end
 
 local weaponPools = {}
 for _, name in ipairs(eliteData.rank_order) do
@@ -199,6 +215,7 @@ if SERVER then
     for _, actor in ipairs(ents.FindByClass("npc_vj_ce8_*")) do
         -- Retire native head control on existing Human and Creature actors too.
         if actor.AIPrepareGaze then actor:AIPrepareGaze() end
+        if actor.AIConfigureWeapon then actor:AIConfigureWeapon(actor:GetActiveWeapon()) end
         if actor.IsCE8Elite or actor.CE8UnitLabel == "grunt" or actor.CE8UnitLabel == "jackal" or actor.CE8UnitLabel == "brute" then
             actor.ConstantlyFaceEnemy = false
             actor.SoundTbl_GrenadeSight = actor.SoundTbl_DangerSight
@@ -242,6 +259,14 @@ if SERVER then
             ply:ChatPrint("Aim at a Campaign Evolved NPC.") return
         end
         local report = actor:AISquadReport()
+        local profile = actor:AIProfile()
+        local defense = profile.defense and actor[profile.defense.fields.active]
+        local search = profile.search and actor[profile.search.fields.active]
+        if profile.defense then
+            report.defense = defense and {crouched=defense.crouched,pressure=defense.pressure,
+                weight=defense.weight,yaw=defense.yaw} or false
+            report.cover_obstacle = search and IsValid(search.break_target) and search.break_target:EntIndex() or false
+        end
         if actor.ColliderParts then
             report.collision={last=actor.ColliderLastHit,proxies=table.Count(actor.ColliderParts),parts={}}
             for _,name in ipairs({"shield","backplate","topplate","weakspot_shell"}) do
@@ -408,7 +433,7 @@ if SERVER then
             engagement.target_yaw = math.AngleDifference((enemy:GetPos() - actor:GetPos()):Angle().y, actor:GetAngles().y)
             engagement.distance = actor:GetPos():Distance(enemy:GetPos())
             local direction = actor:GetAimPosition(enemy, actor:GetPos(), 0) - actor:GetPos()
-            local sight = actor:GetHeadDirection()
+            local sight = actor:AIHeadDirection()
             direction.z, sight.z = 0, 0
             direction:Normalize(); sight:Normalize()
             engagement.aim_dot = sight:Dot(direction)

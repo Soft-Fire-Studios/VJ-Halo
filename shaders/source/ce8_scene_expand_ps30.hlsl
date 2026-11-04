@@ -18,7 +18,7 @@ float4 main(float2 uv:TEXCOORD0):COLOR0
 {
     if(Mode.x>3.5) return float4(tex2Dlod(Packed,float4(uv,0,0)).rg,0,1);
     if(Mode.x<.5) {
-        float pixel=floor(uv.x*320);float4 row=Parameters(floor(pixel*.5));
+        float pixel=floor(uv.x*40);float4 row=Parameters(floor(pixel*.5));
         return float4(fmod(pixel,2)<.5?row.rgb:float3(row.w,0,0),1);
     }
     if(Mode.x>1.5) {

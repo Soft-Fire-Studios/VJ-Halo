@@ -1,5 +1,18 @@
 -- Bounded severed/death debris. VJ owns death, weapons, physics and fading.
 local models = include("campaign_evolved/flood_gib_models.lua")
+-- One detachable bodygroup can contain several independent authored shells.
+local byBodygroup = {}
+for owner, pieces in pairs(models) do
+    local groups = {}; byBodygroup[owner] = groups
+    local names = {}; for name in pairs(pieces) do names[#names + 1] = name end
+    table.sort(names)
+    for _, name in ipairs(names) do
+        local piece = pieces[name]
+        local group = piece.bodygroup or name
+        groups[group] = groups[group] or {}
+        groups[group][#groups[group] + 1] = piece
+    end
+end
 local FX = include("campaign_evolved/weapon_fx.lua")
 CE8 = CE8 or {}
 CE8.FloodGibs = CE8.FloodGibs or setmetatable({}, {__mode = "k"})
@@ -106,16 +119,18 @@ end
 
 function Gibs.Sever(actor, owner, regions, changed, damage)
     if not enabled(actor) or not actor.CreateGibEntity or actor.CE8BodyDestroyed then return end
-    local pieces = models[owner]
+    local pieces = byBodygroup[owner]
     if not pieces then return end
     local count = liveCount()
     for _, name in ipairs(changed) do
         if count >= 128 then break end
-        local piece, region = pieces[name], regions[name]
-        -- Called before bodygroup changes: a hidden stump must not spawn a
-        -- second arm when the same hit destroys both forearm and upperarm.
-        local variant = piece and visible(actor, name, piece, region)
-        if variant ~= nil and spawn(actor, piece, variant, damage, false) then count = count + 1 end
+        local region = regions[name]
+        for _, piece in ipairs(pieces[region and region.bodygroup or name] or {}) do
+            if count >= 128 then break end
+            -- Called before bodygroup changes: hidden stumps cannot duplicate arms.
+            local variant = visible(actor, name, piece, region)
+            if variant ~= nil and spawn(actor, piece, variant, damage, false) then count = count + 1 end
+        end
     end
 end
 
@@ -139,17 +154,18 @@ local function detachPart(actor, name, piece)
     if id and id >= 0 then actor:SetBodygroup(id, 0) end
 end
 
-function Gibs.Destroy(actor, owner, damage, body)
+function Gibs.Destroy(actor, owner, damage, body, abandon)
     local target = body or actor
     local record = body and corpses[body]
     -- A retained combat ragdoll can be destroyed after its actor's explosive
     -- death. Its registered integrity is separate from that prior gib event.
     if target.CE8BodyDestroyed and not record then return true end
-    if not enabled(target) or not models[owner] then return false end
+    local debris = enabled(target)
+    if not models[owner] or (not debris and not abandon) then return false end
     if body then corpses[body] = nil end -- Commit before callbacks can reenter.
     -- Combat corpses lose the main body when their integrity is exhausted.
     -- Live explosive deaths and the Tank still keep their authored whole body.
-    local keepBody = retainBody[owner] and not (body and
+    local keepBody = not abandon and retainBody[owner] and not (body and
         (owner == "flood_combat_human" or owner == "flood_combat_elite"))
     target.CE8BodyDestroyed = true
     local infection = CE8.FloodInfection
@@ -165,7 +181,7 @@ function Gibs.Destroy(actor, owner, damage, body)
         local ap, bp = a.piece.priority or 50, b.piece.priority or 50
         return ap < bp or ap == bp and a.name < b.name
     end)
-    local limit = math.min(12, math.max(0, 128 - liveCount()))
+    local limit = debris and math.min(12, math.max(0, 128 - liveCount())) or 0
     local first, total = nil, 0
     for _, choice in ipairs(choices) do
         if total >= limit then break end
@@ -176,13 +192,16 @@ function Gibs.Destroy(actor, owner, damage, body)
         end
     end
     target.CE8DeathGibCount = total
-    if body and not keepBody and record and record.feedback then
-        local feedback, position = record.feedback, body:WorldSpaceCenter()
+    local feedback = record and record.feedback or abandon and actor.CE8CorpseFeedback
+    if not keepBody and feedback then
+        local position = target:WorldSpaceCenter()
         local soundSetting, allSounds = GetConVar("vj_npc_snd_gib"), GetConVar("vj_npc_snd")
-        if record.sound and (not soundSetting or soundSetting:GetBool()) and (not allSounds or allSounds:GetBool()) then
+        local sound = record and record.sound or not record and actor.HasSounds ~= false and actor.HasGibOnDeathSounds ~= false
+        local effects = record and record.effects or not record and actor.HasGibOnDeathEffects ~= false
+        if sound and (not soundSetting or soundSetting:GetBool()) and (not allSounds or allSounds:GetBool()) then
             FX.Sound(feedback.sound, position, 80)
         end
-        if record.effects and FX.Load(feedback) then ParticleEffect(feedback.effects.normal.destroy, position, Angle()) end
+        if debris and effects and FX.Load(feedback) then ParticleEffect(feedback.effects.normal.destroy, position, Angle()) end
     end
     if first and not keepBody then undo.ReplaceEntity(target, first) end
     if body then
@@ -226,7 +245,8 @@ function Gibs.Attach(ENT, data, sounds)
     end
     local previous, corpse, drop = ENT.HandleGibOnDeath, ENT.OnCreateDeathCorpse, ENT.OnDeathWeaponDrop
     function ENT:HandleGibOnDeath(damage, hitgroup)
-        local overrides = {AllowCorpse = retainBody[data.owner], AllowSound = not self.CE8BurstPlayed}
+        local overrides = {AllowCorpse = retainBody[data.owner] and not (self.CE8Escape and self.CE8Escape.child),
+            AllowSound = not data.burst and not self.CE8BurstPlayed and not (self.CE8Escape and self.CE8Escape.child)}
         if self.CE8BodyDestroyed then return true, overrides end
         if enabled(self) and not damage:IsDamageType(DMG_DISSOLVE) and not damage:IsDamageType(DMG_NEVERGIB)
             and (damage:IsDamageType(DMG_BLAST) or damage:IsDamageType(DMG_ALWAYSGIB) and not damage:IsDamageType(DMG_BULLET)) then

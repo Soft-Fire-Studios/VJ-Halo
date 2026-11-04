@@ -59,6 +59,41 @@ local function attackRange(actor, enemy, config)
         and math.abs(delta.z) <= 64 and actor:Visible(enemy)
 end
 
+-- One discovery update per action, within the existing five-trace budget.
+-- A nearby wall under the same roof gives floor pursuit an actual ceiling
+-- route; the ordinary collision sweeps still own every step onto that wall.
+local function ceilingRoute(actor, action, config)
+    local settings = config.ceiling
+    if not settings then return end
+    local position = actor:GetPos() + action.normal * action.radius
+    local height = settings.height or 512
+    local roof = trace(actor, position, position + UP * height)
+    if not usable(roof) or roof.HitNormal.z > -0.7
+        or roof.HitPos.z - position.z < action.radius * 4 then return end
+    local toward = action.target:WorldSpaceCenter() - position
+    local flat = Vector(toward.x, toward.y, 0)
+    if flat:LengthSqr() < 1 then return end
+    flat = flat:GetNormalized()
+    local side = Vector(-flat.y, flat.x, 0) * (settings.wall_range or 192)
+    -- Alternate equal-distance choices through the swarm instead of crowding
+    -- the same side. At most two nearby wall candidates, no radial search.
+    if actor:EntIndex() % 2 == 0 then side = -side end
+    local chosen
+    for _, direction in ipairs({side, -side}) do
+        local wall = trace(actor, position, position + direction)
+        if usable(wall) and math.abs(wall.HitNormal.z) < 0.5
+            and (not chosen or wall.Fraction < chosen.Fraction) then chosen = wall end
+    end
+    if not chosen then return end
+    local inside = chosen.HitPos + chosen.HitNormal * (action.radius * 2 + 2)
+    local joined = trace(actor, inside, inside + UP * height)
+    if usable(joined) and joined.HitNormal.z < -0.7
+        and math.abs(joined.HitPos.z - roof.HitPos.z) <= action.radius * 2 then
+        action.ceiling = {wall = chosen.HitPos, phase = "approach"}
+        action.climb_sign = 1
+    end
+end
+
 local function changeSurface(actor, action, normal, direction, incoming)
     local center = actor:GetPos() + action.normal * action.radius
     local corner = action.corner
@@ -81,6 +116,11 @@ local function changeSurface(actor, action, normal, direction, incoming)
     actor:SetCollisionBounds(low, high)
     action.low, action.high, action.normal = low, high, normal
     action.angle = direction:AngleEx(normal)
+    if action.ceiling then
+        if normal.z < -0.7 then action.ceiling.phase = "ceiling"
+        elseif math.abs(normal.z) < 0.5 then action.ceiling.phase = "climb"
+        elseif action.ceiling.phase ~= "approach" then action.ceiling = nil end
+    end
     return true
 end
 
@@ -185,6 +225,7 @@ function methods:AITrySurface(now, enemy)
         move_collide = self:GetMoveCollide(), state = self:GetState(), yaw = self:GetAngles().y,
         climb_sign = toward.z < -90 and -1 or 1,
         target = enemy, seed = now, deadline = now + 10, timers = {}, next_probe = now,
+        ceiling_search = config.ceiling ~= nil,
         progress = Vector(origin), progress_at = now}
     local low, high, offset = hull(action, action.normal)
     local attached = floor.HitPos + action.normal * offset
@@ -244,6 +285,12 @@ function methods:AIUpdateSurface(now)
         self:SetLocalVelocity(ZERO) -- Never travel blindly when the probe budget is exhausted.
         return true
     end
+    if action.ceiling_search then
+        action.ceiling_search = nil
+        ceilingRoute(self, action, config)
+        self:SetLocalVelocity(ZERO)
+        return true
+    end
     local position, normal = self:GetPos(), action.normal
     if position:DistToSqr(action.progress) > 12 * 12 then action.progress, action.progress_at = Vector(position), now end
     if now - action.progress_at > 1.2 then self:AIEndSurface(now, "stalled") return false end
@@ -253,16 +300,36 @@ function methods:AIUpdateSurface(now)
     end
     local toward = action.target:WorldSpaceCenter() - self:WorldSpaceCenter()
     if toward:LengthSqr() > ((config.range or 1200) * 1.25) ^ 2 then self:AIEndSurface(now, "target_range") return false end
-    if normal.z < -0.7 and toward.z < -48 and toward.x * toward.x + toward.y * toward.y < 100 * 100 then
-        self:AIEndSurface(now, "drop_to_target") return false
+    local ceiling = config.ceiling
+    local dropRange = ceiling and ceiling.drop_range or 100
+    local nearDrop = normal.z < -0.7 and toward.z < -48
+        and toward.x * toward.x + toward.y * toward.y < dropRange * dropRange
+    local dropProbe = false
+    if not nearDrop then action.drop_blocked = nil end
+    if nearDrop and now >= (action.next_drop or 0) then
+        action.next_drop, dropProbe = now + 0.3, true
+        local standing = position + normal * action.radius - (action.mins + action.maxs) * 0.5
+        local drop = util.TraceHull({start = standing,
+            endpos = Vector(standing.x, standing.y, action.target:WorldSpaceCenter().z),
+            mins = action.mins, maxs = action.maxs, mask = MASK_NPCSOLID, filter = self})
+        if not drop.Hit and not drop.StartSolid and not drop.AllSolid then
+            self:AIEndSurface(now, "drop_to_target") return false
+        end
+        -- Keep following the roof until there is a clear downward release.
+        action.drop_blocked = true
     end
     local direction = project(toward, normal)
+    if action.ceiling and action.ceiling.phase == "approach" then
+        direction = project(action.ceiling.wall - position, normal)
+    end
     if normal.z > 0.7 and direction:LengthSqr() < 1 then direction = project(self:GetForward(), normal) end
     if math.abs(normal.z) < 0.5 then
         -- Retain the chosen climb direction instead of reversing above the
         -- target and repeatedly oscillating up/down the same obstruction.
         direction = project(Vector(toward.x, toward.y, action.climb_sign * math.max(math.abs(toward.z), 160)), normal)
+        if action.ceiling and action.ceiling.phase == "climb" then direction = project(UP, normal) end
     end
+    if action.drop_blocked and direction:LengthSqr() < 1 then direction = project(self:GetForward(), normal) end
     if direction:LengthSqr() < 1 then self:AIEndSurface(now, "no_direction") return false end
     direction = direction:GetNormalized()
     local corner = action.corner
@@ -293,6 +360,9 @@ function methods:AIUpdateSurface(now)
         if usable(future) then
             nextNormal = future.HitNormal:GetNormalized()
         else
+            -- A blocked drop already spent one probe. Defer this outside-edge
+            -- search to the next update, when the drop check is on cooldown.
+            if dropProbe then self:SetLocalVelocity(ZERO) return true end
             -- One bounded convex-edge probe. No radial search or retry fan.
             local outside = ahead - normal * (offset + 16)
             local edge = trace(self, outside, outside - direction * 64)

@@ -68,6 +68,51 @@ return {
             },
         },
     },
+    ["deaths"] = {
+        ["clips"] = {
+            ["h_kill_front_gut_var0"] = {
+                ["cycle"] = 1.0,
+                ["motion"] = true,
+                ["time"] = 0.3,
+            },
+            ["h_kill_front_gut_var1"] = {
+                ["cycle"] = 1.0,
+                ["motion"] = true,
+                ["time"] = 0.4666666666666667,
+            },
+            ["h_kill_front_gut_var2"] = {
+                ["cycle"] = 1.0,
+                ["motion"] = true,
+                ["time"] = 0.4666666666666667,
+            },
+        },
+        ["default_family"] = "any",
+        ["default_region"] = "gut",
+        ["families"] = {
+            ["any"] = {
+                ["h_kill"] = {
+                    ["front"] = {
+                        ["gut"] = {
+                            "h_kill_front_gut_var0",
+                            "h_kill_front_gut_var1",
+                            "h_kill_front_gut_var2",
+                        },
+                    },
+                },
+            },
+            ["unarmed"] = {
+                ["h_kill"] = {
+                    ["front"] = {
+                        ["gut"] = {
+                            "h_kill_front_gut_var0",
+                            "h_kill_front_gut_var1",
+                            "h_kill_front_gut_var2",
+                        },
+                    },
+                },
+            },
+        },
+    },
     ["default_weapon"] = "unarmed",
     ["dialogue_domain"] = "ce8_flood",
     ["dialogue_rules"] = {
@@ -220,6 +265,7 @@ return {
         },
     },
     ["search"] = {
+        ["pursuit_walk"] = false,
         ["radius"] = 640,
         ["stimuli"] = {
             ["normal"] = {

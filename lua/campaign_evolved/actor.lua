@@ -46,6 +46,7 @@ function Host.Weapons(ENT, data)
 end
 
 function Host.Shared(ENT, owner, adapter)
+    include("campaign_evolved/roster_collision.lua").Shared(ENT, owner)
     if owner=="jackal" then
         ENT.CE8MergedBarrier=true
         ENT.ColliderFile="npc_vj_ce8_jackal_collision.json"
@@ -282,7 +283,7 @@ function Host.Server(ENT, profile)
     ENT.MainSoundPitch, ENT.MainSoundPitchStatic = 100, true
     ENT.CombatDamageResponse = profile.capabilities.cover
     ENT.CanFlinch = true
-    ENT.HasDeathAnimation = false -- Ragdolls until authored death motion gets its own live check.
+    ENT.HasDeathAnimation = data.deaths ~= nil
     ENT.HasPoseParameterLooking = data.aim ~= false
     ENT.PoseParameterLooking_InvertPitch = true
     ENT.PoseParameterLooking_Names = {pitch = {}, yaw = {}, roll = {}}
@@ -326,12 +327,24 @@ function Host.Server(ENT, profile)
         return self:AIOverrideMoveFacing(interval, move)
     end
     function ENT:UpdatePoseParamTracking(reset) if not self.AIFlee and not self.AIKamikaze then return self:AIUpdatePoseTracking(reset) end end
-    function ENT:GetHeadDirection() return self:AIHeadDirection() end
     function ENT:GetAimPosition(...) return self:AIMotionAimPosition(...) end
     function ENT:SetTurnTarget(...) return self:AIMotionTurnTarget(...) end
     function ENT:PlayAnim(...) return self:AIMotionPlayAnim(...) end
     function ENT:OnMeleeAttack(status)
         if status == "PreInit" and self:AIIsReloading() then return true end
+    end
+    function ENT:TASK_VJ_PLAY_SEQUENCE(status, task)
+        local side = type(task.animation) == "string" and task.animation:match("_melee_(%a+)$")
+        -- VJ already consumes translating walkframes. Supply its same engine
+        -- movement call for stationary directional turns, which VJ skips.
+        if (side == "back" or side == "left" or side == "right")
+            and status ~= TASKSTATUS_NEW and task.seqID == self:GetSequence()
+            and CurTime() <= task.animEndTime and not self:IsSequenceFinished()
+            and not self:IsMoving() and self.MovementType == VJ_MOVETYPE_GROUND
+            and self:GetSequenceMoveDist(task.seqID) <= 0 then
+            self:AutoMovement(self:GetAnimTimeInterval())
+        end
+        return self:AIBaseCall("TASK_VJ_PLAY_SEQUENCE", status, task)
     end
     function ENT:OnDangerDetected()
         -- VJ's default danger response runs to cover. Species can override this
@@ -411,7 +424,34 @@ function Host.Server(ENT, profile)
         end
         self.AnimTbl_Flinch = sequence
     end
-    function ENT:OnDeath(damage, hitgroup, status) if status == "Init" then self:AIShutdown(CurTime(), "death") end end
+    function ENT:OnDeath(damage, hitgroup, status)
+        if status ~= "Init" then return end
+        local grounded = self:OnGround() -- Capture before leap/traversal cleanup.
+        self:AIShutdown(CurTime(), "death")
+        self.AnimTbl_Death, self.DeathAnimationTime = {}, false
+        local setting = GetConVar("vj_npc_anim_death")
+        if not self.HasDeathAnimation or not data.deaths or not grounded or self.CE8ImmediateBurst
+            or self.CE8BodyDestroyed or (setting and not setting:GetBool())
+            or damage:IsDamageType(bit.bor(DMG_BLAST, DMG_DISSOLVE, DMG_REMOVENORAGDOLL)) then
+            self.HasDeathAnimation = false
+            return
+        end
+        -- Reuse our existing hard-reaction threshold as a Source selection
+        -- policy; this is not a recovered native hard/soft-death decision rule.
+        local flinch = self:CE8RankSettings().flinch
+        local hard = damage:GetDamage() >= (flinch and flinch.unshielded or math.huge)
+        for _, action in ipairs(hard and {"h_kill", "s_kill"} or {"s_kill", "h_kill"}) do
+            local animation = self:AISelectDamage(action, damage, hitgroup, data.deaths)
+            local name = animation and animation:sub(7)
+            local clip = name and data.deaths.clips[name]
+            if clip and self:LookupSequence(name) >= 0
+                and (not clip.motion or self:AIValidateMotion(name, 0, nil, clip.cycle)) then
+                self.AnimTbl_Death, self.DeathAnimationTime = {animation}, clip.time
+                return -- VJ owns playback, playback-rate scaling and the ragdoll.
+            end
+        end
+        self.HasDeathAnimation = false -- Missing/blocked deaths retain normal ragdolls.
+    end
     function ENT:CustomOnRemove() self:AIShutdown(CurTime(), "remove") end
     function ENT:OnCreateDeathCorpse(damage, hitgroup, corpse)
         if not IsValid(corpse) then return end
@@ -428,6 +468,7 @@ function Host.Server(ENT, profile)
             self:AIFootstep(options == "left foot" and "left" or "right")
         end
     end
+    include("campaign_evolved/roster_collision.lua").Attach(ENT, data.owner)
 end
 
 function Host.Client(ENT)

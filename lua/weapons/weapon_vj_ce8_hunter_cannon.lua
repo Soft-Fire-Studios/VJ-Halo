@@ -178,7 +178,10 @@ function SWEP:CE8FireBolt(owner, charge)
     if IsValid(physics) then physics:SetVelocityInstantaneous(direction * data.speed * scale) end
     effects.Muzzle(owner, data)
     effects.EntitySound(sounds.fire, self, 90)
-    local sequence = owner:LookupSequence(character.weapon_sets.cannon.sequences.fire)
+    local animations = character.weapon_sets.cannon.sequences
+    local crouched = (owner.AIDefenseCrouched and owner:AIDefenseCrouched())
+        or (owner.AIControlCrouched and owner:AIControlCrouched())
+    local sequence = owner:LookupSequence(crouched and animations.crouch_fire or animations.fire)
     if sequence >= 0 then
         if owner.CE8Recoil and owner:IsValidLayer(owner.CE8Recoil) then owner:RemoveLayer(owner.CE8Recoil) end
         local layer = owner:AddGestureSequence(sequence, true)

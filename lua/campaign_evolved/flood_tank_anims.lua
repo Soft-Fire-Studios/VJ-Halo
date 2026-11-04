@@ -2,6 +2,46 @@
 return {
     ["adapter"] = "creature",
     ["aim"] = true,
+    ["anatomy"] = {
+        ["regions"] = {
+            ["l_clavicle"] = {
+                ["fraction"] = 0.1,
+                ["health_scale"] = 0,
+            },
+            ["l_foot"] = {
+                ["fraction"] = 0.1,
+                ["health_scale"] = 0,
+            },
+            ["l_shin"] = {
+                ["fraction"] = 0.1,
+                ["health_scale"] = 0,
+            },
+            ["l_shoulder"] = {
+                ["fraction"] = 0.1,
+                ["health_scale"] = 0,
+            },
+            ["l_thigh"] = {
+                ["fraction"] = 0.1,
+                ["health_scale"] = 0,
+            },
+            ["r_arm"] = {
+                ["fraction"] = 0.1,
+                ["health_scale"] = 0,
+            },
+            ["r_clavicle"] = {
+                ["fraction"] = 0.1,
+                ["health_scale"] = 0,
+            },
+            ["r_leg"] = {
+                ["fraction"] = 0.1,
+                ["health_scale"] = 0,
+            },
+            ["r_shoulder"] = {
+                ["fraction"] = 0.1,
+                ["health_scale"] = 0,
+            },
+        },
+    },
     ["anchors"] = {
         ["body"] = "body",
         ["explosion"] = false,
@@ -22,6 +62,64 @@ return {
     ["camera_bone"] = "head_l",
     ["damage_families"] = {
         ["any"] = {
+            ["h_ping"] = {
+                ["back"] = {
+                    ["gut"] = {
+                        "any_any_h_ping_back_gut",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "any_any_h_ping_front_gut_var1",
+                        "any_any_h_ping_front_gut_var2",
+                    },
+                    ["head"] = {
+                        "any_any_h_ping_front_head_var1",
+                        "any_any_h_ping_front_head_var2",
+                        "any_any_h_ping_front_head_var3",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "any_any_h_ping_left_gut",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "any_any_h_ping_right_gut",
+                    },
+                },
+            },
+            ["s_ping"] = {
+                ["back"] = {
+                    ["head"] = {
+                        "any_any_s_ping_back_head",
+                    },
+                },
+                ["front"] = {
+                    ["gut"] = {
+                        "any_any_s_ping_front_gut",
+                    },
+                    ["head"] = {
+                        "any_any_s_ping_front_head",
+                    },
+                    ["l_arm"] = {
+                        "any_any_s_ping_front_l_arm",
+                    },
+                },
+                ["left"] = {
+                    ["gut"] = {
+                        "any_any_s_ping_left_gut",
+                    },
+                },
+                ["right"] = {
+                    ["gut"] = {
+                        "any_any_s_ping_right_gut",
+                    },
+                },
+            },
+        },
+        ["protected"] = {
             ["h_ping"] = {
                 ["back"] = {
                     ["gut"] = {
@@ -192,6 +290,172 @@ return {
             ["right"] = {
                 ["gut"] = {
                     "any_any_s_ping_right_gut",
+                },
+            },
+        },
+    },
+    ["deaths"] = {
+        ["clips"] = {
+            ["any_any_h_kill_back_gut"] = {
+                ["cycle"] = 0.23255813953488372,
+                ["motion"] = true,
+                ["time"] = 0.3333333333333333,
+            },
+            ["any_any_h_kill_front_gut"] = {
+                ["cycle"] = 0.1346153846153846,
+                ["motion"] = true,
+                ["time"] = 0.23333333333333334,
+            },
+            ["any_any_h_kill_left_gut"] = {
+                ["cycle"] = 0.3076923076923077,
+                ["motion"] = true,
+                ["time"] = 0.4,
+            },
+            ["any_any_h_kill_right_gut"] = {
+                ["cycle"] = 0.5151515151515151,
+                ["motion"] = true,
+                ["time"] = 0.5666666666666667,
+            },
+            ["any_any_s_kill_back_gut"] = {
+                ["cycle"] = 0.5882352941176471,
+                ["motion"] = true,
+                ["time"] = 1.3333333333333333,
+            },
+            ["any_any_s_kill_front_gut"] = {
+                ["cycle"] = 0.5735294117647058,
+                ["motion"] = true,
+                ["time"] = 1.3,
+            },
+            ["any_any_s_kill_right_gut"] = {
+                ["cycle"] = 0.5294117647058824,
+                ["motion"] = true,
+                ["time"] = 1.2,
+            },
+        },
+        ["default_family"] = "any",
+        ["default_region"] = "gut",
+        ["families"] = {
+            ["any"] = {
+                ["h_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_any_h_kill_back_gut",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_any_h_kill_front_gut",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "any_any_h_kill_left_gut",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_any_h_kill_right_gut",
+                        },
+                    },
+                },
+                ["s_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_any_s_kill_back_gut",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_any_s_kill_front_gut",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_any_s_kill_right_gut",
+                        },
+                    },
+                },
+            },
+            ["protected"] = {
+                ["h_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_any_h_kill_back_gut",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_any_h_kill_front_gut",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "any_any_h_kill_left_gut",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_any_h_kill_right_gut",
+                        },
+                    },
+                },
+                ["s_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_any_s_kill_back_gut",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_any_s_kill_front_gut",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_any_s_kill_right_gut",
+                        },
+                    },
+                },
+            },
+            ["unarmed"] = {
+                ["h_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_any_h_kill_back_gut",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_any_h_kill_front_gut",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "any_any_h_kill_left_gut",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_any_h_kill_right_gut",
+                        },
+                    },
+                },
+                ["s_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_any_s_kill_back_gut",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_any_s_kill_front_gut",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_any_s_kill_right_gut",
+                        },
+                    },
                 },
             },
         },
@@ -423,6 +687,155 @@ return {
             ["frames"] = 47,
             ["options"] = "primary keyframe",
             ["source"] = "any:melee_back",
+        },
+        ["any_melee_left"] = {
+            ["contact_frames"] = {
+                20,
+            },
+            ["event_id"] = 4001,
+            ["events"] = {
+                {
+                    ["event_id"] = 4005,
+                    ["frame"] = 1,
+                    ["options"] = "tank_meleewindup",
+                },
+                {
+                    ["event_id"] = 4005,
+                    ["frame"] = 1,
+                    ["options"] = "tank_shortmove",
+                },
+                {
+                    ["event_id"] = 4001,
+                    ["frame"] = 5,
+                    ["options"] = "left foot",
+                },
+                {
+                    ["event_id"] = 4002,
+                    ["frame"] = 8,
+                    ["options"] = "objects/characters/flood_tank/fx/melee_swish_right",
+                },
+                {
+                    ["event_id"] = 4005,
+                    ["frame"] = 8,
+                    ["options"] = "melee_attack",
+                },
+                {
+                    ["event_id"] = 4005,
+                    ["frame"] = 12,
+                    ["options"] = "tank_meleeswishes",
+                },
+                {
+                    ["event_id"] = 4001,
+                    ["frame"] = 17,
+                    ["options"] = "right foot",
+                },
+                {
+                    ["event_id"] = 4002,
+                    ["frame"] = 20,
+                    ["options"] = "objects/characters/flood_tank/fx/flood_tank_melee_shake",
+                },
+                {
+                    ["event_id"] = 4002,
+                    ["frame"] = 20,
+                    ["options"] = "objects/characters/flood_tank/fx/melee_spike",
+                },
+                {
+                    ["event_id"] = 4001,
+                    ["frame"] = 20,
+                    ["options"] = "primary keyframe",
+                },
+                {
+                    ["event_id"] = 4005,
+                    ["frame"] = 20,
+                    ["options"] = "tank_melee",
+                },
+                {
+                    ["event_id"] = 4005,
+                    ["frame"] = 33,
+                    ["options"] = "tank_shortmove",
+                },
+                {
+                    ["event_id"] = 4001,
+                    ["frame"] = 45,
+                    ["options"] = "left foot",
+                },
+            },
+            ["fps"] = 30,
+            ["frames"] = 47,
+            ["options"] = "primary keyframe",
+            ["source"] = "any:melee_left",
+        },
+        ["any_melee_right"] = {
+            ["contact_frames"] = {
+                15,
+            },
+            ["event_id"] = 4001,
+            ["events"] = {
+                {
+                    ["event_id"] = 4005,
+                    ["frame"] = 1,
+                    ["options"] = "tank_meleewindup",
+                },
+                {
+                    ["event_id"] = 4005,
+                    ["frame"] = 1,
+                    ["options"] = "tank_longmove",
+                },
+                {
+                    ["event_id"] = 4005,
+                    ["frame"] = 8,
+                    ["options"] = "melee_attack",
+                },
+                {
+                    ["event_id"] = 4002,
+                    ["frame"] = 9,
+                    ["options"] = "objects/characters/flood_tank/fx/melee_swish_right",
+                },
+                {
+                    ["event_id"] = 4005,
+                    ["frame"] = 12,
+                    ["options"] = "tank_meleeswishes",
+                },
+                {
+                    ["event_id"] = 4002,
+                    ["frame"] = 15,
+                    ["options"] = "objects/characters/flood_tank/fx/flood_tank_melee_shake",
+                },
+                {
+                    ["event_id"] = 4002,
+                    ["frame"] = 15,
+                    ["options"] = "objects/characters/flood_tank/fx/melee_slam_right",
+                },
+                {
+                    ["event_id"] = 4001,
+                    ["frame"] = 15,
+                    ["options"] = "primary keyframe",
+                },
+                {
+                    ["event_id"] = 4001,
+                    ["frame"] = 16,
+                    ["options"] = "left foot",
+                },
+                {
+                    ["event_id"] = 4005,
+                    ["frame"] = 17,
+                    ["options"] = "tank_melee",
+                },
+                {
+                    ["event_id"] = 4005,
+                    ["frame"] = 29,
+                    ["options"] = "tank_shortmove",
+                },
+                {
+                    ["event_id"] = 4001,
+                    ["frame"] = 46,
+                    ["options"] = "right foot",
+                },
+            },
+            ["fps"] = 30,
+            ["frames"] = 47,
+            ["options"] = "primary keyframe",
+            ["source"] = "any:melee_right",
         },
         ["any_melee_tackle"] = {
             ["contact_frames"] = {
@@ -765,6 +1178,7 @@ return {
         },
     },
     ["search"] = {
+        ["pursuit_walk"] = false,
         ["radius"] = 640,
         ["stimuli"] = {
             ["normal"] = {
@@ -785,6 +1199,8 @@ return {
     ["special"] = {
         ["infection_spew"] = "any_infection_spew",
         ["melee_back"] = "any_melee_back",
+        ["melee_left"] = "any_melee_left",
+        ["melee_right"] = "any_melee_right",
         ["melee_tackle"] = "any_melee_tackle",
     },
     ["spew"] = {
@@ -818,8 +1234,97 @@ return {
         ["sequence"] = "any_infection_spew",
         ["spread"] = 35,
     },
+    ["tank"] = {
+        ["left"] = {
+            ["angle"] = 40,
+            ["contact"] = 20,
+            ["direction"] = 93.809866,
+            ["frames"] = 47,
+            ["hit_range"] = 138.0,
+            ["sequence"] = "any_melee_left",
+        },
+        ["protect"] = {
+            ["damage"] = 1.0,
+            ["time"] = 0.800000011920929,
+        },
+        ["rear"] = {
+            ["angle"] = 50,
+            ["contact"] = 14,
+            ["direction"] = -172.54,
+            ["frames"] = 47,
+            ["hit_range"] = 138.0,
+            ["sequence"] = "any_melee_back",
+        },
+        ["right"] = {
+            ["angle"] = 40,
+            ["contact"] = 15,
+            ["direction"] = -90.718212,
+            ["frames"] = 47,
+            ["hit_range"] = 138.0,
+            ["sequence"] = "any_melee_right",
+        },
+        ["tackle"] = {
+            ["advance"] = 46.70687,
+            ["angle"] = 30,
+            ["contact"] = 19,
+            ["frames"] = 57,
+            ["sequence"] = "any_melee_tackle",
+        },
+    },
     ["voice"] = "flood_tank",
     ["weapon_sets"] = {
+        ["protected"] = {
+            ["aim_limits"] = {
+                ["combat_idle"] = {
+                    -90.0,
+                    90.0,
+                },
+                ["crouch_idle"] = {
+                    -90.0,
+                    90.0,
+                },
+                ["patrol_idle"] = {
+                    -90.0,
+                    90.0,
+                },
+            },
+            ["family"] = "protected",
+            ["grip"] = 0,
+            ["hand_ik"] = false,
+            ["mount"] = false,
+            ["sequences"] = {
+                ["combat_idle"] = "protected_any_idle_var1",
+                ["combat_move_back"] = "protected_any_walk_back_var1",
+                ["combat_move_front"] = "protected_any_walk_front_var1",
+                ["combat_move_left"] = "protected_any_walk_left_var1",
+                ["combat_move_right"] = "protected_any_walk_right_var1",
+                ["combat_turn_left"] = "protected_any_turn_left",
+                ["combat_turn_right"] = "protected_any_turn_right",
+                ["combat_walk_back"] = "protected_any_walk_back_var1",
+                ["combat_walk_front"] = "protected_any_walk_front_var1",
+                ["combat_walk_left"] = "protected_any_walk_left_var1",
+                ["combat_walk_right"] = "protected_any_walk_right_var1",
+                ["crouch_idle"] = "protected_any_idle_var1",
+                ["crouch_move_back"] = "protected_any_walk_back_var1",
+                ["crouch_move_front"] = "protected_any_walk_front_var1",
+                ["crouch_move_left"] = "protected_any_walk_left_var1",
+                ["crouch_move_right"] = "protected_any_walk_right_var1",
+                ["crouch_turn_left"] = "protected_any_turn_left",
+                ["crouch_turn_right"] = "protected_any_turn_right",
+                ["crouch_walk_back"] = "protected_any_walk_back_var1",
+                ["crouch_walk_front"] = "protected_any_walk_front_var1",
+                ["crouch_walk_left"] = "protected_any_walk_left_var1",
+                ["crouch_walk_right"] = "protected_any_walk_right_var1",
+                ["fire"] = false,
+                ["melee"] = "any_melee_var1",
+                ["patrol_idle"] = "protected_any_idle_var1",
+                ["patrol_run"] = "protected_any_walk_front_var1",
+                ["patrol_walk"] = "protected_any_walk_front_var1",
+                ["reload"] = false,
+                ["turn_left"] = "protected_any_turn_left",
+                ["turn_right"] = "protected_any_turn_right",
+            },
+        },
         ["unarmed"] = {
             ["aim_limits"] = {
                 ["combat_idle"] = {

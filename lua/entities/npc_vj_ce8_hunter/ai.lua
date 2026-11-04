@@ -4,7 +4,8 @@ function Host.Server(ENT, profile)
     include("campaign_evolved/human.lua").Server(ENT, profile)
     local data = ENT:CE8Data()
     local cannon, melee = data.cannon, data.melee
-    local initialize, event = ENT.Init, ENT.OnAnimEvent
+    local initialize, event, thinkAttack = ENT.Init, ENT.OnAnimEvent, ENT.OnThinkAttack
+    local knockback = ENT.MeleeAttackKnockbackVelocity
     ENT.BloodColor = VJ.BLOOD_COLOR_ORANGE
     ENT.Weapon_MinDistance, ENT.Weapon_MaxDistance = cannon.min_range, cannon.max_range
     ENT.Weapon_CanReload = false -- Integrated cannon has no magazine.
@@ -21,7 +22,6 @@ function Host.Server(ENT, profile)
     ENT.HasMeleeAttackKnockBack = true
     ENT.HasMeleeAttackSounds, ENT.HasExtraMeleeAttackSounds, ENT.HasMeleeAttackMissSounds = false, false, false
     ENT.SoundTbl_MeleeAttack, ENT.SoundTbl_MeleeAttackExtra, ENT.SoundTbl_MeleeAttackMiss = false, false, false
-    ENT.HasDeathAnimation = false
 
     function ENT:Init()
         initialize(self)
@@ -34,28 +34,63 @@ function Host.Server(ENT, profile)
         local marker = index > 0 and self:GetAttachment(index)
         return marker and marker.Pos or self:GetPos() + Vector(0, 0, data.hull.gun)
     end
-    function ENT:OnMeleeAttack(status, enemy)
-        if status == "PreInit" and self:AIIsReloading() then return true end
-        if status == "PreInit" then
-            local attacks = melee.attacks
-            local close = not IsValid(enemy) or self:GetPos():DistToSqr(enemy:GetPos()) < 200 * 200
-            local first = close and 1 or math.random(#attacks)
-            local attack
-            -- Validate the world route. Ignore only the intended victim here;
-            -- VJ AutoMovement still collides with it while applying walkframes.
-            for i = 1, #attacks do
-                local candidate = attacks[(first + i - 2) % #attacks + 1]
-                if self:AIValidateMotion(candidate.sequence, 0, enemy) then attack = candidate break end
+    local sectors = {"back", "left", "right", "tackle"}
+    local function admission(self, enemy)
+        -- VJ uses this same range to stop chasing. Expose a side/rear/tackle
+        -- range only when an authored attack can reach that bearing.
+        self.MeleeAttackDistance, self.MeleeAttackAngleRadius = melee.range, melee.angle
+        if self.VJ_Controlled or not IsValid(enemy) then return melee.attacks[1] end
+        local delta = enemy:GetPos() - self:GetPos()
+        delta.z = 0
+        local distance = VJ.GetNearestDistance(self, enemy, true)
+        local bearing = math.AngleDifference(delta:Angle().y, self:GetAngles().y)
+        if not self.MeleeAttack_IsPropAttack then
+            for _, key in ipairs(sectors) do
+                local candidate = melee.directional[key]
+                if distance > candidate.minimum and distance <= candidate.range
+                    and math.abs(math.AngleDifference(bearing, candidate.heading)) <= melee.angle then
+                    self.MeleeAttackDistance = candidate.range
+                    self.MeleeAttackAngleRadius = key == "tackle" and melee.angle or 180
+                    return candidate
+                end
             end
+        end
+        if distance <= melee.range and math.abs(bearing) <= melee.angle then
+            return melee.attacks[1]
+        end
+        self.MeleeAttackDistance = 0
+    end
+    function ENT:OnThinkAttack(isAttacking, enemy)
+        if thinkAttack then thinkAttack(self, isAttacking, enemy) end
+        if not isAttacking then admission(self, enemy) end
+    end
+    function ENT:OnMeleeAttack(status, enemy)
+        if status == "PreInit" then
+            self.CE8MeleeAttack, self.CE8MeleeDirection, self.CE8MeleeSeed, self.CE8MeleeHeading = nil, nil, nil, nil
+            self.MeleeAttackDamageDistance, self.MeleeAttackDamageAngleRadius = melee.hit_range, melee.hit_angle
+            if self:AIIsReloading() then return true end
+            local attack = admission(self, enemy)
             if not attack then return true end
+            if not self:AIPrepareAttackTurn(attack.sequence, enemy) then return true end
+            if not self:AIValidateMotion(attack.sequence, 0, enemy) then
+                -- Only the two forward variants are interchangeable. Never
+                -- turn a blocked side swing into an attack facing elsewhere.
+                if attack == melee.attacks[1] and self:AIValidateMotion(melee.attacks[2].sequence, 0, enemy) then
+                    attack = melee.attacks[2]
+                else
+                    self.MeleeAttackDistance = 0
+                    return true
+                end
+            end
             self.CE8MeleeAttack = attack
             self.AnimTbl_MeleeAttack = "vjseq_" .. attack.sequence
         elseif status == "Init" then
             self.CE8MeleeVictims = {}
+            self.CE8MeleeHeading, self.CE8MeleeSeed = self:GetAngles().y, self.AttackSeed
             local weapon = self:GetActiveWeapon()
             if IsValid(weapon) and weapon.CE8CancelCharge then weapon:CE8CancelCharge() end
             self:ResetTurnTarget()
-            self:SetIdealYaw(self:GetAngles().y)
+            self:SetIdealYaw(self.CE8MeleeHeading)
         end
     end
 
@@ -67,32 +102,55 @@ function Host.Server(ENT, profile)
         victims[victim] = true
     end
 
-    function ENT:MeleeAttackTraceDirection() return self:GetForward() end
+    function ENT:MeleeAttackTraceDirection()
+        if not self.AIObstacleContext and self.AttackType == VJ.ATTACK_TYPE_MELEE
+            and self.AttackSeed == self.CE8MeleeSeed and self.CE8MeleeDirection then
+            return self.CE8MeleeDirection
+        end
+        return self:GetForward()
+    end
     function ENT:MeleeAttackTraceOrigin() return self:AIObstacleTraceOrigin() end
+    function ENT:MeleeAttackKnockbackVelocity(victim)
+        local velocity = knockback and knockback(self, victim) or self:AIBaseCall("MeleeAttackKnockbackVelocity", victim)
+        if not self.AIObstacleContext and self.AttackType == VJ.ATTACK_TYPE_MELEE
+            and self.AttackSeed == self.CE8MeleeSeed and self.CE8MeleeDirection then
+            local forward = self:GetForward()
+            return velocity + (self.CE8MeleeDirection - forward) * velocity:Dot(forward)
+        end
+        return velocity
+    end
 
-    function ENT:OnAnimEvent(id, ...)
-        event(self, id, ...)
+    function ENT:OnAnimEvent(id, eventTime, cycle, eventType, options)
+        event(self, id, eventTime, cycle, eventType, options)
+        local name = type(options) == "string" and options:match("([^/]+)$")
         if id == 4002 and self.AIObstacle and not self.Dead then
-            local options = select(4, ...)
-            if type(options) == "string" and options:match("([^/]+)$") == "melee_swipe_forward_var2" then
-                local previous = self.MeleeAttackDamage
+            if name == "melee_swipe_forward_var2" then
+                local previous, reach, angle = self.MeleeAttackDamage, self.MeleeAttackDamageDistance, self.MeleeAttackDamageAngleRadius
                 self.MeleeAttackDamage = melee.attacks[2].damage
+                self.MeleeAttackDamageDistance, self.MeleeAttackDamageAngleRadius = melee.hit_range, melee.hit_angle
                 self:AIObstacleHit()
-                self.MeleeAttackDamage = previous
+                self.MeleeAttackDamage, self.MeleeAttackDamageDistance, self.MeleeAttackDamageAngleRadius = previous, reach, angle
             end
             return
         end
-        if id ~= 4002 or self.AttackType ~= VJ.ATTACK_TYPE_MELEE or self.Dead then return end
+        if id ~= 4002 or self.AttackType ~= VJ.ATTACK_TYPE_MELEE or self.Dead
+            or self.CE8MeleeHeading == nil or self.AttackSeed ~= self.CE8MeleeSeed or type(cycle) ~= "number" then return end
         local attack = self.CE8MeleeAttack
         if not attack or self:GetSequenceName(self:GetSequence()) ~= attack.sequence then return end
-        local options = select(4, ...)
-        local name = type(options) == "string" and options:match("([^/]+)$")
-        local amount = name and attack.impacts[name]
-        if not amount then return end
-        -- Repeated authored contact events extend the hit window without
-        -- multiplying full damage on a victim already hit by this swing.
-        self.MeleeAttackDamage = amount
-        self:ExecuteMeleeAttack()
+        local frame = math.floor(cycle * (attack.frames - 1) + 0.5)
+        for _, contact in ipairs(attack.contacts) do
+            if frame == contact.frame and name == contact.effect then
+                -- Marker orientation includes the authored root turn. Add it
+                -- to the starting heading only; the current actor has turned.
+                self.CE8MeleeDirection = Angle(0, self.CE8MeleeHeading + contact.heading, 0):Forward()
+                self.MeleeAttackDamage = contact.damage
+                self.MeleeAttackDamageDistance, self.MeleeAttackDamageAngleRadius = contact.range, contact.angle
+                -- Repeated authored contacts extend the window; a victim is
+                -- damaged only once per swing by the native VJ damage path.
+                self:ExecuteMeleeAttack()
+                return
+            end
+        end
     end
 
     function ENT:OnTraceAttack(damage, direction, trace)
@@ -110,6 +168,9 @@ function Host.Server(ENT, profile)
                 self:UpdateEnemyMemory(attacker, attacker:GetPos())
                 self:MarkTookDamageFromEnemy(attacker)
                 if not IsValid(self:GetEnemy()) then self:ForceSetEnemy(attacker, false) end
+                -- The collider has already removed health damage. A confirmed
+                -- armor impact still counts as one observed hit for pressure.
+                if region then self:AIRecordThreatDamage(damage, CurTime(), 1) end
             end
         end
         if not trace.ColliderScaled then damage:ScaleDamage(multiplier) end

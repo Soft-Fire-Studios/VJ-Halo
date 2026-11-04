@@ -860,6 +860,671 @@ return {
             },
         },
     },
+    ["deaths"] = {
+        ["clips"] = {
+            ["any_h_kill_back_gut"] = {
+                ["cycle"] = 0.4,
+                ["motion"] = true,
+                ["time"] = 0.5333333333333333,
+            },
+            ["any_h_kill_back_gut_var1"] = {
+                ["cycle"] = 0.2222222222222222,
+                ["motion"] = true,
+                ["time"] = 0.4,
+            },
+            ["any_h_kill_back_head_var1"] = {
+                ["cycle"] = 0.3191489361702128,
+                ["motion"] = true,
+                ["time"] = 0.5,
+            },
+            ["any_h_kill_front_gut"] = {
+                ["cycle"] = 0.13793103448275862,
+                ["motion"] = true,
+                ["time"] = 0.26666666666666666,
+            },
+            ["any_h_kill_front_gut_var1"] = {
+                ["cycle"] = 0.21568627450980393,
+                ["motion"] = true,
+                ["time"] = 0.36666666666666664,
+            },
+            ["any_h_kill_front_gut_var2"] = {
+                ["cycle"] = 0.2682926829268293,
+                ["motion"] = true,
+                ["time"] = 0.36666666666666664,
+            },
+            ["any_h_kill_front_head"] = {
+                ["cycle"] = 0.62,
+                ["motion"] = true,
+                ["time"] = 1.0333333333333334,
+            },
+            ["any_h_kill_front_head_var1"] = {
+                ["cycle"] = 0.6629213483146067,
+                ["motion"] = true,
+                ["time"] = 1.9666666666666666,
+            },
+            ["any_h_kill_front_vehicle"] = {
+                ["cycle"] = 0.6037735849056604,
+                ["motion"] = true,
+                ["time"] = 1.0666666666666667,
+            },
+            ["any_h_kill_left_gut"] = {
+                ["cycle"] = 0.24,
+                ["motion"] = true,
+                ["time"] = 0.4,
+            },
+            ["any_h_kill_left_gut_var1"] = {
+                ["cycle"] = 0.1836734693877551,
+                ["motion"] = true,
+                ["time"] = 0.3,
+            },
+            ["any_h_kill_left_head_var1"] = {
+                ["cycle"] = 0.3404255319148936,
+                ["motion"] = true,
+                ["time"] = 0.5333333333333333,
+            },
+            ["any_h_kill_right_gut"] = {
+                ["cycle"] = 0.22,
+                ["motion"] = true,
+                ["time"] = 0.36666666666666664,
+            },
+            ["any_h_kill_right_gut_var1"] = {
+                ["cycle"] = 0.2777777777777778,
+                ["motion"] = true,
+                ["time"] = 0.3333333333333333,
+            },
+            ["any_h_kill_right_head_var1"] = {
+                ["cycle"] = 0.3191489361702128,
+                ["motion"] = true,
+                ["time"] = 0.5,
+            },
+            ["any_s_kill_back_gut"] = {
+                ["cycle"] = 0.7708333333333334,
+                ["motion"] = true,
+                ["time"] = 1.2333333333333334,
+            },
+            ["any_s_kill_back_gut_var1"] = {
+                ["cycle"] = 0.46153846153846156,
+                ["motion"] = true,
+                ["time"] = 1.0,
+            },
+            ["any_s_kill_front_gut"] = {
+                ["cycle"] = 0.4576271186440678,
+                ["motion"] = true,
+                ["time"] = 0.9,
+            },
+            ["any_s_kill_front_gut_var1"] = {
+                ["cycle"] = 0.5316455696202531,
+                ["motion"] = true,
+                ["time"] = 1.4,
+            },
+            ["any_s_kill_left_gut_var1"] = {
+                ["cycle"] = 0.46153846153846156,
+                ["motion"] = true,
+                ["time"] = 1.0,
+            },
+            ["any_s_kill_right_gut_var1"] = {
+                ["cycle"] = 0.5131578947368421,
+                ["motion"] = true,
+                ["time"] = 1.3,
+            },
+        },
+        ["default_family"] = "any",
+        ["default_region"] = "gut",
+        ["families"] = {
+            ["any"] = {
+                ["h_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_h_kill_back_gut",
+                            "any_h_kill_back_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_back_head_var1",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_h_kill_front_gut",
+                            "any_h_kill_front_gut_var1",
+                            "any_h_kill_front_gut_var2",
+                        },
+                        ["head"] = {
+                            "any_h_kill_front_head",
+                            "any_h_kill_front_head_var1",
+                        },
+                        ["vehicle"] = {
+                            "any_h_kill_front_vehicle",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "any_h_kill_left_gut",
+                            "any_h_kill_left_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_left_head_var1",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_h_kill_right_gut",
+                            "any_h_kill_right_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_right_head_var1",
+                        },
+                    },
+                },
+                ["s_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_s_kill_back_gut",
+                            "any_s_kill_back_gut_var1",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_s_kill_front_gut",
+                            "any_s_kill_front_gut_var1",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "any_s_kill_left_gut_var1",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_s_kill_right_gut_var1",
+                        },
+                    },
+                },
+            },
+            ["beam_rifle"] = {
+                ["h_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_h_kill_back_gut",
+                            "any_h_kill_back_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_back_head_var1",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_h_kill_front_gut",
+                            "any_h_kill_front_gut_var1",
+                            "any_h_kill_front_gut_var2",
+                        },
+                        ["head"] = {
+                            "any_h_kill_front_head",
+                            "any_h_kill_front_head_var1",
+                        },
+                        ["vehicle"] = {
+                            "any_h_kill_front_vehicle",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "any_h_kill_left_gut",
+                            "any_h_kill_left_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_left_head_var1",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_h_kill_right_gut",
+                            "any_h_kill_right_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_right_head_var1",
+                        },
+                    },
+                },
+                ["s_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_s_kill_back_gut",
+                            "any_s_kill_back_gut_var1",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_s_kill_front_gut",
+                            "any_s_kill_front_gut_var1",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "any_s_kill_left_gut_var1",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_s_kill_right_gut_var1",
+                        },
+                    },
+                },
+            },
+            ["berserk"] = {
+                ["h_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_h_kill_back_gut",
+                            "any_h_kill_back_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_back_head_var1",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_h_kill_front_gut",
+                            "any_h_kill_front_gut_var1",
+                            "any_h_kill_front_gut_var2",
+                        },
+                        ["head"] = {
+                            "any_h_kill_front_head",
+                            "any_h_kill_front_head_var1",
+                        },
+                        ["vehicle"] = {
+                            "any_h_kill_front_vehicle",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "any_h_kill_left_gut",
+                            "any_h_kill_left_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_left_head_var1",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_h_kill_right_gut",
+                            "any_h_kill_right_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_right_head_var1",
+                        },
+                    },
+                },
+                ["s_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_s_kill_back_gut",
+                            "any_s_kill_back_gut_var1",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_s_kill_front_gut",
+                            "any_s_kill_front_gut_var1",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "any_s_kill_left_gut_var1",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_s_kill_right_gut_var1",
+                        },
+                    },
+                },
+            },
+            ["flak_cannon"] = {
+                ["h_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_h_kill_back_gut",
+                            "any_h_kill_back_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_back_head_var1",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_h_kill_front_gut",
+                            "any_h_kill_front_gut_var1",
+                            "any_h_kill_front_gut_var2",
+                        },
+                        ["head"] = {
+                            "any_h_kill_front_head",
+                            "any_h_kill_front_head_var1",
+                        },
+                        ["vehicle"] = {
+                            "any_h_kill_front_vehicle",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "any_h_kill_left_gut",
+                            "any_h_kill_left_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_left_head_var1",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_h_kill_right_gut",
+                            "any_h_kill_right_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_right_head_var1",
+                        },
+                    },
+                },
+                ["s_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_s_kill_back_gut",
+                            "any_s_kill_back_gut_var1",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_s_kill_front_gut",
+                            "any_s_kill_front_gut_var1",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "any_s_kill_left_gut_var1",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_s_kill_right_gut_var1",
+                        },
+                    },
+                },
+            },
+            ["needler"] = {
+                ["h_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_h_kill_back_gut",
+                            "any_h_kill_back_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_back_head_var1",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_h_kill_front_gut",
+                            "any_h_kill_front_gut_var1",
+                            "any_h_kill_front_gut_var2",
+                        },
+                        ["head"] = {
+                            "any_h_kill_front_head",
+                            "any_h_kill_front_head_var1",
+                        },
+                        ["vehicle"] = {
+                            "any_h_kill_front_vehicle",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "any_h_kill_left_gut",
+                            "any_h_kill_left_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_left_head_var1",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_h_kill_right_gut",
+                            "any_h_kill_right_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_right_head_var1",
+                        },
+                    },
+                },
+                ["s_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_s_kill_back_gut",
+                            "any_s_kill_back_gut_var1",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_s_kill_front_gut",
+                            "any_s_kill_front_gut_var1",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "any_s_kill_left_gut_var1",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_s_kill_right_gut_var1",
+                        },
+                    },
+                },
+            },
+            ["plasma_rifle"] = {
+                ["h_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_h_kill_back_gut",
+                            "any_h_kill_back_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_back_head_var1",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_h_kill_front_gut",
+                            "any_h_kill_front_gut_var1",
+                            "any_h_kill_front_gut_var2",
+                        },
+                        ["head"] = {
+                            "any_h_kill_front_head",
+                            "any_h_kill_front_head_var1",
+                        },
+                        ["vehicle"] = {
+                            "any_h_kill_front_vehicle",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "any_h_kill_left_gut",
+                            "any_h_kill_left_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_left_head_var1",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_h_kill_right_gut",
+                            "any_h_kill_right_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_right_head_var1",
+                        },
+                    },
+                },
+                ["s_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_s_kill_back_gut",
+                            "any_s_kill_back_gut_var1",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_s_kill_front_gut",
+                            "any_s_kill_front_gut_var1",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "any_s_kill_left_gut_var1",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_s_kill_right_gut_var1",
+                        },
+                    },
+                },
+            },
+            ["spike_rifle"] = {
+                ["h_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_h_kill_back_gut",
+                            "any_h_kill_back_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_back_head_var1",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_h_kill_front_gut",
+                            "any_h_kill_front_gut_var1",
+                            "any_h_kill_front_gut_var2",
+                        },
+                        ["head"] = {
+                            "any_h_kill_front_head",
+                            "any_h_kill_front_head_var1",
+                        },
+                        ["vehicle"] = {
+                            "any_h_kill_front_vehicle",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "any_h_kill_left_gut",
+                            "any_h_kill_left_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_left_head_var1",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_h_kill_right_gut",
+                            "any_h_kill_right_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_right_head_var1",
+                        },
+                    },
+                },
+                ["s_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_s_kill_back_gut",
+                            "any_s_kill_back_gut_var1",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_s_kill_front_gut",
+                            "any_s_kill_front_gut_var1",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "any_s_kill_left_gut_var1",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_s_kill_right_gut_var1",
+                        },
+                    },
+                },
+            },
+            ["unarmed"] = {
+                ["h_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_h_kill_back_gut",
+                            "any_h_kill_back_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_back_head_var1",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_h_kill_front_gut",
+                            "any_h_kill_front_gut_var1",
+                            "any_h_kill_front_gut_var2",
+                        },
+                        ["head"] = {
+                            "any_h_kill_front_head",
+                            "any_h_kill_front_head_var1",
+                        },
+                        ["vehicle"] = {
+                            "any_h_kill_front_vehicle",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "any_h_kill_left_gut",
+                            "any_h_kill_left_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_left_head_var1",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_h_kill_right_gut",
+                            "any_h_kill_right_gut_var1",
+                        },
+                        ["head"] = {
+                            "any_h_kill_right_head_var1",
+                        },
+                    },
+                },
+                ["s_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_s_kill_back_gut",
+                            "any_s_kill_back_gut_var1",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_s_kill_front_gut",
+                            "any_s_kill_front_gut_var1",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "any_s_kill_left_gut_var1",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "any_s_kill_right_gut_var1",
+                        },
+                    },
+                },
+            },
+        },
+    },
     ["default_weapon"] = "unarmed",
     ["dialogue_rules"] = {
         ["charge"] = {
@@ -1798,6 +2463,7 @@ return {
         },
     },
     ["search"] = {
+        ["pursuit_walk"] = false,
         ["radius"] = 600,
         ["stimuli"] = {
             ["normal"] = {

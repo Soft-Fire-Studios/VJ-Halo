@@ -266,6 +266,157 @@ return {
             },
         },
     },
+    ["deaths"] = {
+        ["clips"] = {
+            ["h_kill_back_head"] = {
+                ["cycle"] = 1.0,
+                ["motion"] = true,
+                ["time"] = 0.26666666666666666,
+            },
+            ["h_kill_front_gut"] = {
+                ["cycle"] = 1.0,
+                ["motion"] = true,
+                ["time"] = 0.26666666666666666,
+            },
+            ["h_kill_front_head"] = {
+                ["cycle"] = 1.0,
+                ["motion"] = true,
+                ["time"] = 0.8333333333333334,
+            },
+            ["h_kill_left_head"] = {
+                ["cycle"] = 1.0,
+                ["motion"] = true,
+                ["time"] = 0.3333333333333333,
+            },
+            ["h_kill_right_head"] = {
+                ["cycle"] = 1.0,
+                ["motion"] = true,
+                ["time"] = 0.36666666666666664,
+            },
+            ["s_kill_back_head"] = {
+                ["cycle"] = 1.0,
+                ["motion"] = true,
+                ["time"] = 0.7333333333333333,
+            },
+            ["s_kill_front_head"] = {
+                ["cycle"] = 1.0,
+                ["motion"] = true,
+                ["time"] = 0.6,
+            },
+            ["s_kill_left_head"] = {
+                ["cycle"] = 1.0,
+                ["motion"] = true,
+                ["time"] = 0.6,
+            },
+            ["s_kill_right_head"] = {
+                ["cycle"] = 1.0,
+                ["motion"] = true,
+                ["time"] = 0.6,
+            },
+        },
+        ["default_family"] = "any",
+        ["default_region"] = "head",
+        ["families"] = {
+            ["any"] = {
+                ["h_kill"] = {
+                    ["back"] = {
+                        ["head"] = {
+                            "h_kill_back_head",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "h_kill_front_gut",
+                        },
+                        ["head"] = {
+                            "h_kill_front_head",
+                        },
+                    },
+                    ["left"] = {
+                        ["head"] = {
+                            "h_kill_left_head",
+                        },
+                    },
+                    ["right"] = {
+                        ["head"] = {
+                            "h_kill_right_head",
+                        },
+                    },
+                },
+                ["s_kill"] = {
+                    ["back"] = {
+                        ["head"] = {
+                            "s_kill_back_head",
+                        },
+                    },
+                    ["front"] = {
+                        ["head"] = {
+                            "s_kill_front_head",
+                        },
+                    },
+                    ["left"] = {
+                        ["head"] = {
+                            "s_kill_left_head",
+                        },
+                    },
+                    ["right"] = {
+                        ["head"] = {
+                            "s_kill_right_head",
+                        },
+                    },
+                },
+            },
+            ["unarmed"] = {
+                ["h_kill"] = {
+                    ["back"] = {
+                        ["head"] = {
+                            "h_kill_back_head",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "h_kill_front_gut",
+                        },
+                        ["head"] = {
+                            "h_kill_front_head",
+                        },
+                    },
+                    ["left"] = {
+                        ["head"] = {
+                            "h_kill_left_head",
+                        },
+                    },
+                    ["right"] = {
+                        ["head"] = {
+                            "h_kill_right_head",
+                        },
+                    },
+                },
+                ["s_kill"] = {
+                    ["back"] = {
+                        ["head"] = {
+                            "s_kill_back_head",
+                        },
+                    },
+                    ["front"] = {
+                        ["head"] = {
+                            "s_kill_front_head",
+                        },
+                    },
+                    ["left"] = {
+                        ["head"] = {
+                            "s_kill_left_head",
+                        },
+                    },
+                    ["right"] = {
+                        ["head"] = {
+                            "s_kill_right_head",
+                        },
+                    },
+                },
+            },
+        },
+    },
     ["default_weapon"] = "unarmed",
     ["dialogue_domain"] = "ce8_flood",
     ["dialogue_rules"] = {
@@ -420,6 +571,7 @@ return {
         },
     },
     ["search"] = {
+        ["pursuit_walk"] = false,
         ["radius"] = 640,
         ["stimuli"] = {
             ["normal"] = {

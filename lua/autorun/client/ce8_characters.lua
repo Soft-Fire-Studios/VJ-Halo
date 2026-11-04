@@ -1,8 +1,7 @@
 -- Shared character renderer and current model/material controls.
 if SERVER then return end
 CE8 = CE8 or {}
-if include and file and file.Exists and not CE8.SupportsOverallPaint
-    and file.Exists("lua/autorun/client/ce8_surface.lua","GAME") then
+if include and not CE8.SupportsOverallPaint then
     include("autorun/client/ce8_surface.lua")
 end
 CE8.Assemblies = nil
@@ -49,6 +48,7 @@ function CE8.DrawEmissiveModel(ent, flags)
             or bit.bor(flags or STUDIO_RENDER or 1,STUDIO_TWOPASS or 8)
         ent:DrawModel(drawFlags)
     end,debug.traceback)
+    if ok and CE8.QueueEmissionBloom then CE8.QueueEmissionBloom(ent,materials) end
     ent.CE8DrawingEmissive=previous
     render.OverrideBlend(false)
     render.OverrideDepthEnable(false,false)
@@ -138,6 +138,10 @@ function CE8.BindCharacter(ent, definition, custom, normalSpawn)
             render.OverrideDepthEnable(false,false)
             self.CE8LightPasses=0
         end,debug.traceback)
+        -- BindCharacter derives these slots from the model's actual GetMaterials.
+        -- Bloom selects only current-frame emitting binds, not the catalogue's
+        -- bodygroup indices (which can change when a model is recompiled).
+        if ok and self.CE8Draft and CE8.QueueEmissionBloom then CE8.QueueEmissionBloom(self,self.CE8OverrideMaterials) end
         self.CE8BoundRenderColor=previousColor
         render.OverrideDepthEnable(false,false)
         render.OverrideBlend(false)

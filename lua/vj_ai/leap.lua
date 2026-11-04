@@ -36,6 +36,84 @@ function methods:AILeapActive()
     return (config and self[config.fields.active]) or (control and self[control.fields.jump]) or nil
 end
 
+-- Cover discovery is optional and finite. This shared budget includes the
+-- support, clearance and ballistic sweeps, including a takeoff recheck.
+VJAI.CoverLeapBudget = VJAI.CoverLeapBudget or {used = 0}
+local function coverTrace(request, hull)
+    local budget, tick = VJAI.CoverLeapBudget, engine.TickCount()
+    if budget.tick ~= tick then budget.tick, budget.used = tick, 0 end
+    if budget.used >= 64 then return end
+    budget.used = budget.used + 1
+    return hull and util.TraceHull(request) or util.TraceLine(request)
+end
+
+function methods:AICoverTrace(request, hull)
+    return coverTrace(request, hull)
+end
+
+local function stableSupport(trace)
+    if not trace or not trace.Hit or trace.StartSolid or trace.AllSolid or trace.HitSky
+        or trace.HitNormal.z < 0.7 then return false end
+    if trace.HitWorld then return true end
+    local prop = trace.Entity
+    if not IsValid(prop) or prop:IsNPC() or prop:IsPlayer() or prop:IsNextBot() or prop:IsVehicle()
+        or prop.VJ_ID_Living or prop.VJ_ID_Grenade or prop.VJ_ID_Danger
+        or prop:GetMoveType() ~= MOVETYPE_VPHYSICS or IsValid(prop:GetParent()) or prop:IsPlayerHolding() then return false end
+    local physics = prop:GetPhysicsObject()
+    return IsValid(physics) and not physics:IsMotionEnabled()
+end
+
+local function coverSupport(actor, position, support, world, config)
+    local mins, maxs = actor:GetCollisionBounds()
+    local filter = {actor}
+    local weapon = actor.GetActiveWeapon and actor:GetActiveWeapon()
+    if IsValid(weapon) then filter[#filter + 1] = weapon end
+    -- A thin lip can collide with a hull without supporting its footprint.
+    -- Require the center and all four corners on the same stable top.
+    for _, offset in ipairs({Vector(), Vector(mins.x, mins.y, 0), Vector(mins.x, maxs.y, 0),
+        Vector(maxs.x, mins.y, 0), Vector(maxs.x, maxs.y, 0)}) do
+        local trace = coverTrace({start = position + offset + Vector(0, 0, 4),
+            endpos = position + offset - Vector(0, 0, 8), mask = MASK_NPCSOLID,
+            filter = filter, collisiongroup = config.collision_group})
+        if not stableSupport(trace) or (world and not trace.HitWorld)
+            or (not world and trace.Entity ~= support) or math.abs(trace.HitPos.z - (position.z - 2)) > 3 then return false end
+    end
+    local clear = coverTrace({start = position, endpos = position, mins = mins, maxs = maxs,
+        mask = MASK_NPCSOLID, filter = filter, collisiongroup = config.collision_group}, true)
+    return clear and not clear.Hit and not clear.StartSolid and not clear.AllSolid
+end
+
+local function planArc(actor, destination, config, target, cover)
+    local origin = actor:GetPos()
+    local delta = destination - origin
+    local distance = math.sqrt(delta.x * delta.x + delta.y * delta.y)
+    if cover and (distance < config.minimum or distance > config.maximum or math.abs(delta.z) > (config.max_height or 128)) then return end
+    local duration = math.Clamp(distance / config.speed, config.min_time or 0.35, config.max_time or 1.5)
+    local gravity = GetConVar("sv_gravity"):GetFloat()
+    local scale = actor:GetGravity()
+    if scale == 0 then scale = 1 end
+    gravity = gravity * scale
+    if gravity <= 0 then return end
+    local velocity = Vector(delta.x / duration, delta.y / duration, delta.z / duration + gravity * duration * 0.5)
+    local mins, maxs = actor:GetCollisionBounds()
+    local previous = origin + Vector(0, 0, 1)
+    for i = 1, 12 do
+        local t = duration * i / 12
+        local point = origin + velocity * t - Vector(0, 0, gravity * t * t * 0.5)
+        local request = {start = previous, endpos = point, mins = mins, maxs = maxs,
+            mask = MASK_NPCSOLID, filter = actor, collisiongroup = config.collision_group}
+        local trace
+        if cover then trace = coverTrace(request, true) else trace = util.TraceHull(request) end
+        if not trace or trace.StartSolid or trace.AllSolid then return end
+        if trace.Hit then
+            if target and trace.Entity == target then break end
+            if i ~= 12 or trace.HitNormal.z < 0.7 then return end
+        end
+        previous = point
+    end
+    return {velocity = velocity, duration = duration, destination = Vector(destination)}
+end
+
 -- Solve once for a visible target. No homing, position teleport, or target
 -- tracking during flight. Both the landing floor and sampled hull arc must fit.
 function methods:AIPlanLeap(target, config)
@@ -47,30 +125,80 @@ function methods:AIPlanLeap(target, config)
     local ground = util.TraceLine({start = destination + Vector(0, 0, 48), endpos = destination - Vector(0, 0, 128),
         mask = MASK_NPCSOLID, filter = {self, target}, collisiongroup = config.collision_group})
     if ground.StartSolid or not ground.Hit or ground.HitSky or ground.HitNormal.z < 0.7 then return end
-    destination = ground.HitPos + Vector(0, 0, 2)
-    delta = destination - origin
-    local duration = math.Clamp(distance / config.speed, config.min_time or 0.35, config.max_time or 1.5)
-    local gravity = GetConVar("sv_gravity"):GetFloat()
-    local scale = self:GetGravity()
-    if scale == 0 then scale = 1 end
-    gravity = gravity * scale
-    if gravity <= 0 then return end
-    local velocity = Vector(delta.x / duration, delta.y / duration, delta.z / duration + gravity * duration * 0.5)
-    local mins, maxs = self:GetCollisionBounds()
-    local previous = origin + Vector(0, 0, 1)
-    for i = 1, 12 do
-        local t = duration * i / 12
-        local point = origin + velocity * t - Vector(0, 0, gravity * t * t * 0.5)
-        local trace = util.TraceHull({start = previous, endpos = point, mins = mins, maxs = maxs,
-            mask = MASK_NPCSOLID, filter = self, collisiongroup = config.collision_group})
-        if trace.StartSolid or trace.AllSolid then return end
-        if trace.Hit then
-            if trace.Entity == target then break end
-            if i ~= 12 or trace.HitNormal.z < 0.7 then return end
-        end
-        previous = point
+    return planArc(self, ground.HitPos + Vector(0, 0, 2), config, target)
+end
+
+function methods:AIPlanCoverLeap(cover, config)
+    if not coverSupport(self, cover.position, cover.support, cover.world, config) then return end
+    return planArc(self, cover.position, config, nil, true)
+end
+
+function methods:AIProbeCover(now, aim, settings, obstruction)
+    local config = self.AIProfile and self:AIProfile().leap
+    if not self:AIHasCapability("leap") or not config.cover or not config.cover.enabled then return end
+    local field = config.fields.cover_check or "AICoverProbeNext"
+    if now < (self[field] or 0) then return end
+    self[field] = now + math.max(0.5, settings.interval or 1)
+    local origin = self:GetPos()
+    local direction = Vector(aim) - origin
+    direction.z = 0
+    if direction:LengthSqr() < 1 then return end
+    direction = direction:GetNormalized()
+    if self:GetForward():Dot(direction) < (config.facing or 0.5) then return end
+    if not obstruction then
+        obstruction = coverTrace({start = self:EyePos(), endpos = aim, filter = self, mask = MASK_NPCSOLID})
     end
-    return {velocity = velocity, duration = duration, destination = destination}
+    if not obstruction or obstruction.StartSolid or obstruction.AllSolid or obstruction.HitSky then return end
+    local mins, maxs = self:GetCollisionBounds()
+    local width = math.max(maxs.x - mins.x, maxs.y - mins.y)
+    local point = obstruction.Hit and obstruction.HitPos or aim - direction * (width * 2)
+    local height = math.min(settings.maximum_height or 128, config.max_height or 128)
+    for index = 1, math.Clamp(settings.probes or 3, 1, 3) do
+        local above = point + direction * (width * 0.75 + (index - 1) * (settings.depth or 48))
+        above.z = origin.z + height + 8
+        local top = coverTrace({start = above,
+            endpos = Vector(above.x, above.y, origin.z + (settings.minimum_height or 24)),
+            mask = MASK_NPCSOLID, filter = self, collisiongroup = config.collision_group})
+        if stableSupport(top) and top.HitPos.z - origin.z <= height then
+            local cover = {position = top.HitPos + Vector(0, 0, 2), support = top.Entity, world = top.HitWorld == true}
+            if self:AIPlanCoverLeap(cover, config) then return cover end
+        end
+    end
+end
+
+function methods:AITryCoverLeap(now, cover, enemy, search)
+    local config = self.AIProfile and self:AIProfile().leap
+    if not cover or not self:AIHasCapability("leap") or not config.cover or not config.cover.enabled
+        or self.VJ_Controlled or self:AILeapActive() or self:AISurfaceActive() or disabled(self)
+        or self.AttackType or self.PauseAttacks or not self:OnGround() or self:GetNavType() ~= NAV_GROUND
+        or self:GetMoveType() ~= MOVETYPE_STEP or self:GetState() ~= VJ_STATE_NONE or self:IsBusy("Activities")
+        or self.IsGuard or self.IsFollowing or self.DisableChasingEnemy or self.DisableWandering
+        or now < (self[config.fields.next_attempt] or 0) or (config.allowed and not config.allowed(self)) then return false end
+    if not sequence(self, config.airborne) or (config.start and not sequence(self, config.start))
+        or (config.start and not self:AIValidateMotion(config.start, 0)) then return false end
+    cover.search, cover.enemy = search, enemy
+    return self:AICommitLeap(now, nil, config, false, cover)
+end
+
+-- Source mapping for the native perch switch: a visible elevated opponent
+-- can expose a nearby stable top. No scan, artificial perch pose or new route.
+function methods:AITryPerch(now, enemy)
+    local config = self.AIProfile and self:AIProfile().leap
+    local settings = config and config.cover
+    if not settings or not settings.enabled or not settings.perch or not self:AIHasCapability("leap")
+        or self:AILeapActive() or self.VJ_Controlled or not IsValid(enemy) or enemy:Health() <= 0
+        or self:CheckRelationship(enemy) ~= D_HT or not self:Visible(enemy) or disabled(self)
+        or self.AttackType or self.PauseAttacks or not self:OnGround()
+        or self.IsGuard or self.IsFollowing or self.DisableChasingEnemy or self.DisableWandering
+        or (config.allowed and not config.allowed(self)) then return false end
+    local ignored = GetConVar("ai_ignoreplayers")
+    if enemy:IsPlayer() and ignored and ignored:GetBool() then return false end
+    local field = config.fields.perch_check or "AIPerchNext"
+    if now < (self[field] or 0) or now < (self[config.fields.next_attempt] or 0) then return false end
+    self[field] = now + math.max(1, settings.interval or 2)
+    local target = Vector(enemy:GetPos())
+    if target.z - self:GetPos().z < (settings.minimum_height or 24) then return false end
+    return self:AITryCoverLeap(now, self:AIProbeCover(now, target, settings), enemy)
 end
 
 function methods:AIEndLeap(now, reason)
@@ -103,7 +231,10 @@ end
 function methods:AILaunchLeap(action, now)
     local config = action.config or self:AIProfile().leap
     -- Recheck after takeoff anticipation: obstacles/targets may have moved.
-    local plan = action.manual and self:AIPlanControlLeap(config) or self:AIPlanLeap(action.target, config)
+    local plan
+    if action.cover then plan = self:AIPlanCoverLeap(action.cover, config)
+    elseif action.manual then plan = self:AIPlanControlLeap(config)
+    else plan = self:AIPlanLeap(action.target, config) end
     if not plan then self:AIEndLeap(now, "blocked_takeoff") return false end
     if not play(self, action, config.airborne, now) then self:AIEndLeap(now, "missing_airborne") return false end
     action.phase, action.launched, action.plan = "airborne", now, plan
@@ -173,8 +304,8 @@ function methods:AIStartControlLeap(now, config)
     return self:AICommitLeap(now, nil, config, true)
 end
 
-function methods:AICommitLeap(now, enemy, config, manual)
-    self:AISuspendActions(now)
+function methods:AICommitLeap(now, enemy, config, manual, cover)
+    self:AISuspendActions(now, cover and cover.search)
     self:StopCurrentSchedule()
     if self.CurrentSchedule then return false end -- A completion callback installed a new owner.
     self:StopMoving()
@@ -183,7 +314,7 @@ function methods:AICommitLeap(now, enemy, config, manual)
     self:ResetTurnTarget()
     self:SetIdealYaw(self:GetAngles().y)
     local control = self:AIProfile().possession
-    local action = {manual = manual, config = config,
+    local action = {manual = manual, config = config, cover = cover,
         field = manual and control.fields.jump or config.fields.active,
         next_field = manual and control.fields.next_jump or config.fields.next_attempt,
         last_field = manual and control.fields.last_jump or config.fields.last, target = enemy, seed = now, state = self:GetState(), phase = "start", timers = {},
@@ -212,12 +343,26 @@ function methods:AIUpdateLeap(now)
         or (self.CurrentSchedule and not self:IsScheduleFinished(self.CurrentSchedule)) then
         self:AIEndLeap(now, "interrupted") return false
     end
+    if action.cover then
+        local enemy = action.cover.enemy
+        if not config.cover or not config.cover.enabled
+            or self.IsGuard or self.IsFollowing or self.DisableChasingEnemy or self.DisableWandering
+            or not IsValid(enemy) or enemy ~= self:GetEnemy() or enemy:Health() <= 0 then
+            self:AIEndLeap(now, "interrupted") return false
+        end
+        local search = action.cover.search
+        local searchConfig = self:AIProfile().search
+        if search and (not self:AIHasCapability("search") or not searchConfig or self[searchConfig.fields.active] ~= search
+            or now >= search.deadline or now >= search.presearch_until or self:Visible(enemy)) then
+            self:AIEndLeap(now, "search_ended") return false
+        end
+    end
     if now >= action.deadline then self:AIEndLeap(now, "timeout") return false end
     if action.phase == "start" then
         if now >= action.phase_end then self:AILaunchLeap(action, now) end
     elseif action.phase == "airborne" then
         local elapsed, velocity = now - action.launched, self:GetVelocity()
-        if config.airborne_update then
+        if not action.cover and config.airborne_update then
             config.airborne_update(self, action, now)
             if self:AILeapActive() ~= action then return false end
         end
@@ -239,7 +384,7 @@ function methods:AIUpdateLeap(now)
             action.phase = "landing"
             if not config.land or not self:AIValidateMotion(config.land, 0, action.target)
                 or not play(self, action, config.land, now) then self:AIEndLeap(now, "landed") end
-        elseif not action.melee and config.melee and elapsed >= math.max(0, action.plan.duration - (config.contact_time or 0.2) - 0.12) then
+        elseif not action.cover and not action.melee and config.melee and elapsed >= math.max(0, action.plan.duration - (config.contact_time or 0.2) - 0.12) then
             local id = sequence(self, config.melee)
             action.melee = true
             if id then

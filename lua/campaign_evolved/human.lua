@@ -197,6 +197,32 @@ function Host.Server(ENT, profile)
             return remove(self)
         end
     end
+    if data.obstacle and data.obstacle.events then
+        -- Prop-only contact uses VJ's synchronous melee executor. Keep ordinary
+        -- enemy melee disabled; no independent attack timer or damage sweep.
+        ENT.MeleeAttackDamageDistance, ENT.MeleeAttackDamage = data.obstacle.reach, data.obstacle.damage
+        ENT.MeleeAttackDamageAngleRadius, ENT.MeleeAttackDamageType = 60, DMG_CLUB
+        ENT.TimeUntilMeleeAttackDamage = false
+        function ENT:OnMeleeAttackExecute(status, victim)
+            if status == "PreDamage" then
+                if not self.AIObstacleContext then return true end
+                return self:AIObstacleMelee(status, victim)
+            end
+        end
+        function ENT:MeleeAttackTraceOrigin() return self:AIObstacleTraceOrigin() end
+        function ENT:MeleeAttackTraceDirection() return self:AIObstacleTraceDirection() end
+        function ENT:MeleeAttackKnockbackVelocity(victim)
+            if self.AIObstacleContext then return Vector(100, 0, 25) end
+            return self:AIBaseCall("MeleeAttackKnockbackVelocity", victim)
+        end
+        local event = ENT.OnAnimEvent
+        function ENT:OnAnimEvent(id, eventTime, cycle, eventType, options)
+            event(self, id, eventTime, cycle, eventType, options)
+            if id ~= 4001 or options ~= "primary keyframe" then return end
+            local contact = data.obstacle.events[self:GetSequenceName(self:GetSequence())]
+            if contact and math.abs(cycle - contact.cycle) < 0.002 then self:AIObstacleHit() end
+        end
+    end
     if data.actions then
         local danger = ENT.OnDangerDetected
         function ENT:OnDangerDetected(kind, source)

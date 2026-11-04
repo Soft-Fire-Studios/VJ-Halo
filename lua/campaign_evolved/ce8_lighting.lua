@@ -3,7 +3,7 @@ if SERVER then return end
 CE8 = CE8 or {}
 -- The model metadata layout and bytecode change together. Keep an already
 -- running session on its existing bridge until restart clears cached shaders.
-if CE8.SceneState and CE8.SceneState.layout~=2 then
+if CE8.SceneState and CE8.SceneState.layout~=3 then
     if not CE8.SceneRestartRequired then
         ErrorNoHalt("CE8 regional lighting installed: restart GMod to load the matching shader programs.\n")
         CE8.SceneRestartRequired=true

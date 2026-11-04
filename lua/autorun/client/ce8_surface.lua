@@ -6,7 +6,8 @@ CE8 = CE8 or {}
 -- Existing sessions can still have the previous bytecode cached under these
 -- program names. A fresh startup is required before using the new constants.
 if CE8.MaterialLODReady == nil then CE8.MaterialLODReady = CE8.Controls == nil end
-if include and file.Exists and file.Exists("lua/campaign_evolved/ce8_assembly.lua", "GAME") then
+-- Required Lua is delivered by AddCSLuaFile; it need not exist in GAME locally.
+if include then
     include("campaign_evolved/ce8_assembly.lua")
 end
 local descriptor = util.JSONToTable(file.Read("lua/campaign_evolved/ce8_controls.json", "GAME") or "{}") or {}
@@ -14,7 +15,7 @@ CE8.Controls = descriptor.controls or {}
 local lightHz = CreateClientConVar("ce8_light_hz", "20", true, false,
     "Refresh rate of CE8's six sampled map-light directions.", 1, 120)
 local detailDistance = CreateClientConVar("ce8_detail_distance", "1024", true, false,
-    "CE8 detail layers stop beyond this camera distance in units; 0 keeps them at all distances.", 0, 32768)
+    "CE8 animated energy detail layers stop beyond this distance; static surface details are baked. 0 keeps energy detail at all distances.", 0, 32768)
 local normalDistance = CreateClientConVar("ce8_normal_distance", "2048", true, false,
     "CE8 normal maps stop beyond this camera distance in units; 0 keeps them at all distances.", 0, 32768)
 local specularDistance = CreateClientConVar("ce8_specular_distance", "3072", true, false,
@@ -163,8 +164,12 @@ function CE8.RefreshMaterialTextures(material)
     local bindings=textureBindings[string.lower(material:GetName())]
     if type(bindings)=="table" then
         for slot,reference in pairs(bindings) do
-            local texture=namedTexture(reference,false)
-            if texture then material:SetTexture(slot,texture) end
+            -- The original disk binding is obsolete once sampler 7 carries
+            -- numeric scene data. Refreshing a ragdoll must not replace it.
+            if slot~="$texture7" or not (material:GetString("$pixshader") or ""):find("^ce8_scene_") then
+                local texture=namedTexture(reference,false)
+                if texture then material:SetTexture(slot,texture) end
+            end
         end
     end
     refreshedMaterials[material]=true
@@ -362,7 +367,7 @@ local surfaceProxy = {
                 parameter(self,overrides,"specularstrength"),ambient,
                 ((modelSlot%32)*32+.5)/1024,(192+math.floor(modelSlot/32)+.5)/1024,0,0,
                 parameter(self,overrides,"flashlightstrength"),0,0,0)
-            material:SetTexture("$texture7",CE8.SceneState.texture)
+            if not self.liveRecord then material:SetTexture("$texture7",CE8.SceneState.texture) end
         else
             self.matrixA:SetUnpacked(
                 x.x*ambient, x.y*ambient, x.z*ambient, parameter(self,overrides,"metallicbias"),
@@ -370,7 +375,9 @@ local surfaceProxy = {
                 y.x*ambient, y.y*ambient, y.z*ambient, parameter(self,overrides,"emissionstrength"),
                 ny.x*ambient, ny.y*ambient, ny.z*ambient, blue)
         end
-        material:SetMatrix("$viewprojmat", self.matrixA)
+        -- Live surfaces append their parameter address immediately after this
+        -- parent bind. Submit the completed matrix/scene texture there once.
+        if not self.liveRecord then material:SetMatrix("$viewprojmat", self.matrixA) end
         if uploadB then material:SetMatrix("$invviewprojmat", self.matrixB) end
     end
 }
@@ -441,11 +448,12 @@ function CE8.RegisterSurfaceVariant(name, direct, initialize, bind)
 end
 
 if include then include("campaign_evolved/ce8_lighting.lua") end
-if include and file.Exists("lua/campaign_evolved/ce8_hunter.lua", "GAME") then
+if include then
     include("campaign_evolved/ce8_hunter.lua")
 end
-if include and file.Exists("lua/campaign_evolved/ce8_live_details.lua", "GAME") then
+if include then
     include("campaign_evolved/ce8_live_details.lua")
 end
 if include then include("campaign_evolved/ce8_blade.lua"); include("campaign_evolved/ce8_shield.lua"); include("campaign_evolved/ce8_gauge.lua") end
+if include then include("campaign_evolved/ce8_bloom.lua") end
 CE8.SupportsOverallPaint=true

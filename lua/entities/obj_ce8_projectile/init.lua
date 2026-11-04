@@ -336,7 +336,8 @@ function ENT:OnCollision(collision, physics)
                 self.RadiusDamageRadius = blast.radius[2]
                 -- A short fuse can expire before VJ's next danger scan. Notify
                 -- only after attachment succeeds, outside the physics callback.
-                if target.IsCE8Elite and target.OnDangerDetected then
+                if target.OnDangerDetected and (target.IsCE8Elite
+                    or target.CE8UnitLabel == "flood_combat_human" or target.CE8UnitLabel == "flood_combat_elite") then
                     target:OnDangerDetected(VJ.DANGER_TYPE_GRENADE, self)
                 end
             end)

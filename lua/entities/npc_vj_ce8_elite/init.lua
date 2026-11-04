@@ -146,9 +146,6 @@ function ENT:UpdatePoseParamTracking(resetPoses)
     return self:AIUpdatePoseTracking(resetPoses)
 end
 
-function ENT:GetHeadDirection()
-    return self:AIHeadDirection()
-end
 
 function ENT:GetAimPosition(target, origin, predictionRate, projectileSpeed)
     return self:AIMotionAimPosition(target, origin, predictionRate, projectileSpeed)
@@ -313,3 +310,5 @@ function ENT:OnCreateDeathCorpse(damage, hitgroup, corpse)
     local rank = self:CE8RankSettings()
     corpse:SetHitboxSet(rank.hitbox_set)
 end
+
+include("campaign_evolved/roster_collision.lua").Attach(ENT, "elite")

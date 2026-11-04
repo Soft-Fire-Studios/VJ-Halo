@@ -8,6 +8,7 @@ local fields = {
     possession = {active = "AIControl", jump = "AIControlJumpState", next_jump = "AINextControlJump", last_jump = "AILastControlJump"},
     squad = {active = "AISquad", next_check = "AINextSquadCheck", position = "AISquadPosition", next_position = "AINextSquadPosition"},
     threat = {active = "AIThreat", damage = "AIThreatDamage", path = "AIThreatPath"},
+    defense = {active = "AIDefense"},
     ambush = {active = "AIAmbush", next_attempt = "AINextAmbush"},
     gaze = {active = "AIGaze"},
     controller = {next_sample = "AINextActionSample", next_tactic = "AINextTactic",
@@ -40,7 +41,7 @@ local fields = {
     },
     footsteps = {attachments = "AIFootAttachments", last_choices = "AIFootstepLast", last = "AILastFootstep"},
     reactions = {kind = "AIReaction", finish = "AIReactionEnd", schedule = "AIReactionSchedule", last = "AILastReaction",
-        next_danger = "AINextDanger"},
+        next_danger = "AINextDanger", alerted = "AIReactionAlerted", next_surprise = "AINextSurprise"},
     evasion = {next_evade = "AINextEvade", aim_started = "AIAimStarted", count = "AIEvades", gunfire_count = "AIGunfireEvades",
         next_gunfire = "AINextGunfireCheck", last_gunfire = "AILastGunfire"}
 }
@@ -191,6 +192,7 @@ function methods:AIUpdate(now)
     self:AIUpdateSurface(now)
     self:AIUpdateLeap(now)
     self:AIThinkKamikaze(now)
+    self:AIUpdateDefense(now)
     if self.AIMotionProfile and not self:AILeapActive() and not self:AISurfaceActive() then
         self:AIAnimateAimTurn(self:AIUpdateAimTurn())
     end
@@ -206,10 +208,11 @@ function methods:AIAlert(enemy, now)
     local search = profile.search and self[profile.search.fields.active]
     local found = search and search.enemy == enemy or false
     local mode = profile.perception and self[profile.perception.fields.mode] or "idle"
+    local quiet = profile.idle and self[profile.idle.fields.active] ~= nil or false
     self:AICancelIdle()
     -- The host may use the previous search/perception state for native cues
     -- and surprise policy, before those states are retired.
-    if profile.lifecycle.alert then profile.lifecycle.alert(self, enemy, now, found, mode) end
+    if profile.lifecycle.alert then profile.lifecycle.alert(self, enemy, now, found, mode, quiet) end
     self:AIEndPostcombat(now)
     self:AIFinishSearch(now, false)
     self:AIFinishInvestigation()

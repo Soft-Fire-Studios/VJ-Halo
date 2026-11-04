@@ -2,8 +2,8 @@
 -- model/material callbacks. Map lights and flashlight/projector beams share the surface submission.
 if SERVER then return end
 CE8=CE8 or {}
-if CE8.SceneState then return end
-local state={layout=2,models=setmetatable({}, {__mode="k"}),freeModels={},modelCount=1,
+if CE8.SceneState and CE8.SceneState.runtime==4 then return end
+local state={layout=3,runtime=4,models=setmetatable({}, {__mode="k"}),freeModels={},modelCount=1,
     regions={},regionCount=0,freeRegions={},lights={},lightCount=0,freeLights={},cookies={},cookieSlots={},modelSlots={},modelOwners=setmetatable({}, {__mode="v"}),parameters={},parameterKeys={},pending={},updates={},frame=-1,uploads=0}
 CE8.SceneState=state
 local target,writer,expander
@@ -210,19 +210,8 @@ local function channel(row)
     return -1
 end
 local function prepareParameters(slot)
-    local record,rows=slot.record,slot.rows
-    beginUpload()
-    expander:SetTexture("$basetexture",assert(CE8.NamedTexture(record.textures.MaterialParameterTexture,false),"Missing CE8 parameter texture"));expander:SetInt("$frame",0)
-    expander:SetFloat("$c0_x",0)
+    local rows=slot.rows
     local pixel=32768+slot.index*256
-    quad(expander,(pixel*2)%1024,math.floor(pixel*2/1024),320,1)
-    for first=1,#rows,4 do
-        local changed=false
-        for i=first,math.min(first+3,#rows) do
-            for c=1,4 do if rows[i][c]~=record.default_parameter_rows[i][c] then changed=true end end
-        end
-        if changed then write(pixel+first-1,{rows[first],rows[first+1],rows[first+2],rows[first+3]},4) end
-    end
     local routes,masked=0,0
     for i=1,rows[3][2] do
         local selected=channel(rows[8+i])
@@ -231,14 +220,24 @@ local function prepareParameters(slot)
         if rows[8][i]~=0 then masked=masked+2^(i-1) end
     end
     write(pixel,{rows[1],rows[2],{rows[3][1],rows[3][2],routes,masked},rows[4]},4)
-    local derived={}
-    for i=0,7 do
-        local at=21+i*7
-        derived[i+1]={channel(rows[at]),rows[at+5][4],rows[at+5][1],(rows[at+1][4]+1)*.5}
-    end
-    write(pixel+200,derived,8)
-    slot.ready=true;slot.rows=nil;slot.record=nil
+    write(pixel,rows,#rows-4,5)
+    -- Retain immutable CPU values so a lost render target can be restored.
+    -- Defaults and overrides use the same upload; there is no parameter VTF.
+    slot.ready=true
 end
+
+local function invalidate()
+    state.neutral=nil;state.brdf=nil;state.pending={}
+    for _,slot in ipairs(state.parameters) do slot.ready=false;state.pending[#state.pending+1]=slot end
+    for _,records in ipairs({state.modelSlots,state.lights,state.regions}) do
+        for _,record in pairs(records) do
+            record.ready=false;record.uploaded=false;record.dirty=true;record.frame=nil;record.source=nil
+        end
+    end
+    state.cookies={};state.cookieSlots={}
+end
+hook.Add("OnScreenSizeChanged","CE8SceneRestore",invalidate)
+hook.Add("InitPostEntity","CE8SceneRestore",invalidate)
 local programs={ce8_live_detail_v8_ps30="ce8_scene_live_ps30",ce8_live_detail_v8_packed_ps30="ce8_scene_live_ps30",
     ce8_atlas_surface_v3_ps30="ce8_scene_atlas_ps30",ce8_atlas_worm_v3_ps30="ce8_scene_worm_ps30",
     ce8_plasma_v2_ps30="ce8_scene_plasma_ps30"}

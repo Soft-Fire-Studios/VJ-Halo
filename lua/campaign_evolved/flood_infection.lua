@@ -305,8 +305,14 @@ local function complete(actor, job)
     end
     if record.snapshot and successor.AIAnatomyRestore then successor:AIAnatomyRestore(record.snapshot, {reset = {infection = true}}) end
     local form = Infection.forms[record.owner]
-    if not successor.CE8BeginResurrection or not successor:CE8BeginResurrection(form.resurrection.sequence, body) then
-        successor:Remove() Infection.Cancel(actor, "missing_resurrection") return false
+    local rising, reason
+    if successor.CE8BeginResurrection then
+        -- Both entities disappear on commit. Neither may obstruct the
+        -- successor's authored get-up path while that commit is being checked.
+        rising, reason = successor:CE8BeginResurrection(form.resurrection.sequence, {body, actor})
+    end
+    if not rising then
+        successor:Remove() Infection.Cancel(actor, reason or "missing_resurrection") return false
     end
     local enemy = actor:GetEnemy()
     if IsValid(enemy) and enemy ~= job.host and enemy:Health() > 0 and successor:CheckRelationship(enemy) == D_HT then
@@ -375,8 +381,6 @@ function Infection.Search(actor)
     if not enabled(actor) or actor.AttackType or actor:IsBusy("Activities") or not actor:OnGround()
         or actor.IsGuard or actor.IsFollowing or actor.DisableChasingEnemy
         or now < (actor.CE8InfectionRetry or 0) or now < (actor.CE8NextCorpseSearch or 0) then return false end
-    local enemy = actor:GetEnemy()
-    if IsValid(enemy) and enemy:Health() > 0 then return false end
     if jobCount() >= settings.max_jobs then return false end
     local budget = Infection.searchBudget
     if not budget or now >= budget.until_time then budget = {until_time = now + 0.25, scans = 4, traces = 8} Infection.searchBudget = budget end
@@ -412,6 +416,9 @@ function Infection.Search(actor)
     job.body, job.deadline = chosen, now + settings.approach_timeout
     actor:AISuspendActions(now) actor:StopCurrentSchedule()
     if actor.CurrentSchedule then Infection.Cancel(actor, "replacement_schedule") return false end
+    -- Corpse acquisition takes priority over a live enemy without forgetting
+    -- that enemy. VJ's own timers protect this finite route from chase/attacks.
+    lock(actor, job, job.deadline)
     actor:SetLastPosition(bodyPoint(chosen))
     actor:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH", function(schedule)
         job.schedule = schedule
@@ -427,10 +434,11 @@ function Infection.Attach(ENT, data)
         if ready then
             function ENT:CE8WeaponShotReady(now) return not self.CE8Rising and ready(self, now) end
         end
-        function ENT:CE8BeginResurrection(sequence, corpse)
-            if self:LookupSequence(sequence) < 0 or not self:AIValidateMotion(sequence, 0, corpse) then return false end
+        function ENT:CE8BeginResurrection(sequence, consumed)
+            if self:LookupSequence(sequence) < 0 then return false, "missing_resurrection" end
+            if not self:AIValidateMotion(sequence, 0, consumed) then return false, "blocked_resurrection" end
             local animation, duration = self:PlayAnim("vjseq_" .. sequence, "LetAttacks", false, false, 0, {PlayBackRate = 1})
-            if animation == ACT_INVALID or duration <= 0 then return false end
+            if animation == ACT_INVALID or duration <= 0 then return false, "resurrection_playback" end
             self.CE8Rising = {finish = CurTime() + duration, seed = CurTime(), schedule = self.CurrentSchedule}
             self.AttackType, self.AttackState, self.AttackSeed = VJ.ATTACK_TYPE_CUSTOM, VJ.ATTACK_STATE_STARTED, self.CE8Rising.seed
             return true

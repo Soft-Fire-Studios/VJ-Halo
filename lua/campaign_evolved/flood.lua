@@ -22,6 +22,19 @@ local function origin(actor, marker)
     return attachment and attachment.Pos or actor:WorldSpaceCenter()
 end
 
+-- Infection movement ignores characters; attack traces must still hit them.
+-- Cache the explicit damage filter instead of using the movement body's pair
+-- filter as the trace's pass entity. Other Flood keep their existing filters.
+local function attackFilter(actor)
+    if actor.CE8UnitLabel ~= "flood_infection" then return actor end
+    if not actor.CE8BiteFilter then
+        actor.CE8BiteFilter = function(entity)
+            return entity ~= actor and not (entity.IsPRPCollider and entity:GetOwner() == actor)
+        end
+    end
+    return actor.CE8BiteFilter
+end
+
 local function contactSurface(material, position)
     if material == MAT_SLOSH or bit.band(util.PointContents(position + Vector(0, 0, 1)), CONTENTS_WATER) ~= 0 then
         return "liquid"
@@ -38,12 +51,14 @@ end
 -- keep solid walls between a burst and a victim meaningful.
 function Flood.Blast(actor, position, burst)
     for _, victim in ipairs(ents.FindInSphere(position, burst.radius)) do
-        if IsValid(victim) and victim ~= actor and victim.TakeDamageInfo then
+        if IsValid(victim) and victim ~= actor and not victim.IsPRPCollider and victim.TakeDamageInfo then
             local point = victim:NearestPoint(position)
             local distance = point:Distance(position)
             if distance <= burst.radius then
-                local trace = util.TraceLine({start = position, endpos = point, mask = MASK_SHOT, filter = actor})
-                if not trace.StartSolid and (not trace.Hit or trace.Entity == victim) then
+                local trace = util.TraceLine({start = position, endpos = point, mask = MASK_SHOT, filter = attackFilter(actor)})
+                local receiver = trace.Entity
+                if IsValid(receiver) and receiver.IsPRPCollider then receiver = receiver:GetOwner() end
+                if not trace.StartSolid and (not trace.Hit or receiver == victim) then
                     local fraction = burst.radius > burst.core and math.Clamp((distance - burst.core) / (burst.radius - burst.core), 0, 1) or 0
                     local amount = burst.damage + (burst.minimum - burst.damage) * fraction
                     local damage = DamageInfo()
@@ -261,14 +276,85 @@ function Flood.Spew(ENT, settings)
     end
 end
 
+-- Shared emergence for disarmed living hosts and killed combat forms. Check
+-- the actual parasite bodygroup as well as damage state; a hidden core cannot
+-- become a live Infection form. A committed child prevents a second release.
+function Flood.EjectInfection(actor)
+    if actor:AIAnatomyMissing("infection") or (actor.CE8Escape and actor.CE8Escape.child) then return end
+    local part = actor:CE8Data().anatomy.regions.infection
+    if not part then return end
+    local group = actor:FindBodygroupByName(part.bodygroup or "infection")
+    if group < 0 or actor:GetBodygroup(group) == (part.blank or actor:GetBodygroupCount(group) - 1) then return end
+    local pending = actor.CE8Escape or {}
+    actor.CE8Escape = pending
+    local center, point = origin(actor, "head")
+    local filter = {actor}
+    local weapon = actor:GetActiveWeapon()
+    if IsValid(weapon) then filter[#filter + 1] = weapon end
+    for _, proxy in pairs(actor.ColliderParts or {}) do filter[#filter + 1] = proxy end
+    -- Bounded event-only clearance checks, never a placement through a wall.
+    for i = 0, 8 do
+        local angle = math.rad(actor:GetAngles().y + i * 45)
+        local candidate = center + (i == 0 and Vector() or Vector(math.cos(angle), math.sin(angle), 0) * 32)
+        local trace = util.TraceHull({start = center, endpos = candidate,
+            mins = Vector(-12, -12, 0), maxs = Vector(12, 12, 24.12),
+            mask = MASK_NPCSOLID, filter = filter})
+        if not trace.Hit and not trace.StartSolid and not trace.AllSolid
+            and bit.band(util.PointContents(candidate), CONTENTS_WATER) == 0 then point = candidate break end
+    end
+    if not point then pending.reason = "blocked" return end
+    local child = Flood.LaunchInfection(actor, point, actor:GetAngles().y,
+        {horizontal = {60, 100}, vertical = {80, 120}})
+    if not IsValid(child) then pending.reason = "spawn_failed" return end
+    pending.child, pending.reason = child, nil
+    return child, group
+end
+
+-- Source behavior: an intact parasite abandons a living host three seconds
+-- after BOTH working arms are lost. One timer per host, no population scan.
+function Flood.QueueEscape(actor, state, damage)
+    local lost = state.lost
+    if actor.CE8Escape or lost.infection
+        or not (lost.l_forearm or lost.l_upperarm)
+        or not (lost.r_forearm or lost.r_upperarm) then return end
+    local pending = {attacker = damage:GetAttacker(), inflictor = damage:GetInflictor()}
+    actor.CE8Escape = pending
+    timer.Simple(3, function()
+        if not IsValid(actor) or actor.Dead or actor:Health() <= 0 or actor.CE8BodyDestroyed
+            or actor.CE8Escape ~= pending or actor.GodMode then return end
+        local current = actor.AIAnatomy and actor.AIAnatomy.lost or {}
+        if current.infection or not (current.l_forearm or current.l_upperarm)
+            or not (current.r_forearm or current.r_upperarm) then return end
+        local child = Flood.EjectInfection(actor)
+        if not IsValid(child) then return end
+        local kill = DamageInfo()
+        kill:SetAttacker(IsValid(pending.attacker) and pending.attacker or game.GetWorld())
+        kill:SetInflictor(IsValid(pending.inflictor) and pending.inflictor or game.GetWorld())
+        kill:SetDamage((actor:Health() + actor:GetMaxHealth()) * difficulty.Multiplier("resistance"))
+        kill:SetDamageType(DMG_GENERIC)
+        kill:SetDamagePosition(actor:WorldSpaceCenter())
+        actor:TakeDamageInfo(kill) -- VJ owns credit, controller release and death cleanup.
+        if IsValid(actor) and not actor.Dead then
+            child:Remove() -- An external damage veto must not duplicate the parasite.
+            pending.child, pending.reason = nil, "damage_blocked"
+        end
+    end)
+end
+
 -- Bind native damage regions to the current compiled hitbox set. The shared
 -- anatomy service owns all damage/weapon transitions; this supplies resources.
 function Flood.Anatomy(ENT, data, sounds)
     local sets, regions = {}, data.anatomy.regions
-    for _, preset in pairs(data.anatomy.presets) do
+    for _, preset in pairs(data.anatomy.presets or {}) do
         for _, row in pairs(preset) do sets[row.index] = row.regions end
     end
     local settings = {regions = regions,
+        traced_blasts = true,
+        trace_region = function(self, trace)
+            if self.ColliderBodies then return trace.ColliderRegion end
+            local map = sets[self:GetHitboxSet()]
+            return map and map[(trace.HitBox or -2) + 1]
+        end,
         hit_regions = function(self) return sets[self:GetHitboxSet()] end,
         direct_trace = function(self, damage)
             local projectile = damage:GetInflictor()
@@ -276,6 +362,7 @@ function Flood.Anatomy(ENT, data, sounds)
                 and projectile:CE8ConsumeDamageTrace(self, damage) or nil
         end,
         hitbox_sets = function(self, lost)
+            if not data.anatomy.presets then return end
             local preset = data.anatomy.presets[self:CE8RankSettings().hitbox_set]
             if not preset then return end
             local left = lost.l_upperarm and 2 or lost.l_forearm and 1 or 0
@@ -290,16 +377,179 @@ function Flood.Anatomy(ENT, data, sounds)
             Gibs.Sever(self, data.owner, regions, changed, damage)
         end,
         changed = function(self, region, state, damage)
+            if data.owner == "flood_combat_human" or data.owner == "flood_combat_elite" then
+                Flood.QueueEscape(self, state, damage)
+            end
             if self.HasSounds == false or state.sound_at == CurTime() then return end
             state.sound_at = CurTime()
             -- Reuse the native shared limb sound, including its variation/gain.
             FX.Sound(sounds.playback.combatform_limb_destroyed, damage:GetDamagePosition(), 75)
         end
     })
+    local death = ENT.OnDeath
+    function ENT:OnDeath(damage, hitgroup, status)
+        if status == "Init" and self.CE8Escape and IsValid(self.CE8Escape.child) then
+            self.HasDeathCorpse, self.HasDeathAnimation = false, false
+            Gibs.Destroy(self, data.owner, damage, nil, true)
+        elseif status == "Finish" and regions.infection and self.SavedDmgInfo
+            and bit.band(self.SavedDmgInfo.type, bit.bor(DMG_DISSOLVE, DMG_REMOVENORAGDOLL)) == 0 then
+            -- VJ saved these numeric flags before death. The CTakeDamageInfo
+            -- passed to Finish can already be invalid after animation playback.
+            -- Lethal host damage is the threshold; no extra chance roll. VJ
+            -- reaches Finish after the death clip and before copying bodygroups
+            -- and anatomy to the ragdoll. Ordinary death leaves that body intact.
+            local child, group = Flood.EjectInfection(self)
+            if IsValid(child) then
+                local state = self.AIAnatomy
+                state.lost.infection = true
+                self:SetBodygroup(group, regions.infection.blank or self:GetBodygroupCount(group) - 1)
+                local selected = settings.hitbox_sets(self, state.lost)
+                if selected ~= nil then self:SetHitboxSet(selected) state.hitbox_set = selected end
+            end
+        end
+        return death(self, damage, hitgroup, status)
+    end
+end
+
+-- Tank protection is a moving posture. The animated rigid armor still owns
+-- damage blocking; this does not grant immunity to an exposed face or flank.
+function Flood.Tank(ENT, data)
+    local settings = data.tank
+    local animationSet, damaged, flinch = ENT.AIAnimationSet, ENT.OnDamaged, ENT.OnFlinch
+    local think, attack, melee, direction = ENT.OnThink, ENT.OnThinkAttack, ENT.OnMeleeAttack, ENT.MeleeAttackTraceDirection
+    local event, death, remove = ENT.OnAnimEvent, ENT.OnDeath, ENT.CustomOnRemove
+    ENT.MeleeAttackDistance = data.melee.range + settings.tackle.advance
+    -- VJ admits every direction; PreInit selects the distinct authored
+    -- attacks. The contact cone is never widened to a radial damage attack.
+    ENT.MeleeAttackAngleRadius = 180
+
+    function ENT:CE8TankBlocking(now)
+        return now < (self.CE8TankProtectUntil or 0) and enabled(self) and self:Health() > 0
+            and not self.AttackType and not self.Flinching and self:OnGround()
+            and self:GetNavType() == NAV_GROUND
+    end
+    function ENT:AIAnimationSet(weapon)
+        if self:CE8TankBlocking(CurTime()) then return data.weapon_sets.protected, "protected" end
+        return animationSet(self, weapon)
+    end
+    function ENT:CE8UpdateTank(now)
+        local protected = self:CE8TankBlocking(now)
+        if protected ~= (self.CE8TankProtected == true) then
+            self.CE8TankProtected = protected
+            self:SetAnimationTranslations(data.default_weapon)
+        end
+        if not self.AttackType then
+            self.CE8TankStrike, self.CE8TankContactDirection = nil, nil
+            self.MeleeAttackDamageDistance = data.melee.hit_range
+        end
+    end
+    function ENT:OnDamaged(damage, hitgroup, status)
+        if status == "Init" and damage:GetDamage() >= settings.protect.damage
+            and enabled(self) and self:Health() > 0 and not damage:IsDamageType(DMG_BLAST)
+            and (hitgroup == HITGROUP_HEAD or self:CE8TankBlocking(CurTime())) then
+            local source = -damage:GetDamageForce()
+            local attacker = damage:GetAttacker()
+            if source:LengthSqr() < 0.001 and IsValid(attacker) and attacker ~= self then
+                source = attacker:GetPos() - self:GetPos()
+            end
+            -- Face hits start protection; continued frontal pressure on the
+            -- covering armor refreshes the native quiet-time window.
+            if source:Dot(self:GetForward()) > 0 then
+                self.CE8TankProtectUntil = CurTime() + settings.protect.time
+                self:CE8UpdateTank(CurTime())
+            end
+        end
+        return damaged(self, damage, hitgroup, status)
+    end
+    function ENT:OnFlinch(damage, hitgroup, status)
+        if status == "Init" and self:CE8TankBlocking(CurTime()) then return true end
+        return flinch(self, damage, hitgroup, status)
+    end
+    function ENT:OnThink()
+        self:CE8UpdateTank(CurTime())
+        return think(self)
+    end
+    function ENT:OnThinkAttack(isAttacking, enemy)
+        if self:CE8TankBlocking(CurTime()) then return end
+        if attack then return attack(self, isAttacking, enemy) end
+    end
+    function ENT:OnMeleeAttack(status, enemy)
+        if status == "PreInit" then
+            if self:CE8TankBlocking(CurTime()) then return true end
+            self.CE8TankStrike, self.CE8TankContactDirection = nil, nil
+            self.MeleeAttackDamageDistance = data.melee.hit_range
+            if not self.MeleeAttack_IsPropAttack and IsValid(enemy) then
+                local delta = enemy:GetPos() - self:GetPos()
+                delta.z = 0
+                local heading = delta:GetNormalized()
+                local facing = self:GetForward():Dot(heading)
+                local distance = VJ.GetNearestDistance(self, enemy, true)
+                if facing <= -math.cos(math.rad(settings.rear.angle)) and distance <= settings.rear.hit_range then
+                    self.CE8TankStrike = settings.rear
+                elseif facing >= math.cos(math.rad(settings.tackle.angle)) and distance > data.melee.range
+                    and distance <= self.MeleeAttackDistance then
+                    self.CE8TankStrike = settings.tackle
+                elseif facing < math.cos(math.rad(data.melee.angle)) or distance > data.melee.range then
+                    local lateral = self:GetRight():Dot(heading)
+                    local side = lateral < 0 and settings.left or settings.right
+                    if distance > side.hit_range or math.abs(lateral) < math.cos(math.rad(side.angle)) then return true end
+                    self.CE8TankStrike = side
+                end
+            end
+            local strike = self.CE8TankStrike
+            if strike then
+                if not self:AIPrepareAttackTurn(strike.sequence, enemy) then return true end
+                if not self:AIValidateMotion(strike.sequence, 0, enemy) then self.CE8TankStrike = nil return true end
+                self.CE8ContactSequence = strike.sequence
+                self.AnimTbl_MeleeAttack = "vjseq_" .. strike.sequence
+                return
+            end
+        elseif status == "PostInit" and self.CE8TankStrike then
+            return -- Authored directional strikes own their heading.
+        end
+        local result = melee(self, status, enemy)
+        if status == "Init" and self.CE8TankStrike then
+            local strike = self.CE8TankStrike
+            self:ResetTurnTarget()
+            self:SetIdealYaw(self:GetAngles().y)
+            if strike.direction then
+                self.CE8TankContactDirection = Angle(0, self:GetAngles().y + strike.direction, 0):Forward()
+                self.MeleeAttackDamageDistance = strike.hit_range
+            end
+        end
+        return result
+    end
+    function ENT:MeleeAttackTraceDirection()
+        if self.AttackType == VJ.ATTACK_TYPE_MELEE and self.CE8TankContactDirection then return self.CE8TankContactDirection end
+        return direction(self)
+    end
+    function ENT:MeleeAttackKnockbackVelocity(victim)
+        local velocity = self:AIBaseCall("MeleeAttackKnockbackVelocity", victim)
+        if self.AttackType == VJ.ATTACK_TYPE_MELEE and self.CE8TankContactDirection then
+            local forward = self:GetForward()
+            return velocity + (self.CE8TankContactDirection - forward) * velocity:Dot(forward)
+        end
+        return velocity
+    end
+    function ENT:OnAnimEvent(id, eventTime, cycle, eventType, options)
+        local strike = self.CE8TankStrike
+        if strike and id == 4001 and options == "primary keyframe"
+            and math.abs(cycle * (strike.frames - 1) - strike.contact) > 1 then return end
+        return event(self, id, eventTime, cycle, eventType, options)
+    end
+    function ENT:OnDeath(damage, hitgroup, status)
+        if status == "Init" then self.CE8TankProtectUntil = nil end
+        return death(self, damage, hitgroup, status)
+    end
+    function ENT:CustomOnRemove()
+        self.CE8TankProtectUntil, self.CE8TankContactDirection = nil, nil
+        return remove(self)
+    end
 end
 
 function Flood.Server(ENT, profile)
     local data = ENT:CE8Data()
+    if data.combat then profile = include("campaign_evolved/flood_combat.lua").Profile(data, profile) end
     local voices = profile.sounds.dialogue[data.voice] or {}
     if profile.sounds.footsteps.hard then
         profile.footsteps.materials = {
@@ -331,10 +581,16 @@ function Flood.Server(ENT, profile)
         -- Its native FS_Walk cue is generic; no authored surface-specific steps.
         profile.footsteps.default_surface = "default"
         profile.footsteps.action = function() return "walk" end
+        local shutdown = profile.lifecycle.shutdown
+        profile.lifecycle.shutdown = function(self, now, reason)
+            self:AIStopContinuousSound()
+            if shutdown then shutdown(self, now, reason) end
+        end
     end
     if data.owner == "flood_infection" then
         profile.capabilities.surface = true
         profile.surface = {speed = 180, range = 1200, stop_distance = 180,
+            ceiling = {height = 512, wall_range = 192, drop_range = 100},
             sequence = data.weapon_sets.unarmed.sequences.combat_move_front,
             allowed = function() return tonumber(difficulty.Get("ce8_infection_crawl")) == 1 end,
             limit = function() return tonumber(difficulty.Get("ce8_infection_crawl_limit")) or 16 end}
@@ -366,7 +622,7 @@ function Flood.Server(ENT, profile)
         end
         profile.leap.contact = function(self) self:ExecuteMeleeAttack() end
         if data.owner == "flood_infection" then
-            profile.leap.collision_group = COLLISION_GROUP_DEBRIS_TRIGGER
+            profile.leap.collision_group = COLLISION_GROUP_NPC
             profile.leap.airborne_update = function(self, action, now)
                 if action.bitten or now < (action.bite_next or 0) then return end
                 action.bite_next = now + 0.05
@@ -374,7 +630,7 @@ function Flood.Server(ENT, profile)
                 -- Actor pass-through removes physical contacts. A swept attack
                 -- hull tests only during the leap, at most 20 times per second.
                 local contact = util.TraceHull({start = action.bite_position or position, endpos = position,
-                    mins = Vector(-12, -12, -12), maxs = Vector(12, 12, 12), filter = self,
+                    mins = Vector(-12, -12, -12), maxs = Vector(12, 12, 12), filter = attackFilter(self),
                     mask = MASK_SHOT_HULL, collisiongroup = COLLISION_GROUP_NONE})
                 action.bite_position = position
                 if contact.Hit and IsValid(contact.Entity) then self:OnTouch(contact.Entity, contact.HitPos) end
@@ -425,7 +681,11 @@ function Flood.Server(ENT, profile)
     end
     ENT.HasLeapAttack = false -- Shared CUSTOM attack works on Human and Creature hosts.
     if data.leap then
-        function ENT:OnThinkAttack(isAttacking, enemy) self:AITryLeap(CurTime(), enemy) end
+        function ENT:OnThinkAttack(isAttacking, enemy)
+            local now = CurTime()
+            if data.combat and self:AITryPerch(now, enemy) then return end
+            self:AITryLeap(now, enemy)
+        end
     end
     ENT.BloodColor = VJ.BLOOD_COLOR_YELLOW
     ENT.CE8WeaponProfile = "floodcombat"
@@ -440,7 +700,6 @@ function Flood.Server(ENT, profile)
     ENT.Weapon_CanReload = data.adapter == "human" -- VJ refills without animation or cover.
     ENT.Weapon_RetreatDistance = 0
     ENT.Weapon_UnarmedBehavior = false
-    ENT.HasDeathAnimation = false
     ENT.HasDeathCorpse = not data.burst
     if data.owner == "flood_infection" then
         local thinkActive = ENT.OnThinkActive
@@ -465,11 +724,14 @@ function Flood.Server(ENT, profile)
             -- Native idle foley, scheduled by VJ's existing idle sound system.
             self.SoundTbl_Idle = profile.sounds.effects.carrier_idle_oneoff
             self.SoundTbl_CombatIdle = self.SoundTbl_Idle
+            -- VJ owns the single voice at the committed suicide windup.
+            self.SoundTbl_BeforeMeleeAttack = bank.charge or false
         end
         if data.owner == "flood_infection" then
-            -- Engine collision policy: shootable and trigger-aware, with world
-            -- and static geometry collision, but no actor/physics-prop blocking.
-            self:SetCollisionGroup(COLLISION_GROUP_DEBRIS_TRIGGER)
+            -- Normal world/prop collision. Only character pairs are excluded by
+            -- CE8InfectionCollision; the damage carriers stay shootable.
+            self:SetCollisionGroup(COLLISION_GROUP_NPC)
+            self:SetCustomCollisionCheck(true)
             self.SoundTbl_Idle = profile.sounds.events.infector_vo_idle
             self.SoundTbl_CombatIdle = profile.sounds.events.infector_vo_move
             self.SoundTbl_Alert = false
@@ -479,6 +741,23 @@ function Flood.Server(ENT, profile)
     end
 
     if data.owner == "flood_carrier" then
+        local think, damaged = ENT.OnThink, ENT.OnDamaged
+        local bed = profile.sounds.continuous and profile.sounds.continuous["effects/idle_move"]
+        function ENT:OnThink()
+            think(self)
+            self:AIUpdateContinuousSound(bed, self:IsMoving() and not self.AttackType,
+                CurTime(), self.IdleSoundLevel or 65)
+        end
+        function ENT:OnDamaged(damage, hitgroup, status)
+            damaged(self, damage, hitgroup, status)
+            if status == "PostDamage" then
+                local flinch = self:CE8RankSettings().flinch
+                -- Source mapping: reuse the hard-reaction threshold. VJ owns
+                -- the subsequent Pain request, chance and cooldown.
+                self.SoundTbl_Pain = flinch and damage:GetDamage() >= flinch.unshielded
+                    and voices.pain_mjr or voices.pain
+            end
+        end
         -- This bank is body foley, not a voice. Retain the existing VJ idle
         -- requests/chances/timer while keeping it outside CurrentIdleSound.
         function ENT:PlayIdleSound(combatIdle)
@@ -594,7 +873,9 @@ function Flood.Server(ENT, profile)
                     damage:SetDamage((self:Health() + 1) * difficulty.Multiplier("resistance"))
                     damage:SetDamageType(DMG_GENERIC)
                     damage:SetDamagePosition(self:WorldSpaceCenter())
+                    self.CE8ImmediateBurst = true -- Suicide already played its authored windup.
                     self:TakeDamageInfo(damage) -- Preserve VJ's complete death lifecycle.
+                    if IsValid(self) then self.CE8ImmediateBurst = nil end
                 end)
             end
         end
@@ -632,7 +913,7 @@ function Flood.Server(ENT, profile)
                 local destination = position + away * (140 - distance)
                 local mins, maxs = self:GetCollisionBounds()
                 local path = util.TraceHull({start = position + Vector(0, 0, 2), endpos = destination + Vector(0, 0, 2),
-                    mins = mins, maxs = maxs, filter = self, mask = MASK_NPCSOLID, collisiongroup = COLLISION_GROUP_DEBRIS_TRIGGER})
+                    mins = mins, maxs = maxs, filter = self, mask = MASK_NPCSOLID, collisiongroup = COLLISION_GROUP_NPC})
                 local floor = util.TraceLine({start = destination + Vector(0, 0, 24), endpos = destination - Vector(0, 0, 32),
                     filter = self, mask = MASK_NPCSOLID_BRUSHONLY})
                 if not path.Hit and not path.StartSolid and floor.Hit and not floor.StartSolid and not floor.HitSky
@@ -655,6 +936,9 @@ function Flood.Server(ENT, profile)
             local leap = self:AILeapActive()
             if not leap or leap.phase ~= "airborne" or leap.bitten
                 or self.AttackType ~= VJ.ATTACK_TYPE_CUSTOM or self.AttackSeed ~= leap.seed then return end
+            local surface = victim
+            local barrier = FX.IsBarrier(surface)
+            if IsValid(victim) and victim.IsPRPCollider then victim = victim:GetOwner() end
             -- VJ invokes OnTouch before its own disabled/controller checks.
             if not enabled(self) or not IsValid(victim) or victim == self
                 or not (victim:IsNPC() or victim:IsNextBot() or victim:IsPlayer()) or victim:Health() <= 0
@@ -664,11 +948,13 @@ function Flood.Server(ENT, profile)
             local position = contactPosition or self:WorldSpaceCenter()
             local point = victim:NearestPoint(position)
             if point:DistToSqr(position) > data.bite.reach ^ 2 then return end
-            local trace = util.TraceLine({start = position, endpos = point, mask = MASK_SHOT, filter = self})
-            if trace.Hit and trace.Entity ~= victim then return end
+            local trace = util.TraceLine({start = position, endpos = point, mask = MASK_SHOT, filter = attackFilter(self)})
+            local receiver = trace.Entity
+            if IsValid(receiver) and receiver.IsPRPCollider then receiver = receiver:GetOwner() end
+            if trace.Hit and receiver ~= victim then return end
             -- Same shield eligibility as needles, sampled before the hit can
             -- consume the last shield point. Player suit armor counts as shields.
-            local shielded = (victim.CE8Shield or 0) > 0 or (victim:IsPlayer() and victim:Armor() > 0)
+            local shielded = barrier or (victim.CE8Shield or 0) > 0 or (victim:IsPlayer() and victim:Armor() > 0)
             self.CE8BiteAfter, self.CE8BiteSeed = CurTime() + data.bite.cooldown, self.AttackSeed
             leap.bitten = true
             local damage = DamageInfo()
@@ -678,7 +964,7 @@ function Flood.Server(ENT, profile)
             damage:SetDamageType(shielded and DMG_SHOCK or DMG_SLASH)
             damage:SetDamagePosition(point)
             local infection = not shielded and Infection.PrepareBite(self, victim, damage:GetDamage())
-            victim:TakeDamageInfo(damage)
+            if barrier then surface:TakeDamageInfo(damage) else victim:TakeDamageInfo(damage) end
             if infection then Infection.FinishBite(self, victim, infection) end
             if shielded and IsValid(self) and not self.Dead then
                 local pop = DamageInfo()
@@ -687,7 +973,9 @@ function Flood.Server(ENT, profile)
                 pop:SetDamage((self:Health() + 1) * difficulty.Multiplier("resistance"))
                 pop:SetDamageType(DMG_GENERIC)
                 pop:SetDamagePosition(self:WorldSpaceCenter())
+                self.CE8ImmediateBurst = true -- Shield contact pops immediately, including mid-leap.
                 self:TakeDamageInfo(pop) -- VJ performs the normal death/burst lifecycle.
+                if IsValid(self) then self.CE8ImmediateBurst = nil end
                 return
             end
             local sounds = profile.sounds.events.infector_wrestle
@@ -698,7 +986,19 @@ function Flood.Server(ENT, profile)
     if data.burst then
         function ENT:OnDeath(damage, hitgroup, status)
             death(self, damage, hitgroup, status)
-            if status ~= "Init" or self.CE8BurstPlayed then return end
+            if self.CE8BurstPlayed then return end
+            if status == "Init" then
+                if self.HasDeathAnimation then
+                    -- No retained engine DamageInfo across frames. Debris only
+                    -- needs the saved impulse when VJ finishes this short death.
+                    self.CE8BurstPending = damage:GetDamageForce()
+                    return
+                end
+            elseif status == "Finish" and self.CE8BurstPending then
+                damage = DamageInfo()
+                damage:SetDamageForce(self.CE8BurstPending)
+            else return end
+            self.CE8BurstPending = nil
             self.CE8BurstPlayed = true
             if self.CanGibOnDeath then Gibs.Destroy(self, data.owner, damage) end
             local position = origin(self, data.anchors.explosion or data.anchors.body)
@@ -717,6 +1017,11 @@ function Flood.Server(ENT, profile)
         end
     end
     if data.spew then Flood.Spew(ENT, data.spew) end
+    if data.combat then
+        include("campaign_evolved/flood_combat.lua").Attach(ENT, data)
+        include("campaign_evolved/flood_attacks.lua").Attach(ENT, data)
+    end
+    if data.tank then Flood.Tank(ENT, data) end
     if data.anatomy then Flood.Anatomy(ENT, data, profile.sounds) end
     Infection.Attach(ENT, data)
     Gibs.Attach(ENT, data, profile.sounds)

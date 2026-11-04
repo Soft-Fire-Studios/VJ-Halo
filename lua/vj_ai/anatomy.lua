@@ -234,10 +234,12 @@ function anatomy.Attach(definition, settings, callbacks)
                 local region
                 if not damage:IsDamageType(DMG_BLAST) and config.direct_trace then
                     local trace = config.direct_trace(self, damage)
-                    if trace and trace.Entity == self and trace.HitBox ~= nil
-                        and trace.HitBoxSet == self:GetHitboxSet() then
-                        local regions = config.hit_regions(self)
-                        region = regions and regions[trace.HitBox + 1]
+                    if trace and trace.Entity == self then
+                        if config.trace_region then region = config.trace_region(self, trace)
+                        elseif trace.HitBox ~= nil and trace.HitBoxSet == self:GetHitboxSet() then
+                            local regions = config.hit_regions(self)
+                            region = regions and regions[trace.HitBox + 1]
+                        end
                     end
                 end
                 -- No last-hitgroup fallback for generic damage or explosions.

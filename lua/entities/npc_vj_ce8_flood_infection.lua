@@ -12,4 +12,11 @@ Actor.Shared(ENT, "flood_infection", "creature")
 local Flood = include("campaign_evolved/flood.lua")
 Flood.Shared(ENT)
 if SERVER then Flood.Server(ENT, Actor.Profile(ENT:CE8Data(), "creature"))
-else Actor.Client(ENT) end
+else
+    Actor.Client(ENT)
+    local initialize = ENT.Init
+    function ENT:Init()
+        self:SetCustomCollisionCheck(true)
+        initialize(self)
+    end
+end

@@ -7,6 +7,7 @@ ENT.IsCE8Elite = true
 ENT.IsCE8SNPC = true
 ENT.CE8UnitLabel = "elite"
 ENT.CE8Rank = "minor"
+include("campaign_evolved/roster_collision.lua").Shared(ENT, "elite")
 
 local data = include("campaign_evolved/elite_anims.lua")
 function ENT:CE8Data() return data end

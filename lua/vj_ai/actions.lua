@@ -22,13 +22,14 @@ function methods:AISelectAction(name)
     return choices and #choices > 0 and choices[math.random(#choices)] or nil
 end
 
-function methods:AISelectDamage(action, damage, hitgroup)
+function methods:AISelectDamage(action, damage, hitgroup, mapping)
     if not self:AIHasCapability("reactions") then return end
     local config = self:AIProfile().reactions
-    local mapping = config.damage
+    mapping = mapping or config.damage
     if not mapping then return end
     local defaultRegion = mapping.default_region or "body"
-    local part = mapping.hitgroups and mapping.hitgroups[hitgroup] or defaultRegion
+    local hitgroups = mapping.hitgroups or config.damage and config.damage.hitgroups
+    local part = hitgroups and hitgroups[hitgroup] or defaultRegion
     local direction = -damage:GetDamageForce()
     local attacker = damage:GetAttacker()
     if IsValid(attacker) and attacker ~= self then direction = attacker:GetPos() - self:GetPos() end
@@ -60,12 +61,12 @@ function methods:AIReactionReady(now)
         and (not config.allowed or config.allowed(self, now))
 end
 
-function methods:AIPlayReaction(kind, sequence, now)
+function methods:AIPlayReaction(kind, sequence, now, context)
     if not self:AIHasCapability("reactions") or not sequence or self:LookupSequence(sequence) < 0 then return false end
     local config = self:AIProfile().reactions
     local animation, duration = self:PlayAnim("vjseq_" .. sequence, true, false, false, 0, {PlayBackRate = 1})
     if animation == ACT_INVALID or duration <= 0 then return false end
-    if config.started then config.started(self, kind, sequence, now, duration) end
+    if config.started then config.started(self, kind, sequence, now, duration, context) end
     if config.lock_heading ~= false then
         self:ResetTurnTarget()
         self:SetIdealYaw(self:GetAngles().y)
@@ -96,18 +97,46 @@ function methods:AIUpdateReaction(now)
     if config.finished then config.finished(self, kind, now, expired) end
 end
 
+-- Optional close first-contact/startled-wake reaction. Existing alert and
+-- playback services own it; never poll, retry or delay ordinary reacquisition.
+function methods:AITrySurprise(enemy, now, found, mode, quiet)
+    if not self:AIHasCapability("reactions") then return false end
+    local config = self:AIProfile().reactions
+    local settings = value(self, config.surprise, false)
+    if not settings or not settings.enabled then return false end
+    local fields = config.fields
+    local previous = self[fields.alerted]
+    self[fields.alerted] = true
+    if found or (previous and not quiet) or (mode ~= "idle" and not quiet)
+        or now < (self[fields.next_surprise] or 0) or not IsValid(enemy)
+        or not self:Visible(enemy) or not self:AIReactionReady(now) then return false end
+    local direction = enemy:GetPos() - self:GetPos()
+    if direction:LengthSqr() > settings.distance ^ 2 then return false end
+    local side = direction:Dot(self:GetForward()) < 0 and "back" or "front"
+    local sequence = self:AISelectAction("surprise_" .. side)
+    if not sequence or not self:AIValidateMotion(sequence, 0) then return false end
+    if not self:AIPlayReaction("surprise", sequence, now) then return false end
+    self[fields.next_surprise] = self[fields.finish] + (settings.cooldown or 10)
+    return true
+end
+
 local function traceFilter(actor, config, obstacle)
     local filter = {actor}
     local weapon = actor.GetActiveWeapon and actor:GetActiveWeapon()
     if IsValid(weapon) then filter[#filter + 1] = weapon end
-    if IsValid(obstacle) then filter[#filter + 1] = obstacle end
+    if IsValid(obstacle) then filter[#filter + 1] = obstacle
+    elseif type(obstacle) == "table" then
+        for _, entity in ipairs(obstacle) do
+            if IsValid(entity) then filter[#filter + 1] = entity end
+        end
+    end
     for _, part in pairs(config.ignore and config.ignore(actor) or {}) do
         if IsValid(part) then filter[#filter + 1] = part end
     end
     return filter
 end
 
-function methods:AIValidateMotion(sequence, minimum, obstacle)
+function methods:AIValidateMotion(sequence, minimum, obstacle, endCycle)
     if not self:AIHasCapability("reactions") then return false end
     local config = self:AIProfile().reactions
     local id = self:LookupSequence(sequence)
@@ -120,7 +149,7 @@ function methods:AIValidateMotion(sequence, minimum, obstacle)
     local samples = config.path_samples or 8
     -- Trace each portion of the authored curve, including support below it.
     for step = 1, samples do
-        local ok, delta = self:GetSequenceMovement(id, 0, step / samples)
+        local ok, delta = self:GetSequenceMovement(id, 0, step / samples * (endCycle or 1))
         if not ok then return false end
         delta:Rotate(yaw)
         local position = start + delta
@@ -315,15 +344,15 @@ function methods:AIObstacleOptions(prop)
         or prop:IsNextBot() or prop:GetMoveType() ~= MOVETYPE_VPHYSICS or IsValid(prop:GetParent())
         or prop:IsPlayerHolding() then return end
     local physics = prop:GetPhysicsObject()
-    if not IsValid(physics) or not physics:IsMotionEnabled() or constraint.HasConstraints(prop) then return end
+    if not IsValid(physics) then return end
     local mins, maxs = self:GetCollisionBounds()
     local span = prop:OBBMaxs() - prop:OBBMins()
     local size = math.max(span.x, span.y, span.z)
     -- Clearance is relative to the actor hull; species policy supplies eligibility.
     if size <= math.max(maxs.x - mins.x, maxs.y - mins.y) * (config.minimum_width or 0.5) or size > (maxs.z - mins.z) * (config.maximum_height or 1) then return end
     local mine = self:GetPhysicsObject()
-    if physics:GetMass() > value(self, config.maximum_mass, IsValid(mine) and mine:GetMass() or 200) then return end
-    push = push and mode ~= 2
+    push = push and mode ~= 2 and physics:IsMotionEnabled() and not constraint.HasConstraints(prop)
+        and physics:GetMass() <= value(self, config.maximum_mass, IsValid(mine) and mine:GetMass() or 200)
     damage = damage and mode ~= 3 and prop:Health() > 0
     if push or damage then return physics, push, damage end
 end
@@ -334,7 +363,7 @@ function methods:AITryObstacle(now, failed)
     local fields = config.fields
     if now < (self[fields.next_attempt] or 0) or (not failed and now < (self[fields.next_check] or 0)) then return end
     self[fields.next_check] = now + (config.check_interval or 0.5)
-    if not self.HasMeleeAttack or self.PauseAttacks or self.Flinching or self.IsGuard or self.IsFollowing
+    if (not self.HasMeleeAttack and not config.prop_only) or self.PauseAttacks or self.Flinching or self.IsGuard or self.IsFollowing
         or self.DisableChasingEnemy or not self.CurrentSchedule
         or (config.allowed and not config.allowed(self, now)) or not self:AIReactionReady(now) then return end
     if not value(self, config.push, false) and not value(self, config.damage, false) then return end
@@ -350,23 +379,49 @@ function methods:AITryObstacle(now, failed)
     local direction = delta:GetNormalized()
     if self:GetForward():Dot(direction) < (config.heading_dot or 0.866) then return end
     local mins, maxs = self:GetCollisionBounds()
-    local weapon = (self.GetActiveWeapon and self:GetActiveWeapon())
     local filter = traceFilter(self, reaction)
     local trace = util.TraceHull({start = origin + Vector(0, 0, 2),
         endpos = origin + direction * math.min(delta:Length(), self.MeleeAttackDamageDistance) + Vector(0, 0, 2),
         mins = mins, maxs = maxs, mask = MASK_NPCSOLID, filter = filter})
     local prop = trace.Entity
     if trace.StartSolid or trace.AllSolid or not trace.Hit or not self:AIObstacleOptions(prop) then return end
-    local side = (prop:WorldSpaceCenter() - origin):Dot(self:GetRight()) > 0 and "right" or "left"
+    return self:AIStartObstacle(now, prop)
+end
+
+-- Search may nominate the actual occluder of a remembered sight line. Reuse
+-- the same authored swing and VJ contact path; never attack a hidden enemy.
+function methods:AIStartObstacle(now, prop, destroyOnly, search)
+    if not self:AIHasCapability("obstacle") or not self:AIHasCapability("reactions") then return false end
+    local config, reaction = self:AIProfile().obstacle, self:AIProfile().reactions
+    local fields = config.fields
+    if now < (self[fields.next_attempt] or 0) or (not self.HasMeleeAttack and not config.prop_only) or self.PauseAttacks
+        or self.Flinching or self.IsGuard or self.IsFollowing or self.DisableChasingEnemy
+        or (config.allowed and not config.allowed(self, now)) or not self:AIReactionReady(now) then return false end
+    local physics, push, damage = self:AIObstacleOptions(prop)
+    if not physics or (destroyOnly and not damage) then return false end
+    if destroyOnly then
+        local origin = self:WorldSpaceCenter()
+        local point = prop:NearestPoint(origin)
+        local direction = point - origin
+        if direction:Length() > self.MeleeAttackDamageDistance then return false end
+        direction.z = 0
+        if self:GetForward():Dot(direction:GetNormalized()) < (config.heading_dot or 0.866) then return false end
+        local trace = util.TraceLine({start = origin, endpos = point, mask = MASK_SHOT,
+            filter = traceFilter(self, reaction)})
+        if trace.StartSolid or trace.AllSolid or (trace.Hit and trace.Entity ~= prop) then return false end
+    end
+    local side = (prop:WorldSpaceCenter() - self:GetPos()):Dot(self:GetRight()) > 0 and "right" or "left"
     for _, name in ipairs({side, side == "left" and "right" or "left"}) do
         local sequence = self:AISelectAction((config.action_prefix or "smash_") .. name)
-        if sequence and self:AIValidateMotion(sequence, 0, prop) and self:AIPlayReaction(config.reaction_kind or "obstacle_smash", sequence, now) then
-            self[fields.active] = {target = prop, weapon = weapon, sequence = self:LookupSequence(sequence),
-                schedule = self.CurrentSchedule, side = side == "right" and 1 or -1}
+        if sequence and self:AIValidateMotion(sequence, 0, prop) and self:AIPlayReaction(config.reaction_kind or "obstacle_smash", sequence, now, search and {search = search}) then
+            self[fields.active] = {target = prop, weapon = self.GetActiveWeapon and self:GetActiveWeapon(),
+                sequence = self:LookupSequence(sequence), destroy_only = destroyOnly,
+                schedule = self.CurrentSchedule, side = name == "right" and 1 or -1}
             self[fields.next_attempt] = self[reaction.fields.finish] + (config.cooldown or 2)
             return true
         end
     end
+    return false
 end
 
 function methods:AIObstacleHit()
@@ -375,11 +430,12 @@ function methods:AIObstacleHit()
     local fields = config.fields
     local action = self[fields.active]
     if not action or action.hit or self.Dead or self:Health() <= 0 or self.VJ_Controlled or self.Flinching
-        or not self.HasMeleeAttack or CurTime() >= (self[reaction.fields.finish] or 0) or self[reaction.fields.kind] ~= (config.reaction_kind or "obstacle_smash")
+        or (not self.HasMeleeAttack and not config.prop_only) or CurTime() >= (self[reaction.fields.finish] or 0) or self[reaction.fields.kind] ~= (config.reaction_kind or "obstacle_smash")
         or self.CurrentSchedule ~= action.schedule or self:GetSequence() ~= action.sequence
         or (self.GetActiveWeapon and self:GetActiveWeapon()) ~= action.weapon then return end
     local physics, push, damage = self:AIObstacleOptions(action.target)
-    if not physics then return end
+    if not physics or (action.destroy_only and not damage)
+        or (config.allowed and not config.allowed(self, CurTime())) then return end
     -- PlayAnim pauses ordinary attacks. Permit only this synchronous, scoped
     -- VJ melee call from the owned impact event; no attack/reset timers added.
     local state, pause = self.AttackState, self.PauseAttacks
@@ -403,8 +459,8 @@ function methods:AIObstacleMelee(status, ent)
     if not self:AIHasCapability("obstacle") then return true end
     local action = context.action
     if ent ~= action.target or action.hit then return true end
-    local physics = self:AIObstacleOptions(ent)
-    if not physics then return true end
+    local physics, push, damage = self:AIObstacleOptions(ent)
+    if not physics or (action.destroy_only and not damage) then return true end
     local origin = self:WorldSpaceCenter()
     local point = ent:NearestPoint(origin)
     local trace = util.TraceLine({start = origin, endpos = point, mask = MASK_SHOT,

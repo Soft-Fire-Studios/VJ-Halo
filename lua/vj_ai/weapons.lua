@@ -7,7 +7,40 @@ local Weapons, methods = {}, {}
 local claims = VJAI.WeaponClaims
 local origin = Vector()
 
+-- GMod resolves the native NPC method before an ENT/instance override. Supply
+-- the authored aim only while VJ evaluates a ranged weapon's firing cone.
+-- Melee, perception and unrelated NPCs retain the original native direction.
+if SERVER and not VJAI.WeaponAimScopes then
+    local scopes = setmetatable({}, {__mode = "k"})
+    VJAI.WeaponAimScopes = scopes
+    local npc = FindMetaTable("NPC")
+    local native = npc.GetHeadDirection
+    function npc:GetHeadDirection() return scopes[self] or native(self) end
+end
+
+local function firingCone(weapon)
+    if not SERVER or not IsValid(weapon) or not weapon.IsVJBaseWeapon or not weapon.NPC_CanFire then return end
+    local old = weapon.AIWeaponCone
+    if old and weapon.NPC_CanFire == old.wrapper then return end
+    local previous = weapon.NPC_CanFire
+    local function check(self, data, owner)
+        owner = owner or self:GetOwner()
+        if self.IsMeleeWeapon or not IsValid(owner) or not owner.AIHeadDirection
+            or not owner:AIMotionEnabled("aim") then return previous(self, data, owner) end
+        local scopes = VJAI.WeaponAimScopes
+        local saved = scopes[owner]
+        scopes[owner] = owner:AIHeadDirection()
+        local ok, result = pcall(previous, self, data, owner)
+        scopes[owner] = saved
+        if not ok then error(result, 0) end
+        return result
+    end
+    weapon.AIWeaponCone = {wrapper = check}
+    weapon.NPC_CanFire = check
+end
+
 function methods:AIConfigureWeapon(weapon)
+    firingCone(weapon)
     local config = self.AIWeaponSettings
     if not config or not config.mount or not IsValid(weapon) or not weapon.IsVJBaseWeapon
         or (config.native and config.native(weapon)) then return false end

@@ -32,8 +32,7 @@ function CE8.RefreshSpawnedModelDefinitions()
     end
     -- Detached pieces share named material bindings, not the parent's bodygroup
     -- slot layout. Their sole variant group must never index the character map.
-    local gibs=file.Exists("lua/campaign_evolved/flood_gib_models.lua","GAME")
-        and include("campaign_evolved/flood_gib_models.lua") or {}
+    local gibs=include("campaign_evolved/flood_gib_models.lua") or {}
     for character,pieces in pairs(gibs) do
         local entry=(catalog.characters or {})[character]
         local parent=entry and entry.variants and entry.variants[entry.default_rank]
@@ -45,8 +44,7 @@ function CE8.RefreshSpawnedModelDefinitions()
             end
         end
     end
-    local armor=file.Exists("lua/campaign_evolved/armor_parts.lua","GAME")
-        and include("campaign_evolved/armor_parts.lua") or {}
+    local armor=include("campaign_evolved/armor_parts.lua") or {}
     for character,pieces in pairs(armor) do
         for _,piece in pairs(pieces) do
             definitions[piece.model]={definition={ce8_only=true,material_bindings=piece.material_bindings},

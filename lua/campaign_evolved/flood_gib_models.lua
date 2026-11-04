@@ -116,6 +116,35 @@ return {
             ["priority"] = 20,
             ["ragdoll"] = true,
         },
+        ["r_forearm"] = {
+            ["attachment"] = "fx_right_arm_crate",
+            ["bind_ang"] = {
+                58.82070328648929,
+                -57.405857925093635,
+                -160.7884889852435,
+            },
+            ["bind_pos"] = {
+                -0.5851360453662815,
+                -14.697836914557287,
+                52.00913677737063,
+            },
+            ["bodygroup"] = "r_forearm",
+            ["material_bindings"] = {
+                ["glows"] = {
+                },
+                ["light_materials"] = {
+                },
+                ["materials"] = {
+                    ["models/campaign_evolved/ce8/gibs/flood_human/cut"] = "models/campaign_evolved/ce8/gibs/flood_human/cut",
+                    ["models/campaign_evolved/ce8/gibs/flood_human/glove"] = "models/campaign_evolved/ce8/gibs/flood_human/glove",
+                    ["models/campaign_evolved/ce8/gibs/flood_human/sleeve"] = "models/campaign_evolved/ce8/gibs/flood_human/sleeve",
+                    ["models/campaign_evolved/ce8/material_sets/flood_combat_human/body_1"] = "models/campaign_evolved/ce8/material_sets/flood_combat_human/body_1",
+                },
+            },
+            ["model"] = "models/campaign_evolved/ce8/gibs/flood_human/r_forearm.mdl",
+            ["priority"] = 20,
+            ["ragdoll"] = true,
+        },
     },
     ["flood_infection"] = {
     },
@@ -135,6 +164,7 @@ return {
             ["bone"] = "scapula_l",
             ["model"] = "models/campaign_evolved/ce8/gibs/flood_tank/plate_l_clavicle.mdl",
             ["priority"] = 50,
+            ["ragdoll"] = false,
         },
         ["plate_l_foot"] = {
             ["attachment"] = "sm_floodtank_garbagebit_15_anklel",
@@ -151,6 +181,7 @@ return {
             ["bodygroup"] = "l_foot",
             ["model"] = "models/campaign_evolved/ce8/gibs/flood_tank/plate_l_foot.mdl",
             ["priority"] = 50,
+            ["ragdoll"] = false,
         },
         ["plate_l_shin"] = {
             ["attachment"] = "sm_floodtank_garbagebit_20_anklel",
@@ -167,6 +198,7 @@ return {
             ["bodygroup"] = "l_shin",
             ["model"] = "models/campaign_evolved/ce8/gibs/flood_tank/plate_l_shin.mdl",
             ["priority"] = 50,
+            ["ragdoll"] = false,
         },
         ["plate_l_shoulder"] = {
             ["bind_ang"] = {
@@ -183,6 +215,41 @@ return {
             ["bone"] = "shoulder_l",
             ["model"] = "models/campaign_evolved/ce8/gibs/flood_tank/plate_l_shoulder.mdl",
             ["priority"] = 50,
+            ["ragdoll"] = false,
+        },
+        ["plate_l_shoulder_2"] = {
+            ["bind_ang"] = {
+                71.60590421670182,
+                125.49882245295134,
+                -18.62632801127419,
+            },
+            ["bind_pos"] = {
+                -3.487729992188342,
+                24.244146440946043,
+                84.10409137305005,
+            },
+            ["bodygroup"] = "l_shoulder",
+            ["bone"] = "shoulder_l",
+            ["model"] = "models/campaign_evolved/ce8/gibs/flood_tank/plate_l_shoulder_2.mdl",
+            ["priority"] = 50,
+            ["ragdoll"] = false,
+        },
+        ["plate_l_shoulder_3"] = {
+            ["bind_ang"] = {
+                71.60590421670182,
+                125.49882245295134,
+                -18.62632801127419,
+            },
+            ["bind_pos"] = {
+                -3.487729992188342,
+                24.244146440946043,
+                84.10409137305005,
+            },
+            ["bodygroup"] = "l_shoulder",
+            ["bone"] = "shoulder_l",
+            ["model"] = "models/campaign_evolved/ce8/gibs/flood_tank/plate_l_shoulder_3.mdl",
+            ["priority"] = 50,
+            ["ragdoll"] = false,
         },
         ["plate_l_thigh"] = {
             ["attachment"] = "sm_floodtank_garbagebit_19_hipepart1l",
@@ -199,6 +266,7 @@ return {
             ["bodygroup"] = "l_thigh",
             ["model"] = "models/campaign_evolved/ce8/gibs/flood_tank/plate_l_thigh.mdl",
             ["priority"] = 50,
+            ["ragdoll"] = false,
         },
         ["plate_r_arm"] = {
             ["attachment"] = "sm_floodtank_garbagebit_07_elbowr",
@@ -215,6 +283,7 @@ return {
             ["bodygroup"] = "r_arm",
             ["model"] = "models/campaign_evolved/ce8/gibs/flood_tank/plate_r_arm.mdl",
             ["priority"] = 50,
+            ["ragdoll"] = false,
         },
         ["plate_r_clavicle"] = {
             ["bind_ang"] = {
@@ -231,6 +300,7 @@ return {
             ["bone"] = "scapula_r",
             ["model"] = "models/campaign_evolved/ce8/gibs/flood_tank/plate_r_clavicle.mdl",
             ["priority"] = 50,
+            ["ragdoll"] = false,
         },
         ["plate_r_leg"] = {
             ["attachment"] = "sm_floodtank_garbagebit_09_kneer",
@@ -247,6 +317,7 @@ return {
             ["bodygroup"] = "r_leg",
             ["model"] = "models/campaign_evolved/ce8/gibs/flood_tank/plate_r_leg.mdl",
             ["priority"] = 50,
+            ["ragdoll"] = false,
         },
         ["plate_r_shoulder"] = {
             ["bind_ang"] = {
@@ -263,6 +334,24 @@ return {
             ["bone"] = "shoulder_r",
             ["model"] = "models/campaign_evolved/ce8/gibs/flood_tank/plate_r_shoulder.mdl",
             ["priority"] = 50,
+            ["ragdoll"] = false,
+        },
+        ["plate_r_shoulder_2"] = {
+            ["bind_ang"] = {
+                49.69759046038053,
+                -107.54599060460613,
+                -158.69793006014837,
+            },
+            ["bind_pos"] = {
+                -1.4133572332725128,
+                -22.260198649152716,
+                88.46617483663871,
+            },
+            ["bodygroup"] = "r_shoulder",
+            ["bone"] = "shoulder_r",
+            ["model"] = "models/campaign_evolved/ce8/gibs/flood_tank/plate_r_shoulder_2.mdl",
+            ["priority"] = 50,
+            ["ragdoll"] = false,
         },
     },
 }

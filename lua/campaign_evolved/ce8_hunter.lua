@@ -54,6 +54,9 @@ local function plasma(self,material,ent)
         self.matrixB:SetField(4,2,p("NoiseHeight2"))
         self.matrixB:SetField(4,3,p("NoiseHeight3"))
         material:SetMatrix("$invviewprojmat",self.matrixB)
+        if CE8.CaptureEmissionBloom then
+            CE8.CaptureEmissionBloom(self,material,CE8.MaterialOwner and CE8.MaterialOwner(ent) or ent,"plasma",nil,self.sceneActive)
+        end
     end
 end
 CE8.RegisterSurfaceVariant("CE8Worm",false,initialize,worm)

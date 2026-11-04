@@ -1,6 +1,116 @@
 -- Native character audio; data only, paths relative to sound/.
 -- Cue basenames match the authored animation events.
 return {
+    ["continuous"] = {
+        ["effects/idle_move"] = {
+            ["avoid"] = 3,
+            ["crossfade"] = 0.2,
+            ["tracks"] = {
+                {
+                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/idle_move_10.ogg",
+                    ["gain"] = -9.0,
+                    ["pitch"] = 0,
+                    ["weight"] = 50000,
+                },
+                {
+                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/idle_move_03.ogg",
+                    ["gain"] = -9.0,
+                    ["pitch"] = 0,
+                    ["weight"] = 50000,
+                },
+                {
+                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/idle_move_16.ogg",
+                    ["gain"] = -9.0,
+                    ["pitch"] = 0,
+                    ["weight"] = 50000,
+                },
+                {
+                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/idle_move_07.ogg",
+                    ["gain"] = -9.0,
+                    ["pitch"] = 0,
+                    ["weight"] = 50000,
+                },
+                {
+                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/idle_move_04.ogg",
+                    ["gain"] = -9.0,
+                    ["pitch"] = 0,
+                    ["weight"] = 50000,
+                },
+                {
+                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/idle_move_08.ogg",
+                    ["gain"] = -9.0,
+                    ["pitch"] = 0,
+                    ["weight"] = 50000,
+                },
+                {
+                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/idle_move_11.ogg",
+                    ["gain"] = -9.0,
+                    ["pitch"] = 0,
+                    ["weight"] = 50000,
+                },
+                {
+                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/idle_move_05.ogg",
+                    ["gain"] = -9.0,
+                    ["pitch"] = 0,
+                    ["weight"] = 50000,
+                },
+                {
+                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/idle_move_14.ogg",
+                    ["gain"] = -9.0,
+                    ["pitch"] = 0,
+                    ["weight"] = 50000,
+                },
+                {
+                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/idle_move_15.ogg",
+                    ["gain"] = -9.0,
+                    ["pitch"] = 0,
+                    ["weight"] = 50000,
+                },
+                {
+                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/idle_move_06.ogg",
+                    ["gain"] = -9.0,
+                    ["pitch"] = 0,
+                    ["weight"] = 50000,
+                },
+                {
+                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/idle_move_13.ogg",
+                    ["gain"] = -9.0,
+                    ["pitch"] = 0,
+                    ["weight"] = 50000,
+                },
+                {
+                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/idle_move_09.ogg",
+                    ["gain"] = -9.0,
+                    ["pitch"] = 0,
+                    ["weight"] = 50000,
+                },
+                {
+                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/idle_move_01.ogg",
+                    ["gain"] = -9.0,
+                    ["pitch"] = 0,
+                    ["weight"] = 50000,
+                },
+                {
+                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/idle_move_12.ogg",
+                    ["gain"] = -9.0,
+                    ["pitch"] = 0,
+                    ["weight"] = 50000,
+                },
+                {
+                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/idle_move_02.ogg",
+                    ["gain"] = -9.0,
+                    ["pitch"] = 0,
+                    ["weight"] = 50000,
+                },
+                {
+                    ["file"] = "campaign_evolved/ce8/flood_carrier/effects/idle_move_17.ogg",
+                    ["gain"] = -9.0,
+                    ["pitch"] = 0,
+                    ["weight"] = 50000,
+                },
+            },
+        },
+    },
     ["bodyfalls"] = {
         ["hard"] = {
             "campaign_evolved/ce8/flood_carrier/bodyfalls/hard_01.ogg",

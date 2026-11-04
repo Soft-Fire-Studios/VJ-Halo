@@ -7,9 +7,7 @@ sampler2D AlbedoTexture : register(s0);          // sRGB RGB, source opacity A
 sampler2D NormalTexture : register(s1);          // Linear tangent-space XYZ
 sampler2D SurfaceTexture : register(s2);         // Opacity / roughness / metal / emission
 sampler2D PaintMaskTexture : register(s3);       // Linear, ordered RGBA paint weights
-#if CE8_LIVE_DETAILS
-sampler2D DetailNormalTexture : register(s4);    // Linear RGB, shared native-size patterns
-#else
+#if !CE8_LIVE_DETAILS
 sampler2D EmissionTexture : register(s4);        // sRGB, normalized emission already masked
 #endif
 #if CE8_DIRECT_PASS
@@ -18,7 +16,6 @@ sampler2D ProjectedTexture : register(s5);      // Projected beam/cookie, or whi
 samplerCUBE EnvironmentTexture : register(s5);  // sRGB cube, ordinary mip chain
 #endif
 #if CE8_LIVE_DETAILS
-sampler2D DetailSurfaceTexture : register(s6);   // G roughness, B metallic; R/A never blended
 sampler2D MaterialParameterTexture : register(s7); // RGB-packed parameters plus BRDF LUT
 #else
 sampler2D FeatureTexture : register(s6);         // R iridescence, G AO; B/A reserved
@@ -343,6 +340,23 @@ void CE8LightTransport(float3 worldPosition, float3 N, out float3 L,
 
 float4 main(PS_INPUT input) : COLOR0
 {
+#if CE8_SCENE && CE8_LIVE_DETAILS
+    // A freshly bound material waits for its deferred numeric upload.
+    clip(SceneIndices.z);
+#endif
+#if CE8_BLOOM_PASS
+#if CE8_LIVE_DETAILS
+    float3 textureColor; float4 surface;
+    CE8LiveEmissionInputs(input,textureColor,surface);
+    float3 emission=CE8CompositeEmission(0,CE8LiveEmission(textureColor,surface.a));
+#elif CE8_HUNTER_PLASMA
+    float4 surface=tex2D(SurfaceTexture,input.uv);
+    float3 N=SafeNormalize(input.worldNormal,float3(0,0,1));
+    float3 V=SafeNormalize(EyePosition-input.worldPosition,N);
+    float3 emission=CE8PlasmaEmission(input,surface,saturate(dot(N,V)));
+#endif
+    return float4(LinearToSRGB(emission),1);
+#else
 #if CE8_BATCH_LIGHTS
     [branch] if(CE8IsLightBatch()) clip(CE8LightBatchCoverage(input.worldPosition)-.5);
 #endif
@@ -496,7 +510,11 @@ float4 main(PS_INPUT input) : COLOR0
 #elif CE8_HUNTER_WORM
     emission = 0; // The shared Hunter atlas glow mask is not a worm emission mask.
 #endif
+#if CE8_LIVE_DETAILS
+    float3 result = diffuse + reflected;
+#else
     float3 result = diffuse + reflected + emission;
+#endif
 
 
     if (DebugView > 0.5 && DebugView < 1.5) result = albedo;
@@ -510,7 +528,13 @@ float4 main(PS_INPUT input) : COLOR0
 #if CE8_SCENE
     [branch] if(DebugView<.5) result+=CE8SceneLighting(input.worldPosition,N,V,albedo,metallic,roughness,F0);
 #endif
-    // Explicit LDR preview conversion. No guessed engine HDR/fog registers.
+#if CE8_LIVE_DETAILS
+    // Include map/projector lighting before the emission display composite.
+    // Debug views keep their original raw-data meaning.
+    [branch] if(DebugView<.5) result=CE8CompositeEmission(result,emission);
+#endif
+    // Linear display color -> sRGB, after HDR emission compression above.
     return float4(LinearToSRGB(result), 1);
 #endif
+#endif // CE8_BLOOM_PASS
 }

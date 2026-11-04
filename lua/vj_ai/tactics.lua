@@ -168,7 +168,99 @@ function methods:AIRecordThreatDamage(damage, now, amount)
     local hit = self[config.fields.damage]
     local remaining = hit and math.max(0, hit.pressure - (now - hit.time) * (config.decay or 0.25)) or 0
     self[config.fields.damage] = {time = now, attacker = attacker,
-        pressure = math.min(2, remaining + amount / math.max(1, self:GetMaxHealth() + protection))}
+        pressure = math.min(2, remaining + math.max(config.minimum_hit_pressure or 0,
+            amount / math.max(1, self:GetMaxHealth() + protection)))}
+end
+
+-- Opt-in stance policy, using the existing threat sample and authored pose
+-- layers. VJ still owns locomotion, aim, weapon fire and attack scheduling.
+function methods:AIDefenseCrouched()
+    local config = self.AIProfile and self:AIProfile().defense
+    local state = config and self[config.fields.active]
+    return state and state.crouched == true or false
+end
+
+function methods:AIEndDefense(immediate)
+    local config = self.AIProfile and self:AIProfile().defense
+    local state = config and self[config.fields.active]
+    if not state then return end
+    -- Shutdown can discard the state. Ordinary interruptions lower the pose
+    -- through AIUpdateDefense instead of snapping it to zero.
+    if immediate or self.Dead then
+        if config.pose then self:SetPoseParameter(config.pose, 0) end
+        if config.yaw_pose then self:SetPoseParameter(config.yaw_pose, 0) end
+        self[config.fields.active] = nil
+    else
+        state.releasing = true
+    end
+end
+
+function methods:AIUpdateDefense(now)
+    local profile = self:AIProfile()
+    local config, threat = profile.defense, profile.threat
+    if not config then return end
+    if self.Dead or self:Health() <= 0 then self:AIEndDefense(true) return end
+    local disabled = GetConVar("ai_disabled")
+    local enemy = self:GetEnemy()
+    local busy = not self:AIHasCapability("defense") or self.VJ_Controlled or not IsValid(enemy)
+        or enemy:Health() <= 0 or (disabled and disabled:GetBool())
+        or (self.GetState and self:GetState() == VJ_STATE_FREEZE)
+        or not self:OnGround() or self:GetNavType() ~= NAV_GROUND
+        or self.AttackType or self.PauseAttacks or self.Flinching or self:IsBusy("Activities")
+        or (profile.reactions and now < (self[profile.reactions.fields.finish] or 0))
+        or (profile.charge and self[profile.charge.fields.active])
+        or (config.allowed and not config.allowed(self, now)) or not threat
+    local state = self[config.fields.active]
+    if not state then
+        if busy then return end
+        state = {weight = 0, yaw = 0, time = now, crouched = false, wanted = false}
+    end
+    local elapsed = math.min(0.25, math.max(0, now - state.time))
+    state.time = now
+    -- Cleanup for a live reload from the retired Lua-overlay implementation.
+    -- All current defense layers are supplied by the model's QC.
+    if state.layer then
+        if self:IsValidLayer(state.layer) and self:GetLayerSequence(state.layer) == state.sequence then
+            self:SetLayerBlendOut(state.layer, config.lower_time or 0.8)
+            self:RemoveLayer(state.layer)
+        end
+        state.layer, state.sequence = nil, nil
+    end
+    local sample = threat and self[threat.fields.active]
+    if busy or state.releasing then
+        state.wanted = false
+    elseif now >= (state.next_sample or 0) then
+        local hit = self[threat.fields.damage]
+        local decay = threat.decay or 0.25
+        local pressure = hit and math.max(0, hit.pressure - (now - hit.time) * decay) or 0
+        pressure = pressure + (sample and sample.enemy == enemy
+            and math.max(0, sample.near_pressure - (now - sample.time) * decay) or 0)
+        state.pressure = pressure * (config.pressure_scale or 1)
+        state.wanted = state.wanted and state.pressure > config.exit_pressure
+            or state.pressure >= config.enter_pressure
+        state.next_sample = now + (config.interval or 0.1)
+    end
+    local duration = state.wanted and (config.raise_time or 0.7) or (config.lower_time or 0.8)
+    state.weight = math.Approach(state.weight, state.wanted and 1 or 0, elapsed / duration)
+    -- Keep the crouch until its defense layer has lowered. SetIdealActivity
+    -- then uses the authored QC stand/crouch transition at rest.
+    local crouched = not busy and (state.wanted or state.weight > 0)
+    local changed = crouched ~= state.crouched
+    state.crouched = crouched
+    local target = sample and sample.enemy == enemy and sample.position
+    local yaw = target and math.AngleDifference((target - self:GetPos()):Angle().y, self:GetAngles().y) or state.yaw
+    local limit = config.yaw_limit or 180
+    state.yaw = state.weight == 0 and 0 or math.Approach(state.yaw,
+        math.Clamp(yaw, -limit, limit), elapsed * (config.yaw_speed or 180))
+    self[config.fields.active] = state
+    if config.pose and state.written_weight ~= state.weight then
+        self:SetPoseParameter(config.pose, state.weight) state.written_weight = state.weight
+    end
+    if config.yaw_pose and state.written_yaw ~= state.yaw then
+        self:SetPoseParameter(config.yaw_pose, state.yaw) state.written_yaw = state.yaw
+    end
+    if changed and not busy and self.AIRefreshStance then self:AIRefreshStance(crouched) end
+    if state.weight == 0 and not state.wanted then self[config.fields.active] = nil end
 end
 
 function methods:AIUpdateThreat(now, enemy, visible)
@@ -306,6 +398,16 @@ function methods:AIEndSearchAction(now)
     if not config then return end
     local search = self[config.fields.active]
     if not search or not search.action then return end
+    if search.leap and self:AILeapActive() == search.leap then self:AIEndLeap(now, "search_ended") end
+    local profile = self:AIProfile()
+    if search.obstacle and profile.obstacle and self[profile.obstacle.fields.active] == search.obstacle then
+        self[profile.obstacle.fields.active] = nil
+        local reaction = profile.reactions
+        if reaction and self[reaction.fields.schedule] == search.obstacle.schedule then
+            self[reaction.fields.finish] = now
+            self:AIUpdateReaction(now)
+        end
+    end
     if self.NextChaseTime == search.chase_until then self.NextChaseTime = search.previous_chase or now end
     if self.NextIdleTime == search.idle_until then self.NextIdleTime = search.previous_idle or now end
     if search.schedule and self.CurrentSchedule == search.schedule then
@@ -316,11 +418,14 @@ function methods:AIEndSearchAction(now)
         self.WeaponAttackState = VJ.WEP_ATTACK_STATE_NONE
         self.WeaponAttackAnim = ACT_INVALID
     end
-    if self.TurnData and self.TurnData.Target == search.aim and not self.TurnData.IsSchedule then
+    if self.TurnData and (self.TurnData.Target == search.aim or self.TurnData.Target == search.break_aim)
+        and not self.TurnData.IsSchedule then
         self:ResetTurnTarget()
         self:SetIdealYaw(self:GetAngles().y)
     end
-    search.action, search.schedule = nil, nil
+    search.action, search.schedule, search.leap, search.obstacle, search.break_target = nil, nil, nil, nil, nil
+    search.break_aim, search.arrived_at = nil, nil
+    search.chase_until, search.idle_until = nil, nil
 end
 
 function methods:AISuppressionPoint(weapon, enemy)
@@ -343,6 +448,88 @@ function methods:AISuppressionPoint(weapon, enemy)
         or self:IsMoving() or self:IsBusy("Activities") or self.AttackType
         or self:GetWeaponState() == VJ.WEP_STATE_RELOADING then return end
     return search.aim
+end
+
+-- Only geometry on the ray to an observed position may be nominated. The
+-- enemy entity is used for lifetime checks, never for a hidden coordinate.
+function methods:AISearchCoverActions(now, search, settings, weights)
+    local config = self:AIProfile().search
+    if not config.cover_actions or now < (search.cover_check or 0) then return end
+    local destroy = settings.destroy_cover and (weights.destroy_cover or 0) > 0
+    local jump = settings.leap_on_cover and (weights.leap_on_cover or 0) > 0
+    if not destroy and not jump then return end
+    search.cover_check = now + math.max(0.5, config.cover_actions.interval or 1)
+    local filter = {self}
+    local weapon = self.GetActiveWeapon and self:GetActiveWeapon()
+    if IsValid(weapon) then filter[#filter + 1] = weapon end
+    local reaction = self:AIProfile().reactions
+    for _, part in pairs(reaction and reaction.ignore and reaction.ignore(self) or {}) do
+        if IsValid(part) then filter[#filter + 1] = part end
+    end
+    local aim = search.aim or search.position + Vector(0, 0, 32)
+    local trace = self:AICoverTrace({start = self:EyePos(), endpos = aim, mask = MASK_SHOT, filter = filter})
+    if not trace or not trace.Hit or trace.StartSolid or trace.AllSolid or trace.HitSky or trace.Entity == search.enemy then return end
+    local prop, cover
+    if destroy then
+        local physics, push, damage = self:AIObstacleOptions(trace.Entity)
+        if physics and damage then
+            local origin = self:WorldSpaceCenter()
+            local offset = trace.Entity:NearestPoint(origin) - origin
+            local distance = offset:Length()
+            offset.z = 0
+            if distance <= (config.cover_actions.approach_distance or self.MeleeAttackDamageDistance)
+                and (config.cover_actions.approach_distance or self:GetForward():Dot(offset:GetNormalized())
+                    >= (self:AIProfile().obstacle.heading_dot or 0.866)) then
+                prop = trace.Entity
+            end
+        end
+    end
+    if jump then cover = self:AIProbeCover(now, aim, config.cover_actions, trace) end
+    return prop, cover
+end
+
+function methods:AISearchApproachCover(now, search, prop)
+    local config = self:AIProfile().search.cover_actions
+    if not config or not config.approach_distance then return false end
+    local origin = self:GetPos()
+    local point = prop:NearestPoint(self:WorldSpaceCenter())
+    local away = origin - point
+    away.z = 0
+    if away:LengthSqr() < 1 then return false end
+    local mins, maxs = self:GetCollisionBounds()
+    local clearance = math.max(math.abs(mins.x), math.abs(mins.y), maxs.x, maxs.y) + 8
+    local destination = point + away:GetNormalized() * clearance
+    destination.z = origin.z
+    self:SetLastPosition(destination)
+    self:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH", function(schedule)
+        schedule:EngTask("TASK_WAIT", 2)
+    end)
+    -- Facing uses the obstruction, never the unseen enemy. Leave a short
+    -- final turn window after VJ's path task, bounded by the parent search.
+    self:SetTurnTarget(point, math.max(0, search.presearch_until - now))
+    search.break_aim, search.arrived_at = point, nil
+    search.break_target = prop
+    return true
+end
+
+function methods:AIThinkSearchCover(now, search)
+    local prop = search.break_target
+    local physics, _, damage = self:AIObstacleOptions(prop)
+    if not physics or not damage then return false end
+    if self:AIStartObstacle(now, prop, true, search) then
+        search.break_target = nil
+        search.obstacle = self[self:AIProfile().obstacle.fields.active]
+        search.schedule = self.CurrentSchedule
+        search.action_until = math.min(search.action_until, self[self:AIProfile().reactions.fields.finish])
+        return true
+    end
+    -- Let the existing route finish its turn, but do not wait indefinitely on
+    -- an unreachable/blocked prop. Parent search retains its original budget.
+    if not self:IsMoving() and now > search.started + 0.5 then
+        search.arrived_at = search.arrived_at or now
+        if now - search.arrived_at > 1.5 then return false end
+    else search.arrived_at = nil end
+    return true
 end
 
 function methods:AITrySearchAction(now, enemy)
@@ -394,9 +581,12 @@ function methods:AITrySearchAction(now, enemy)
             end
         end
     end
+    local obstacle, cover = self:AISearchCoverActions(now, search, settings, profile)
+    local destroy = obstacle and (profile.destroy_cover or 0) or 0
+    local leap = cover and (profile.leap_on_cover or 0) or 0
     local uncover = destination and profile.uncover or 0
     local suppress = canSuppress and profile.suppress or 0
-    local choice = math.Rand(0, uncover + suppress + profile.guard + profile.investigate)
+    local choice = math.Rand(0, uncover + suppress + destroy + leap + profile.guard + profile.investigate)
     if choice < uncover then
         search.action = "uncover"
         self:SetLastPosition(destination)
@@ -418,7 +608,23 @@ function methods:AITrySearchAction(now, enemy)
         self.WeaponAttackAnim = activity
         self:SetTurnTarget(search.aim, untilTime - now)
         self:PlaySoundSystem("Suppressing")
-    elseif choice < uncover + suppress + profile.guard then
+    elseif choice < uncover + suppress + destroy then
+        if self:AIStartObstacle(now, obstacle, true, search) then
+            search.action = "destroy_cover"
+            search.obstacle = self[self:AIProfile().obstacle.fields.active]
+            untilTime = math.min(untilTime, self[self:AIProfile().reactions.fields.finish])
+        elseif self:AISearchApproachCover(now, search, obstacle) then
+            search.action = "destroy_cover"
+        end
+    elseif choice < uncover + suppress + destroy + leap then
+        if self:AITryCoverLeap(now, cover, enemy, search) then
+            search.action, search.leap = "leap_on_cover", self:AILeapActive()
+            search.action_until, search.started = untilTime, now
+            -- The leap owns its finite timers and physics. Do not overwrite
+            -- those locks or restore them twice through generic search cleanup.
+            return true
+        end
+    elseif choice < uncover + suppress + destroy + leap + profile.guard then
         search.action = "guard"
         self:SetLastPosition(search.position)
         self:SCHEDULE_FACE("TASK_FACE_LASTPOSITION")
@@ -466,23 +672,47 @@ function methods:AIThinkSearch(now, enemy)
         search.yield_schedule = nil
     end
     if search.action then
-        if now >= search.action_until or search.burst_done or self.CurrentSchedule ~= search.schedule
+        local obstacle = self:AIProfile().obstacle
+        local ownedObstacle = search.obstacle and obstacle and self[obstacle.fields.active] == search.obstacle
+        local interrupted = false
+        if ownedObstacle then
+            local disabled = GetConVar("ai_disabled")
+            interrupted = self.Flinching or not self.HasMeleeAttack or not self:AIHasCapability("obstacle")
+                or self:GetSequence() ~= search.obstacle.sequence or (disabled and disabled:GetBool())
+                or (self.GetState and self:GetState() == VJ_STATE_FREEZE)
+                or (obstacle.allowed and not obstacle.allowed(self, now))
+        end
+        if now >= search.action_until or interrupted
+            or (search.leap and self:AILeapActive() ~= search.leap)
+            or (search.obstacle and not ownedObstacle) or search.burst_done or self.CurrentSchedule ~= search.schedule
             or self.IsGuard or self.IsFollowing or self.DisableChasingEnemy or self.DisableWandering
             or (search.action == "suppress" and not self:AISuppressionPoint(search.weapon, enemy))
             or (search.action == "uncover" and not self:IsMoving() and now > search.started + 0.5) then
             local replacement = self.CurrentSchedule ~= search.schedule and self.CurrentSchedule or nil
             self:AIEndSearchAction(now)
             if replacement then search.yield_schedule = replacement return end
+        elseif search.break_target then
+            if self:AIThinkSearchCover(now, search) then return end
+            self:AIEndSearchAction(now)
         else return end
     end
     if self:IsMoving() or not searchReady(self, config, now) or now < search.next then return end
     search.started = search.started or now
     if self:AITrySearchAction(now, enemy) then return end
     if search.destination then
-        if self.DisableWandering or self.IsGuard or self.IsFollowing then search.destination = nil return end
+        if self.DisableChasingEnemy or self.DisableWandering or self.IsGuard or self.IsFollowing then
+            search.destination, search.pursuit_destination = nil, nil
+            return
+        end
+        local settings = value(self, config.settings, {})
+        -- A remembered target position is a pursuit goal. Nearby inspection
+        -- points remain walks. Omitted policy preserves existing shared users;
+        -- CE profiles explicitly bind the authored "walk on pursuit" flag.
+        local task = search.pursuit_destination and settings.pursuit_walk == false
+            and "TASK_RUN_PATH" or "TASK_WALK_PATH"
         self:SetLastPosition(search.destination)
-        self:SCHEDULE_GOTO_POSITION("TASK_WALK_PATH")
-        search.destination = nil
+        self:SCHEDULE_GOTO_POSITION(task)
+        search.destination, search.pursuit_destination = nil, nil
         search.next = now + (config.move_pause or 2)
         return
     end
@@ -501,6 +731,7 @@ function methods:AIThinkSearch(now, enemy)
         if not self.DisableChasingEnemy and not self.DisableWandering and not self.IsGuard and not self.IsFollowing
             and self:GetPos():DistToSqr(search.position) > (config.arrival_distance or 64) ^ 2 then
             search.destination = Vector(search.position)
+            search.pursuit_destination = true
         end
     elseif not self.DisableWandering and not self.IsGuard and not self.IsFollowing and
         (search.mode == "aggressive" or math.Rand(0, profile.investigate + profile.guard + profile.suppress) < profile.investigate) then
@@ -509,6 +740,7 @@ function methods:AIThinkSearch(now, enemy)
             if position:Distance(search.position) <= settings.radius then
                 -- Let the current authored investigation finish before moving.
                 search.destination = position
+                search.pursuit_destination = nil
                 break
             end
         end
@@ -981,7 +1213,8 @@ end
 
 -- A host calls this driver from VJ's active-update hook. It is not a Think hook
 -- or a second navigation loop; it chooses which existing service may act next.
-function methods:AISuspendActions(now)
+function methods:AISuspendActions(now, preserveSearch)
+    self:AIEndDefense()
     self:AIEndAmbush(now)
     self:AIEndSquadPosition(now)
     self:AIEndKamikaze(now, "suspended")
@@ -989,7 +1222,8 @@ function methods:AISuspendActions(now)
     self:AIEndFlee(now, "suspended")
     self:AIEndOpening(now)
     self:AIEndPostcombat(now)
-    self:AIFinishSearch(now, false)
+    local search = self:AIProfile().search
+    if not preserveSearch or not search or self[search.fields.active] ~= preserveSearch then self:AIFinishSearch(now, false) end
     self:AIEndCharge(now)
     self:AIFinishCover(now)
     self:AIFinishInvestigation()
@@ -1028,6 +1262,12 @@ function methods:AIThinkTactics(now)
     local searching = search and self[search.fields.active]
     self:AISetPerception(visible and "combat" or searching and "search" or self.Alerted and "alert" or "idle")
     if self:AIMaintainCover(now, enemy) then self:AIEndSearchAction(now) return end
+    if searching and (searching.leap or searching.obstacle or searching.break_target) then
+        -- These finite children own a reaction/custom-attack lock. Their own
+        -- search handler must inspect interruption before the generic busy gate.
+        self:AIThinkSearch(now, enemy)
+        return
+    end
     if not searchReady(self, config, now) then
         self:AIEndAmbush(now) self:AIEndSquadPosition(now) self:AIEndSearchAction(now) return
     end

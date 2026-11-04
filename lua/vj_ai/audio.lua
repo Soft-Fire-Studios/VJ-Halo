@@ -74,6 +74,83 @@ function methods:AISoundDuration(path)
     return cached.seconds
 end
 
+-- One actor-owned continuous foley bed. The host supplies its movement policy;
+-- only transitions select/read a sound. VJ retains filtering and sound hooks,
+-- while these two handles never occupy CurrentIdleSound/CurrentSpeechSound.
+function methods:AIStopContinuousSound()
+    local state = self.AIContinuousSound
+    if not state then return end
+    if state.current then state.current:Stop() end
+    if state.tail then state.tail:Stop() end
+    self.AIContinuousSound = nil
+end
+
+function methods:AIUpdateContinuousSound(config, active, now, level)
+    local state = self.AIContinuousSound
+    if not config or self.HasSounds == false or self.Dead or self:Health() <= 0 then
+        if state then self:AIStopContinuousSound() end
+        return
+    end
+    now = now or CurTime()
+    if state and state.config ~= config then self:AIStopContinuousSound() state = nil end
+    if state and state.tail and now >= state.tail_end then
+        state.tail:Stop()
+        state.tail = nil
+    end
+    if not active then
+        if not state then return end
+        if state.current then
+            if state.tail then state.tail:Stop() end
+            state.tail, state.current = state.current, nil
+            state.tail:ChangeVolume(0, config.crossfade)
+            state.tail_end = now + config.crossfade
+        end
+        if not state.tail then self.AIContinuousSound = nil end
+        return
+    end
+    if not state then
+        state = {config = config, recent = {}, next = now}
+        self.AIContinuousSound = state
+    elseif state.retry and now < state.retry then
+        return
+    elseif state.current and now < state.next then
+        return
+    end
+    local tracks, blocked, total = config.tracks, {}, 0
+    for _, index in ipairs(state.recent) do blocked[index] = true end
+    for index, track in ipairs(tracks) do
+        if not blocked[index] then total = total + track.weight end
+    end
+    if total <= 0 then self:AIStopContinuousSound() return end
+    local roll, index = math.Rand(0, total), nil
+    for i, track in ipairs(tracks) do
+        if not blocked[i] then
+            index = i
+            roll = roll - track.weight
+            if roll <= 0 then break end
+        end
+    end
+    local track = tracks[index]
+    local pitch = math.Clamp(100 * 2 ^ (track.pitch / 1200), 1, 255)
+    local duration = self:AISoundDuration(track.file) * 100 / pitch
+    -- Missing/invalid media must not create a fresh sound every Think.
+    if duration <= 0 then state.retry = now + 1 return end
+    local fade = math.min(config.crossfade, duration * 0.5)
+    local sound = VJ.CreateSound(self, track.file, level or 65, pitch)
+    if not sound then state.retry = now + 1 return end
+    if state.tail then state.tail:Stop() state.tail = nil end
+    if state.current then
+        state.tail, state.tail_end = state.current, now + fade
+        state.tail:ChangeVolume(0, fade)
+    end
+    sound:ChangeVolume(0, 0)
+    sound:ChangeVolume(math.Clamp(10 ^ (track.gain / 20), 0, 1), fade)
+    state.current, state.next, state.retry = sound, now + duration - fade, nil
+    state.recent[#state.recent + 1] = index
+    local avoid = math.min(config.avoid, #tracks - 1)
+    while #state.recent > avoid do table.remove(state.recent, 1) end
+end
+
 local function settings(actor, name)
     if not actor:AIHasCapability(name) then return end
     return actor:AIProfile()[name]

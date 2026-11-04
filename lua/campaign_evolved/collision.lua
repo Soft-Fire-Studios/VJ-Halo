@@ -6,6 +6,14 @@ CE8.Collision=C
 C.Model="models/campaign_evolved/ce8/material_sets/hunter.mdl"
 local definition=core.Definition("npc_vj_ce8_hunter_collision.json",include("campaign_evolved/hunter_colliders.lua"))
 C.Shapes=definition and definition.shapes or {}
+-- Only Infection movement bodies pass through characters and their damage
+-- carriers. A foreign shooter/carrier pair must retain normal shot filtering.
+hook.Add("ShouldCollide","CE8InfectionCollision",function(a,b)
+    local other
+    if a.CE8UnitLabel=="flood_infection" then other=b
+    elseif b.CE8UnitLabel=="flood_infection" then other=a end
+    if other and (other.IsPRPCollider or other:IsNPC() or other:IsNextBot() or other:IsPlayer()) then return false end
+end)
 function C.DamageContact(actor,damage)
     local position=damage:GetDamagePosition()
     if damage:IsDamageType(DMG_BLAST) then

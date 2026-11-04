@@ -378,7 +378,164 @@ return {
             },
         },
     },
+    ["deaths"] = {
+        ["clips"] = {
+            ["any_h_kill_back_gut"] = {
+                ["cycle"] = 0.22448979591836735,
+                ["motion"] = true,
+                ["time"] = 0.36666666666666664,
+            },
+            ["any_h_kill_front_gut"] = {
+                ["cycle"] = 0.23529411764705882,
+                ["motion"] = true,
+                ["time"] = 0.4,
+            },
+            ["h_kill_back_head"] = {
+                ["cycle"] = 0.24489795918367346,
+                ["motion"] = true,
+                ["time"] = 0.4,
+            },
+            ["h_kill_front_head"] = {
+                ["cycle"] = 0.23529411764705882,
+                ["motion"] = true,
+                ["time"] = 0.4,
+            },
+            ["h_kill_left_gut"] = {
+                ["cycle"] = 0.32727272727272727,
+                ["motion"] = true,
+                ["time"] = 0.6,
+            },
+            ["h_kill_right_gut"] = {
+                ["cycle"] = 0.22448979591836735,
+                ["motion"] = true,
+                ["time"] = 0.36666666666666664,
+            },
+            ["s_kill_front_gut"] = {
+                ["cycle"] = 0.463768115942029,
+                ["motion"] = true,
+                ["time"] = 1.0666666666666667,
+            },
+            ["s_kill_left_gut"] = {
+                ["cycle"] = 0.36764705882352944,
+                ["motion"] = true,
+                ["time"] = 0.8333333333333334,
+            },
+            ["s_kill_right_gut"] = {
+                ["cycle"] = 0.34782608695652173,
+                ["motion"] = true,
+                ["time"] = 0.8,
+            },
+        },
+        ["default_family"] = "any",
+        ["default_region"] = "gut",
+        ["families"] = {
+            ["any"] = {
+                ["h_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_h_kill_back_gut",
+                        },
+                        ["head"] = {
+                            "h_kill_back_head",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_h_kill_front_gut",
+                        },
+                        ["head"] = {
+                            "h_kill_front_head",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "h_kill_left_gut",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "h_kill_right_gut",
+                        },
+                    },
+                },
+                ["s_kill"] = {
+                    ["front"] = {
+                        ["gut"] = {
+                            "s_kill_front_gut",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "s_kill_left_gut",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "s_kill_right_gut",
+                        },
+                    },
+                },
+            },
+            ["cannon"] = {
+                ["h_kill"] = {
+                    ["back"] = {
+                        ["gut"] = {
+                            "any_h_kill_back_gut",
+                        },
+                        ["head"] = {
+                            "h_kill_back_head",
+                        },
+                    },
+                    ["front"] = {
+                        ["gut"] = {
+                            "any_h_kill_front_gut",
+                        },
+                        ["head"] = {
+                            "h_kill_front_head",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "h_kill_left_gut",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "h_kill_right_gut",
+                        },
+                    },
+                },
+                ["s_kill"] = {
+                    ["front"] = {
+                        ["gut"] = {
+                            "s_kill_front_gut",
+                        },
+                    },
+                    ["left"] = {
+                        ["gut"] = {
+                            "s_kill_left_gut",
+                        },
+                    },
+                    ["right"] = {
+                        ["gut"] = {
+                            "s_kill_right_gut",
+                        },
+                    },
+                },
+            },
+        },
+    },
     ["default_weapon"] = "cannon",
+    ["defense"] = {
+        ["enabled"] = true,
+        ["enter_pressure"] = 5.0,
+        ["exit_pressure"] = 2.0,
+        ["lower_time"] = 0.8666666666666667,
+        ["minimum_hit_pressure"] = 0.2,
+        ["near_pressure"] = 0.3,
+        ["pressure_scale"] = 10,
+        ["raise_time"] = 0.7333333333333333,
+    },
     ["dialogue_rules"] = {
         ["charge"] = {
             ["delay"] = 0.0,
@@ -610,7 +767,34 @@ return {
         ["angle"] = 22.5,
         ["attacks"] = {
             {
+                ["contacts"] = {
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 56.0,
+                        ["effect"] = "melee_back_impact",
+                        ["frame"] = 14,
+                        ["heading"] = 0.0,
+                        ["range"] = 120.0,
+                    },
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 90.0,
+                        ["effect"] = "melee_super_launch",
+                        ["frame"] = 31,
+                        ["heading"] = 0.0,
+                        ["range"] = 150.0,
+                    },
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 56.0,
+                        ["effect"] = "melee_back_impact",
+                        ["frame"] = 32,
+                        ["heading"] = 0.0,
+                        ["range"] = 120.0,
+                    },
+                },
                 ["damage"] = 90.0,
+                ["frames"] = 45,
                 ["impacts"] = {
                     ["melee_back_impact"] = 56.0,
                     ["melee_super_launch"] = 90.0,
@@ -618,7 +802,34 @@ return {
                 ["sequence"] = "any_any_melee_var2",
             },
             {
+                ["contacts"] = {
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 40.0,
+                        ["effect"] = "melee_swipe_forward_var2",
+                        ["frame"] = 31,
+                        ["heading"] = 88.081669,
+                        ["range"] = 120.0,
+                    },
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 40.0,
+                        ["effect"] = "melee_swipe_forward_var2",
+                        ["frame"] = 34,
+                        ["heading"] = -7.624928,
+                        ["range"] = 120.0,
+                    },
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 40.0,
+                        ["effect"] = "melee_swipe_forward_var2",
+                        ["frame"] = 36,
+                        ["heading"] = -40.626716,
+                        ["range"] = 120.0,
+                    },
+                },
                 ["damage"] = 40.0,
+                ["frames"] = 45,
                 ["impacts"] = {
                     ["melee_swipe_forward_var2"] = 40.0,
                 },
@@ -626,6 +837,190 @@ return {
             },
         },
         ["cooldown"] = 1.2999999523162842,
+        ["directional"] = {
+            ["back"] = {
+                ["contacts"] = {
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 56.0,
+                        ["effect"] = "melee_back_impact",
+                        ["frame"] = 30,
+                        ["heading"] = 151.875015,
+                        ["range"] = 120.0,
+                    },
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 56.0,
+                        ["effect"] = "melee_back_impact",
+                        ["frame"] = 33,
+                        ["heading"] = 180.0,
+                        ["range"] = 120.0,
+                    },
+                },
+                ["damage"] = 56.0,
+                ["frames"] = 76,
+                ["heading"] = 180,
+                ["impacts"] = {
+                    ["melee_back_impact"] = 56.0,
+                },
+                ["minimum"] = 0,
+                ["range"] = 120.0,
+                ["sequence"] = "any_any_melee_back",
+            },
+            ["left"] = {
+                ["contacts"] = {
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 40.0,
+                        ["effect"] = "melee_left_impact",
+                        ["frame"] = 17,
+                        ["heading"] = 90.0,
+                        ["range"] = 120.0,
+                    },
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 40.0,
+                        ["effect"] = "melee_left_impact",
+                        ["frame"] = 20,
+                        ["heading"] = 90.0,
+                        ["range"] = 120.0,
+                    },
+                },
+                ["damage"] = 40.0,
+                ["frames"] = 57,
+                ["heading"] = 90,
+                ["impacts"] = {
+                    ["melee_left_impact"] = 40.0,
+                },
+                ["minimum"] = 0,
+                ["range"] = 120.0,
+                ["sequence"] = "any_any_melee_left",
+            },
+            ["right"] = {
+                ["contacts"] = {
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 40.0,
+                        ["effect"] = "melee_left_impact",
+                        ["frame"] = 19,
+                        ["heading"] = 16.148531,
+                        ["range"] = 120.0,
+                    },
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 40.0,
+                        ["effect"] = "melee_left_impact",
+                        ["frame"] = 20,
+                        ["heading"] = -7.418608,
+                        ["range"] = 120.0,
+                    },
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 40.0,
+                        ["effect"] = "melee_left_impact",
+                        ["frame"] = 21,
+                        ["heading"] = -43.134163,
+                        ["range"] = 120.0,
+                    },
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 40.0,
+                        ["effect"] = "melee_left_impact",
+                        ["frame"] = 22,
+                        ["heading"] = -73.153993,
+                        ["range"] = 120.0,
+                    },
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 90.0,
+                        ["effect"] = "melee_super_launch",
+                        ["frame"] = 23,
+                        ["heading"] = -89.999672,
+                        ["range"] = 150.0,
+                    },
+                },
+                ["damage"] = 90.0,
+                ["frames"] = 41,
+                ["heading"] = -90,
+                ["impacts"] = {
+                    ["melee_left_impact"] = 40.0,
+                    ["melee_super_launch"] = 90.0,
+                },
+                ["minimum"] = 0,
+                ["range"] = 120.0,
+                ["sequence"] = "any_any_melee_right",
+            },
+            ["tackle"] = {
+                ["contacts"] = {
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 40.0,
+                        ["effect"] = "melee_left_impact",
+                        ["frame"] = 25,
+                        ["heading"] = -24.433072,
+                        ["range"] = 120.0,
+                    },
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 40.0,
+                        ["effect"] = "melee_left_impact",
+                        ["frame"] = 26,
+                        ["heading"] = -16.81178,
+                        ["range"] = 120.0,
+                    },
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 40.0,
+                        ["effect"] = "melee_left_impact",
+                        ["frame"] = 27,
+                        ["heading"] = -10.596635,
+                        ["range"] = 120.0,
+                    },
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 40.0,
+                        ["effect"] = "melee_left_impact",
+                        ["frame"] = 28,
+                        ["heading"] = -7.050659,
+                        ["range"] = 120.0,
+                    },
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 40.0,
+                        ["effect"] = "melee_left_impact",
+                        ["frame"] = 46,
+                        ["heading"] = 0.0,
+                        ["range"] = 120.0,
+                    },
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 40.0,
+                        ["effect"] = "melee_left_impact",
+                        ["frame"] = 47,
+                        ["heading"] = 0.0,
+                        ["range"] = 120.0,
+                    },
+                    {
+                        ["angle"] = 22.5,
+                        ["damage"] = 90.0,
+                        ["effect"] = "melee_super_launch",
+                        ["frame"] = 48,
+                        ["heading"] = 98.374658,
+                        ["range"] = 150.0,
+                    },
+                },
+                ["damage"] = 90.0,
+                ["frames"] = 73,
+                ["heading"] = 0,
+                ["impacts"] = {
+                    ["melee_left_impact"] = 40.0,
+                    ["melee_super_launch"] = 90.0,
+                },
+                ["minimum"] = 305.56617736816406,
+                ["range"] = 425.56617736816406,
+                ["sequence"] = "any_any_melee_tackle",
+            },
+        },
         ["hit_angle"] = 22.5,
         ["hit_range"] = 120.0,
         ["range"] = 120.0,
@@ -658,7 +1053,7 @@ return {
             },
             ["class_name"] = "npc_vj_ce8_hunter",
             ["danger"] = {
-                ["brace"] = 1,
+                ["brace"] = 0.25,
                 ["cooldown"] = 3,
                 ["dive"] = 0,
                 ["enabled"] = true,
@@ -695,7 +1090,7 @@ return {
             },
             ["class_name"] = "npc_vj_ce8_hunter_sacristan",
             ["danger"] = {
-                ["brace"] = 1,
+                ["brace"] = 0.25,
                 ["cooldown"] = 3,
                 ["dive"] = 0,
                 ["enabled"] = true,
@@ -719,9 +1114,12 @@ return {
         },
     },
     ["search"] = {
+        ["destroy_cover"] = true,
+        ["pursuit_walk"] = false,
         ["radius"] = 600.0,
         ["stimuli"] = {
             ["normal"] = {
+                ["destroy_cover"] = 10.0,
                 ["guard"] = 0.10000000149011612,
                 ["investigate"] = 10.0,
                 ["max_suppress"] = 3,
@@ -751,6 +1149,10 @@ return {
                     -60,
                     60,
                 },
+                ["crouch_idle"] = {
+                    -60,
+                    60,
+                },
             },
             ["fire_gesture"] = false,
             ["sequences"] = {
@@ -765,13 +1167,16 @@ return {
                 ["combat_walk_front"] = "any_move_front",
                 ["combat_walk_left"] = "any_any_move_left",
                 ["combat_walk_right"] = "any_any_move_right",
+                ["crouch_fire"] = "crouch_any_hfr_fire_1",
                 ["crouch_idle"] = "crouch_any_idle_g002",
                 ["crouch_move_back"] = "crouch_any_move_back",
                 ["crouch_move_front"] = "crouch_any_move_front",
                 ["crouch_move_left"] = "crouch_move_left",
                 ["crouch_move_right"] = "crouch_move_right",
+                ["crouch_turn_left"] = "crouch_any_turn_left",
+                ["crouch_turn_right"] = "crouch_any_turn_right",
                 ["crouch_walk_back"] = "crouch_any_walk_back",
-                ["crouch_walk_front"] = "crouch_any_walk_front",
+                ["crouch_walk_front"] = "crouch_any_move_front",
                 ["crouch_walk_left"] = "crouch_any_walk_left",
                 ["crouch_walk_right"] = "crouch_any_walk_right",
                 ["fire"] = "any_any_hfr_fire_1",

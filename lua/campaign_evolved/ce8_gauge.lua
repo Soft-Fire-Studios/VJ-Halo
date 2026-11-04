@@ -49,10 +49,21 @@ local registers={
     {"$c0_x","$c0_y","$c0_z","$c0_w"},{"$c1_x","$c1_y","$c1_z","$c1_w"},
     {"$c2_x","$c2_y","$c2_z","$c2_w"},{"$c3_x","$c3_y","$c3_z","$c3_w"}
 }
-local function row(material,index,x,y,z,w)
+local function row(self,material,index,x,y,z,w)
     local names=registers[index+1]
-    material:SetFloat(names[1],x);material:SetFloat(names[2],y)
-    material:SetFloat(names[3],z);material:SetFloat(names[4],w)
+    local prior=self.uploads[index+1]
+    if prior[1]~=x then material:SetFloat(names[1],x);prior[1]=x end
+    if prior[2]~=y then material:SetFloat(names[2],y);prior[2]=y end
+    if prior[3]~=z then material:SetFloat(names[3],z);prior[3]=z end
+    if prior[4]~=w then material:SetFloat(names[4],w);prior[4]=w end
+end
+local function matrix(material,name,target,prior,...)
+    local changed=false
+    for i=1,16 do
+        local value=select(i,...)
+        if prior[i]~=value then prior[i]=value;changed=true end
+    end
+    if changed then target:SetUnpacked(...);material:SetMatrix(name,target) end
 end
 matproxy.Add({name="CE8Gauge",
     init=function(self,material,values)
@@ -71,6 +82,9 @@ matproxy.Add({name="CE8Gauge",
         self.colors={tint=rgb(values.gaugetint,{1,1,1}),a=rgb(values.colora,{1,1,1}),
             b=rgb(values.colorb,{1,1,1}),c=rgb(values.colorc,{1,1,1}),d=rgb(values.colord,{1,1,1})}
         self.a,self.b=Matrix(),Matrix()
+        -- Last values on this shared material, not per-entity/frame results:
+        -- alternating weapons and in-place overrides still update immediately.
+        self.uploads={{},{},{},{},{},{}}
     end,
     bind=function(self,material,ent)
         if CE8.RefreshMaterialTextures then CE8.RefreshMaterialTextures(material) end
@@ -80,15 +94,14 @@ matproxy.Add({name="CE8Gauge",
         local value=CE8.WeaponGaugeValue(ent,self.kind,math.Clamp(parameter(self,overrides,"gaugevalue"),0,1))
         local tint,a,b,c,d=color(self,overrides,"tint","gaugetint"),color(self,overrides,"a","colora"),
             color(self,overrides,"b","colorb"),color(self,overrides,"c","colorc"),color(self,overrides,"d","colord")
-        row(material,0,parameter(self,overrides,"gaugemode"),value,CurTime(),detail)
-        row(material,1,tint[1],tint[2],tint[3],math.max(0,parameter(self,overrides,"gaugebrightness")))
-        row(material,2,a[1],a[2],a[3],math.Clamp(parameter(self,overrides,"gaugeopacity"),0,1))
-        row(material,3,b[1],b[2],b[3],math.Clamp(parameter(self,overrides,"gaugeclip"),0,1))
-        self.a:SetUnpacked(c[1],c[2],c[3],math.max(.001,parameter(self,overrides,"packedscale")),
+        row(self,material,0,parameter(self,overrides,"gaugemode"),value,CurTime(),detail)
+        row(self,material,1,tint[1],tint[2],tint[3],math.max(0,parameter(self,overrides,"gaugebrightness")))
+        row(self,material,2,a[1],a[2],a[3],math.Clamp(parameter(self,overrides,"gaugeopacity"),0,1))
+        row(self,material,3,b[1],b[2],b[3],math.Clamp(parameter(self,overrides,"gaugeclip"),0,1))
+        matrix(material,"$viewprojmat",self.a,self.uploads[5],c[1],c[2],c[3],math.max(.001,parameter(self,overrides,"packedscale")),
             d[1],d[2],d[3],parameter(self,overrides,"rotationspeed"),
             parameter(self,overrides,"gaina"),parameter(self,overrides,"gainb"),parameter(self,overrides,"gainc"),math.Clamp(parameter(self,overrides,"scanlinelow"),0,1),
             parameter(self,overrides,"uvscaleu"),parameter(self,overrides,"uvscalev"),parameter(self,overrides,"uvoffsetu"),parameter(self,overrides,"uvoffsetv"))
-        self.b:SetUnpacked(math.max(0,parameter(self,overrides,"spentintensity")),math.max(0,parameter(self,overrides,"glowintensity")),math.max(.001,parameter(self,overrides,"heatfillsoftness")),0,
+        matrix(material,"$invviewprojmat",self.b,self.uploads[6],math.max(0,parameter(self,overrides,"spentintensity")),math.max(0,parameter(self,overrides,"glowintensity")),math.max(.001,parameter(self,overrides,"heatfillsoftness")),0,
             0,0,0,0,0,0,0,0,0,0,0,0)
-        material:SetMatrix("$viewprojmat",self.a);material:SetMatrix("$invviewprojmat",self.b)
     end})
