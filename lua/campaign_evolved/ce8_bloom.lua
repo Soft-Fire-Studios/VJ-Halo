@@ -67,8 +67,17 @@ function CE8.QueueEmissionBloom(ent,materials)
     for slot,material in pairs(materials) do
         local source=sources[material:GetName()]
         local data=source and source.entities[owner]
-        local effect=effects[material:GetString("$pixshader") or ""]
-        if effect or (data and data.frame==FrameNumber()) then
+        local shader=material.GetShader and material:GetShader()
+        -- Pure unlit model materials already contain only emission. Reuse them
+        -- in the isolated emission buffer; no material/slot lists or light bind.
+        local unlit=shader=="UnlitGeneric" and material:GetTexture("$basetexture")
+            and material:GetInt("$no_draw")~=1 and (material:GetFloat("$alpha") or 1)>0
+        local effect=effects[material:GetString("$pixshader") or ""] or unlit
+        local native=material.GetShader and material:GetShader()=="VertexLitGeneric"
+            and material:GetInt("$emissiveblendenabled")==1
+            and (material:GetFloat("$emissiveblendstrength") or 0)>0
+            and material:GetTexture("$emissiveblendbasetexture")
+        if native or effect or (data and data.frame==FrameNumber()) then
             if not row then
                 row=queued[ent]
                 if not row or row.model~=ent:GetModel() then
@@ -78,12 +87,26 @@ function CE8.QueueEmissionBloom(ent,materials)
             end
             local entry=row.slots[slot] or {};row.slots[slot]=entry
             entry.material,entry.source,entry.data,entry.effect,entry.frame=material,source,data,effect,FrameNumber()
+            entry.native=native
         end
     end
 end
 
 local function emissionMaterial(entry)
     if entry.effect then return entry.material end -- These shaders already evaluate only emission.
+    if entry.native then
+        local key=entry.material:GetName().."/native_emission"
+        local material=variants[key]
+        if not material then
+            material=CreateMaterial("ce8_bloom/"..key,"UnlitGeneric",{
+                ['$model']=1,['$nodecal']=1,['$basetexture']=entry.native:GetName()})
+            variants[key]=material
+        end
+        material:SetTexture("$basetexture",entry.native)
+        local tint=entry.material:GetVector("$emissiveblendtint") or Vector(1,1,1)
+        material:SetVector("$color",tint*(entry.material:GetFloat("$emissiveblendstrength") or 1))
+        return material
+    end
     local data,kind=entry.data,entry.source.kind
     local program=programs[kind][data.scene and 2 or 1]
     local key=entry.material:GetName().."/"..program

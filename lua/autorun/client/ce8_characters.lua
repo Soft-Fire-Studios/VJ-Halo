@@ -6,14 +6,16 @@ if include and not CE8.SupportsOverallPaint then
 end
 CE8.Assemblies = nil
 if include then include("campaign_evolved/ce8_assembly.lua") end
+if include then include("campaign_evolved/ce8_phong.lua") end
 
 -- Native props can be classified as opaque even when a custom shader supplies
 -- a translucent section. Remember only props actually submitted in this view;
 -- the translucent-stage fallback never redraws their body or direct lights.
 local pendingEmissive={}
+function CE8.QueueEmissiveModel(ent) pendingEmissive[ent]=true end
 if hook then
     hook.Add("PreDrawOpaqueRenderables","CE8EmissiveView",function(depth)
-        if not depth then pendingEmissive={} end
+        if not depth then pendingEmissive={};CE8.EnergyRefractUpdated=false end
     end)
     hook.Add("PostDrawTranslucentRenderables","CE8EmissiveProps",function(depth)
         if depth then return end
@@ -35,11 +37,17 @@ end
 function CE8.DrawEmissiveModel(ent, flags)
     pendingEmissive[ent]=nil
     local materials=ent.CE8EmissiveMaterials
-    if not ent.CE8Draft or not materials then return end
+    if not (ent.CE8Draft or ent.CE8Native) or not materials then return end
     local previous=ent.CE8DrawingEmissive
     ent.CE8DrawingEmissive=true
+    if ent.CE8Native and EF_NOFLASHLIGHT then ent:AddEffects(EF_NOFLASHLIGHT) end
+    local bloomMaterials=materials
     local ok,message=xpcall(function()
         render.OverrideDepthEnable(true,false)
+        if ent.CE8EnergyLayers then
+            bloomMaterials=CE8.DrawNativeEnergyLayers(ent,flags)
+            return
+        end
         render.OverrideBlend(true,BLEND_SRC_ALPHA,ent.CE8EmissiveAdditive and BLEND_ONE or BLEND_ONE_MINUS_SRC_ALPHA,BLENDFUNC_ADD)
         for slot,material in pairs(materials) do render.MaterialOverrideByIndex(slot,material) end
         -- Indexed overrides isolate the energy mesh. The Jackal prop must submit
@@ -48,8 +56,9 @@ function CE8.DrawEmissiveModel(ent, flags)
             or bit.bor(flags or STUDIO_RENDER or 1,STUDIO_TWOPASS or 8)
         ent:DrawModel(drawFlags)
     end,debug.traceback)
-    if ok and CE8.QueueEmissionBloom then CE8.QueueEmissionBloom(ent,materials) end
+    if ok and bloomMaterials and CE8.QueueEmissionBloom then CE8.QueueEmissionBloom(ent,bloomMaterials) end
     ent.CE8DrawingEmissive=previous
+    if ent.CE8Native and EF_NOFLASHLIGHT then ent:RemoveEffects(EF_NOFLASHLIGHT) end
     render.OverrideBlend(false)
     render.OverrideDepthEnable(false,false)
     for slot in pairs(materials) do render.MaterialOverrideByIndex(slot,nil) end
@@ -58,6 +67,7 @@ function CE8.DrawEmissiveModel(ent, flags)
 end
 
 function CE8.BindCharacter(ent, definition, custom, normalSpawn)
+    if definition.material_mode=="phong" then return CE8.BindPhongCharacter(ent,definition,normalSpawn) end
     if definition.ce8_only then custom = true end
     local bindings = definition.material_bindings or definition
     ent.CE8Draft = custom == nil and ent.CE8Draft or custom

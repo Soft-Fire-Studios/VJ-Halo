@@ -40,10 +40,12 @@ if SERVER then
     AddCSLuaFile("campaign_evolved/ce8_blade.lua")
     AddCSLuaFile("campaign_evolved/ce8_gauge.lua")
     AddCSLuaFile("campaign_evolved/ce8_shield.lua")
+    AddCSLuaFile("campaign_evolved/ce8_energy.lua")
     AddCSLuaFile("campaign_evolved/weapon_fx.lua")
     AddCSLuaFile("campaign_evolved/ballistics.lua")
     AddCSLuaFile("campaign_evolved/difficulty.lua")
     AddCSLuaFile("campaign_evolved/ce8_bloom.lua")
+    AddCSLuaFile("campaign_evolved/ce8_phong.lua")
     for name in pairs(covenantWeapons) do
         AddCSLuaFile("weapons/weapon_vj_ce8_" .. name .. ".lua")
         AddCSLuaFile("campaign_evolved/sounds/" .. name .. ".lua")

@@ -37,9 +37,9 @@ function CE8.RefreshSpawnedModelDefinitions()
         local entry=(catalog.characters or {})[character]
         local parent=entry and entry.variants and entry.variants[entry.default_rank]
         if parent then
-            local definition={ce8_only=true,material_bindings=parent.material_bindings}
+            local definition={ce8_only=parent.ce8_only,material_mode=parent.material_mode,material_bindings=parent.material_bindings}
             for _,piece in pairs(pieces) do
-                local binding=piece.material_bindings and {ce8_only=true,material_bindings=piece.material_bindings} or definition
+                local binding=piece.material_bindings and {ce8_only=parent.ce8_only,material_mode=parent.material_mode,material_bindings=piece.material_bindings} or definition
                 definitions[piece.model]={definition=binding,character=character,rank=entry.default_rank}
             end
         end
@@ -47,7 +47,9 @@ function CE8.RefreshSpawnedModelDefinitions()
     local armor=include("campaign_evolved/armor_parts.lua") or {}
     for character,pieces in pairs(armor) do
         for _,piece in pairs(pieces) do
-            definitions[piece.model]={definition={ce8_only=true,material_bindings=piece.material_bindings},
+            local entry=(catalog.characters or {})[character]
+            local parent=entry and entry.variants and entry.variants[entry.default_rank]
+            definitions[piece.model]={definition={ce8_only=parent and parent.ce8_only,material_mode=parent and parent.material_mode,material_bindings=piece.material_bindings},
                 character=character,rank="minor"}
         end
     end
@@ -135,7 +137,7 @@ function CE8.ApplyModelDepth(ent)
         end
     end
     -- The dedicated preview renderer already scopes both base and light passes.
-    if not supported(ent) or (ent.CE8CharacterDefinition and ent.CE8Draft) then
+    if not supported(ent) or (ent.CE8CharacterDefinition and (ent.CE8Draft or ent.CE8Native)) then
         if state and ent.RenderOverride==state.wrapper then ent.RenderOverride=state.previous end
         tracked[ent]=nil
         return false

@@ -454,6 +454,6 @@ end
 if include then
     include("campaign_evolved/ce8_live_details.lua")
 end
-if include then include("campaign_evolved/ce8_blade.lua"); include("campaign_evolved/ce8_shield.lua"); include("campaign_evolved/ce8_gauge.lua") end
+if include then include("campaign_evolved/ce8_blade.lua"); include("campaign_evolved/ce8_shield.lua"); include("campaign_evolved/ce8_gauge.lua"); include("campaign_evolved/ce8_energy.lua") end
 if include then include("campaign_evolved/ce8_bloom.lua") end
 CE8.SupportsOverallPaint=true

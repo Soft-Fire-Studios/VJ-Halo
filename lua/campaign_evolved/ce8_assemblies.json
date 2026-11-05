@@ -411,7 +411,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/elite_minor.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 209002,
           "model_bounds": {
@@ -459,10 +459,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -510,7 +510,6 @@
             "maximum_world_rotation_error": 1.2768710538901828e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "minor",
           "bodygroup_defaults": {
             "body": 0,
@@ -1026,7 +1025,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/elite_major.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 236777,
           "model_bounds": {
@@ -1074,10 +1073,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -1125,7 +1124,6 @@
             "maximum_world_rotation_error": 1.2768710538901828e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "major",
           "bodygroup_defaults": {
             "body": 0,
@@ -1641,7 +1639,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/elite_officer.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 236777,
           "model_bounds": {
@@ -1689,10 +1687,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -1740,7 +1738,6 @@
             "maximum_world_rotation_error": 1.2768710538901828e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "officer",
           "bodygroup_defaults": {
             "body": 0,
@@ -2256,7 +2253,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/elite_ultra.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 227383,
           "model_bounds": {
@@ -2304,10 +2301,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -2355,7 +2352,6 @@
             "maximum_world_rotation_error": 1.2768710538901828e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "ultra",
           "bodygroup_defaults": {
             "body": 0,
@@ -2871,7 +2867,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/elite_spec_ops.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 207471,
           "model_bounds": {
@@ -2919,10 +2915,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -2970,7 +2966,6 @@
             "maximum_world_rotation_error": 1.2768710538901828e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "spec_ops",
           "bodygroup_defaults": {
             "body": 1,
@@ -3486,7 +3481,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/elite_general.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 200524,
           "model_bounds": {
@@ -3534,10 +3529,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -3585,7 +3580,6 @@
             "maximum_world_rotation_error": 1.2768710538901828e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "general",
           "bodygroup_defaults": {
             "body": 0,
@@ -4101,7 +4095,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/elite_zealot.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 200524,
           "model_bounds": {
@@ -4149,10 +4143,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -4200,7 +4194,6 @@
             "maximum_world_rotation_error": 1.2768710538901828e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "zealot",
           "bodygroup_defaults": {
             "body": 0,
@@ -4716,7 +4709,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/elite_shipmaster.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 210948,
           "model_bounds": {
@@ -4764,10 +4757,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -4815,7 +4808,6 @@
             "maximum_world_rotation_error": 1.2768710538901828e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "shipmaster",
           "bodygroup_defaults": {
             "body": 0,
@@ -5331,7 +5323,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/elite_sacristan_minor.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 152882,
           "model_bounds": {
@@ -5379,10 +5371,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -5430,7 +5422,6 @@
             "maximum_world_rotation_error": 1.2768710538901828e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "sacristan_minor",
           "bodygroup_defaults": {
             "body": 2,
@@ -5946,7 +5937,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/elite_sacristan_major.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 184488,
           "model_bounds": {
@@ -5994,10 +5985,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -6045,7 +6036,6 @@
             "maximum_world_rotation_error": 1.2768710538901828e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "sacristan_major",
           "bodygroup_defaults": {
             "body": 3,
@@ -6561,7 +6551,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/elite_sacristan_zealot.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 204212,
           "model_bounds": {
@@ -6609,10 +6599,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -6660,7 +6650,6 @@
             "maximum_world_rotation_error": 1.2768710538901828e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "sacristan_zealot",
           "bodygroup_defaults": {
             "body": 4,
@@ -7176,7 +7165,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/elite_sacristan_specops.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 142614,
           "model_bounds": {
@@ -7224,10 +7213,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -7275,7 +7264,6 @@
             "maximum_world_rotation_error": 1.2768710538901828e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "sacristan_specops",
           "bodygroup_defaults": {
             "body": 5,
@@ -7791,7 +7779,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/elite_exploded.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 218238,
           "model_bounds": {
@@ -7839,10 +7827,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -7890,7 +7878,6 @@
             "maximum_world_rotation_error": 1.2768710538901828e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "exploded",
           "bodygroup_defaults": {
             "body": 6,
@@ -8277,7 +8264,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/hunter_minor.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 51,
           "draw_triangles": 289087,
           "model_bounds": {
@@ -8306,10 +8293,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -8361,7 +8348,6 @@
             "maximum_world_rotation_error": 9.2873576307273e-07
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "minor",
           "bodygroup_defaults": {
             "body": 0,
@@ -8680,7 +8666,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/hunter_sacristan.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 51,
           "draw_triangles": 289087,
           "model_bounds": {
@@ -8709,10 +8695,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -8764,7 +8750,6 @@
             "maximum_world_rotation_error": 9.2873576307273e-07
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "sacristan",
           "bodygroup_defaults": {
             "body": 1,
@@ -9036,7 +9021,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/jackal_jackal_minor.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 136280,
           "model_bounds": {
@@ -9082,10 +9067,10 @@
             "emissive_submodels": "all",
             "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden"
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -9132,7 +9117,6 @@
             "maximum_world_rotation_error": 1.646609776084773e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "jackal_minor",
           "bodygroup_defaults": {
             "armor_pieces": 0,
@@ -9422,7 +9406,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/jackal_skirmisher_minor.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 52068,
           "model_bounds": {
@@ -9468,10 +9452,10 @@
             "emissive_submodels": "all",
             "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden"
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -9517,7 +9501,6 @@
             "maximum_world_rotation_error": 1.646609776084773e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "skirmisher_minor",
           "bodygroup_defaults": {
             "armor_pieces": 1,
@@ -9807,7 +9790,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/jackal_jackal_sniper.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 55978,
           "model_bounds": {
@@ -9853,10 +9836,10 @@
             "emissive_submodels": "all",
             "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden"
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -9902,7 +9885,6 @@
             "maximum_world_rotation_error": 1.646609776084773e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "jackal_sniper",
           "bodygroup_defaults": {
             "armor_pieces": 1,
@@ -10192,7 +10174,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/jackal_jackal_major.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 136488,
           "model_bounds": {
@@ -10238,10 +10220,10 @@
             "emissive_submodels": "all",
             "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden"
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -10288,7 +10270,6 @@
             "maximum_world_rotation_error": 1.646609776084773e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "jackal_major",
           "bodygroup_defaults": {
             "armor_pieces": 2,
@@ -10578,7 +10559,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/jackal_sancristan.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 159618,
           "model_bounds": {
@@ -10624,10 +10605,10 @@
             "emissive_submodels": "all",
             "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden"
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -10674,7 +10655,6 @@
             "maximum_world_rotation_error": 1.646609776084773e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "sancristan",
           "bodygroup_defaults": {
             "armor_pieces": 3,
@@ -10964,7 +10944,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/jackal_sacristan_minor.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 154728,
           "model_bounds": {
@@ -11010,10 +10990,10 @@
             "emissive_submodels": "all",
             "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden"
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -11060,7 +11040,6 @@
             "maximum_world_rotation_error": 1.646609776084773e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "sacristan_minor",
           "bodygroup_defaults": {
             "armor_pieces": 4,
@@ -11350,7 +11329,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/jackal_sacristan_major.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 154728,
           "model_bounds": {
@@ -11396,10 +11375,10 @@
             "emissive_submodels": "all",
             "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden"
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -11446,7 +11425,6 @@
             "maximum_world_rotation_error": 1.646609776084773e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "sacristan_major",
           "bodygroup_defaults": {
             "armor_pieces": 5,
@@ -11736,7 +11714,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/jackal_sacristan_sniper.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 95,
           "draw_triangles": 169086,
           "model_bounds": {
@@ -11782,10 +11760,10 @@
             "emissive_submodels": "all",
             "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden"
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -11832,7 +11810,6 @@
             "maximum_world_rotation_error": 1.646609776084773e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "sacristan_sniper",
           "bodygroup_defaults": {
             "armor_pieces": 6,
@@ -12296,7 +12273,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/grunt_minor.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 47,
           "draw_triangles": 133942,
           "model_bounds": {
@@ -12335,10 +12312,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -12387,7 +12364,6 @@
             "maximum_world_rotation_error": 8.532389278448349e-07
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "minor",
           "bodygroup_defaults": {
             "backpack": 0,
@@ -12844,7 +12820,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/grunt_major.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 47,
           "draw_triangles": 192565,
           "model_bounds": {
@@ -12883,10 +12859,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -12935,7 +12911,6 @@
             "maximum_world_rotation_error": 8.532389278448349e-07
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "major",
           "bodygroup_defaults": {
             "backpack": 1,
@@ -13392,7 +13367,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/grunt_spec_ops.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 47,
           "draw_triangles": 144116,
           "model_bounds": {
@@ -13431,10 +13406,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -13483,7 +13458,6 @@
             "maximum_world_rotation_error": 8.532389278448349e-07
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "spec_ops",
           "bodygroup_defaults": {
             "backpack": 2,
@@ -13940,7 +13914,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/grunt_sacristan_minor.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 47,
           "draw_triangles": 141527,
           "model_bounds": {
@@ -13979,10 +13953,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -14031,7 +14005,6 @@
             "maximum_world_rotation_error": 8.532389278448349e-07
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "sacristan_minor",
           "bodygroup_defaults": {
             "backpack": 3,
@@ -14488,7 +14461,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/grunt_sacristan_major.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 47,
           "draw_triangles": 124812,
           "model_bounds": {
@@ -14527,10 +14500,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -14579,7 +14552,6 @@
             "maximum_world_rotation_error": 8.532389278448349e-07
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "sacristan_major",
           "bodygroup_defaults": {
             "backpack": 4,
@@ -15036,7 +15008,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/grunt_sacristan_specops.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 47,
           "draw_triangles": 124812,
           "model_bounds": {
@@ -15075,10 +15047,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -15127,7 +15099,6 @@
             "maximum_world_rotation_error": 8.532389278448349e-07
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "sacristan_specops",
           "bodygroup_defaults": {
             "backpack": 5,
@@ -15584,7 +15555,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/grunt_destroyed_minor.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 47,
           "draw_triangles": 199139,
           "model_bounds": {
@@ -15623,10 +15594,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -15675,7 +15646,6 @@
             "maximum_world_rotation_error": 8.532389278448349e-07
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "destroyed_minor",
           "bodygroup_defaults": {
             "backpack": 6,
@@ -16132,7 +16102,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/grunt_destroyed_major.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 47,
           "draw_triangles": 216010,
           "model_bounds": {
@@ -16171,10 +16141,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -16223,7 +16193,6 @@
             "maximum_world_rotation_error": 8.532389278448349e-07
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "destroyed_major",
           "bodygroup_defaults": {
             "backpack": 7,
@@ -16680,7 +16649,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/grunt_destroyed_spec_ops.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 47,
           "draw_triangles": 202655,
           "model_bounds": {
@@ -16719,10 +16688,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -16771,7 +16740,6 @@
             "maximum_world_rotation_error": 8.532389278448349e-07
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "destroyed_spec_ops",
           "bodygroup_defaults": {
             "backpack": 8,
@@ -16998,7 +16966,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/brute_default.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 131,
           "draw_triangles": 161787,
           "model_bounds": {
@@ -17026,10 +16994,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -17078,7 +17046,6 @@
             "maximum_world_rotation_error": 9.342764670794423e-07
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "default",
           "bodygroup_defaults": {
             "body": 0,
@@ -17152,7 +17119,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/flood_carrier_default.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 49,
           "draw_triangles": 58958,
           "model_bounds": {
@@ -17175,10 +17142,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -17226,7 +17193,6 @@
             "maximum_world_rotation_error": 7.891155240358216e-07
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "default",
           "bodygroup_defaults": {
             "legs": 0
@@ -17498,7 +17464,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/flood_combat_elite_default.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 100,
           "draw_triangles": 164458,
           "model_bounds": {
@@ -17527,10 +17493,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -17583,7 +17549,6 @@
             "maximum_world_rotation_error": 1.2662097766263924e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "default",
           "bodygroup_defaults": {
             "body": 0,
@@ -17881,7 +17846,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/flood_combat_elite_major.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 100,
           "draw_triangles": 154170,
           "model_bounds": {
@@ -17910,10 +17875,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -17966,7 +17931,6 @@
             "maximum_world_rotation_error": 1.2662097766263924e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "major",
           "bodygroup_defaults": {
             "body": 1,
@@ -18264,7 +18228,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/flood_combat_elite_sasquatch.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 100,
           "draw_triangles": 164458,
           "model_bounds": {
@@ -18293,10 +18257,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -18349,7 +18313,6 @@
             "maximum_world_rotation_error": 1.2662097766263924e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "sasquatch",
           "bodygroup_defaults": {
             "body": 0,
@@ -18562,7 +18525,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/flood_combat_human_default.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 93,
           "draw_triangles": 122236,
           "model_bounds": {
@@ -18587,10 +18550,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -18642,7 +18605,6 @@
             "maximum_world_rotation_error": 1.1332019411725014e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "default",
           "bodygroup_defaults": {
             "body": 0,
@@ -18717,7 +18679,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/flood_infection_default.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 40,
           "draw_triangles": 11146,
           "model_bounds": {
@@ -18739,10 +18701,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -18783,7 +18745,6 @@
             "maximum_world_rotation_error": 7.691388318464831e-07
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "default",
           "bodygroup_defaults": {
             "body": 0
@@ -19042,7 +19003,7 @@
           ],
           "source_model": "models/campaign_evolved/roster/flood_tank_default.mdl",
           "material_path": "models/campaign_evolved/ce8",
-          "ce8_only": true,
+          "ce8_only": false,
           "source_bones": 80,
           "draw_triangles": 149990,
           "model_bounds": {
@@ -19065,10 +19026,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "material_mode": "phong",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "geometry_layout": "bodygroups_compact_material_pages",
           "ragdoll": true,
           "physics": {
@@ -19124,7 +19085,6 @@
             "maximum_world_rotation_error": 1.0345846238601908e-06
           },
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
           "rank": "default",
           "bodygroup_defaults": {
             "body": 0,
@@ -19206,11 +19166,11 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
@@ -19245,36 +19205,19 @@
             "checksum": 2193808761,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 1,
-            "vertices": 10452,
-            "triangles": 19278,
-            "bytes": 209869,
-            "native_tangent_frames": 10452,
-            "reconstructed_tangent_frames": 0,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "attachments.json",
             "attachments.qci",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "physics/collision.json",
+            "frag_grenade.qc",
+            "meshes/body_01.smd",
             "physics/collision.smd"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json"
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json"
         },
         "plasma_grenade": {
           "version": 1,
@@ -19314,11 +19257,11 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
@@ -19353,36 +19296,19 @@
             "checksum": 1577484376,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 1,
-            "vertices": 750,
-            "triangles": 1306,
-            "bytes": 14719,
-            "native_tangent_frames": 750,
-            "reconstructed_tangent_frames": 0,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "attachments.json",
             "attachments.qci",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "physics/collision.json",
-            "physics/collision.smd"
+            "meshes/body_01.smd",
+            "physics/collision.smd",
+            "plasma_grenade.qc"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json"
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json"
         },
         "energy_sword": {
           "version": 1,
@@ -19438,11 +19364,11 @@
             },
             "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden"
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
@@ -19480,21 +19406,20 @@
             "checksum": 3020262887,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "energy_sword.qc",
+            "attachments.qci",
             "bind_pose.smd",
             "bodygroups.qci",
-            "attachments.qci",
-            "meshes/body_01.dmx",
-            "meshes/blade.dmx",
+            "energy_sword.qc",
+            "meshes/blade.smd",
+            "meshes/body_01.smd",
             "physics/collision.smd"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
           "emissive_blade": {
             "native_default": true,
             "lit": false,
@@ -19559,11 +19484,11 @@
             "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden",
             "emissive_submodels": "all"
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
@@ -19600,21 +19525,20 @@
             "checksum": 1458847007,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "jackal_shield.qc",
+            "attachments.qci",
             "bind_pose.smd",
             "bodygroups.qci",
-            "attachments.qci",
-            "meshes/body_01.dmx",
-            "meshes/barrier.dmx",
+            "jackal_shield.qc",
+            "meshes/barrier.smd",
+            "meshes/body_01.smd",
             "physics/collision.smd"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
           "geometry_validation": "jackal/shield/jackal_shield_model.json",
           "emissive_barrier": {
             "lit": false,
@@ -19683,11 +19607,11 @@
             "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden",
             "emissive_submodels": "all"
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
@@ -19724,21 +19648,20 @@
             "checksum": 2408248851,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "jackal_shield_major.qc",
+            "attachments.qci",
             "bind_pose.smd",
             "bodygroups.qci",
-            "attachments.qci",
-            "meshes/body_01.dmx",
-            "meshes/barrier.dmx",
+            "jackal_shield_major.qc",
+            "meshes/barrier.smd",
+            "meshes/body_01.smd",
             "physics/collision.smd"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
           "geometry_validation": "jackal/shield/jackal_shield_major_model.json",
           "emissive_barrier": {
             "lit": false,
@@ -19789,11 +19712,11 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
@@ -19887,35 +19810,18 @@
             "joints": 0,
             "source_collision_absent": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 1,
-            "vertices": 2240,
-            "triangles": 3812,
-            "bytes": 43165,
-            "native_tangent_frames": 2240,
-            "reconstructed_tangent_frames": 0,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "attachments.json",
             "attachments.qci",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "physics/collision.json"
+            "meshes/body_01.smd",
+            "skull.qc"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json"
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json"
         },
         "magnum": {
           "version": 1,
@@ -19989,11 +19895,11 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
@@ -20002,7 +19908,7 @@
           ],
           "physics_prop": true,
           "source_bones": 1,
-          "draw_triangles": 205236,
+          "draw_triangles": 205009,
           "source_triangles": 205236,
           "model_bounds": {
             "min": [
@@ -20033,42 +19939,22 @@
             "checksum": 3587110697,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 7,
-            "vertices": 142002,
-            "triangles": 205236,
-            "bytes": 2510101,
-            "native_tangent_frames": 142002,
-            "reconstructed_tangent_frames": 0,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "attachments.json",
             "attachments.qci",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "msh/body_02.dmx",
-            "msh/body_02_buffers.npz",
-            "msh/body_03.dmx",
-            "msh/body_03_buffers.npz",
-            "msh/body_04.dmx",
-            "msh/body_04_buffers.npz",
-            "physics/collision.json",
+            "magnum.qc",
+            "meshes/body_01.smd",
+            "meshes/body_02.smd",
+            "meshes/body_03.smd",
+            "meshes/body_04.smd",
             "physics/collision.smd"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json"
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json"
         },
         "needler": {
           "version": 1,
@@ -20134,11 +20020,11 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
@@ -20177,40 +20063,21 @@
             "checksum": 3288705156,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 4,
-            "vertices": 25793,
-            "triangles": 39808,
-            "bytes": 471385,
-            "native_tangent_frames": 25793,
-            "reconstructed_tangent_frames": 0,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "attachments.json",
             "attachments.qci",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "msh/body_02.dmx",
-            "msh/body_02_buffers.npz",
-            "msh/body_03.dmx",
-            "msh/body_03_buffers.npz",
-            "physics/collision.json",
+            "meshes/body_01.smd",
+            "meshes/body_02.smd",
+            "meshes/body_03.smd",
+            "needler.qc",
             "physics/collision.smd"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
           "geometry_validation": "weapons/needler/gauge/model_routing.json",
           "weapon_displays": {
             "models/campaign_evolved/ce8/material_sets/weapons/needler/gauge": "ammo"
@@ -20304,18 +20171,18 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
           "excluded_source_variants": [],
           "physics_prop": true,
           "source_bones": 1,
-          "draw_triangles": 413858,
+          "draw_triangles": 413852,
           "source_triangles": 413858,
           "model_bounds": {
             "min": [
@@ -20345,44 +20212,23 @@
             "checksum": 2516106941,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 10,
-            "vertices": 257306,
-            "triangles": 413858,
-            "bytes": 4799836,
-            "native_tangent_frames": 257306,
-            "reconstructed_tangent_frames": 0,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "attachments.json",
             "attachments.qci",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "msh/body_02.dmx",
-            "msh/body_02_buffers.npz",
-            "msh/body_03.dmx",
-            "msh/body_03_buffers.npz",
-            "msh/body_04.dmx",
-            "msh/body_04_buffers.npz",
-            "msh/body_05.dmx",
-            "msh/body_05_buffers.npz",
-            "physics/collision.json",
-            "physics/collision.smd"
+            "meshes/body_01.smd",
+            "meshes/body_02.smd",
+            "meshes/body_03.smd",
+            "meshes/body_04.smd",
+            "meshes/body_05.smd",
+            "physics/collision.smd",
+            "plasma_pistol.qc"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json"
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json"
         },
         "smg_rifle": {
           "version": 1,
@@ -20448,18 +20294,18 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
           "excluded_source_variants": [],
           "physics_prop": true,
           "source_bones": 1,
-          "draw_triangles": 244073,
+          "draw_triangles": 243937,
           "source_triangles": 244073,
           "model_bounds": {
             "min": [
@@ -20490,40 +20336,21 @@
             "checksum": 770540480,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 9,
-            "vertices": 157415,
-            "triangles": 244073,
-            "bytes": 2882018,
-            "native_tangent_frames": 157415,
-            "reconstructed_tangent_frames": 0,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "attachments.json",
             "attachments.qci",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "msh/body_02.dmx",
-            "msh/body_02_buffers.npz",
-            "msh/body_03.dmx",
-            "msh/body_03_buffers.npz",
-            "physics/collision.json",
-            "physics/collision.smd"
+            "meshes/body_01.smd",
+            "meshes/body_02.smd",
+            "meshes/body_03.smd",
+            "physics/collision.smd",
+            "smg_rifle.qc"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json"
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json"
         },
         "battle_rifle": {
           "version": 1,
@@ -20613,11 +20440,11 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
@@ -20626,7 +20453,7 @@
           ],
           "physics_prop": true,
           "source_bones": 1,
-          "draw_triangles": 213137,
+          "draw_triangles": 213132,
           "source_triangles": 213137,
           "model_bounds": {
             "min": [
@@ -20657,44 +20484,23 @@
             "checksum": 1138979952,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 26,
-            "vertices": 211242,
-            "triangles": 213137,
-            "bytes": 3182358,
-            "native_tangent_frames": 211242,
-            "reconstructed_tangent_frames": 0,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "attachments.json",
             "attachments.qci",
+            "battle_rifle.qc",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "msh/body_02.dmx",
-            "msh/body_02_buffers.npz",
-            "msh/body_03.dmx",
-            "msh/body_03_buffers.npz",
-            "msh/body_04.dmx",
-            "msh/body_04_buffers.npz",
-            "msh/body_05.dmx",
-            "msh/body_05_buffers.npz",
-            "physics/collision.json",
+            "meshes/body_01.smd",
+            "meshes/body_02.smd",
+            "meshes/body_03.smd",
+            "meshes/body_04.smd",
+            "meshes/body_05.smd",
             "physics/collision.smd"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json"
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json"
         },
         "beam_rifle": {
           "version": 1,
@@ -20782,18 +20588,18 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
           "excluded_source_variants": [],
           "physics_prop": true,
           "source_bones": 1,
-          "draw_triangles": 388055,
+          "draw_triangles": 387091,
           "source_triangles": 388055,
           "model_bounds": {
             "min": [
@@ -20824,44 +20630,23 @@
             "checksum": 2015376769,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 15,
-            "vertices": 260444,
-            "triangles": 388055,
-            "bytes": 4673705,
-            "native_tangent_frames": 260444,
-            "reconstructed_tangent_frames": 0,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "attachments.json",
             "attachments.qci",
+            "beam_rifle.qc",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "msh/body_02.dmx",
-            "msh/body_02_buffers.npz",
-            "msh/body_03.dmx",
-            "msh/body_03_buffers.npz",
-            "msh/body_04.dmx",
-            "msh/body_04_buffers.npz",
-            "msh/body_05.dmx",
-            "msh/body_05_buffers.npz",
-            "physics/collision.json",
+            "meshes/body_01.smd",
+            "meshes/body_02.smd",
+            "meshes/body_03.smd",
+            "meshes/body_04.smd",
+            "meshes/body_05.smd",
             "physics/collision.smd"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json"
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json"
         },
         "assault_rifle": {
           "version": 1,
@@ -20948,11 +20733,11 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
@@ -20970,7 +20755,7 @@
           ],
           "physics_prop": true,
           "source_bones": 1,
-          "draw_triangles": 266781,
+          "draw_triangles": 266146,
           "source_triangles": 266781,
           "model_bounds": {
             "min": [
@@ -21001,44 +20786,23 @@
             "checksum": 3317556296,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 9,
-            "vertices": 203560,
-            "triangles": 266781,
-            "bytes": 3433571,
-            "native_tangent_frames": 203560,
-            "reconstructed_tangent_frames": 0,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "attachments.json",
+            "assault_rifle.qc",
             "attachments.qci",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "msh/body_02.dmx",
-            "msh/body_02_buffers.npz",
-            "msh/body_03.dmx",
-            "msh/body_03_buffers.npz",
-            "msh/body_04.dmx",
-            "msh/body_04_buffers.npz",
-            "msh/body_05.dmx",
-            "msh/body_05_buffers.npz",
-            "physics/collision.json",
+            "meshes/body_01.smd",
+            "meshes/body_02.smd",
+            "meshes/body_03.smd",
+            "meshes/body_04.smd",
+            "meshes/body_05.smd",
             "physics/collision.smd"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json"
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json"
         },
         "needle_rifle": {
           "version": 1,
@@ -21162,18 +20926,18 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
           "excluded_source_variants": [],
           "physics_prop": true,
           "source_bones": 1,
-          "draw_triangles": 386502,
+          "draw_triangles": 384407,
           "source_triangles": 386502,
           "model_bounds": {
             "min": [
@@ -21204,50 +20968,26 @@
             "checksum": 3070152253,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 14,
-            "vertices": 299569,
-            "triangles": 386502,
-            "bytes": 5016423,
-            "native_tangent_frames": 299569,
-            "reconstructed_tangent_frames": 0,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "attachments.json",
             "attachments.qci",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "msh/body_02.dmx",
-            "msh/body_02_buffers.npz",
-            "msh/body_03.dmx",
-            "msh/body_03_buffers.npz",
-            "msh/body_04.dmx",
-            "msh/body_04_buffers.npz",
-            "msh/body_05.dmx",
-            "msh/body_05_buffers.npz",
-            "msh/body_06.dmx",
-            "msh/body_06_buffers.npz",
-            "msh/body_07.dmx",
-            "msh/body_07_buffers.npz",
-            "msh/body_08.dmx",
-            "msh/body_08_buffers.npz",
-            "physics/collision.json",
+            "meshes/body_01.smd",
+            "meshes/body_02.smd",
+            "meshes/body_03.smd",
+            "meshes/body_04.smd",
+            "meshes/body_05.smd",
+            "meshes/body_06.smd",
+            "meshes/body_07.smd",
+            "meshes/body_08.smd",
+            "needle_rifle.qc",
             "physics/collision.smd"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
           "geometry_validation": "weapons/needle_rifle/gauge/model_routing.json",
           "weapon_displays": {
             "models/campaign_evolved/ce8/material_sets/weapons/needle_rifle/gauge": "ammo",
@@ -21351,11 +21091,11 @@
             "emissive_blend": "additive",
             "light_hidden_material": "models/campaign_evolved/ce8/shader_inputs/hidden"
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
@@ -21364,7 +21104,7 @@
           ],
           "physics_prop": true,
           "source_bones": 1,
-          "draw_triangles": 224134,
+          "draw_triangles": 224105,
           "source_triangles": 224134,
           "model_bounds": {
             "min": [
@@ -21394,44 +21134,23 @@
             "checksum": 717387153,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 11,
-            "vertices": 158018,
-            "triangles": 224134,
-            "bytes": 2767989,
-            "native_tangent_frames": 158018,
-            "reconstructed_tangent_frames": 0,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "attachments.json",
             "attachments.qci",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "msh/body_02.dmx",
-            "msh/body_02_buffers.npz",
-            "msh/body_03.dmx",
-            "msh/body_03_buffers.npz",
-            "msh/body_04.dmx",
-            "msh/body_04_buffers.npz",
-            "msh/body_05.dmx",
-            "msh/body_05_buffers.npz",
-            "physics/collision.json",
-            "physics/collision.smd"
+            "meshes/body_01.smd",
+            "meshes/body_02.smd",
+            "meshes/body_03.smd",
+            "meshes/body_04.smd",
+            "meshes/body_05.smd",
+            "physics/collision.smd",
+            "plasma_rifle.qc"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
           "geometry_validation": "weapons/plasma_rifle/gauge/model_routing.json",
           "weapon_displays": {
             "models/campaign_evolved/ce8/material_sets/weapons/plasma_rifle/gauge": "heat",
@@ -21526,18 +21245,18 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
           "excluded_source_variants": [],
           "physics_prop": true,
           "source_bones": 1,
-          "draw_triangles": 240861,
+          "draw_triangles": 240272,
           "source_triangles": 240861,
           "model_bounds": {
             "min": [
@@ -21568,44 +21287,23 @@
             "checksum": 3330442494,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 18,
-            "vertices": 176912,
-            "triangles": 240861,
-            "bytes": 3039020,
-            "native_tangent_frames": 176912,
-            "reconstructed_tangent_frames": 0,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "attachments.json",
             "attachments.qci",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "msh/body_02.dmx",
-            "msh/body_02_buffers.npz",
-            "msh/body_03.dmx",
-            "msh/body_03_buffers.npz",
-            "msh/body_04.dmx",
-            "msh/body_04_buffers.npz",
-            "msh/body_05.dmx",
-            "msh/body_05_buffers.npz",
-            "physics/collision.json",
-            "physics/collision.smd"
+            "meshes/body_01.smd",
+            "meshes/body_02.smd",
+            "meshes/body_03.smd",
+            "meshes/body_04.smd",
+            "meshes/body_05.smd",
+            "physics/collision.smd",
+            "shotgun.qc"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
           "geometry_validation": "weapons/shotgun/gauge/model_routing.json",
           "weapon_displays": {
             "models/campaign_evolved/ce8/material_sets/weapons/shotgun/emissive": "static"
@@ -21674,11 +21372,11 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
@@ -21716,40 +21414,21 @@
             "checksum": 1259568891,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 7,
-            "vertices": 115565,
-            "triangles": 164976,
-            "bytes": 2030608,
-            "native_tangent_frames": 115565,
-            "reconstructed_tangent_frames": 0,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "attachments.json",
             "attachments.qci",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "msh/body_02.dmx",
-            "msh/body_02_buffers.npz",
-            "msh/body_03.dmx",
-            "msh/body_03_buffers.npz",
-            "physics/collision.json",
-            "physics/collision.smd"
+            "meshes/body_01.smd",
+            "meshes/body_02.smd",
+            "meshes/body_03.smd",
+            "physics/collision.smd",
+            "spike_rifle.qc"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
           "geometry_validation": "weapons/spike_rifle/gauge/model_routing.json",
           "weapon_displays": {
             "models/campaign_evolved/ce8/material_sets/weapons/spike_rifle/emissive": "static"
@@ -21838,11 +21517,11 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
@@ -21852,7 +21531,7 @@
           ],
           "physics_prop": true,
           "source_bones": 1,
-          "draw_triangles": 281000,
+          "draw_triangles": 280752,
           "source_triangles": 281000,
           "model_bounds": {
             "min": [
@@ -21883,44 +21562,23 @@
             "checksum": 3651363795,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 14,
-            "vertices": 194287,
-            "triangles": 281000,
-            "bytes": 3435873,
-            "native_tangent_frames": 194287,
-            "reconstructed_tangent_frames": 0,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "attachments.json",
             "attachments.qci",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "msh/body_02.dmx",
-            "msh/body_02_buffers.npz",
-            "msh/body_03.dmx",
-            "msh/body_03_buffers.npz",
-            "msh/body_04.dmx",
-            "msh/body_04_buffers.npz",
-            "msh/body_05.dmx",
-            "msh/body_05_buffers.npz",
-            "physics/collision.json",
-            "physics/collision.smd"
+            "meshes/body_01.smd",
+            "meshes/body_02.smd",
+            "meshes/body_03.smd",
+            "meshes/body_04.smd",
+            "meshes/body_05.smd",
+            "physics/collision.smd",
+            "sniper_rifle.qc"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json"
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json"
         },
         "flak_cannon": {
           "version": 1,
@@ -22019,11 +21677,11 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
@@ -22032,7 +21690,7 @@
           ],
           "physics_prop": true,
           "source_bones": 1,
-          "draw_triangles": 453121,
+          "draw_triangles": 453111,
           "source_triangles": 453121,
           "model_bounds": {
             "min": [
@@ -22063,46 +21721,24 @@
             "checksum": 3736383247,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 11,
-            "vertices": 291504,
-            "triangles": 453121,
-            "bytes": 5343285,
-            "native_tangent_frames": 291504,
-            "reconstructed_tangent_frames": 0,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "attachments.json",
             "attachments.qci",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "msh/body_02.dmx",
-            "msh/body_02_buffers.npz",
-            "msh/body_03.dmx",
-            "msh/body_03_buffers.npz",
-            "msh/body_04.dmx",
-            "msh/body_04_buffers.npz",
-            "msh/body_05.dmx",
-            "msh/body_05_buffers.npz",
-            "msh/body_06.dmx",
-            "msh/body_06_buffers.npz",
-            "physics/collision.json",
+            "flak_cannon.qc",
+            "meshes/body_01.smd",
+            "meshes/body_02.smd",
+            "meshes/body_03.smd",
+            "meshes/body_04.smd",
+            "meshes/body_05.smd",
+            "meshes/body_06.smd",
             "physics/collision.smd"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
           "geometry_validation": "weapons/flak_cannon/gauge/model_routing.json",
           "weapon_displays": {
             "models/campaign_evolved/ce8/material_sets/weapons/flak_cannon/gauge": "static"
@@ -22226,18 +21862,18 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
           "excluded_source_variants": [],
           "physics_prop": true,
           "source_bones": 1,
-          "draw_triangles": 490324,
+          "draw_triangles": 490027,
           "source_triangles": 490324,
           "model_bounds": {
             "min": [
@@ -22267,50 +21903,26 @@
             "checksum": 2611579608,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 16,
-            "vertices": 405857,
-            "triangles": 490324,
-            "bytes": 6596125,
-            "native_tangent_frames": 405857,
-            "reconstructed_tangent_frames": 0,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "attachments.json",
             "attachments.qci",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "msh/body_02.dmx",
-            "msh/body_02_buffers.npz",
-            "msh/body_03.dmx",
-            "msh/body_03_buffers.npz",
-            "msh/body_04.dmx",
-            "msh/body_04_buffers.npz",
-            "msh/body_05.dmx",
-            "msh/body_05_buffers.npz",
-            "msh/body_06.dmx",
-            "msh/body_06_buffers.npz",
-            "msh/body_07.dmx",
-            "msh/body_07_buffers.npz",
-            "msh/body_08.dmx",
-            "msh/body_08_buffers.npz",
-            "physics/collision.json",
-            "physics/collision.smd"
+            "meshes/body_01.smd",
+            "meshes/body_02.smd",
+            "meshes/body_03.smd",
+            "meshes/body_04.smd",
+            "meshes/body_05.smd",
+            "meshes/body_06.smd",
+            "meshes/body_07.smd",
+            "meshes/body_08.smd",
+            "physics/collision.smd",
+            "sentinel_gun.qc"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json"
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json"
         },
         "rocket_launcher": {
           "version": 1,
@@ -22539,11 +22151,11 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
-          "paint_mode": "rgba_masks",
+          "color_mode": "baked",
+          "paint_mode": "baked",
           "asset_type": "weapon_prop",
           "ragdoll": false,
           "source_variant": "default",
@@ -22552,7 +22164,7 @@
           ],
           "physics_prop": true,
           "source_bones": 1,
-          "draw_triangles": 1437821,
+          "draw_triangles": 1435063,
           "source_triangles": 1437821,
           "model_bounds": {
             "min": [
@@ -22582,68 +22194,35 @@
             "checksum": 3431764684,
             "rigid_authored_collision": true
           },
-          "geometry_format": "indexed_dmx",
-          "mesh_revision": 6,
-          "rigid_buffers": {
-            "revision": 1,
-            "bodies": 34,
-            "vertices": 970127,
-            "triangles": 1437821,
-            "bytes": 17361139,
-            "native_tangent_frames": 103,
-            "reconstructed_tangent_frames": 970024,
-            "original_position_normal_uv_streams": true,
-            "original_oriented_triangle_lists": true,
-            "native_skeleton_and_collision_metadata_retained": true
-          },
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong",
           "source_files": [
-            "attachments.json",
             "attachments.qci",
             "bind_pose.smd",
             "bodygroups.qci",
-            "bones.json",
-            "character.qc",
-            "msh/body_01.dmx",
-            "msh/body_01_buffers.npz",
-            "msh/body_02.dmx",
-            "msh/body_02_buffers.npz",
-            "msh/body_03.dmx",
-            "msh/body_03_buffers.npz",
-            "msh/body_04.dmx",
-            "msh/body_04_buffers.npz",
-            "msh/body_05.dmx",
-            "msh/body_05_buffers.npz",
-            "msh/body_06.dmx",
-            "msh/body_06_buffers.npz",
-            "msh/body_07.dmx",
-            "msh/body_07_buffers.npz",
-            "msh/body_08.dmx",
-            "msh/body_08_buffers.npz",
-            "msh/body_09.dmx",
-            "msh/body_09_buffers.npz",
-            "msh/body_10.dmx",
-            "msh/body_10_buffers.npz",
-            "msh/body_11.dmx",
-            "msh/body_11_buffers.npz",
-            "msh/body_12.dmx",
-            "msh/body_12_buffers.npz",
-            "msh/body_13.dmx",
-            "msh/body_13_buffers.npz",
-            "msh/body_14.dmx",
-            "msh/body_14_buffers.npz",
-            "msh/body_15.dmx",
-            "msh/body_15_buffers.npz",
-            "msh/body_16.dmx",
-            "msh/body_16_buffers.npz",
-            "msh/body_17.dmx",
-            "msh/body_17_buffers.npz",
-            "physics/collision.json",
-            "physics/collision.smd"
+            "meshes/body_01.smd",
+            "meshes/body_02.smd",
+            "meshes/body_03.smd",
+            "meshes/body_04.smd",
+            "meshes/body_05.smd",
+            "meshes/body_06.smd",
+            "meshes/body_07.smd",
+            "meshes/body_08.smd",
+            "meshes/body_09.smd",
+            "meshes/body_10.smd",
+            "meshes/body_11.smd",
+            "meshes/body_12.smd",
+            "meshes/body_13.smd",
+            "meshes/body_14.smd",
+            "meshes/body_15.smd",
+            "meshes/body_16.smd",
+            "meshes/body_17.smd",
+            "physics/collision.smd",
+            "rocket_launcher.qc"
           ],
           "compiler_metadata_reference": false,
           "detail_uv_mode": "primary",
-          "detail_descriptor": "lua/campaign_evolved/ce8_live_details.json",
-          "material_descriptor": "X:\\Tools\\personal\\Asset Viewers\\MCCAssetViewer_v0_1_0\\exports\\CampaignEvolved\\lua\\campaign_evolved\\ce8_assemblies.json"
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json"
         },
         "needle": {
           "version": 1,
@@ -22670,10 +22249,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "bodygroups_compact_material_pages",
-          "color_mode": "overall",
+          "color_mode": "baked",
           "asset_type": "projectile_prop",
           "ragdoll": false,
           "physics_prop": true,
@@ -22698,7 +22277,17 @@
               0.5793586000800133,
               0.49423886463046074
             ]
-          }
+          },
+          "paint_mode": "baked",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "geometry_format": "rigid_smd",
+          "source_files": [
+            "bind_pose.smd",
+            "meshes/body.smd",
+            "needle.qc",
+            "physics/collision.smd"
+          ],
+          "mesh_revision": "native_phong"
         },
         "rocket": {
           "version": 1,
@@ -22726,10 +22315,10 @@
             "light_materials": {},
             "glows": {}
           },
-          "material_mode": "8tex",
-          "ce8_only": true,
+          "material_mode": "phong",
+          "ce8_only": false,
           "geometry_layout": "whole_material_sets",
-          "color_mode": "overall",
+          "color_mode": "baked",
           "asset_type": "projectile_prop",
           "ragdoll": false,
           "physics_prop": true,
@@ -22744,10 +22333,10 @@
             "rigid_authored_collision": true
           },
           "source_files": [
-            "rocket.qc",
             "bind_pose.smd",
-            "meshes/body.dmx",
-            "physics/collision.smd"
+            "meshes/body.smd",
+            "physics/collision.smd",
+            "rocket.qc"
           ],
           "model_bounds": {
             "min": [
@@ -22760,7 +22349,11 @@
               0.7014167681336403,
               0.7014167681336403
             ]
-          }
+          },
+          "paint_mode": "baked",
+          "material_descriptor": "lua/campaign_evolved/ce8_assemblies.json",
+          "geometry_format": "rigid_smd",
+          "mesh_revision": "native_phong"
         }
       },
       "aliases": {
