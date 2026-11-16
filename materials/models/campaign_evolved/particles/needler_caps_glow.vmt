@@ -1,0 +1,10 @@
+"UnlitGeneric"
+{
+    "$model" "1"
+    "$translucent" "1"
+    "$additive" "1"
+    "$nocull" "1"
+    "$color" "[1 1 1]"
+    "$color2" "[113.211903 21.2518506 150]"
+    "$hdrcolorscale" "1"
+}

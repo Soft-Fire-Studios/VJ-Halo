@@ -203,6 +203,9 @@ function ENT:OnGrenadeAttackExecute(status, grenade, override, landDir, landingP
 end
 
 function ENT:CE8ShieldEffect(kind, position, angles)
+    if kind == "disperse" then
+        return CE8.Particles.Attach("hr_elite_collapse", self, 0)
+    end
     local effect = self.CE8ShieldEffects[kind]
     if not effect or not CE8 or not CE8.ShieldParticlesReady then return false end
     if position then

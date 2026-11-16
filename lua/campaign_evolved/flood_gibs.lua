@@ -201,7 +201,7 @@ function Gibs.Destroy(actor, owner, damage, body, abandon)
         if sound and (not soundSetting or soundSetting:GetBool()) and (not allSounds or allSounds:GetBool()) then
             FX.Sound(feedback.sound, position, 80)
         end
-        if debris and effects and FX.Load(feedback) then ParticleEffect(feedback.effects.normal.destroy, position, Angle()) end
+        if debris and effects and FX.Load(feedback) then CE8.Particles.Emit(feedback.effects.normal.destroy, position, Angle()) end
     end
     if first and not keepBody then undo.ReplaceEntity(target, first) end
     if body then

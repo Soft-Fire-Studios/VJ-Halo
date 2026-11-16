@@ -1,0 +1,12 @@
+SpriteCard
+{
+	"$basetexture" "halo/fx/halo3/h3_beam_glow"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$translucent" "1"
+	"$blendframes" "0"
+	"$additive" "1"
+	"$nofog" "1"
+	"$depthblend" "0"
+	"$overbrightfactor" "2"
+}

@@ -1,0 +1,12 @@
+SpriteCard
+{
+	"$basetexture" "halo/fx/reach/textures/hr_fuelrod_flight_p10_1"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$translucent" "1"
+	"$additive" "1"
+	"$nofog" "1"
+	"$overbrightfactor" "8.0"
+	"$depthblend" "1"
+	"$depthblendscale" "12.000000178813934"
+}

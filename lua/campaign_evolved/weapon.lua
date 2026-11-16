@@ -1,6 +1,7 @@
 -- Shared VJ setup; native values are kept in weapons.lua.
 return function(SWEP, name)
 local data = include("campaign_evolved/weapons.lua")[name]
+include("campaign_evolved/particles.lua").Weapon(data, name)
 local sounds = include("campaign_evolved/sounds/" .. name .. ".lua")
 local layers = sounds.layers or {sounds.fire, sounds.tail}
 local effects = include("campaign_evolved/weapon_fx.lua")
@@ -35,7 +36,8 @@ SWEP.Primary.Automatic = data.automatic
 SWEP.Primary.Delay = data.interval
 SWEP.Primary.Damage = data.damage.amount[1]
 SWEP.Primary.Force = 2
-SWEP.Primary.TracerType = data.tracer or "AR2Tracer"
+SWEP.Primary.Tracer = data.pcf_tracer and 0 or 1
+SWEP.Primary.TracerType = data.pcf_tracer and "" or data.tracer or "AR2Tracer"
 SWEP.Primary.NumberOfShots = data.projectiles_per_shot or 1
 SWEP.Primary.Sound = layers[1] or {}
 SWEP.Primary.HasDistantSound = false
@@ -108,6 +110,15 @@ function SWEP:OnEquip(owner)
     self.CE8FireState = nil
     self.CE8ShotProfile = nil
     self.CE8MeleeSwing, self.CE8MeleeEventOwner = nil, nil
+end
+
+function SWEP:OnReload(status)
+    if not SERVER or status ~= "Start" or not effects.Load(data) then return end
+    local fx = data.effects
+    local root = fx and fx.normal and fx.normal.reload
+    if not root or not fx.reload_attachment then return end
+    local attachment = self:LookupAttachment(fx.reload_attachment)
+    if attachment > 0 then CE8.Particles.Attach(root, self, attachment) end
 end
 
 local function sample(range) return math.Rand(range[1], range[2]) end
@@ -498,9 +509,15 @@ function SWEP:OnPrimaryAttack_BulletCallback(attacker, trace, damage)
         damage:ScaleDamage(1 + (falloff.minimum / peak - 1) * fraction)
     end
     if SERVER and not data.projectile then
+        if data.pcf_tracer then
+            -- Native PCF tracer: CP0 is the muzzle, CP1 is the trace end.
+            util.ParticleTracer(data.pcf_tracer, trace.StartPos, trace.HitPos, false)
+        end
         effects.Flyby(sounds, trace.StartPos, trace.HitPos, attacker)
         if trace.Hit and not trace.HitSky then
             effects.ContactSound(sounds, trace, effects.ContactSurface(trace), "impact", false)
+            if data.pcf_impact then effects.ContactParticle(data, "impact", trace.HitPos, trace.HitNormal, false,
+                trace.HitPos - trace.StartPos) end
         end
     end
     if not SERVER or data.projectile or not data.needle or damage:GetDamage() <= 0 then return end
@@ -591,10 +608,6 @@ if CLIENT then
             self.CE8WeaponRendererToken = rendererToken
         end
         CE8.ApplyModelDepth(self)
-        -- Projected lighting is already included in the CE8 surface pass.
-        if self.CE8Draft and not self:IsEffectActive(EF_NOFLASHLIGHT) then
-            self:AddEffects(EF_NOFLASHLIGHT)
-        end
         if self.RenderOverride == self.CE8WeaponRenderer then return end
         local draw = self.RenderOverride
         if not draw then return end

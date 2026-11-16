@@ -34,17 +34,13 @@ matproxy.Add({
 })
 
 function CE8.BindPhongCharacter(ent,definition,normalSpawn)
-    if not normalSpawn then
-        CE8.AssemblePreview(ent,definition.assembly or definition)
-        ent:SetSubMaterial()
-    end
     ent.CE8CharacterDefinition=definition
     ent.CE8Draft=false
     ent.CE8Native=true
     ent.CE8LightMaterials,ent.CE8EmissiveMaterials=nil,nil
     ent.CE8EnergyLayers,ent.CE8RefractionMaterials,ent.CE8FarEnergyMaterials=nil,nil,nil
     if ent.RemoveEffects and EF_NOFLASHLIGHT then ent:RemoveEffects(EF_NOFLASHLIGHT) end
-    local materials,native,custom,hiddenBase,customPass={},{},{},{},{}
+    local materials,hiddenBase={},{}
     local bindings=definition.material_bindings or {}
     local emissive=bindings.emissive_materials or {}
     local hidden=Material(bindings.light_hidden_material or "models/campaign_evolved/ce8/shader_inputs/hidden")
@@ -65,13 +61,11 @@ function CE8.BindPhongCharacter(ent,definition,normalSpawn)
             ent.CE8RefractionMaterials[slot]=Material(energy.refract)
             ent.CE8FarEnergyMaterials[slot]=Material(energy.far)
             ent.CE8EmissiveMaterials[slot]=material
-        elseif material.GetShader and material:GetShader()=="screenspace_general_8tex" then
+        elseif emissive[name] then
             hiddenBase[slot]=hidden
-            if emissive[name] then
-                ent.CE8EmissiveMaterials=ent.CE8EmissiveMaterials or {}
-                ent.CE8EmissiveMaterials[slot]=material
-            else custom[slot]=material end
-        else native[slot]=material end
+            ent.CE8EmissiveMaterials=ent.CE8EmissiveMaterials or {}
+            ent.CE8EmissiveMaterials[slot]=material
+        end
     end
     if ent.CE8EmissiveMaterials then
         for slot in pairs(materials) do ent.CE8EmissiveMaterials[slot]=ent.CE8EmissiveMaterials[slot] or hidden end
@@ -82,16 +76,11 @@ function CE8.BindPhongCharacter(ent,definition,normalSpawn)
             ent.CE8FarEnergyMaterials[slot]=ent.CE8FarEnergyMaterials[slot] or hidden
         end
     end
-    if next(custom) then
-        for slot in pairs(materials) do customPass[slot]=custom[slot] or hidden end
-    end
     ent.CE8OverrideMaterials=materials
     local depth=bit.bor(STUDIO_SHADOWDEPTHTEXTURE or 0,STUDIO_SSAODEPTHTEXTURE or 0)
-    local function submit(self,flags,overrides,customDepth)
+    local function submit(self,flags,overrides)
         for slot,material in pairs(overrides) do render.MaterialOverrideByIndex(slot,material) end
-        if customDepth then render.OverrideDepthEnable(true,true) end
         local ok,message=xpcall(function() self:DrawModel(flags) end,debug.traceback)
-        if customDepth then render.OverrideDepthEnable(false,false) end
         for slot in pairs(overrides) do render.MaterialOverrideByIndex(slot,nil) end
         if not ok then ErrorNoHalt("CE8 native draw: "..tostring(message).."\n") end
         return ok
@@ -112,12 +101,7 @@ function CE8.BindPhongCharacter(ent,definition,normalSpawn)
         else
             -- Keep the existing animated effects out of native flashlight
             -- repeats. Only mixed-material models need this isolated submission.
-            submit(self,flags,hiddenBase,false)
-            if next(custom) then
-                self:AddEffects(EF_NOFLASHLIGHT)
-                submit(self,flags,customPass,not shadow)
-                self:RemoveEffects(EF_NOFLASHLIGHT)
-            end
+            submit(self,flags,hiddenBase)
         end
         if not shadow then
             if self.CE8EmissiveMaterials and not self.DrawWorldModelTranslucent and CE8.QueueEmissiveModel then

@@ -6,18 +6,10 @@ local strength=CreateClientConVar("ce8_bloom_strength","0.25",true,false,"CE8 em
 local radius=CreateClientConVar("ce8_bloom_radius","4",true,false,"CE8 emission bloom spread.",0,16)
 local distance=CreateClientConVar("ce8_bloom_distance","2048",true,false,"CE8 bloom draw distance; 0 is unlimited.",0,32768)
 -- Matproxy and Material() can expose different Lua wrappers for the same engine material.
-local sources={}
 local pending,eligible={},setmetatable({}, {__mode="k"})
 local queued=setmetatable({}, {__mode="k"})
-local inputSlots={live={0,2,7},plasma={2,3,4,6,7}}
 local variants=CE8.BloomMaterials or {};CE8.BloomMaterials=variants
 local drawing=false
-local effects={ce8_blade_v1_ps30=true,ce8_shield_v1_ps30=true,ce8_gauge_v1_ps30=true}
-local programs={live={"ce8_bloom_live_ps30","ce8_bloom_live_ps30"},
-    plasma={"ce8_bloom_plasma_packed_ps30","ce8_bloom_plasma_ps30"}}
-local fields={}
-for row=0,3 do for _,axis in ipairs({"x","y","z","w"}) do fields[#fields+1]="$c"..row.."_"..axis end end
-
 local function allowed(ent)
     if drawing or not enabled:GetBool() or strength:GetFloat()<=0 or not IsValid(ent)
         or render.GetRenderTarget()~=nil then return false end
@@ -29,55 +21,24 @@ local function allowed(ent)
     return near
 end
 
--- Called by the ORIGINAL material bind, after its existing parameters are ready.
--- Snapshot only emitting inputs; never run its lighting/detail binder a second time.
-function CE8.CaptureEmissionBloom(self,material,ent,kind,cache,scene)
-    if not allowed(ent) then return end
-    local source=sources[material:GetName()]
-    local previous=source and source.entities[ent]
-    if previous then previous.frame=-1 end
-    if kind=="live" and not scene then return end
-    local gain=scene and self.matrixA:GetField(2,2) or self.matrixA:GetField(3,4)
-    if gain<=0 then return end
-    if kind=="live" then
-        local rows=cache.rows
-        if rows[19][1]<=0 or (self.liveRecord.emission_mask_max or 1)<=rows[16][4] then return end
-        local mode=rows[15][4];local maximum=mode<.5 and 1 or 0
-        for i=mode>1.5 and 16 or 15,mode>1.5 and 18 or 15 do
-            for j=1,3 do maximum=math.max(maximum,rows[i][j]) end
-        end
-        if maximum<=0 then return end
-    end
-    if not source then source={kind=kind,entities=setmetatable({}, {__mode="k"})};sources[material:GetName()]=source end
-    local row=source.entities[ent]
-    if not row then row={a=Matrix(),b=Matrix(),constants={},textures={}};source.entities[ent]=row end
-    row.frame,row.scene=FrameNumber(),scene
-    row.a:Set(self.matrixA);row.b:Set(self.matrixB)
-    for _,i in ipairs(inputSlots[kind]) do row.textures[i]=material:GetTexture(i==0 and "$basetexture" or "$texture"..i) end
-    if kind=="plasma" then for i,name in ipairs(fields) do row.constants[i]=material:GetFloat(name) end end
-end
-
 -- Queue only actual main-view submissions, including held weapons and ragdolls.
--- Inputs are the model's existing material bindings. A current-frame emission
--- snapshot selects the visible bodygroups automatically; no rank/slot lists.
+-- Inspect the actual model materials; visible meshes/bodygroups decide which
+-- pixels render. No rank-specific emission slot lists.
 function CE8.QueueEmissionBloom(ent,materials)
     if not allowed(ent) then return end
-    local owner=CE8.MaterialOwner and CE8.MaterialOwner(ent) or ent
     local row=pending[ent]
     for slot,material in pairs(materials) do
-        local source=sources[material:GetName()]
-        local data=source and source.entities[owner]
         local shader=material.GetShader and material:GetShader()
         -- Pure unlit model materials already contain only emission. Reuse them
         -- in the isolated emission buffer; no material/slot lists or light bind.
         local unlit=shader=="UnlitGeneric" and material:GetTexture("$basetexture")
             and material:GetInt("$no_draw")~=1 and (material:GetFloat("$alpha") or 1)>0
-        local effect=effects[material:GetString("$pixshader") or ""] or unlit
+        local effect=unlit
         local native=material.GetShader and material:GetShader()=="VertexLitGeneric"
             and material:GetInt("$emissiveblendenabled")==1
             and (material:GetFloat("$emissiveblendstrength") or 0)>0
             and material:GetTexture("$emissiveblendbasetexture")
-        if native or effect or (data and data.frame==FrameNumber()) then
+        if native or effect then
             if not row then
                 row=queued[ent]
                 if not row or row.model~=ent:GetModel() then
@@ -86,7 +47,7 @@ function CE8.QueueEmissionBloom(ent,materials)
                 pending[ent]=row
             end
             local entry=row.slots[slot] or {};row.slots[slot]=entry
-            entry.material,entry.source,entry.data,entry.effect,entry.frame=material,source,data,effect,FrameNumber()
+            entry.material,entry.effect,entry.frame=material,effect,FrameNumber()
             entry.native=native
         end
     end
@@ -107,26 +68,6 @@ local function emissionMaterial(entry)
         material:SetVector("$color",tint*(entry.material:GetFloat("$emissiveblendstrength") or 1))
         return material
     end
-    local data,kind=entry.data,entry.source.kind
-    local program=programs[kind][data.scene and 2 or 1]
-    local key=entry.material:GetName().."/"..program
-    local material=variants[key]
-    if not material then
-        local kv={['$pixshader']=program,['$vertexshader']=entry.material:GetString("$vertexshader"),
-            ['$model']=1,['$vertextransform']=1,['$vertexnormal']=1,['$depthtest']=1,
-            ['$writedepth']=0,['$writealpha']=0,['$alpha_blend']=0,['$linearwrite']=1,
-            ['$cull']=entry.material:GetInt("$cull") or 1,['$nodecal']=1}
-        for slot,texture in pairs(data.textures) do
-            local name=slot==0 and "$basetexture" or "$texture"..slot
-            kv[name]=texture:GetName();kv['$linearread_'..name:sub(2)]=slot==0 and 0 or 1
-        end
-        material=CreateMaterial("ce8_bloom/"..key,"screenspace_general_8tex",kv)
-        variants[key]=material
-    end
-    for slot,texture in pairs(data.textures) do material:SetTexture(slot==0 and "$basetexture" or "$texture"..slot,texture) end
-    material:SetMatrix("$viewprojmat",data.a);material:SetMatrix("$invviewprojmat",data.b)
-    if kind=="plasma" then for i,name in ipairs(fields) do material:SetFloat(name,data.constants[i]) end end
-    return material
 end
 
 local copy,add,blurX,blurY,hidden,store,emission,blur,scratch
@@ -143,17 +84,15 @@ local function resources()
     emission=target("ce8_emission_mask",RT_SIZE_FULL_FRAME_BUFFER)
     blur=target("ce8_emission_blur",RT_SIZE_HDR)
     scratch=target("ce8_emission_scratch",RT_SIZE_HDR)
-    -- Dedicated raw copy: framebuffer colors are already encoded. UnlitGeneric
-    -- can apply another color-space conversion during the full-screen restore.
+    -- Private copies of GMod's stock pp/copy material. $linearwrite=0
+    -- is required for a framebuffer texture, matching the engine halo path.
     local function blitter(name,texture)
-        return CreateMaterial(name,"screenspace_general_8tex",{
-            ['$pixshader']="ce8_bloom_copy_ps30",['$vertexshader']="ce8_bloom_quad_vs30",
-            ['$basetexture']=texture:GetName(),['$linearread_basetexture']=1,['$linearwrite']=1,
-            ['$vertextransform']=0,['$depthtest']=0,['$writedepth']=0,['$writealpha']=1,
-            ['$alpha_blend']=0,['$cull']=0,['$c0_x']=1})
+        return CreateMaterial(name,"UnlitGeneric",{
+            ['$basetexture']=texture:GetName(),['$fbtexture']="_rt_FullFrameFB",
+            ['$ignorez']=1,['$writez']=0,['$linearwrite']=0,['$color']="[1 1 1]"})
     end
-    copy=blitter("ce8_emission_raw_copy",store)
-    add=blitter("ce8_emission_raw_add",blur)
+    copy=blitter("ce8_emission_native_copy",store)
+    add=blitter("ce8_emission_native_add",blur)
     blurX=CreateMaterial("ce8_emission_blur_x","g_blurx",{['$basetexture']=blur:GetName(),['$ignorez']=1,['$additive']=0})
     blurY=CreateMaterial("ce8_emission_blur_y","g_blury",{['$basetexture']=scratch:GetName(),['$ignorez']=1,['$additive']=0})
     -- CreateMaterial reuses existing objects after Lua reloads. SetTexture must
@@ -164,21 +103,11 @@ end
 local function replacePixels()
     render.OverrideBlend(true,BLEND_ONE,BLEND_ZERO,BLENDFUNC_ADD,BLEND_ONE,BLEND_ZERO,BLENDFUNC_ADD)
 end
--- DrawScreenQuad supplies pixel-space vertices in GMod; the clip-space VS
--- cannot consume those. Submit explicit clip positions/UVs with D3D9's half-
--- texel alignment, sized to the CURRENT target (full-size scene or quarter blur).
-local corners={Vector(),Vector(),Vector(),Vector()}
+local white,black=Vector(1,1,1),Vector(0,0,0)
+local gainColor=Vector()
 local function drawCopy(material)
-    local target=render.GetRenderTarget()
-    local width,height=target and target:Width() or ScrW(),target and target:Height() or ScrH()
-    local left,right,top,bottom=-1-1/width,1-1/width,1+1/height,-1+1/height
-    local a,b,c,d=corners[1],corners[2],corners[3],corners[4]
-    a.x,a.y=left,top;b.x,b.y=right,top;c.x,c.y=right,bottom;d.x,d.y=left,bottom
-    render.SetMaterial(material);mesh.Begin(MATERIAL_QUADS,1)
-    mesh.Position(a);mesh.TexCoord(0,0,0);mesh.AdvanceVertex()
-    mesh.Position(b);mesh.TexCoord(0,1,0);mesh.AdvanceVertex()
-    mesh.Position(c);mesh.TexCoord(0,1,1);mesh.AdvanceVertex()
-    mesh.Position(d);mesh.TexCoord(0,0,1);mesh.AdvanceVertex();mesh.End()
+    render.SetMaterial(material)
+    render.DrawScreenQuad()
 end
 local function drawEntity(ent,row)
     local previous=ent.CE8DrawingEmissive;ent.CE8DrawingEmissive=true
@@ -231,10 +160,10 @@ hook.Add("RenderScreenspaceEffects","CE8EmissionBloom",function()
         -- black out everything outside their stencil before extracting the mask.
         render.SetStencilCompareFunction(STENCIL_NOTEQUAL);render.SetStencilPassOperation(STENCIL_KEEP)
         replacePixels()
-        copy:SetTexture("$basetexture",store);copy:SetFloat("$c0_x",0)
+        copy:SetTexture("$basetexture",store);copy:SetVector("$color",black)
         drawCopy(copy)
         render.SetStencilEnable(false)
-        copy:SetFloat("$c0_x",1)
+        copy:SetVector("$color",white)
         render.CopyRenderTargetToTexture(emission)
         replacePixels()
         render.PushRenderTarget(blur);inRT=true
@@ -261,13 +190,13 @@ hook.Add("RenderScreenspaceEffects","CE8EmissionBloom",function()
     render.SetRenderTarget(scene)
     render.OverrideDepthEnable(true,false)
     replacePixels()
-    copy:SetTexture("$basetexture",store);copy:SetFloat("$c0_x",1)
+    copy:SetTexture("$basetexture",store);copy:SetVector("$color",white)
     drawCopy(copy)
     if ok then
         -- Only isolated emission is added; retain the restored scene's alpha.
         render.OverrideBlend(true,BLEND_ONE,BLEND_ONE,BLENDFUNC_ADD,BLEND_ZERO,BLEND_ONE,BLENDFUNC_ADD)
         local gain=strength:GetFloat()
-        add:SetTexture("$basetexture",blur);add:SetFloat("$c0_x",gain)
+        add:SetTexture("$basetexture",blur);gainColor.x,gainColor.y,gainColor.z=gain,gain,gain;add:SetVector("$color",gainColor)
         drawCopy(add)
     elseif CE8.BloomError~=message then ErrorNoHalt("CE8 emission bloom: "..tostring(message).."\n") end
     render.OverrideDepthEnable(false,false)

@@ -1,0 +1,31 @@
+"UnlitGeneric"
+{
+ "$basetexture" "ce8/fx/textures/needle_flow"
+ "$additive" "1"
+ "$translucent" "1"
+ "$vertexcolor" "1"
+ "$vertexalpha" "1"
+ "$nocull" "1"
+ "$ignorez" "0"
+ "$nofog" "0"
+ "$energyoffset" "[0 0 0]"
+ "$energyscale" "[0.500000000 2.000000000 1]"
+ "$energycenter" "[0 0 0]"
+ "$basetexturetransform" "center 0 0 scale 1 1 rotate 0 translate 0 0"
+ "Proxies"
+ {
+  "TextureScroll"
+  {
+   "textureScrollVar" "$energyoffset"
+   "textureScrollRate" "1.000000000"
+   "textureScrollAngle" "180.000000000"
+  }
+  "TextureTransform"
+  {
+   "centerVar" "$energycenter"
+   "scaleVar" "$energyscale"
+   "translateVar" "$energyoffset"
+   "resultVar" "$basetexturetransform"
+  }
+ }
+}

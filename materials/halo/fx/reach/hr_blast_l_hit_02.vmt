@@ -1,0 +1,10 @@
+UnlitGeneric
+{
+	"$basetexture" "halo/fx/reach/textures/hr_blast_l_hit_02"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$translucent" "1"
+	"$additive" "0"
+	"$nofog" "0"
+	"$color2" "[1.4976234018608683 1.4976234018608683 1.4976234018608683]"
+}

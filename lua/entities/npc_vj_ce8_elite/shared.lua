@@ -15,7 +15,7 @@ include("campaign_evolved/actor.lua").Weapons(ENT, data)
 local effects = include("campaign_evolved/weapon_fx.lua")
 ENT.CE8ShieldParticleFile = "particles/halo/main_effects.pcf"
 ENT.CE8ShieldEffects = {
-    impact = "hcea_shield_impact",
+    impact = "ce8_elite_shield_hit",
     disperse = "hcea_shield_disperse",
     recharged = "hcea_shield_recharged"
 }

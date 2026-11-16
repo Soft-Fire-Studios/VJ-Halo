@@ -41,7 +41,8 @@ function Combat.Profile(data, profile)
     end
     if not data.ranks.shielded then return profile end
     local sounds = include("campaign_evolved/sounds/elite_shield.lua")
-    local effects = {impact = "hcea_shield_impact", recharged = "hcea_shield_recharged", disperse = "hcea_shield_disperse"}
+    local effects = {impact = "ce8_elite_shield_hit", recharged = "h3_flood_shield_recharge", disperse = "h3_flood_shield_collapse"}
+    include("campaign_evolved/particles.lua").Load(effects.impact)
     profile.capabilities.shield = function(self) return (self.CE8ShieldMax or 0) > 0 end
     profile.shield = {
         maximum = function(self) return self.CE8ShieldMax or 0 end,
@@ -58,6 +59,10 @@ function Combat.Profile(data, profile)
         end,
         effect = function(self, kind, position, angles)
             if not CE8.ShieldParticlesReady or not effects[kind] then return end
+            if CE8.Particles.Native(effects[kind]) then
+                return CE8.Particles.Attach(effects[kind], self,
+                    self:LookupAttachment(kind == "recharged" and "shield_recharge" or "body"))
+            end
             if position then ParticleEffect(effects[kind], position, angles or self:GetAngles(), self)
             else ParticleEffectAttach(effects[kind], PATTACH_ABSORIGIN_FOLLOW, self, 0) end
         end,

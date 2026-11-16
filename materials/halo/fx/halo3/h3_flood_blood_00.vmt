@@ -1,0 +1,13 @@
+SpriteCard
+{
+	"$basetexture" "halo/fx/halo3/textures/h3_flood_blood_00"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$translucent" "1"
+	"$additive" "0"
+	"$blendframes" "1"
+	"$overbrightfactor" "1.250668004556906"
+	"$depthblend" "0"
+	"$depthblendscale" "0.0"
+	"$nofog" "0"
+}

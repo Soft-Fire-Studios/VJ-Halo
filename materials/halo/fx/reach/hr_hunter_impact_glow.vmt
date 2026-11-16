@@ -1,0 +1,13 @@
+SpriteCard
+{
+	"$basetexture" "halo/fx/reach/hr_hunter_impact_glow"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$translucent" "1"
+	"$additive" "1"
+	"$blendframes" "1"
+	"$overbrightfactor" "1.0"
+	"$depthblend" "1"
+	"$depthblendscale" "30.0"
+	"$nofog" "1"
+}

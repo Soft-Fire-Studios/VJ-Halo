@@ -1,3 +1,4 @@
+local particles = include("campaign_evolved/particles.lua")
 -- Flood-specific attacks on the shared actor hosts. VJ owns navigation,
 -- attack scheduling and possession; these callbacks supply authored contacts.
 local Flood = {}
@@ -13,6 +14,7 @@ end
 
 function Flood.Shared(ENT)
     if SERVER then AddCSLuaFile("campaign_evolved/flood.lua") end
+    include("campaign_evolved/particles.lua").Character(ENT:CE8Data())
     FX.Load(ENT:CE8Data())
 end
 
@@ -248,6 +250,7 @@ function Flood.Spew(ENT, settings)
         local yaw = self:GetAngles().y + math.Rand(-settings.spread, settings.spread)
         local child = Flood.LaunchInfection(self, position, yaw, settings.launch)
         if not IsValid(child) then return false end
+        particles.Emit("ce8_flood_tank_spew", position, self:GetAngles())
         children[child] = self
         action.children = action.children + 1
         self.AttackState = VJ.ATTACK_STATE_EXECUTED
@@ -375,6 +378,8 @@ function Flood.Anatomy(ENT, data, sounds)
     include("vj_ai/anatomy.lua").Attach(ENT, settings, {
         severed = function(self, changed, state, damage)
             Gibs.Sever(self, data.owner, regions, changed, damage)
+            local root = data.owner == "flood_tank" and "ce8_flood_tank_limb_break" or "ce8_flood_shared_limb_break"
+            particles.Emit(root, damage:GetDamagePosition())
         end,
         changed = function(self, region, state, damage)
             if data.owner == "flood_combat_human" or data.owner == "flood_combat_elite" then
@@ -621,6 +626,11 @@ function Flood.Server(ENT, profile)
             end
         end
         profile.leap.contact = function(self) self:ExecuteMeleeAttack() end
+        if data.owner == "flood_tank" then
+            profile.leap.finished = function(self, action, now, reason)
+                if reason == "landed" then particles.Emit("ce8_flood_tank_landing", self:GetPos()) end
+            end
+        end
         if data.owner == "flood_infection" then
             profile.leap.collision_group = COLLISION_GROUP_NPC
             profile.leap.airborne_update = function(self, action, now)
@@ -813,6 +823,9 @@ function Flood.Server(ENT, profile)
             local victims = self.CE8MeleeVictims
             if not victims or victims[victim] then return true end
             victims[victim] = true
+            if data.owner == "flood_tank" then
+                particles.Emit("ce8_flood_tank_melee_3", victim:NearestPoint(self:WorldSpaceCenter()))
+            end
         end
         function ENT:OnAnimEvent(id, eventTime, cycle, eventType, options)
             event(self, id, eventTime, cycle, eventType, options)
@@ -1009,7 +1022,7 @@ function Flood.Server(ENT, profile)
             end
             self:SetNoDraw(true)
             self:SetSolid(SOLID_NONE)
-            if FX.Load(data) then ParticleEffect(data.effects.normal.death, position, Angle()) end
+            if FX.Load(data) then particles.Emit(data.effects.normal.death, position, Angle()) end
             if not data.burst.chance or math.Rand(0, 1) < data.burst.chance then Flood.Blast(self, position, data.burst) end
             if data.burst.children then
                 self.CE8ReleasedInfections = Flood.ReleaseInfections(self, origin(self, data.anchors.spawn), data.burst.children)

@@ -1,0 +1,10 @@
+UnlitGeneric
+{
+	"$basetexture" "halo/fx/reach/textures/hr_needler_muzzle_14"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$translucent" "1"
+	"$additive" "1"
+	"$color2" "[2.5 2.5 2.5]"
+	"$nofog" "1"
+}

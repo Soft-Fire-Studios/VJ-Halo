@@ -1,0 +1,13 @@
+SpriteCard
+{
+	"$basetexture" "halo/fx/halo3/textures/h3_heavy_water_03"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$translucent" "1"
+	"$additive" "1"
+	"$blendframes" "1"
+	"$overbrightfactor" "2.560784325003624"
+	"$depthblend" "0"
+	"$depthblendscale" "0.0"
+	"$nofog" "0"
+}

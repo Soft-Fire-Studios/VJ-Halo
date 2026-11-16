@@ -1,0 +1,10 @@
+UnlitGeneric
+{
+	"$basetexture" "halo/fx/halo3/textures/h3_bullet_water_01"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$translucent" "1"
+	"$additive" "0"
+	"$nofog" "0"
+	"$color2" "[1.34901961684227 1.34901961684227 1.34901961684227]"
+}

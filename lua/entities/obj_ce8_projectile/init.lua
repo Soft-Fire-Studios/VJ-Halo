@@ -156,44 +156,7 @@ function ENT:Init()
     end
     local particleFlight = effects.Flight(self, self.CE8Data, self.CE8ChargedShot == true)
     self:SetNW2Bool("CE8ParticleFlight", particleFlight)
-    if not particleFlight then self:CE8StartNeedleFX() end
     if self.CE8Data.grenade then self:CE8GrenadeSound("armed") end
-end
-
--- Temporary flight visibility until the needle particle system is ported.
--- Engine sprites stay outside the custom mesh shader's depth/light passes.
-function ENT:CE8StartNeedleFX()
-    local data = self.CE8Data
-    if self.CE8NeedleFXStarted or self.CE8NeedleTarget or self.Dead
-        or not data.needle or not data.projectile then return end
-    self.CE8NeedleFXStarted = true
-    local tint = Color(data.color[1], data.color[2], data.color[3], 190)
-    local trail = util.SpriteTrail(self, 0, tint, true, 3, 0, 0.12, 1 / 6, "sprites/laserbeam.vmt")
-    if IsValid(trail) then
-        self.CE8NeedleTrail = trail
-        self:DeleteOnRemove(trail)
-    end
-    local glow = ents.Create("env_sprite")
-    if IsValid(glow) then
-        glow:SetKeyValue("model", "sprites/light_glow02_add.vmt")
-        glow:SetKeyValue("rendermode", "5") -- Additive, depth tested.
-        glow:SetKeyValue("renderamt", "190")
-        glow:SetKeyValue("rendercolor", string.format("%d %d %d", tint.r, tint.g, tint.b))
-        glow:SetKeyValue("scale", "0.12")
-        glow:SetKeyValue("spawnflags", "1")
-        glow:SetPos(self:GetPos())
-        glow:SetParent(self)
-        glow:Spawn()
-        glow:Activate()
-        self.CE8NeedleGlow = glow
-        self:DeleteOnRemove(glow)
-    end
-end
-
-function ENT:CE8StopNeedleFX()
-    if IsValid(self.CE8NeedleTrail) then self.CE8NeedleTrail:Remove() end
-    if IsValid(self.CE8NeedleGlow) then self.CE8NeedleGlow:Remove() end
-    self.CE8NeedleTrail, self.CE8NeedleGlow = nil, nil
 end
 
 function ENT:CE8GrenadeSound(kind)
@@ -410,6 +373,8 @@ function ENT:OnCollision(collision, physics)
     local reflected = incoming - normal * (2 * approach)
     local position = collision.HitPos + normal * (self.CE8CollisionRadius + 0.01)
     effects.ContactSound(self.CE8Sounds, collision, self.CE8AudioContact, "ricochet", self.CE8ChargedShot == true)
+    effects.ContactParticle(self.CE8Data, "bounce", collision.HitPos, collision.HitNormal, self.CE8ChargedShot == true,
+        collision.OurOldVelocity)
     self.CE8AudioContact = nil
     self.CE8BounceCount = (self.CE8BounceCount or 0) + 1
     self.CE8RicochetPending = true
@@ -497,7 +462,6 @@ function ENT:CE8EmbedNeedle(target, hit)
     self.DoesDirectDamage = false
     self.DoesRadiusDamage = false
     self.VJ_ID_Danger = false
-    self:CE8StopNeedleFX()
     self:StopParticles()
     if world then
         self:SetPos(position)
@@ -609,10 +573,10 @@ end
 function ENT:CE8ExpireNeedle()
     if self.CE8NeedleExpired or self.Dead then return end
     self.CE8NeedleExpired, self.Dead = true, true
-    self:CE8StopNeedleFX()
     self:StopParticles()
     local contact = self.CE8Sounds and self.CE8Sounds.contact
     if contact and contact.expire then effects.Sound(contact.expire, self:GetPos(), contact.level or 75) end
+    effects.ContactParticle(self.CE8Data, "expire", self:GetPos(), self:GetForward())
     -- Ordinary crystal expiry is cosmetic. It must never reapply the impact
     -- or enter the supercombine/radius-damage path.
     self:Remove()
@@ -638,7 +602,6 @@ function ENT:OnDestroy(collision)
 end
 
 function ENT:CustomOnRemove()
-    self:CE8StopNeedleFX()
     -- VJ stops particles on collision; expiry and external removal also have
     -- to stop the continuous flight emitters.
     self:StopParticles()

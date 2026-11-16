@@ -1,0 +1,13 @@
+SpriteCard
+{
+	"$basetexture" "halo/fx/halo3/textures/h3_flood_fire_break_01"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$translucent" "1"
+	"$additive" "1"
+	"$blendframes" "1"
+	"$overbrightfactor" "3.2052430352807373"
+	"$depthblend" "1"
+	"$depthblendscale" "9.000000357627869"
+	"$nofog" "0"
+}

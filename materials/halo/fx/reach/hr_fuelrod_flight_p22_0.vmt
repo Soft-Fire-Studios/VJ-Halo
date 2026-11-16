@@ -1,0 +1,10 @@
+UnlitGeneric
+{
+	"$basetexture" "halo/fx/reach/textures/hr_fuelrod_flight_p10_0"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$translucent" "1"
+	"$additive" "1"
+	"$nofog" "1"
+	"$color2" "[16.296939849853516 16.296939849853516 16.296939849853516]"
+}

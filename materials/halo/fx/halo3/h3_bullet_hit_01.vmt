@@ -1,0 +1,13 @@
+SpriteCard
+{
+	"$basetexture" "halo/fx/halo3/textures/h3_bullet_hit_01"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$translucent" "1"
+	"$additive" "0"
+	"$blendframes" "1"
+	"$overbrightfactor" "1.0"
+	"$depthblend" "1"
+	"$depthblendscale" "9.000000357627869"
+	"$nofog" "0"
+}

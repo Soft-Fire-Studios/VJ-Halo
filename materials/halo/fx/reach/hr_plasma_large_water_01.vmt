@@ -1,0 +1,10 @@
+UnlitGeneric
+{
+	"$basetexture" "halo/fx/reach/textures/hr_plasma_large_water_01"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$translucent" "1"
+	"$additive" "0"
+	"$nofog" "0"
+	"$color2" "[1.5393379613762883 1.5393379613762883 1.5393379613762883]"
+}

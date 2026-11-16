@@ -1,0 +1,11 @@
+"SpriteCard"
+{
+ "$basetexture" "ce8/fx/textures/smk_wispy_lp_02_d_2"
+ "$translucent" "1"
+ "$vertexcolor" "1"
+ "$vertexalpha" "1"
+ "$additive" "1"
+ "$nocull" "1"
+ "$ignorez" "0"
+ "$blendframes" "1"
+}

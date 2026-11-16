@@ -1,0 +1,75 @@
+NATIVE PARTICLE GAMEPLAY TEST -- 2026-11-13
+
+54 native effect names remain connected to existing NPC/weapon dispatch.
+
+ERROR MODEL PATH CORRECTION INSTALLED
+GMod accepts all referenced model bundles, but the PCF model renderer prepends
+models/ itself. Our full paths became models/models/halo/..., causing ERROR.
+The ten cached mesh layers and all three installed native PCFs now use paths
+relative to models/. Lua precache paths remain full GAME paths.
+Only those reference strings changed. All other PCF fields, model files,
+textures, gameplay values and attachment bindings remain unchanged.
+29 focused offline checks pass; fresh-session rendering remains unverified.
+Evidence and exact changes: .build/particles/gen3/runtime/model_paths.
+
+TEST
+Restart GMod, open a map, spawn fresh NPCs. Test AR/shotgun muzzle ejection and
+plasma-grenade explosions for ERROR geometry. Test the Hunter cannon's charge,
+flash, moving projectile and impact. Compare normal fading and attachment
+motion. No diagnostic command or model rebuild is required.
+
+CONNECTED
+Weapons: available Reach/H3 muzzle flashes, normal plasma/fuel-rod/Needler/Spiker
+projectiles, supported normal impacts, Needler combine. Existing hitscan
+tracers, reload/expiry and unresolved routes retain their former effects.
+Characters: species blood, Elite shield collapse, Jackal shield break/recharge,
+Hunter cannon, Carrier/Infection bursts, Combat Flood corpse destruction,
+species-specific completed infection, shielded Combat Elite break/recharge.
+Grenades: existing thrown plasma grenade flight and ground explosion.
+Source CP0 retains the established muzzle socket. Auxiliary ejection/backwash/
+flare and Hunter fuel-canister sockets follow natively through AddControlPoint.
+World impacts supply their normal/forward/reflection directions separately.
+Only shield plane-basis CP orientation is updated in Lua; no particle simulation
+or rendering was added. World bursts are unparented and finish in their PCFs.
+
+CHARACTER WORK STILL NOT REPLACED
+Elite: full model-surface shield-hit/recharge response is not a particle emitter.
+Old response remains. Precharge/down sparks are built but their additional
+shield-state triggers are not wired in this dispatch-only pass.
+Jackal: native hit-surface response still uses the old effect. Break/recharge
+sprites are connected; authored mask/mesh/refraction portions remain excluded.
+Grunt: blood is connected. Backpack destruction, methane leak and tank detonation
+PCFs are built but the corresponding destruction/leak gameplay hooks are not
+added here. Their documented unsupported fragment/random-phase portions remain.
+Hunter: cannon/blood are connected. Shared equipment breakup is built but its
+extra armor destruction trigger is not added. Shell fragments in the source
+are physical objects, not a missing PCF layer.
+Brute: blood is connected. Current CER shield feedback stays; no alternate native
+Brute armor/shield surface response was invented.
+Combat Flood: main destruction/infection effects connected. The H3 Human head
+destruction .effect is absent from the installed SDK. Authored model deformation,
+some mesh color/depth-fade and random event-phase layers remain excluded.
+Carrier/Infection: burst sprites connected; documented mesh color/nonuniform
+scale layers are excluded. Actual spawned infection forms remain gameplay.
+Tank: blood connected. Native spew tag has object/audio/gameplay data but no
+active particle emitter. Burning effects exist in the pack; no new fire hook.
+Shared exclusions: scene lights, decals, screen effects and unsupported material
+functions remain documented in halo_skipped.txt, per the native-only policy.
+
+OTHER RETAINED ROUTES
+Spiker muzzle references a missing Reach SDK particle. Native projectile trails
+are not dropped into ParticleTracer: those use a moving CP0 and some are owner-
+bound, whereas the existing hitscan route uses two static endpoints. Tracers
+therefore retain the current finite effects. Rocket flight, reload/expiry and
+unconverted shield hits remain unchanged. No replacement artwork was invented.
+Six already-built impact compositions have overlapping source CP directions:
+hr_pp_charged_hit, hr_pp_charged_water, hr_pr_water, h3_br_hit, h3_beam_water,
+h3_smg_hit. These are explicit converter/integration defects, NOT claims that
+Source lacks the feature. Their existing runtime routes are retained pending
+targeted CP allocation correction; other effects are testable now.
+
+EVIDENCE
+manifest.json: source sockets, native dependencies, six held CP contracts.
+installed.json: exact gameplay bindings and Lua installation hashes.
+before/: original Lua; canonical/tool sources are preserved.
+tests.log: focused regression run. All new gameplay visuals remain unverified.

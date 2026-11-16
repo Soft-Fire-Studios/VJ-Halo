@@ -1,11 +1,13 @@
--- Shared weapon effects. The server dispatches positional audio and PRP particles;
+-- Shared weapon effects. The server dispatches positional audio and native PCFs;
 -- both realms load and precache particle definitions once.
 CE8 = CE8 or {}
 CE8.WeaponParticles = CE8.WeaponParticles or {files = {}, systems = {}}
 local cache = CE8.WeaponParticles
 local FX = {}
+local particles = include("campaign_evolved/particles.lua")
 
 function FX.Load(data)
+    particles.Prepare(data)
     local effects = data.effects
     if not effects then return false end
     local files = effects.files or {effects.file}
@@ -22,8 +24,7 @@ function FX.Load(data)
     for _, variant in pairs({effects.normal, effects.charged, effects.supercombine}) do
         for _, name in pairs(variant) do
             if not cache.systems[name] then
-                PrecacheParticleSystem(name)
-                cache.systems[name] = true
+                if not particles.Load(name) then return false end
             end
         end
     end
@@ -45,6 +46,7 @@ function FX.Muzzle(weapon, data, charged)
     if not effects or not effects.muzzle or not marker then return false end
     local attachment = weapon:LookupAttachment(marker)
     if attachment <= 0 then return false end
+    if particles.Native(effects.muzzle) then return particles.Attach(effects.muzzle, weapon, attachment) end
     if settings.muzzle_angles then
         local transform = weapon:GetAttachment(attachment)
         if not transform then return false end
@@ -62,19 +64,20 @@ end
 
 function FX.Flight(projectile, data, charged)
     if not SERVER then return false end
-    if data.source_effects and data.source_effects.flight then
-        -- Temporary Source smoke for the unported Human rocket effect. One
-        -- engine trail per projectile; no Lua per-frame emitter or light.
-        if not IsValid(projectile.CE8SourceTrail) then
-            local trail = util.SpriteTrail(projectile, 0, Color(180, 180, 180), false, 8, 1, 0.3, 1 / 8, "trails/smoke")
-            if IsValid(trail) then projectile.CE8SourceTrail = trail; projectile:DeleteOnRemove(trail) end
-        end
-        return true
-    end
     if not FX.Load(data) then return false end
     local effects = FX.ForShot(data, charged)
     if not effects or not effects.flight then return false end
+    if particles.Native(effects.flight) then return particles.Attach(effects.flight, projectile, 0) end
     ParticleEffectAttach(effects.flight, PATTACH_ABSORIGIN_FOLLOW, projectile, 0)
+    return true
+end
+
+function FX.ContactParticle(data, kind, position, normal, charged, direction)
+    if not SERVER or not FX.Load(data) then return false end
+    local variant = FX.ForShot(data, charged)
+    local name = variant and variant[kind]
+    if not name then return false end
+    particles.Emit(name, position, normal and normal:Angle() or Angle(), direction)
     return true
 end
 
@@ -95,7 +98,7 @@ function FX.Impact(projectile, data, charged, collision)
     projectile.CE8ImpactPlayed = true
     -- A world-space burst outlives the projectile; attaching it to the removed
     -- entity would also remove the impact. No impact is emitted on expiry.
-    ParticleEffect(effects.impact, collision.HitPos, collision.HitNormal:Angle())
+    particles.Emit(effects.impact, collision.HitPos, collision.HitNormal:Angle(), collision.OurOldVelocity)
     return true
 end
 
@@ -103,7 +106,7 @@ function FX.Supercombine(data, position)
     if not SERVER or not FX.Load(data) then return false end
     local burst = data.effects.supercombine
     if not burst or not burst.impact then return false end
-    ParticleEffect(burst.impact, position, Angle())
+    particles.Emit(burst.impact, position, Angle())
     return true
 end
 

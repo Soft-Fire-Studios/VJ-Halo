@@ -1,0 +1,10 @@
+UnlitGeneric
+{
+	"$basetexture" "halo/fx/halo3/textures/h3_br_impact_liquid_00"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$translucent" "1"
+	"$additive" "1"
+	"$nofog" "1"
+	"$color2" "[2.6470589637756348 2.6470589637756348 2.6470589637756348]"
+}

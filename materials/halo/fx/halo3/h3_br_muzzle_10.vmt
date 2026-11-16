@@ -1,0 +1,13 @@
+SpriteCard
+{
+	"$basetexture" "halo/fx/halo3/textures/h3_br_muzzle_10"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$translucent" "1"
+	"$additive" "1"
+	"$blendframes" "1"
+	"$overbrightfactor" "1"
+	"$depthblend" "1"
+	"$depthblendscale" "1.19999997"
+	"$nofog" "1"
+}

@@ -1,3 +1,4 @@
+local particles = include("campaign_evolved/particles.lua")
 -- Hunter-specific melee and physical armor on the shared Human host.
 local Host = {}
 function Host.Server(ENT, profile)
@@ -100,6 +101,7 @@ function Host.Server(ENT, profile)
         local victims = self.CE8MeleeVictims
         if not victims or victims[victim] then return true end
         victims[victim] = true
+        particles.Emit("ce8_hunter_melee_impact_1", victim:NearestPoint(self:WorldSpaceCenter()))
     end
 
     function ENT:MeleeAttackTraceDirection()
@@ -194,6 +196,10 @@ function Host.Server(ENT, profile)
         regions = data.anatomy.regions,
         trace_region = function(self, trace) return trace.ColliderRegion end,
         traced_blasts = true
+    }, {
+        severed = function(self, changed, state, damage)
+            particles.Emit("ce8_hunter_shell_damage", damage:GetDamagePosition())
+        end
     })
 end
 return Host

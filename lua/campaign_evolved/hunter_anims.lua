@@ -78,8 +78,7 @@ return {
         },
         ["effects"] = {
             ["files"] = {
-                "particles/halo/halo_beam.pcf",
-                "particles/halo/main_effects.pcf",
+                "particles/ce8_creatures.pcf",
             },
             ["muzzle_angles"] = {
                 0,
@@ -88,9 +87,10 @@ return {
             },
             ["muzzle_attachment"] = "fx_muzzle",
             ["normal"] = {
-                ["flight"] = "hcea_hunter_frnade_nade",
-                ["impact"] = "hcea_hunter_frnade_hit",
-                ["muzzle"] = "hcea_hunter_plasma_pistol_fire",
+                ["charge"] = "ce8_hunter_charge",
+                ["flight"] = "ce8_hunter_flight",
+                ["impact"] = "ce8_hunter_impact",
+                ["muzzle"] = "ce8_hunter_muzzle",
             },
         },
         ["explosion"] = {

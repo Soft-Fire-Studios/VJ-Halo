@@ -1,0 +1,15 @@
+"UnlitGeneric"
+{
+ "$basetexture" "ce8/fx/textures/flare_streak_split_01_19"
+ "$translucent" "1"
+ "$vertexcolor" "1"
+ "$vertexalpha" "1"
+ "$nocull" "1"
+ "$ignorez" "0"
+ "$color" "[1 1 1]"
+ "$color2" "[49.9327049 49.9327049 49.9327049]"
+ "$hdrcolorscale" "1"
+ "$additive" "1"
+ "$gammacolorread" "0"
+ "$linearwrite" "0"
+}

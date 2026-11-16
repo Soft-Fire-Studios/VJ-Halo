@@ -1,24 +1,10 @@
--- Native CE weapon displays, independent of the model lighting passes.
+-- Native UnlitGeneric displays. Lua selects existing frames/transforms only.
 if SERVER then return end
 CE8=CE8 or {}
-local defaults={GaugeMode=0,GaugeValue=0,GaugeBrightness=1,GaugeOpacity=1,
-    GaugeClip=0,PackedScale=.725,RotationSpeed=0,
-    GainA=1,GainB=1,GainC=1,ScanlineLow=1,
-    UVScaleU=1,UVScaleV=1,UVOffsetU=0,UVOffsetV=0,
-    SpentIntensity=.1,GlowIntensity=.5,HeatFillSoftness=.04}
 local function finite(value,fallback)
     value=tonumber(value)
     if not value or value~=value or value==math.huge or value==-math.huge then return fallback end
     return value
-end
-local function rgb(value,fallback)
-    if value==nil then return fallback end
-    if type(value)=="table" then
-        return {finite(value[1],fallback[1]),finite(value[2],fallback[2]),finite(value[3],fallback[3])}
-    end
-    local out={}
-    for n in tostring(value or ""):gmatch("[-+]?[%d%.]+[eE]?[-+]?%d*") do out[#out+1]=finite(n,0) end
-    return {out[1] or fallback[1],out[2] or fallback[2],out[3] or fallback[3]}
 end
 -- Heat is sent only when its slope changes. Each weapon retains its own state.
 function CE8.WeaponGaugeValue(ent,kind,fallback)
@@ -38,70 +24,31 @@ function CE8.WeaponGaugeValue(ent,kind,fallback)
     end
     return fallback
 end
-local function parameter(self,overrides,name)
-    local value=overrides and overrides[name]
-    return value==nil and self.defaults[name] or finite(value,self.defaults[name])
-end
-local function color(self,overrides,name,key)
-    return rgb(overrides and overrides[key],self.colors[name])
-end
-local registers={
-    {"$c0_x","$c0_y","$c0_z","$c0_w"},{"$c1_x","$c1_y","$c1_z","$c1_w"},
-    {"$c2_x","$c2_y","$c2_z","$c2_w"},{"$c3_x","$c3_y","$c3_z","$c3_w"}
-}
-local function row(self,material,index,x,y,z,w)
-    local names=registers[index+1]
-    local prior=self.uploads[index+1]
-    if prior[1]~=x then material:SetFloat(names[1],x);prior[1]=x end
-    if prior[2]~=y then material:SetFloat(names[2],y);prior[2]=y end
-    if prior[3]~=z then material:SetFloat(names[3],z);prior[3]=z end
-    if prior[4]~=w then material:SetFloat(names[4],w);prior[4]=w end
-end
-local function matrix(material,name,target,prior,...)
-    local changed=false
-    for i=1,16 do
-        local value=select(i,...)
-        if prior[i]~=value then prior[i]=value;changed=true end
-    end
-    if changed then target:SetUnpacked(...);material:SetMatrix(name,target) end
-end
+
 matproxy.Add({name="CE8Gauge",
     init=function(self,material,values)
-        if CE8.RefreshMaterialTextures then CE8.RefreshMaterialTextures(material) end
-        if CE8.NamedTexture then
-            for index,name in ipairs({"gaugetexture","masktexture","detailtexture"}) do
-                if values[name] then
-                    local texture=CE8.NamedTexture(values[name],false)
-                    if texture then material:SetTexture(index==1 and "$basetexture" or "$texture"..(index-1),texture) end
-                end
-            end
-        end
-        self.defaults={}
-        for name,value in pairs(defaults) do self.defaults[name:lower()]=finite(values[name:lower()],value) end
-        self.kind=tostring(values.gaugestate or "static"):lower()
-        self.colors={tint=rgb(values.gaugetint,{1,1,1}),a=rgb(values.colora,{1,1,1}),
-            b=rgb(values.colorb,{1,1,1}),c=rgb(values.colorc,{1,1,1}),d=rgb(values.colord,{1,1,1})}
-        self.a,self.b=Matrix(),Matrix()
-        -- Last values on this shared material, not per-entity/frame results:
-        -- alternating weapons and in-place overrides still update immediately.
-        self.uploads={{},{},{},{},{},{}}
+        local lower={};for k,v in pairs(values) do lower[k:lower()]=v end;values=lower
+        self.kind=values.gaugestate or "static"
+        self.fallback=finite(values.gaugevalue,0)
+        self.frames=math.max(1,math.floor(finite(values.framecount,1)))
+        self.rotation=finite(values.rotationspeed,0)
+        self.scan=finite(values.scanspeed,0)
+        if self.rotation~=0 or self.scan~=0 then self.transform=Matrix() end
     end,
     bind=function(self,material,ent)
-        if CE8.RefreshMaterialTextures then CE8.RefreshMaterialTextures(material) end
-        local overrides=IsValid(ent) and ent.CE8Parameters or nil
-        local detail=1
-        if CE8.MaterialLOD then detail=CE8.MaterialLOD(ent) end
-        local value=CE8.WeaponGaugeValue(ent,self.kind,math.Clamp(parameter(self,overrides,"gaugevalue"),0,1))
-        local tint,a,b,c,d=color(self,overrides,"tint","gaugetint"),color(self,overrides,"a","colora"),
-            color(self,overrides,"b","colorb"),color(self,overrides,"c","colorc"),color(self,overrides,"d","colord")
-        row(self,material,0,parameter(self,overrides,"gaugemode"),value,CurTime(),detail)
-        row(self,material,1,tint[1],tint[2],tint[3],math.max(0,parameter(self,overrides,"gaugebrightness")))
-        row(self,material,2,a[1],a[2],a[3],math.Clamp(parameter(self,overrides,"gaugeopacity"),0,1))
-        row(self,material,3,b[1],b[2],b[3],math.Clamp(parameter(self,overrides,"gaugeclip"),0,1))
-        matrix(material,"$viewprojmat",self.a,self.uploads[5],c[1],c[2],c[3],math.max(.001,parameter(self,overrides,"packedscale")),
-            d[1],d[2],d[3],parameter(self,overrides,"rotationspeed"),
-            parameter(self,overrides,"gaina"),parameter(self,overrides,"gainb"),parameter(self,overrides,"gainc"),math.Clamp(parameter(self,overrides,"scanlinelow"),0,1),
-            parameter(self,overrides,"uvscaleu"),parameter(self,overrides,"uvscalev"),parameter(self,overrides,"uvoffsetu"),parameter(self,overrides,"uvoffsetv"))
-        matrix(material,"$invviewprojmat",self.b,self.uploads[6],math.max(0,parameter(self,overrides,"spentintensity")),math.max(0,parameter(self,overrides,"glowintensity")),math.max(.001,parameter(self,overrides,"heatfillsoftness")),0,
-            0,0,0,0,0,0,0,0,0,0,0,0)
-    end})
+        local value=CE8.WeaponGaugeValue(ent,self.kind,self.fallback)
+        local frame=math.Clamp(math.floor(value*(self.frames-1)+.5),0,self.frames-1)
+        -- Cache on the material: alternating weapons must not share ammo/heat.
+        if frame~=self.frame then material:SetInt("$frame",frame);self.frame=frame end
+        if self.transform then
+            local time=CurTime()
+            if self.time==time then return end
+            self.time=time
+            local angle=time*self.rotation*math.pi*2
+            local c,s=math.cos(angle),math.sin(angle)
+            self.transform:SetUnpacked(c,-s,0,.5-.5*c+.5*s,
+                s,c,0,.5-.5*s-.5*c+(time*self.scan)%1,0,0,1,0,0,0,0,1)
+            material:SetMatrix(self.scan~=0 and "$detailtexturetransform" or "$basetexturetransform",self.transform)
+        end
+    end
+})

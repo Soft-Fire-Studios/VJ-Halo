@@ -1,0 +1,8 @@
+VertexLitGeneric
+{
+	"$basetexture" "halo/fx/reach/mesh/textures/concrete_chunks_large_im"
+	"$model" "1"
+	"$translucent" "1"
+	"$additive" "0"
+	"$nofog" "0"
+}

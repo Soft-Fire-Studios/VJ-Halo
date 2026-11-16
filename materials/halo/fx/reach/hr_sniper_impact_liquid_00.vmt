@@ -1,0 +1,10 @@
+UnlitGeneric
+{
+	"$basetexture" "halo/fx/reach/textures/hr_sniper_impact_liquid_00"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$translucent" "1"
+	"$additive" "1"
+	"$nofog" "1"
+	"$color2" "[3.64705890417099 3.64705890417099 3.64705890417099]"
+}

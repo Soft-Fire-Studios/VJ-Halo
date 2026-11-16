@@ -1,0 +1,13 @@
+SpriteCard
+{
+	"$basetexture" "halo/fx/reach/textures/hr_grunt_backpack_10"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$translucent" "1"
+	"$additive" "1"
+	"$blendframes" "1"
+	"$overbrightfactor" "1.0"
+	"$depthblend" "1"
+	"$depthblendscale" "12.000000178813934"
+	"$nofog" "1"
+}

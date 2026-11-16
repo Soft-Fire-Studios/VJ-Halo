@@ -1,0 +1,13 @@
+SpriteCard
+{
+	"$basetexture" "halo/fx/reach/textures/hr_grunt_tank_leak_10_1"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$translucent" "1"
+	"$additive" "1"
+	"$blendframes" "1"
+	"$overbrightfactor" "1.0"
+	"$depthblend" "1"
+	"$depthblendscale" "9.000000357627869"
+	"$nofog" "0"
+}

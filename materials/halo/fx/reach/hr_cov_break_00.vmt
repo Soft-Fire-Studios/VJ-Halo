@@ -1,0 +1,13 @@
+SpriteCard
+{
+	"$basetexture" "halo/fx/reach/textures/hr_cov_break_00"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$translucent" "1"
+	"$additive" "1"
+	"$blendframes" "1"
+	"$overbrightfactor" "5"
+	"$depthblend" "1"
+	"$depthblendscale" "1.79999996"
+	"$nofog" "1"
+}

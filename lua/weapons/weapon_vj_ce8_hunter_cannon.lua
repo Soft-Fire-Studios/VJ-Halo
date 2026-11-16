@@ -31,6 +31,17 @@ SWEP.CE8Data = data
 SWEP.NPC_FiringDistanceMax = data.max_range
 effects.Load(data)
 
+-- Named particle stops are client-only. Keep charge cleanup separate from the
+-- Hunter's muzzle/other effects; no server call to StopParticlesNamed.
+if SERVER then
+    util.AddNetworkString("ce8_hunter_charge_stop")
+else
+    net.Receive("ce8_hunter_charge_stop", function()
+        local owner = net.ReadEntity()
+        if IsValid(owner) then owner:StopParticlesNamed(data.effects.normal.charge) end
+    end)
+end
+
 function SWEP:OnDrawWorldModel() return false end
 
 function SWEP:CE8Flaps(owner, amount)
@@ -41,8 +52,15 @@ function SWEP:CE8Flaps(owner, amount)
 end
 
 function SWEP:CE8CancelCharge()
-    if self.CE8Charge then self:CE8Flaps(self.CE8Charge.owner, 0) end
+    local charge = self.CE8Charge
     self.CE8Charge = nil
+    if not charge then return end
+    self:CE8Flaps(charge.owner, 0)
+    if SERVER and charge.effect and IsValid(charge.owner) then
+        net.Start("ce8_hunter_charge_stop")
+        net.WriteEntity(charge.owner)
+        net.Broadcast()
+    end
 end
 
 function SWEP:CE8Attach(owner)
@@ -110,6 +128,11 @@ function SWEP:OnThink()
         charge = {owner = owner, enemy = enemy, start = now, finish = now + data.charge,
             profile = profile, state = state, point = point}
         self.CE8Charge = charge
+        local attachment = owner:LookupAttachment(data.muzzle)
+        if attachment > 0 and effects.Load(data) then
+            CE8.Particles.Attach(data.effects.normal.charge, owner, attachment)
+            charge.effect = true
+        end
         effects.EntitySound(sounds.charge, self, 80)
     end
     self:CE8Flaps(owner, math.Clamp((now - charge.start) / data.charge, 0, 1))

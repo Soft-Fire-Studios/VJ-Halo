@@ -31,6 +31,7 @@ if SERVER then
 end
 
 function Host.Weapons(ENT, data)
+    include("campaign_evolved/particles.lua").Character(data)
     if SERVER then AddCSLuaFile("vj_ai/weapons.lua") end
     local pickup = Host.Option(data, "generic_weapons", false)
     include("vj_ai/weapons.lua").Attach(ENT, {
@@ -264,6 +265,7 @@ function Host.Server(ENT, profile)
     local hulls = {tiny = HULL_TINY, human = HULL_HUMAN, large = HULL_LARGE}
     ENT.HullType = hulls[data.hull.kind] or ((profile.adapter == "creature" or data.hull.radius >= 32) and HULL_LARGE or (data.owner == "grunt" and HULL_WIDE_SHORT or HULL_HUMAN))
     ENT.BloodColor = VJ.BLOOD_COLOR_PURPLE
+    include("campaign_evolved/particles.lua").CharacterBlood(ENT, data.owner)
     ENT.VJ_NPC_Class = {data.faction or "CLASS_COVENANT"}
     ENT.MovementType = VJ_MOVETYPE_GROUND
     ENT.CanTurnWhileMoving = true
@@ -484,11 +486,6 @@ function ENT:CE8BindRenderer()
     CE8.ApplyModelDepth(self)
     if self.CE8RankSettings and self.CE8CharacterDefinition then
         self.CE8CharacterRank = self:CE8RankSettings().hitbox_set
-    end
-    -- CE8 already renders projected lights. The native projector pass draws
-    -- ScreenspaceGeneral's full base shading again instead of light only.
-    if self.CE8Draft and not self:IsEffectActive(EF_NOFLASHLIGHT) then
-        self:AddEffects(EF_NOFLASHLIGHT)
     end
     if self.RenderOverride ~= self.CE8NPCRenderer then
         local draw = self.RenderOverride

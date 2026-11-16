@@ -1,0 +1,306 @@
+AUTHORIZED NATIVE-ONLY EXCLUSIONS
+
+Do not reopen these without a new request. Missing assets and converter errors remain in COVERAGE.txt.
+
+actor/elite:elite_3p -- skipped_requires_code
+  Native model-surface shield rendering, not a particle emitter; requires code/material integration outside this native PCF pass.
+actor/hunter:elite_3p -- skipped_requires_code
+  Native model-surface shield rendering, not a particle emitter; requires code/material integration outside this native PCF pass.
+h3_beam_impact_liquid_02 -- skipped_requires_code
+  The stock trail renderer couples the head offset to velocity; retaining this independently sampled source position/direction needs custom per-particle transport.
+h3_beam_impact_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+h3_beam_muzzle_20 -- skipped_requires_code
+  PCF can gate births with a random parent lifetime, but cannot expose that sampled parent duration to the child material animation without code.
+h3_br_muzzle_20 -- skipped_no_pcf_equivalent
+  Render models has a scalar particle radius, not the source per-axis scale.
+h3_bullet_hit_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+h3_bullet_small_hit_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+h3_bullet_small_water_p00 -- skipped_requires_code
+  Water surface renderer needs separate native mapping
+h3_bullet_water_p00 -- skipped_requires_code
+  Water surface renderer needs separate native mapping
+h3_carrier_burst_03 -- skipped_no_pcf_equivalent
+  A single stock Color Fade cannot retain both the source random chromatic correlation and its independent lifetime curve.
+h3_carrier_burst_04 -- skipped_no_pcf_equivalent
+  Render models has a scalar particle radius, not per-particle nonuniform scale/reflection.
+h3_carrier_burst_p01 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+h3_carrier_burst_p02 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+h3_flood_blood_area_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+h3_flood_blood_p10 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+h3_flood_blood_p11 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+h3_flood_break_m_03 -- skipped_no_pcf_equivalent
+  The source curve cannot fit a single native Color Fade within the measured tolerance; repeated conflicting operators are prohibited.
+h3_flood_break_m_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+h3_flood_burning_p01 -- skipped_requires_code
+  Native screen exposure has no PCF-only equivalent
+h3_flood_elite_infect_00 -- skipped_no_pcf_equivalent
+  A single stock Color Fade cannot retain both the source random chromatic correlation and its independent lifetime curve.
+h3_flood_elite_infect_01 -- skipped_requires_code
+  Authored invisible collision helper spawns surface decals; no sprite artwork is missing. Native surface-decal projection remains pending.
+h3_flood_elite_infect_10 -- skipped_requires_code
+  PCF can gate births with a random parent lifetime, but cannot expose that sampled parent duration to the child material animation without code.
+h3_flood_elite_infect_11 -- skipped_requires_code
+  PCF can gate births with a random parent lifetime, but cannot expose that sampled parent duration to the child material animation without code.
+h3_flood_elite_infect_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+h3_flood_fire_break_03 -- skipped_no_pcf_equivalent
+  Stock model shaders do not expose the SpriteCard scene-depth fade used by this mesh layer.
+h3_flood_fire_break_p00 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+h3_flood_fire_break_p01 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+h3_flood_human_infect_00 -- skipped_no_pcf_equivalent
+  A single stock Color Fade cannot retain both the source random chromatic correlation and its independent lifetime curve.
+h3_flood_human_infect_01 -- skipped_requires_code
+  Authored invisible collision helper spawns surface decals; no sprite artwork is missing. Native surface-decal projection remains pending.
+h3_flood_human_infect_10 -- skipped_requires_code
+  PCF can gate births with a random parent lifetime, but cannot expose that sampled parent duration to the child material animation without code.
+h3_flood_human_infect_11 -- skipped_requires_code
+  PCF can gate births with a random parent lifetime, but cannot expose that sampled parent duration to the child material animation without code.
+h3_flood_human_infect_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+h3_flood_shield_collapse_00 -- skipped_requires_code
+  This mesh requires the owner-oriented fixed-axis transform rather than the existing world/globe particle path; no random substitute axis is used.
+h3_flood_shield_collapse_p01 -- skipped_requires_code
+  Native screen exposure has no PCF-only equivalent
+h3_flood_shield_collapse_p02 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+h3_flood_shield_recharge_02 -- skipped_requires_code
+  This mesh requires the owner-oriented fixed-axis transform rather than the existing world/globe particle path; no random substitute axis is used.
+h3_heavy_hit_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+h3_heavy_water_p00 -- skipped_requires_code
+  Water surface renderer needs separate native mapping
+h3_infection_burst_03 -- skipped_no_pcf_equivalent
+  A single stock Color Fade cannot retain both the source random chromatic correlation and its independent lifetime curve.
+hr_blast_l_bounce_water_p00 -- skipped_requires_code
+  Water surface renderer needs separate native mapping
+hr_blast_l_hit_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_brute_blood_area_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_brute_blood_p10 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_brute_blood_p11 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_bullet_hit_fast_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_bullet_hit_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_bullet_small_hit_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_bullet_small_water_p00 -- skipped_requires_code
+  Water surface renderer needs separate native mapping
+hr_bullet_water_p00 -- skipped_requires_code
+  Water surface renderer needs separate native mapping
+hr_cov_break_31 -- skipped_no_pcf_equivalent
+  Render models has a scalar particle radius, not per-particle nonuniform scale/reflection.
+hr_cov_break_p00 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_elite_blood_area_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_elite_blood_p20 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_elite_blood_p21 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_elite_collapse_10 -- skipped_no_pcf_equivalent
+  Stock model shaders do not expose the SpriteCard scene-depth fade used by this mesh layer.
+hr_elite_collapse_12 -- skipped_no_pcf_equivalent
+  The palette uses live scene depth and multiple animated maps; stock model materials cannot evaluate that equation.
+hr_elite_collapse_p01 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_elite_collapse_p02 -- skipped_requires_code
+  Native screen exposure has no PCF-only equivalent
+hr_elite_collapse_p20 -- skipped_requires_code
+  Authored model-surface shield response (noise/extrusion/depth fade), not a particle emitter; stock Source surface mapping pending
+hr_elite_collapse_p21 -- skipped_requires_code
+  Authored model-surface shield response (noise/extrusion/depth fade), not a particle emitter; stock Source surface mapping pending
+hr_elite_precharge_01 -- skipped_requires_code
+  The source combines owner-local simulation with a world-facing mesh basis; its transform transport is excluded from this native-only pass.
+hr_elite_precharge_02 -- skipped_requires_code
+  The source combines owner-local simulation with a world-facing mesh basis; its transform transport is excluded from this native-only pass.
+hr_elite_precharge_03 -- skipped_requires_code
+  The source combines owner-local simulation with a world-facing mesh basis; its transform transport is excluded from this native-only pass.
+hr_elite_precharge_p00 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_elite_recharge_p00 -- skipped_requires_code
+  Authored model-surface shield response (noise/extrusion/depth fade), not a particle emitter; stock Source surface mapping pending
+hr_elite_recharge_p01 -- skipped_requires_code
+  Authored model-surface shield response (noise/extrusion/depth fade), not a particle emitter; stock Source surface mapping pending
+hr_fuelrod_bolt_p1 -- skipped_requires_code
+  Source dynamic-light dispatch pending; native sprite/volume components retained
+hr_fuelrod_impact_p02 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_fuelrod_impact_p03 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_fuelrod_impact_p04 -- skipped_requires_code
+  Native screen exposure has no PCF-only equivalent
+hr_fx_impact_p00 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_grenade_airburst_p00 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_grenade_airburst_p02 -- skipped_requires_code
+  Native screen exposure has no PCF-only equivalent
+hr_grenade_attach_p00 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_grenade_impact_p00 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_grenade_impact_p01 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_grenade_impact_p03 -- skipped_requires_code
+  Native screen exposure has no PCF-only equivalent
+hr_grunt_backpack_20 -- skipped_requires_code
+  PCF can gate births with a random parent lifetime, but cannot expose that sampled parent duration to the child material animation without code.
+hr_grunt_blood_area_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_grunt_blood_p10 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_grunt_blood_p11 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_grunt_tank_detonation_61 -- skipped_no_pcf_equivalent
+  Render models has a scalar particle radius, not per-particle nonuniform scale/reflection.
+hr_grunt_tank_detonation_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_grunt_tank_leak_10 -- skipped_no_pcf_equivalent
+  Stock particle operators cannot sample the authored vector texture and Halo global clock; ordinary physics and collision remain active.
+hr_heavy_hit_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_heavy_water_p00 -- skipped_requires_code
+  Water surface renderer needs separate native mapping
+hr_hunter_blood_area_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_hunter_blood_p10 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_hunter_blood_p11 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_jackal_blood_area_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_jackal_depletion_20 -- skipped_no_pcf_equivalent
+  The authored changing per-particle black-point mask has no stock particle-model material input.
+hr_jackal_depletion_40 -- skipped_requires_code
+  The selected source mesh uses local-horizontal orientation; the current native model path does not supply its owner/view basis. Runtime transform integration is excluded.
+hr_jackal_depletion_60 -- skipped_requires_code
+  Source Refract exists, but these layers require Halo view-scaled displacement/scene-buffer inputs absent from the tag data. No arbitrary refraction strength or replacement normal map is generated.
+hr_jackal_depletion_p31 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_jackal_recharge_10 -- skipped_no_pcf_equivalent
+  The authored changing per-particle black-point mask has no stock particle-model material input.
+hr_jackal_recharge_40 -- skipped_requires_code
+  Source Refract exists, but these layers require Halo view-scaled displacement/scene-buffer inputs absent from the tag data. No arbitrary refraction strength or replacement normal map is generated.
+hr_jackal_recharge_50 -- skipped_requires_code
+  The selected source mesh uses local-horizontal orientation; the current native model path does not supply its owner/view basis. Runtime transform integration is excluded.
+hr_jackal_recharge_p30 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_magnum_impact_p00 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_melee_clash_01 -- skipped_requires_code
+  The authored global-clock function requires runtime state transport; collection age is a different clock.
+hr_needler_bolt_p1 -- skipped_requires_code
+  Source dynamic-light dispatch pending; authored marker/phase bindings retained
+hr_needler_bounce_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_needler_bounce_p01 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_needler_combine_p02 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_needler_combine_p05 -- skipped_requires_code
+  Native screen exposure has no PCF-only equivalent
+hr_needler_flight_p03 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_needler_impact_00 -- skipped_no_pcf_equivalent
+  Stock model particle colors are byte/gamma modulation; the authored HDR-to-dark trajectory cannot be retained by the available single native color fade. No clamped replacement is used.
+hr_needler_impact_p00 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_nr_bolt_p1 -- skipped_requires_code
+  Source dynamic-light dispatch pending; authored marker/phase bindings retained
+hr_plasma_hit_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_plasma_large_hit_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_plasma_large_water_10 -- skipped_requires_code
+  The stock trail renderer couples the head offset to velocity; retaining this independently sampled source position/direction needs custom per-particle transport.
+hr_plasma_large_water_p00 -- skipped_requires_code
+  Water surface renderer needs separate native mapping
+hr_plasma_water_p00 -- skipped_requires_code
+  Water surface renderer needs separate native mapping
+hr_pp_bolt_p1 -- skipped_requires_code
+  Source dynamic-light dispatch pending; native sprite/volume components retained
+hr_pp_charged_bolt_p0 -- skipped_requires_code
+  Source dynamic-light dispatch pending; native sprite/volume components retained
+hr_pp_charged_impact_liquid_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_pp_charged_impact_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_pp_charged_impact_p01 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_pp_charging_10 -- skipped_requires_code
+  This layer depends on live charge/activation state; no constant input was substituted.
+hr_pp_charging_11 -- skipped_requires_code
+  This layer depends on live charge/activation state; no constant input was substituted.
+hr_pp_charging_12 -- skipped_requires_code
+  This layer depends on live charge/activation state; no constant input was substituted.
+hr_pp_impact_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_pp_impact_p01 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_pr_bolt_p2 -- skipped_requires_code
+  Source dynamic-light dispatch pending; native sprite/volume components retained
+hr_pr_fizzle_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_pr_impact_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_pr_impact_p01 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_rocket_bolt_p0 -- skipped_requires_code
+  An additional owner socket must be supplied by runtime attachment code.
+hr_rocket_bolt_p1 -- skipped_requires_code
+  Source dynamic-light dispatch pending; authored marker/phase bindings retained
+hr_rocket_bolt_p2 -- skipped_requires_code
+  An additional owner socket must be supplied by runtime attachment code.
+hr_rocket_impact_p01 -- skipped_requires_code
+  Native screen exposure has no PCF-only equivalent
+hr_rocket_impact_p10 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_rocket_muzzle_11 -- skipped_no_pcf_equivalent
+  Stock SpriteCard has no destination-alpha blend selection.
+hr_shotgun_muzzle_14 -- skipped_no_pcf_equivalent
+  Stock particle operators cannot sample the authored vector texture and Halo global clock; ordinary physics and collision remain active.
+hr_sniper_impact_p00 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_sniper_muzzle_31 -- skipped_requires_code
+  PCF can gate births with a random parent lifetime, but cannot expose that sampled parent duration to the child material animation without code.
+hr_spiker_bolt_p1 -- skipped_requires_code
+  Source dynamic-light dispatch pending; authored marker/phase bindings retained
+hr_spiker_bounce_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_spiker_impact_p00 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_sword_activate -- skipped_requires_code
+  Only one authored event timeline is converted; repeated owner-driven activation requires code and is excluded.
+hr_sword_activate_20 -- skipped_requires_code
+  The authored material aspect follows each particle velocity; this requires per-particle material state transport rather than a static sheet or collection-wide input.
+hr_sword_activate_21 -- skipped_requires_code
+  Only one authored event timeline is converted; repeated owner-driven activation requires code and is excluded.
+hr_sword_clash_p00 -- skipped_requires_code
+  Native screen exposure has no PCF-only equivalent
+hr_sword_clash_p01 -- skipped_requires_code
+  Native scene-light dispatch not installed; not a missing sprite layer
+hr_sword_impact_p00 -- skipped_requires_code
+  Source PCF surface-projected decal equivalent unresolved
+hr_sword_on -- skipped_requires_code
+  Only one authored event timeline is converted; repeated owner-driven activation requires code and is excluded.
+hr_sword_on_10 -- skipped_requires_code
+  This card requires a combined owner/view basis; the existing stock sprite orientations do not provide it without extra control-point transport.
+hr_sword_on_11 -- skipped_requires_code
+  This layer depends on live charge/activation state; no constant input was substituted.
+hr_sword_on_p10 -- skipped_requires_code
+  This layer depends on live charge/activation state; no constant input was substituted.

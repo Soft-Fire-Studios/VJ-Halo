@@ -1,0 +1,13 @@
+SpriteCard
+{
+	"$basetexture" "halo/fx/reach/textures/hr_needler_impact_01"
+	"$vertexcolor" "1"
+	"$vertexalpha" "1"
+	"$translucent" "1"
+	"$additive" "1"
+	"$blendframes" "1"
+	"$overbrightfactor" "4.941176474094391"
+	"$depthblend" "1"
+	"$depthblendscale" "1.7999999597668648"
+	"$nofog" "1"
+}

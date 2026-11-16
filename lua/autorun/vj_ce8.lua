@@ -12,6 +12,7 @@ else
     include("autorun/client/ce8_hud.lua")
 end
 local covenantWeapons = include("campaign_evolved/weapons.lua")
+include("campaign_evolved/particles.lua").Load()
 local difficulty = include("campaign_evolved/difficulty.lua")
 difficulty.Setup()
 if SERVER then
@@ -31,15 +32,7 @@ if SERVER then
     AddCSLuaFile("campaign_evolved/weapon.lua")
     -- Custom-directory renderer helpers are not sent with client autoruns.
     -- A joining client needs the whole include chain, even without local Lua.
-    AddCSLuaFile("campaign_evolved/ce8_assembly.lua")
-    AddCSLuaFile("campaign_evolved/ce8_lighting.lua")
-    AddCSLuaFile("campaign_evolved/ce8_map_lights.lua")
-    AddCSLuaFile("campaign_evolved/ce8_scene.lua")
-    AddCSLuaFile("campaign_evolved/ce8_hunter.lua")
-    AddCSLuaFile("campaign_evolved/ce8_live_details.lua")
-    AddCSLuaFile("campaign_evolved/ce8_blade.lua")
     AddCSLuaFile("campaign_evolved/ce8_gauge.lua")
-    AddCSLuaFile("campaign_evolved/ce8_shield.lua")
     AddCSLuaFile("campaign_evolved/ce8_energy.lua")
     AddCSLuaFile("campaign_evolved/weapon_fx.lua")
     AddCSLuaFile("campaign_evolved/ballistics.lua")

@@ -13,6 +13,7 @@ ENT.Model = data.model
 ENT.StartHealth = data.rank_profiles.elite.health
 ENT.HullType = HULL_MEDIUM_TALL
 ENT.BloodColor = VJ.BLOOD_COLOR_PURPLE
+include("campaign_evolved/particles.lua").CharacterBlood(ENT, "elite")
 ENT.VJ_NPC_Class = {"CLASS_COVENANT"}
 ENT.MovementType = VJ_MOVETYPE_GROUND
 ENT.CanTurnWhileMoving = true

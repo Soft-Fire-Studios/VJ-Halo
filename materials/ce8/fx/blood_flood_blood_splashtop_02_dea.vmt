@@ -1,0 +1,12 @@
+"SpriteCard"
+{
+ "$basetexture" "ce8/fx/textures/blood_splashtop_02_dea"
+ "$translucent" "1"
+ "$vertexcolor" "1"
+ "$vertexalpha" "1"
+ "$additive" "0"
+ "$nocull" "1"
+ "$ignorez" "0"
+ "$blendframes" "1"
+ "$ramptexture" "ce8/fx/textures/blood_flood_ramp"
+}

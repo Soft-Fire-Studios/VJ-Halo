@@ -1,0 +1,148 @@
+HALO NATIVE PARTICLE EDITOR BATCH
+
+Open these PCFs from addons/VJ-Halo/particles in a fresh GMod -tools session.
+Supported particle compositions; explicit native-only exclusions are listed in SKIPPED.txt.
+New effects and pivot corrections need whole-effect comparison against their named Halo source.
+37 roster effects retain their accepted definitions and dependency bytes.
+Smoke/blood uses the approved native ambient/emission lighting approximation.
+54 native effect bindings installed for gameplay testing; visual verification pending. No CER packs were retired; uncovered routes retain their existing effects.
+CP0 is the effect origin; +X is forward. Flight/bolt/tracer effects need a moving CP0.
+Owner-bound emitters must be stopped by their owner; particles then finish their own lifetimes.
+Nonzero source sockets and scene lights/decals are listed in inventory.json for integration.
+
+PREVIOUS HUNTER PACK: hr_hunter_preview.pcf
+  hr_hunter_charge  (CP1: fuel-canister socket)
+  hr_hunter_muzzle
+  hr_hunter_flight  (moving CP0)
+  hr_hunter_impact
+
+halo_creatures.pcf
+  h3_carrier_burst [NEW; unverified] [see exclusions] [NPC test]
+  h3_flood_blood [unverified] [see exclusions] [NPC test]
+  h3_flood_blood_area [unverified] [see exclusions]
+  h3_flood_break_m [NEW; unverified] [see exclusions] [NPC test]
+  h3_flood_break_s
+  h3_flood_burning [unverified] [see exclusions]
+  h3_flood_elite_infect [NEW; unverified] [see exclusions] [NPC test]
+  h3_flood_fire_break [NEW; unverified] [see exclusions]
+  h3_flood_human_infect [NEW; unverified] [see exclusions] [NPC test]
+  h3_flood_shield_collapse [NEW; unverified] [see exclusions] [NPC test]
+  h3_flood_shield_recharge [NEW; unverified] [see exclusions] [NPC test]
+  h3_infection_burst [NEW; unverified] [see exclusions] [NPC test]
+  hr_brute_blood [PIVOT CHECK] [see exclusions] [NPC test]
+  hr_brute_blood_area [see exclusions]
+  hr_cov_break [NEW; unverified] [see exclusions]
+  hr_elite_blood [see exclusions] [NPC test]
+  hr_elite_blood_area [unverified] [see exclusions]
+  hr_elite_collapse [NEW; unverified] [see exclusions] [NPC test]
+  hr_elite_down [unverified]
+  hr_elite_precharge [NEW; unverified] [see exclusions]
+  hr_grenade_activate
+  hr_grenade_airburst [unverified] [see exclusions]
+  hr_grenade_attach [see exclusions]
+  hr_grenade_flight [NPC test]
+  hr_grenade_impact [unverified] [see exclusions] [NPC test]
+  hr_grunt_backpack [NEW; unverified] [see exclusions]
+  hr_grunt_blood [PIVOT CHECK] [see exclusions] [NPC test]
+  hr_grunt_blood_area [see exclusions]
+  hr_grunt_tank_detonation [NEW; unverified] [see exclusions]
+  hr_grunt_tank_leak [NEW; unverified] [see exclusions]
+  hr_hunter_blood [PIVOT CHECK] [see exclusions] [NPC test]
+  hr_hunter_blood_area [see exclusions]
+  hr_jackal_blood_area [see exclusions]
+  hr_jackal_depletion [NEW; unverified] [see exclusions] [NPC test]
+  hr_jackal_recharge [NEW; unverified] [see exclusions] [NPC test]
+
+halo_weapons.pcf
+  h3_beam_flight [stop with owner]
+  h3_beam_hit [unverified] [see exclusions] [NPC test]
+  h3_beam_melee
+  h3_beam_muzzle [NEW; unverified] [see exclusions] [NPC test]
+  h3_beam_overheat [unverified]
+  h3_beam_water [NEW; unverified] [see exclusions]
+  h3_br_flight [stop with owner]
+  h3_br_hit [PIVOT CHECK] [see exclusions]
+  h3_br_impact_liquid [PIVOT CHECK]
+  h3_br_impact_soft [PIVOT CHECK]
+  h3_br_melee
+  h3_br_muzzle [NEW; unverified] [see exclusions] [NPC test]
+  h3_br_water [unverified] [see exclusions]
+  h3_smg_hit [PIVOT CHECK] [see exclusions]
+  h3_smg_impact_soft [PIVOT CHECK]
+  h3_smg_melee
+  h3_smg_muzzle [PIVOT CHECK] [NPC test]
+  h3_smg_water [unverified] [see exclusions]
+  hr_ar_flight [stop with owner]
+  hr_ar_hit [unverified] [see exclusions] [NPC test]
+  hr_ar_melee
+  hr_ar_muzzle [PIVOT CHECK] [NPC test]
+  hr_ar_water [unverified] [see exclusions]
+  hr_fuelrod_bolt [unverified] [see exclusions] [NPC test]
+  hr_fuelrod_hit [unverified] [see exclusions] [NPC test]
+  hr_fuelrod_impact [see exclusions]
+  hr_fuelrod_melee
+  hr_fuelrod_muzzle [NPC test]
+  hr_fuelrod_water [unverified] [see exclusions]
+  hr_magnum_hit [unverified] [see exclusions] [NPC test]
+  hr_magnum_impact_liquid [PIVOT CHECK]
+  hr_magnum_impact_soft [PIVOT CHECK]
+  hr_magnum_melee
+  hr_magnum_muzzle [PIVOT CHECK] [NPC test]
+  hr_magnum_water [unverified] [see exclusions]
+  hr_melee_clash [NEW; unverified] [see exclusions]
+  hr_needler_bolt [unverified] [see exclusions] [NPC test]
+  hr_needler_bounce [PIVOT CHECK] [see exclusions] [NPC test]
+  hr_needler_combine [unverified] [see exclusions] [NPC test]
+  hr_needler_hit [NEW; unverified] [see exclusions] [NPC test]
+  hr_needler_melee
+  hr_needler_muzzle [PIVOT CHECK] [NPC test]
+  hr_needler_water [unverified] [see exclusions]
+  hr_nr_bolt [unverified] [see exclusions]
+  hr_nr_hit [NEW; unverified] [see exclusions] [NPC test]
+  hr_nr_melee
+  hr_nr_muzzle [NPC test]
+  hr_nr_water [unverified] [see exclusions]
+  hr_pp_bolt [stop with owner] [see exclusions] [NPC test]
+  hr_pp_charged_bolt [stop with owner] [see exclusions] [NPC test]
+  hr_pp_charged_hit [unverified] [see exclusions]
+  hr_pp_charged_muzzle [NPC test]
+  hr_pp_charged_water [NEW; unverified] [see exclusions]
+  hr_pp_hit [NEW; unverified] [see exclusions] [NPC test]
+  hr_pp_melee
+  hr_pp_muzzle [NPC test]
+  hr_pp_overheat [unverified]
+  hr_pp_water [unverified] [see exclusions]
+  hr_pr_bolt [stop with owner] [see exclusions] [NPC test]
+  hr_pr_hit [unverified] [see exclusions] [NPC test]
+  hr_pr_melee
+  hr_pr_muzzle [PIVOT CHECK] [NPC test]
+  hr_pr_overheat
+  hr_pr_water [unverified] [see exclusions]
+  hr_rocket_hit [unverified] [see exclusions] [NPC test]
+  hr_rocket_impact [see exclusions]
+  hr_rocket_melee
+  hr_rocket_muzzle [NEW; unverified] [see exclusions] [NPC test]
+  hr_rocket_water [unverified] [see exclusions]
+  hr_shotgun_hit [unverified] [see exclusions] [NPC test]
+  hr_shotgun_melee
+  hr_shotgun_muzzle [NEW; unverified] [see exclusions] [NPC test]
+  hr_shotgun_water [unverified] [see exclusions]
+  hr_sniper_flight [stop with owner]
+  hr_sniper_hit [PIVOT CHECK] [see exclusions] [NPC test]
+  hr_sniper_impact_liquid [PIVOT CHECK]
+  hr_sniper_impact_soft [PIVOT CHECK]
+  hr_sniper_melee
+  hr_sniper_muzzle [NEW; unverified] [see exclusions] [NPC test]
+  hr_sniper_water [unverified] [see exclusions]
+  hr_spiker_bolt [stop with owner] [unverified] [see exclusions] [NPC test]
+  hr_spiker_bounce [PIVOT CHECK] [see exclusions]
+  hr_spiker_melee
+  hr_spiker_water [unverified] [see exclusions]
+  hr_sword_activate [NEW; unverified] [see exclusions]
+  hr_sword_clash [PIVOT CHECK] [see exclusions]
+  hr_sword_impact [PIVOT CHECK] [see exclusions]
+
+NATIVE-ONLY SCOPE
+Dynamic scene lights, decals, water/screen effects and game state/socket transport
+are explicitly skipped when they require new code. Air-only layers retain their source conditions.
+See COVERAGE.txt for unfinished families and inventory.json for every retained limitation.

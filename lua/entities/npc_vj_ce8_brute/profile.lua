@@ -3,7 +3,8 @@ local data = ENT:CE8Data()
 local profile = include("campaign_evolved/human.lua").Profile(data)
 local difficulty = include("campaign_evolved/difficulty.lua")
 local shieldSounds = include("campaign_evolved/sounds/elite_shield.lua")
-local effects = {impact = "hcea_shield_impact", recharged = "hcea_shield_recharged", disperse = "hcea_shield_disperse"}
+local effects = {impact = "ce8_elite_shield_hit", recharged = "hcea_shield_recharged", disperse = "hcea_shield_disperse"}
+include("campaign_evolved/particles.lua").Load(effects.impact)
 local function armed(self) return not self:GetNW2Bool("ce8_berserk", false) end
 profile.capabilities.charge = true
 profile.capabilities.leap = true

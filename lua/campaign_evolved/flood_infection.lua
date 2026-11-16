@@ -1,3 +1,4 @@
+local particles = include("campaign_evolved/particles.lua")
 -- Server-only infection transactions. Real NPC deaths and server corpses own
 -- conversion; no live host removal, automatic resurrection or weapon copying.
 CE8 = CE8 or {}
@@ -175,6 +176,7 @@ local function start(actor, job, contact)
         end
     })
     if result == ACT_INVALID then Infection.Cancel(actor, "missing_animation") return false end
+    particles.Emit("ce8_flood_shared_infection_1", actor:GetPos(), actor:GetAngles())
     job.schedule = actor.CurrentSchedule
     if job.schedule then
         local previous = job.schedule.RunCode_OnFinish
@@ -328,6 +330,8 @@ local function complete(actor, job)
     if IsValid(job.host) then undo.ReplaceEntity(job.host, successor) cleanup.ReplaceEntity(job.host, successor) end
     Infection.bodies[body] = nil
     Infection.Cancel(actor, "completed")
+    particles.Emit(record.owner == "flood_combat_elite" and "h3_flood_elite_infect" or "h3_flood_human_infect",
+        actor:GetPos(), actor:GetAngles())
     body:Remove()
     actor:Remove() -- Consumed infection form, after successful replacement only.
     return true

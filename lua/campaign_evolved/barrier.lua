@@ -2,6 +2,7 @@
 if CLIENT then return end
 CE8 = CE8 or {}
 local B = {}
+local particles = include("campaign_evolved/particles.lua")
 CE8.Barrier = B
 CE8.Barriers = CE8.Barriers or {}
 local collision = include("vj_ai/barrier.lua")
@@ -41,20 +42,21 @@ function B.Profile(sounds)
         network = {value = "ce8_barrier_value", maximum = "ce8_barrier_max", hit = "ce8_barrier_hit"},
         accept_damage = function(self) return B.ActorActive(self) end,
         effect = function(self, kind, position, angles)
-            if not CE8.ShieldParticlesReady then return end
+            if kind == "recharged" then
+                particles.Attach("hr_jackal_recharge", self, self:LookupAttachment("shield"))
+                return
+            end
+            local major = self.CE8Rank == "major" or self.CE8Rank == "sacristan_major"
+            local variant = major and "2" or "1"
             if kind == "disperse" then
-                -- The depleted barrier has already been removed. The Elite
-                -- effect samples a model and expects its origin; use the living
-                -- owner so the burst survives removal, without a helper entity.
-                ParticleEffectAttach("hcea_shield_disperse", PATTACH_ABSORIGIN_FOLLOW, self, 0)
+                particles.Attach("hr_jackal_depletion", self, self:LookupAttachment("shield"))
                 return
             end
             if kind ~= "impact" then return end
             local prop = self.CE8MergedBarrier and self or self.CE8ShieldProp
             if not IsValid(prop) then return end
-            -- Reuse the Elite impact at the actual contact, with the barrier
-            -- supplying its model particles rather than the Jackal's body.
-            ParticleEffect("hcea_shield_impact", position, angles, prop)
+            -- The rank-specific finite PCF starts at the actual shield contact.
+            particles.Emit("ce8_jackal_shield_hit_" .. variant, position, angles)
         end,
         depleted = function(self, damage, now)
             self.CE8BarrierDown = true

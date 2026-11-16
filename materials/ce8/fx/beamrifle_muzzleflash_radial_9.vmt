@@ -1,0 +1,16 @@
+"SpriteCard"
+{
+ "$basetexture" "ce8/fx/textures/beamrifle_muzzleflash_radial_9"
+ "$translucent" "1"
+ "$vertexcolor" "1"
+ "$vertexalpha" "1"
+ "$additive" "1"
+ "$nocull" "1"
+ "$ignorez" "0"
+ "$overbrightfactor" "250092.734"
+ "$addself" "0"
+ "$addbasetexture2" "0"
+ "$addoverblend" "0"
+ "$depthblend" "0"
+ "$blendframes" "1"
+}
