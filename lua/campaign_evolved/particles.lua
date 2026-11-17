@@ -1,10 +1,10 @@
 -- Native PCF bindings only. Emission, motion and decay remain inside the PCFs.
 if SERVER then AddCSLuaFile() AddCSLuaFile("campaign_evolved/particle_data.lua") end
 CE8 = CE8 or {}
-if CE8.Particles and CE8.Particles.Revision == 2 then return CE8.Particles end
+if CE8.Particles and CE8.Particles.Revision == 3 then return CE8.Particles end
 local P = CE8.Particles or {}
 CE8.Particles = P
-P.Revision = 2
+P.Revision = 3
 local native = include("campaign_evolved/particle_data.lua")
 CE8.WeaponParticles = CE8.WeaponParticles or {files = {}, systems = {}}
 local cache = CE8.WeaponParticles
@@ -137,7 +137,7 @@ if CLIENT then
                     -- authored socket names are validated before installation.
                     local frame = attachment > 0 and owner:GetAttachments()[attachment]
                     effect:AddControlPoint(cp, owner,
-                        frame and PATTACH_POINT_FOLLOW or PATTACH_ABSORIGIN_FOLLOW, frame and frame.name)
+                        frame and PATTACH_POINT_FOLLOW or PATTACH_ABSORIGIN_FOLLOW, frame and frame.name or "")
                 end
             end
         else worldPoints(effect, settings, position, angles, direction) end
